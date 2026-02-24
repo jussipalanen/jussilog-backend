@@ -1,0 +1,54 @@
+# Dependencies
+/vendor
+/node_modules
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build outputs
+/public/build
+/public/hot
+/public/storage
+
+# Development
+.git
+.github
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Testing
+/tests
+/phpunit.xml
+/.phpunit.result.cache
+coverage
+
+# Storage and logs
+/storage/*.key
+/storage/logs/*.log
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+
+# Documentation
+README.md
+LICENSE
+*.md
+
+# CI/CD
+.gitlab-ci.yml
+.circleci
+.travis.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker files (don't copy into image)
+docker-compose.yml
+.dockerignore
