@@ -16,7 +16,7 @@ steps:
     args:
       - run
       - deploy
-      - jussilog-backend
+      - jussilog-backend-production
       - --image
       - ${_IMAGE}
       - --region
