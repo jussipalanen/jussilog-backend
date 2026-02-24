@@ -1,0 +1,39 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - ${_IMAGE}
+      - .
+
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - ${_IMAGE}
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - jussilog-backend
+      - --image
+      - ${_IMAGE}
+      - --region
+      - ${_REGION}
+      - --platform
+      - managed
+      - --allow-unauthenticated
+      - --set-env-vars
+      - APP_ENV=production,APP_DEBUG=false,DB_CONNECTION=sqlite,APP_KEY=${_APP_KEY}
+
+images:
+  - ${_IMAGE}
+
+substitutions:
+  _REGION: europe-north1
+  _IMAGE: europe-north1-docker.pkg.dev/client-jussimatic/jussilog-backend/jussilog-backend:latest
+  _APP_KEY: ''
+
+options:
+  substitutionOption: ALLOW_LOOSE
