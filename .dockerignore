@@ -35,6 +35,9 @@ coverage
 /storage/framework/testing/*
 /storage/framework/views/*
 
+# Bootstrap cache (regenerated during build)
+/bootstrap/cache
+
 # Documentation
 README.md
 LICENSE

@@ -9,11 +9,12 @@ services:
     restart: unless-stopped
     ports:
       - "8000:8080"
+    env_file:
+      - .env
     environment:
       # Application
       APP_NAME: JussiLog
       APP_ENV: local
-      APP_KEY: base64:your-app-key-here
       APP_DEBUG: "true"
       APP_URL: http://localhost:8000
 

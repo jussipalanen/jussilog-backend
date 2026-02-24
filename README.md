@@ -47,19 +47,12 @@ Jussilog is a modern product catalog API built with Laravel 10, designed for eas
    cat .env | grep APP_KEY
    ```
 
-3. **Update docker-compose.yml**
-   
-   Edit `docker-compose.yml` and replace `APP_KEY` value with your generated key:
-   ```yaml
-   APP_KEY: base64:YOUR_GENERATED_KEY_HERE
-   ```
-
-4. **Build and Start the Container**
+3. **Build and Start the Container**
    ```bash
    docker-compose up --build
    ```
 
-5. **Access the Application**
+4. **Access the Application**
    - API: http://localhost:8000
    - Health Check: http://localhost:8000/api/hello
 

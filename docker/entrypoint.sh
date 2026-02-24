@@ -14,6 +14,10 @@ sed -i "s/listen \[::\]:8080/listen \[::\]:$PORT/g" /etc/nginx/http.d/default.co
 # Ensure database directory exists
 mkdir -p /var/www/html/database
 
+# Fix permissions for bind-mounted directories (local development)
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database || true
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database || true
+
 # Create SQLite database file if it doesn't exist
 if [ ! -f /var/www/html/database/database.sqlite ]; then
     echo "Creating SQLite database file..."
@@ -42,6 +46,7 @@ if [ "$APP_ENV" != "local" ]; then
     php artisan view:cache
 else
     echo "Local development mode - skipping cache optimizations"
+    php artisan config:clear || true
 fi
 
 # Ensure proper permissions

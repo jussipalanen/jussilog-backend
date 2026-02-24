@@ -12,7 +12,7 @@ COPY package*.json vite.config.js ./
 COPY resources ./resources
 
 # Install dependencies and build
-RUN npm ci --only=production
+RUN npm ci
 RUN npm run build
 
 # Stage 2: Production PHP runtime
@@ -22,7 +22,9 @@ FROM php:${PHP_VERSION}-fpm-alpine
 RUN apk add --no-cache \
     nginx \
     supervisor \
+    sqlite-libs \
     sqlite \
+    sqlite-dev \
     zip \
     unzip \
     curl \
@@ -38,11 +40,17 @@ WORKDIR /var/www/html
 # Copy composer files
 COPY composer.json composer.lock ./
 
-# Install PHP dependencies (production only, optimized)
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress --prefer-dist
-
 # Copy application files
 COPY . .
+
+# Install PHP dependencies (production only, optimized)
+RUN mkdir -p bootstrap/cache && \
+    composer install --no-dev --optimize-autoloader --no-interaction --no-progress --prefer-dist --no-scripts
+
+# Regenerate bootstrap cache without dev dependencies
+RUN mkdir -p bootstrap/cache && \
+    rm -rf bootstrap/cache/*.php && \
+    php artisan package:discover --ansi
 
 # Copy built frontend assets from stage 1
 COPY --from=frontend-builder /app/public/build ./public/build
@@ -66,9 +74,6 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Expose port (Cloud Run will inject PORT env variable)
 EXPOSE 8080
-
-# Switch to www-data user for security
-USER www-data
 
 # Set entrypoint
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
