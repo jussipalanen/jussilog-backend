@@ -47,6 +47,13 @@ LICENSE
 .gitlab-ci.yml
 .circleci
 .travis.yml
+docker-compose.yml
+cloudbuild.yaml
+gcloudbuild.yaml
+
+# Docker
+Dockerfile
+.dockerignore
 
 # OS files
 .DS_Store

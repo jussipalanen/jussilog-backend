@@ -7,12 +7,16 @@ FROM node:${NODE_VERSION}-alpine AS frontend-builder
 
 WORKDIR /app
 
-# Copy package files
+# Copy ONLY package files first (better cache)
 COPY package*.json vite.config.js ./
+
+# Install dependencies (cached if package.json unchanged)
+RUN npm ci --prefer-offline --no-audit
+
+# Copy resources AFTER deps installed
 COPY resources ./resources
 
-# Install dependencies and build
-RUN npm ci
+# Build
 RUN npm run build
 
 # Stage 2: Production PHP runtime
@@ -21,15 +25,8 @@ FROM php:${PHP_VERSION}-fpm-alpine
 # Install system dependencies and PHP extensions
 RUN apk add --no-cache \
     nginx \
-    supervisor \
     sqlite-libs \
-    sqlite \
-    sqlite-dev \
-    zip \
-    unzip \
-    curl \
-    bash \
-    && docker-php-ext-install pdo_sqlite pdo_mysql opcache
+    && docker-php-ext-install pdo_sqlite opcache
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -37,19 +34,17 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy composer files
+# Copy ONLY composer files first (better cache)
 COPY composer.json composer.lock ./
 
-# Copy application files
+# Install PHP dependencies (cached if composer files unchanged)
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress --prefer-dist --no-scripts --no-autoloader
+
+# Copy application files AFTER dependencies installed
 COPY . .
 
-# Install PHP dependencies (production only, optimized)
-RUN mkdir -p bootstrap/cache && \
-    composer install --no-dev --optimize-autoloader --no-interaction --no-progress --prefer-dist --no-scripts
-
-# Regenerate bootstrap cache without dev dependencies
-RUN mkdir -p bootstrap/cache && \
-    rm -rf bootstrap/cache/*.php && \
+# Complete composer autoloader
+RUN composer dump-autoload --optimize --classmap-authoritative && \
     php artisan package:discover --ansi
 
 # Copy built frontend assets from stage 1
@@ -57,13 +52,13 @@ COPY --from=frontend-builder /app/public/build ./public/build
 
 # Create SQLite database directory and file
 RUN mkdir -p database && \
-    touch database/database.sqlite
+    touch database/database.sqlite && \
+    chmod 664 database/database.sqlite
 
 # Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 755 /var/www/html && \
-    chmod -R 775 storage bootstrap/cache && \
-    chown -R www-data:www-data storage bootstrap/cache
+    chmod -R 775 storage bootstrap/cache
 
 # Copy Nginx configuration
 COPY docker/nginx.conf /etc/nginx/http.d/default.conf
