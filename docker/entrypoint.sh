@@ -14,44 +14,49 @@ sed -i "s/listen \[::\]:8080/listen \[::\]:$PORT/g" /etc/nginx/http.d/default.co
 # Ensure database directory exists
 mkdir -p /var/www/html/database
 
-# Fix permissions for bind-mounted directories (local development)
-chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database || true
-chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database || true
+# Ensure storage and cache directories exist and have proper permissions
+mkdir -p /var/www/html/storage/framework/cache \
+         /var/www/html/storage/framework/sessions \
+         /var/www/html/storage/framework/views \
+         /var/www/html/storage/logs \
+         /var/www/html/bootstrap/cache
+
+# Fix ownership and permissions for bind-mounted directories
+# This ensures the laravel user can write to these directories
+chown -R laravel:laravel /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database 2>/dev/null || true
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database 2>/dev/null || true
 
 # Create SQLite database file if it doesn't exist
 if [ ! -f /var/www/html/database/database.sqlite ]; then
     echo "Creating SQLite database file..."
     touch /var/www/html/database/database.sqlite
+    chown laravel:laravel /var/www/html/database/database.sqlite
     chmod 664 /var/www/html/database/database.sqlite
 fi
 
 # Wait a moment for filesystem to be ready
 sleep 1
 
-# Run database migrations
+# Run database migrations as laravel user
 echo "Running database migrations..."
-php artisan migrate --force --no-interaction
+su laravel -s /bin/sh -c "php artisan migrate --force --no-interaction"
 
 # Create storage link if it doesn't exist
 if [ ! -L /var/www/html/public/storage ]; then
     echo "Creating storage link..."
-    php artisan storage:link || true
+    su laravel -s /bin/sh -c "php artisan storage:link" || true
 fi
 
 # Production optimizations (skip in local development)
 if [ "$APP_ENV" != "local" ]; then
     echo "Running production optimizations..."
-    php artisan config:cache
-    php artisan route:cache
-    php artisan view:cache
+    su laravel -s /bin/sh -c "php artisan config:cache"
+    su laravel -s /bin/sh -c "php artisan route:cache"
+    su laravel -s /bin/sh -c "php artisan view:cache"
 else
     echo "Local development mode - skipping cache optimizations"
-    php artisan config:clear || true
+    su laravel -s /bin/sh -c "php artisan config:clear" || true
 fi
-
-# Ensure proper permissions
-chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-chmod 664 /var/www/html/database/database.sqlite
 
 echo "Starting PHP-FPM..."
 # Start PHP-FPM in background

@@ -1,6 +1,8 @@
 # Multi-stage build for Laravel with Vite frontend assets
 ARG PHP_VERSION=8.1
 ARG NODE_VERSION=20
+ARG UID=1000
+ARG GID=1000
 
 # Stage 1: Build frontend assets
 FROM node:${NODE_VERSION}-alpine AS frontend-builder
@@ -22,10 +24,18 @@ RUN npm run build
 # Stage 2: Production PHP runtime
 FROM php:${PHP_VERSION}-fpm-alpine
 
+ARG UID=1000
+ARG GID=1000
+
+# Create laravel user with host UID/GID
+RUN addgroup -g ${GID} laravel && \
+    adduser -D -u ${UID} -G laravel laravel
+
 # Install system dependencies and PHP extensions
 RUN apk add --no-cache \
     nginx \
     sqlite-dev \
+    shadow \
     && docker-php-ext-install pdo_sqlite opcache
 
 # Install Composer
@@ -59,9 +69,12 @@ RUN composer dump-autoload --optimize --classmap-authoritative && \
     php artisan package:discover --ansi
 
 # Set permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html && \
+RUN chown -R laravel:laravel /var/www/html && \
     chmod -R 755 /var/www/html && \
     chmod -R 775 storage bootstrap/cache
+
+# Copy PHP-FPM pool configuration
+COPY docker/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 # Copy Nginx configuration
 COPY docker/nginx.conf /etc/nginx/http.d/default.conf
