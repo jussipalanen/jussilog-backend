@@ -25,7 +25,7 @@ FROM php:${PHP_VERSION}-fpm-alpine
 # Install system dependencies and PHP extensions
 RUN apk add --no-cache \
     nginx \
-    sqlite-libs \
+    sqlite-dev \
     && docker-php-ext-install pdo_sqlite opcache
 
 # Install Composer
@@ -43,10 +43,6 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progre
 # Copy application files AFTER dependencies installed
 COPY . .
 
-# Complete composer autoloader
-RUN composer dump-autoload --optimize --classmap-authoritative && \
-    php artisan package:discover --ansi
-
 # Copy built frontend assets from stage 1
 COPY --from=frontend-builder /app/public/build ./public/build
 
@@ -54,6 +50,13 @@ COPY --from=frontend-builder /app/public/build ./public/build
 RUN mkdir -p database && \
     touch database/database.sqlite && \
     chmod 664 database/database.sqlite
+
+# Ensure Laravel cache directories exist before running artisan commands
+RUN mkdir -p bootstrap/cache storage/framework/cache storage/framework/sessions storage/framework/views
+
+# Complete composer autoloader
+RUN composer dump-autoload --optimize --classmap-authoritative && \
+    php artisan package:discover --ansi
 
 # Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html && \
