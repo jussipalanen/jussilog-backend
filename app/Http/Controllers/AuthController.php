@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    /**
+     * Register a new user.
+     *
+     * @group Auth
+     * @bodyParam first_name string required First name. Example: Jussi
+     * @bodyParam last_name string required Last name. Example: Palanen
+     * @bodyParam username string required Username. Example: jussi
+     * @bodyParam email string required Email address. Example: jussi@example.com
+     * @bodyParam password string required Password. Example: strongpassword
+     */
     public function register(Request $request): JsonResponse
     {
         $data = $request->validate([
@@ -36,6 +46,13 @@ class AuthController extends Controller
         ], 201);
     }
 
+    /**
+     * Login.
+     *
+     * @group Auth
+     * @bodyParam username string required Username or email. Example: jussi
+     * @bodyParam password string required Password. Example: strongpassword
+     */
     public function login(Request $request): JsonResponse
     {
         $data = $request->validate([
@@ -59,6 +76,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Logout the authenticated user.
+     *
+     * @group Auth
+     * @authenticated
+     */
     public function logout(Request $request): JsonResponse
     {
         $token = $request->user()->currentAccessToken();
@@ -69,6 +92,12 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logged out']);
     }
 
+    /**
+     * Check authentication status.
+     *
+     * @group Auth
+     * @authenticated
+     */
     public function checkAuth(Request $request): JsonResponse
     {
         return response()->json([

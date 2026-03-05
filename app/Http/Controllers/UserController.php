@@ -7,6 +7,11 @@ use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
+    /**
+     * List users.
+     *
+     * @group Users
+     */
     public function index(): JsonResponse
     {
         $users = User::query()

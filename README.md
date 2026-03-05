@@ -1,4 +1,4 @@
-# Jussilog
+# Jussilog - Laravel backend
 
 **The Product Catalog powered by the Laravel Framework**
 
@@ -88,6 +88,20 @@ Jussilog is a modern product catalog API built with Laravel 10, designed for eas
    ```
 
 ## API Endpoints
+
+### API Documentation (Swagger UI)
+
+After generating the docs, open:
+
+- `http://localhost:8000/api/docs`
+
+Generate or refresh docs:
+
+```bash
+php artisan scribe:generate
+```
+
+Re-run the command whenever you add or change API routes to keep the Swagger docs up to date.
 
 ### Public Endpoints
 

@@ -18,10 +18,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * Get the authenticated user.
+ *
+ * @group Auth
+ * @authenticated
+ */
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/**
+ * Get the authenticated user with metadata.
+ *
+ * @group Auth
+ * @authenticated
+ */
 Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
     $user = $request->user();
 
@@ -38,6 +50,11 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 Route::middleware('auth:sanctum')->get('/check-auth', [AuthController::class, 'checkAuth']);
 
 // Test route
+/**
+ * Health check.
+ *
+ * @group Health
+ */
 Route::get('/hello', function () {
     return 'Hello world from Laravel';
 });

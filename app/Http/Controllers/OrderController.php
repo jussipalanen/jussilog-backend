@@ -12,6 +12,15 @@ class OrderController extends Controller
 {
     /**
      * Display a listing of orders.
+        *
+        * @group Orders
+        * @queryParam per_page integer Items per page. Example: 25
+        * @queryParam page integer Page number. Example: 2
+        * @queryParam user_id integer Filter by user ID. Example: 5
+        * @queryParam customer_id integer Legacy filter by user ID. Example: 5
+        * @queryParam status string Filter by status. Example: pending
+        * @queryParam sort_by string Sort field. Example: created_at
+        * @queryParam sort_dir string Sort direction. Example: desc
      */
     public function index(Request $request): JsonResponse
     {
@@ -52,6 +61,14 @@ class OrderController extends Controller
 
     /**
      * Display a listing of orders for the authenticated user.
+        *
+        * @group Orders
+        * @authenticated
+        * @queryParam per_page integer Items per page. Example: 25
+        * @queryParam page integer Page number. Example: 2
+        * @queryParam status string Filter by status. Example: pending
+        * @queryParam sort_by string Sort field. Example: created_at
+        * @queryParam sort_dir string Sort direction. Example: desc
      */
     public function myOrders(Request $request): JsonResponse
     {
@@ -91,6 +108,19 @@ class OrderController extends Controller
 
     /**
      * Store a newly created order.
+        *
+        * @group Orders
+        * @bodyParam user_id integer Optional user ID. Example: 5
+        * @bodyParam customer_first_name string required First name. Example: Jussi
+        * @bodyParam customer_last_name string required Last name. Example: Palanen
+        * @bodyParam customer_email string required Email address. Example: jussi@example.com
+        * @bodyParam customer_phone string Phone number. Example: +358401234567
+        * @bodyParam shipping_address object required Shipping address object.
+        * @bodyParam billing_address object Billing address object.
+        * @bodyParam notes string Order notes.
+        * @bodyParam items array required Order items array.
+        * @bodyParam items.*.product_id integer required Product ID. Example: 1
+        * @bodyParam items.*.quantity integer required Quantity. Example: 2
      */
     public function store(Request $request): JsonResponse
     {
@@ -159,6 +189,9 @@ class OrderController extends Controller
 
     /**
      * Display the specified order.
+        *
+        * @group Orders
+        * @urlParam id integer required Order ID. Example: 1
      */
     public function show(int $id): JsonResponse
     {
@@ -173,6 +206,20 @@ class OrderController extends Controller
 
     /**
      * Update the specified order.
+        *
+        * @group Orders
+        * @urlParam id integer required Order ID. Example: 1
+        * @bodyParam status string Order status. Example: processing
+        * @bodyParam customer_first_name string First name. Example: Jussi
+        * @bodyParam customer_last_name string Last name. Example: Palanen
+        * @bodyParam customer_email string Email address. Example: jussi@example.com
+        * @bodyParam customer_phone string Phone number. Example: +358401234567
+        * @bodyParam shipping_address object Shipping address object.
+        * @bodyParam billing_address object Billing address object.
+        * @bodyParam notes string Order notes.
+        * @bodyParam items array Order items array.
+        * @bodyParam items.*.product_id integer Product ID. Example: 1
+        * @bodyParam items.*.quantity integer Quantity. Example: 2
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -256,6 +303,9 @@ class OrderController extends Controller
 
     /**
      * Remove the specified order.
+        *
+        * @group Orders
+        * @urlParam id integer required Order ID. Example: 1
      */
     public function destroy(int $id): JsonResponse
     {

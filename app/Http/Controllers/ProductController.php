@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    /**
+     * List products.
+     *
+     * @group Products
+     * @queryParam per_page integer Items per page. Example: 25
+     * @queryParam page integer Page number. Example: 2
+     * @queryParam search string Search by title or description. Example: headphones
+     * @queryParam ids string Comma-separated product IDs. Example: 1,2,3
+     * @queryParam sort_by string Sort field. Example: created_at
+     * @queryParam sort_dir string Sort direction. Example: desc
+     */
     public function index(Request $request): JsonResponse
     {
         $perPage = (int) $request->query('per_page', 10);
@@ -50,6 +61,20 @@ class ProductController extends Controller
         return response()->json($query->paginate($perPage));
     }
 
+    /**
+     * Create a product.
+     *
+     * @group Products
+     * @bodyParam id integer Optional custom ID. Example: 1001
+     * @bodyParam title string required Product title. Example: Wireless Headphones
+     * @bodyParam description string Product description. Example: Premium noise-cancelling headphones
+     * @bodyParam price number required Price. Example: 299.99
+     * @bodyParam sale_price number Sale price. Example: 249.99
+     * @bodyParam quantity integer Quantity in stock. Example: 50
+     * @bodyParam visibility boolean Visibility flag. Example: true
+     * @bodyParam featured_image file Featured image file.
+     * @bodyParam images[] file Additional image files.
+     */
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([
@@ -113,6 +138,12 @@ class ProductController extends Controller
         return response()->json($product, 201);
     }
 
+    /**
+     * Get a product.
+     *
+     * @group Products
+     * @urlParam id integer required Product ID. Example: 1
+     */
     public function show(int $id): JsonResponse
     {
         $product = Product::find($id);
@@ -124,6 +155,22 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+    /**
+     * Update a product.
+     *
+     * @group Products
+     * @urlParam id integer required Product ID. Example: 1
+     * @bodyParam title string Product title. Example: Wireless Headphones
+     * @bodyParam description string Product description. Example: Premium noise-cancelling headphones
+     * @bodyParam price number Price. Example: 299.99
+     * @bodyParam sale_price number Sale price. Example: 249.99
+     * @bodyParam quantity integer Quantity in stock. Example: 50
+     * @bodyParam visibility boolean Visibility flag. Example: true
+     * @bodyParam featured_image file Featured image file.
+     * @bodyParam images[] file Additional image files.
+     * @bodyParam delete_images[] string Image paths to delete. Example: products/1/image.png
+     * @bodyParam delete_featured_image boolean Delete featured image. Example: false
+     */
     public function update(Request $request, int $id): JsonResponse
     {
         $product = Product::find($id);
@@ -232,6 +279,12 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+    /**
+     * Delete a product.
+     *
+     * @group Products
+     * @urlParam id integer required Product ID. Example: 1
+     */
     public function destroy(int $id): JsonResponse
     {
         $product = Product::find($id);
