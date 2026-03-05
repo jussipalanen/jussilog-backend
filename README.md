@@ -92,7 +92,7 @@ Jussilog is a modern product catalog API built with Laravel 10, designed for eas
 ### Public Endpoints
 
 - `GET /api/hello` - Health check endpoint
-- `GET /api/products` - List all products
+- `GET /api/products` - List all products (supports `page` and `per_page`)
 - `GET /api/products/{id}` - Get single product
 - `POST /api/products` - Create new product
 - `DELETE /api/products/{id}` - Delete product
@@ -106,6 +106,59 @@ Jussilog is a modern product catalog API built with Laravel 10, designed for eas
 **List all products:**
 ```bash
 curl http://localhost:8000/api/products
+```
+
+**List products with pagination:**
+```bash
+curl "http://localhost:8000/api/products?page=2&per_page=25"
+```
+
+**Paginated response example:**
+```json
+{
+   "data": [
+      {
+         "id": 26,
+         "title": "Wireless Headphones",
+         "description": "Premium noise-cancelling headphones",
+         "price": "299.99",
+         "sale_price": null,
+         "quantity": 50,
+         "featured_image": null,
+         "images": [],
+         "visibility": true,
+         "created_at": "2026-03-05T10:15:30.000000Z",
+         "updated_at": "2026-03-05T10:15:30.000000Z"
+      }
+   ],
+   "current_page": 2,
+   "from": 26,
+   "last_page": 4,
+   "last_page_url": "http://localhost:8000/api/products?page=4",
+   "links": [
+      {
+         "url": "http://localhost:8000/api/products?page=1",
+         "label": "Previous",
+         "active": false
+      },
+      {
+         "url": "http://localhost:8000/api/products?page=2",
+         "label": "2",
+         "active": true
+      },
+      {
+         "url": "http://localhost:8000/api/products?page=3",
+         "label": "Next",
+         "active": false
+      }
+   ],
+   "next_page_url": "http://localhost:8000/api/products?page=3",
+   "path": "http://localhost:8000/api/products",
+   "per_page": 25,
+   "prev_page_url": "http://localhost:8000/api/products?page=1",
+   "to": 50,
+   "total": 100
+}
 ```
 
 **Create a product:**
