@@ -32,9 +32,6 @@ steps:
       - --concurrency=80
       - --timeout=60
 
-images:
-  - ${_IMAGE}
-
 substitutions:
   _REGION: europe-north1
   _IMAGE: europe-north1-docker.pkg.dev/client-jussimatic/jussilog-backend/jussilog-backend:latest
