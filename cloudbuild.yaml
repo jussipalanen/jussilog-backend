@@ -45,5 +45,5 @@ timeout: 360s
 options:
   substitutionOption: ALLOW_LOOSE
   logging: CLOUD_LOGGING_ONLY
-  machineType: E2_HIGHCPU_2
+  machineType: E2_MEDIUM
   diskSizeGb: 10
