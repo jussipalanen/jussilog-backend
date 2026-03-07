@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmation;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -182,6 +184,13 @@ class OrderController extends Controller
             foreach ($orderItems as $itemData) {
                 $order->items()->create($itemData);
             }
+
+            $order->load('items');
+
+            Mail::to($order->customer_email)->send(new OrderConfirmation(
+                $order,
+                'Thanks for a order',
+            ));
 
             return response()->json($order->load(['user', 'items.product']), 201);
         });

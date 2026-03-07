@@ -110,10 +110,14 @@ Re-run the command whenever you add or change API routes to keep the Swagger doc
 - `GET /api/products/{id}` - Get single product
 - `POST /api/products` - Create new product
 - `DELETE /api/products/{id}` - Delete product
+- `GET /api/users/roles` - Get all available roles
+- `GET /api/users` - List all users with roles
+- `GET /api/users/{id}` - Get single user with roles
 
 ### Protected Endpoints (Sanctum Authentication)
 
-- `GET /api/user` - Get authenticated user
+- `GET /api/user` - Get authenticated user with roles
+- `GET /api/me` - Get authenticated user with metadata and roles
 
 ### Example API Usage
 
@@ -197,6 +201,98 @@ curl http://localhost:8000/api/products/1
 **Delete a product:**
 ```bash
 curl -X DELETE http://localhost:8000/api/products/1
+```
+
+**Get all available roles:**
+```bash
+curl http://localhost:8000/api/users/roles
+```
+
+**Role response example:**
+```json
+[
+  {
+    "id": 1,
+    "key": "admin",
+    "label": "Admin"
+  },
+  {
+    "id": 2,
+    "key": "customer",
+    "label": "Customer"
+  },
+  {
+    "id": 3,
+    "key": "vendor",
+    "label": "Vendor"
+  }
+]
+```
+
+**List all users:**
+```bash
+curl http://localhost:8000/api/users
+```
+
+**Get a specific user:**
+```bash
+curl http://localhost:8000/api/users/1
+```
+
+**User response example:**
+```json
+{
+  "id": 1,
+  "first_name": "Ada",
+  "last_name": "Lovelace",
+  "username": "ada.lovelace",
+  "name": "Ada Lovelace",
+  "email": "ada@example.com",
+  "roles": ["admin", "vendor"]
+}
+```
+
+## User CLI Commands
+
+The app includes Artisan commands for creating, updating, and deleting users.
+Valid roles are:
+- Customer (key: `customer`)
+- Vendor (key: `vendor`)
+- Admin (key: `admin`)
+
+New users default to `customer` when created via factories/seeders.
+
+### Create a user
+
+```bash
+php artisan user:create --name="Ada Lovelace" --email=ada@example.com --password=secret --role=admin
+```
+
+You can also run the command without flags to use interactive prompts:
+
+```bash
+php artisan user:create
+```
+
+### Update a user
+
+Update by id or email. Use `--new-email` when changing the user's email.
+
+```bash
+php artisan user:update --id=12 --name="Ada L." --role=vendor
+php artisan user:update --email=ada@example.com --new-email=ada.new@example.com
+```
+
+### Delete a user
+
+```bash
+php artisan user:delete --email=ada@example.com
+```
+
+### List users
+
+```bash
+php artisan user:list
 ```
 
 ## Google Cloud Run Deployment

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegistrationWelcome;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -37,6 +39,12 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => $data['password'],
         ]);
+
+        Mail::to($user->email)->send(new RegistrationWelcome(
+            $user->email,
+            $data['password'],
+            'Welcome to Jussimatic',
+        ));
 
         $token = $user->createToken('api')->plainTextToken;
 

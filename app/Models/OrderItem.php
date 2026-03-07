@@ -11,6 +11,18 @@ class OrderItem extends Model
     use HasFactory;
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'featured_image',
+        'images',
+        'featured_image_url',
+        'images_urls',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -68,5 +80,45 @@ class OrderItem extends Model
     public function getFormattedSubtotalAttribute(): string
     {
         return '$' . number_format((float) $this->subtotal, 2);
+    }
+
+    /**
+     * Get the related product featured image path.
+     */
+    public function getFeaturedImageAttribute(): ?string
+    {
+        return $this->product?->featured_image;
+    }
+
+    /**
+     * Get the related product image paths.
+     *
+     * @return array<int, string>
+     */
+    public function getImagesAttribute(): array
+    {
+        $images = $this->product?->images;
+
+        return is_array($images) ? $images : [];
+    }
+
+    /**
+     * Get the related product featured image URL.
+     */
+    public function getFeaturedImageUrlAttribute(): ?string
+    {
+        return $this->product?->featured_image_url;
+    }
+
+    /**
+     * Get the related product image URLs.
+     *
+     * @return array<int, string>
+     */
+    public function getImagesUrlsAttribute(): array
+    {
+        $imageUrls = $this->product?->images_urls;
+
+        return is_array($imageUrls) ? $imageUrls : [];
     }
 }

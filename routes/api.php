@@ -25,7 +25,18 @@ use Illuminate\Support\Facades\Route;
  * @authenticated
  */
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    $user = $request->user();
+    $user->load('roles');
+
+    return response()->json([
+        'id' => $user->id,
+        'first_name' => $user->first_name,
+        'last_name' => $user->last_name,
+        'username' => $user->username,
+        'name' => $user->name,
+        'email' => $user->email,
+        'roles' => $user->roles->pluck('name'),
+    ]);
 });
 
 /**
@@ -36,10 +47,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  */
 Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
     $user = $request->user();
+    $user->load('roles');
 
     return response()->json([
         'user_id' => $user?->id,
-        'user' => $user,
+        'user' => [
+            'id' => $user->id,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'username' => $user->username,
+            'name' => $user->name,
+            'email' => $user->email,
+            'roles' => $user->roles->pluck('name'),
+        ],
     ]);
 });
 
@@ -76,4 +96,8 @@ Route::middleware('auth:sanctum')->get('/my-orders', [OrderController::class, 'm
 
 
 // User routes
+Route::get('/users/roles', [UserController::class, 'roles']);
 Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/{id}', [UserController::class, 'show']);
+Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
