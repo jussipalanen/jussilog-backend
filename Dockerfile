@@ -64,6 +64,9 @@ RUN mkdir -p database && \
 # Ensure Laravel cache directories exist before running artisan commands
 RUN mkdir -p bootstrap/cache storage/framework/cache storage/framework/sessions storage/framework/views
 
+# Clear bootstrap cache to avoid cached dev dependencies
+RUN rm -f bootstrap/cache/packages.php bootstrap/cache/services.php
+
 # Complete composer autoloader
 RUN composer dump-autoload --optimize --classmap-authoritative && \
     php artisan package:discover --ansi
