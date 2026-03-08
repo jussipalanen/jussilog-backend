@@ -34,7 +34,8 @@ steps:
 
 substitutions:
   _REGION: europe-north1
-  _IMAGE: europe-north1-docker.pkg.dev/client-jussimatic/jussilog-backend/jussilog-backend:latest
+  _PROJECT_ID: client-jussimatic
+  _IMAGE: europe-north1-docker.pkg.dev/${_PROJECT_ID}/jussilog-backend/jussilog-backend:latest
   _APP_KEY: ''
 
 timeout: 360s

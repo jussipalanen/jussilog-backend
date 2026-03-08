@@ -1,4 +1,4 @@
-# Jussilog
+# Jussilog - Laravel backend
 
 **The Product Catalog powered by the Laravel Framework**
 
@@ -87,25 +87,132 @@ Jussilog is a modern product catalog API built with Laravel 10, designed for eas
    php artisan serve
    ```
 
+## File Uploads (Local vs GCS)
+
+Product images and the upload test endpoint use the default filesystem disk (`FILESYSTEM_DISK`).
+
+### Local (Filesystem) Uploads
+
+Set the disk to `public` and ensure the storage symlink exists:
+
+```bash
+FILESYSTEM_DISK=public
+```
+
+```bash
+php artisan storage:link
+```
+
+Files are stored under `storage/app/public`, and URLs resolve under `/storage/...`.
+
+### Google Cloud Storage (GCS)
+
+Set the disk to `gcs` and provide HMAC keys for the bucket:
+
+```bash
+FILESYSTEM_DISK=gcs
+GCS_ACCESS_KEY_ID=your-hmac-access-id
+GCS_SECRET_ACCESS_KEY=your-hmac-secret
+GCS_BUCKET=your-bucket-name
+GCS_ENDPOINT=https://storage.googleapis.com
+GCS_USE_PATH_STYLE_ENDPOINT=false
+```
+
+Signed URLs are returned for product images and the upload test endpoint. The default expiry time is 1 hour.
+
+If you decide to make the bucket public, the links will still work, but signed URLs are still returned by the API.
+
 ## API Endpoints
+
+### API Documentation (Swagger UI)
+
+After generating the docs, open:
+
+- `http://localhost:8000/api/docs`
+
+Generate or refresh docs:
+
+```bash
+php artisan scribe:generate
+```
+
+Re-run the command whenever you add or change API routes to keep the Swagger docs up to date.
 
 ### Public Endpoints
 
 - `GET /api/hello` - Health check endpoint
-- `GET /api/products` - List all products
+- `POST /api/upload-test` - Upload a single image (`file`) to the configured disk
+- `GET /api/products` - List all products (supports `page` and `per_page`)
 - `GET /api/products/{id}` - Get single product
 - `POST /api/products` - Create new product
 - `DELETE /api/products/{id}` - Delete product
+- `GET /api/users/roles` - Get all available roles
+- `GET /api/users` - List all users with roles
+- `GET /api/users/{id}` - Get single user with roles
 
 ### Protected Endpoints (Sanctum Authentication)
 
-- `GET /api/user` - Get authenticated user
+- `GET /api/user` - Get authenticated user with roles
+- `GET /api/me` - Get authenticated user with metadata and roles
 
 ### Example API Usage
 
 **List all products:**
 ```bash
 curl http://localhost:8000/api/products
+```
+
+**List products with pagination:**
+```bash
+curl "http://localhost:8000/api/products?page=2&per_page=25"
+```
+
+**Paginated response example:**
+```json
+{
+   "data": [
+      {
+         "id": 26,
+         "title": "Wireless Headphones",
+         "description": "Premium noise-cancelling headphones",
+         "price": "299.99",
+         "sale_price": null,
+         "quantity": 50,
+         "featured_image": null,
+         "images": [],
+         "visibility": true,
+         "created_at": "2026-03-05T10:15:30.000000Z",
+         "updated_at": "2026-03-05T10:15:30.000000Z"
+      }
+   ],
+   "current_page": 2,
+   "from": 26,
+   "last_page": 4,
+   "last_page_url": "http://localhost:8000/api/products?page=4",
+   "links": [
+      {
+         "url": "http://localhost:8000/api/products?page=1",
+         "label": "Previous",
+         "active": false
+      },
+      {
+         "url": "http://localhost:8000/api/products?page=2",
+         "label": "2",
+         "active": true
+      },
+      {
+         "url": "http://localhost:8000/api/products?page=3",
+         "label": "Next",
+         "active": false
+      }
+   ],
+   "next_page_url": "http://localhost:8000/api/products?page=3",
+   "path": "http://localhost:8000/api/products",
+   "per_page": 25,
+   "prev_page_url": "http://localhost:8000/api/products?page=1",
+   "to": 50,
+   "total": 100
+}
 ```
 
 **Create a product:**
@@ -132,6 +239,98 @@ curl http://localhost:8000/api/products/1
 curl -X DELETE http://localhost:8000/api/products/1
 ```
 
+**Get all available roles:**
+```bash
+curl http://localhost:8000/api/users/roles
+```
+
+**Role response example:**
+```json
+[
+  {
+    "id": 1,
+    "key": "admin",
+    "label": "Admin"
+  },
+  {
+    "id": 2,
+    "key": "customer",
+    "label": "Customer"
+  },
+  {
+    "id": 3,
+    "key": "vendor",
+    "label": "Vendor"
+  }
+]
+```
+
+**List all users:**
+```bash
+curl http://localhost:8000/api/users
+```
+
+**Get a specific user:**
+```bash
+curl http://localhost:8000/api/users/1
+```
+
+**User response example:**
+```json
+{
+  "id": 1,
+  "first_name": "Ada",
+  "last_name": "Lovelace",
+  "username": "ada.lovelace",
+  "name": "Ada Lovelace",
+  "email": "ada@example.com",
+  "roles": ["admin", "vendor"]
+}
+```
+
+## User CLI Commands
+
+The app includes Artisan commands for creating, updating, and deleting users.
+Valid roles are:
+- Customer (key: `customer`)
+- Vendor (key: `vendor`)
+- Admin (key: `admin`)
+
+New users default to `customer` when created via factories/seeders.
+
+### Create a user
+
+```bash
+php artisan user:create --name="Ada Lovelace" --email=ada@example.com --password=secret --role=admin
+```
+
+You can also run the command without flags to use interactive prompts:
+
+```bash
+php artisan user:create
+```
+
+### Update a user
+
+Update by id or email. Use `--new-email` when changing the user's email.
+
+```bash
+php artisan user:update --id=12 --name="Ada L." --role=vendor
+php artisan user:update --email=ada@example.com --new-email=ada.new@example.com
+```
+
+### Delete a user
+
+```bash
+php artisan user:delete --email=ada@example.com
+```
+
+### List users
+
+```bash
+php artisan user:list
+```
+
 ## Google Cloud Run Deployment
 
 ### Build and Deploy
@@ -140,23 +339,25 @@ curl -X DELETE http://localhost:8000/api/products/1
    ```bash
    # Configure gcloud CLI
    gcloud auth login
-   gcloud config set project YOUR_PROJECT_ID
+   gcloud config set project client-jussimatic
    ```
+
+   Remember to authenticate and select the `client-jussimatic` project before running the deployment steps.
 
 2. **Build Docker Image**
    ```bash
-   docker build -t gcr.io/YOUR_PROJECT_ID/jussilog-backend .
+   docker build -t europe-north1-docker.pkg.dev/client-jussimatic/jussilog-backend/jussilog-backend:latest .
    ```
 
 3. **Push to Container Registry**
    ```bash
-   docker push gcr.io/YOUR_PROJECT_ID/jussilog-backend
+   docker push europe-north1-docker.pkg.dev/client-jussimatic/jussilog-backend/jussilog-backend:latest
    ```
 
 4. **Deploy to Cloud Run**
    ```bash
-   gcloud run deploy jussilog-backend \
-     --image gcr.io/YOUR_PROJECT_ID/jussilog-backend \
+    gcloud run deploy jussilog-backend \
+       --image europe-north1-docker.pkg.dev/client-jussimatic/jussilog-backend/jussilog-backend:latest \
      --platform managed \
      --region us-central1 \
      --allow-unauthenticated \
