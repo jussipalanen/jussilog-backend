@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => env('MAIL_ENABLED', true) ? env('MAIL_MAILER', 'smtp') : 'log',
 
     /*
     |--------------------------------------------------------------------------
