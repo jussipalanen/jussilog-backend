@@ -87,6 +87,41 @@ Jussilog is a modern product catalog API built with Laravel 10, designed for eas
    php artisan serve
    ```
 
+## File Uploads (Local vs GCS)
+
+Product images and the upload test endpoint use the default filesystem disk (`FILESYSTEM_DISK`).
+
+### Local (Filesystem) Uploads
+
+Set the disk to `public` and ensure the storage symlink exists:
+
+```bash
+FILESYSTEM_DISK=public
+```
+
+```bash
+php artisan storage:link
+```
+
+Files are stored under `storage/app/public`, and URLs resolve under `/storage/...`.
+
+### Google Cloud Storage (GCS)
+
+Set the disk to `gcs` and provide HMAC keys for the bucket:
+
+```bash
+FILESYSTEM_DISK=gcs
+GCS_ACCESS_KEY_ID=your-hmac-access-id
+GCS_SECRET_ACCESS_KEY=your-hmac-secret
+GCS_BUCKET=your-bucket-name
+GCS_ENDPOINT=https://storage.googleapis.com
+GCS_USE_PATH_STYLE_ENDPOINT=false
+```
+
+Signed URLs are returned for product images and the upload test endpoint. The default expiry time is 1 hour.
+
+If you decide to make the bucket public, the links will still work, but signed URLs are still returned by the API.
+
 ## API Endpoints
 
 ### API Documentation (Swagger UI)
@@ -106,6 +141,7 @@ Re-run the command whenever you add or change API routes to keep the Swagger doc
 ### Public Endpoints
 
 - `GET /api/hello` - Health check endpoint
+- `POST /api/upload-test` - Upload a single image (`file`) to the configured disk
 - `GET /api/products` - List all products (supports `page` and `per_page`)
 - `GET /api/products/{id}` - Get single product
 - `POST /api/products` - Create new product
@@ -303,23 +339,25 @@ php artisan user:list
    ```bash
    # Configure gcloud CLI
    gcloud auth login
-   gcloud config set project YOUR_PROJECT_ID
+   gcloud config set project client-jussimatic
    ```
+
+   Remember to authenticate and select the `client-jussimatic` project before running the deployment steps.
 
 2. **Build Docker Image**
    ```bash
-   docker build -t gcr.io/YOUR_PROJECT_ID/jussilog-backend .
+   docker build -t europe-north1-docker.pkg.dev/client-jussimatic/jussilog-backend/jussilog-backend:latest .
    ```
 
 3. **Push to Container Registry**
    ```bash
-   docker push gcr.io/YOUR_PROJECT_ID/jussilog-backend
+   docker push europe-north1-docker.pkg.dev/client-jussimatic/jussilog-backend/jussilog-backend:latest
    ```
 
 4. **Deploy to Cloud Run**
    ```bash
-   gcloud run deploy jussilog-backend \
-     --image gcr.io/YOUR_PROJECT_ID/jussilog-backend \
+    gcloud run deploy jussilog-backend \
+       --image europe-north1-docker.pkg.dev/client-jussimatic/jussilog-backend/jussilog-backend:latest \
      --platform managed \
      --region us-central1 \
      --allow-unauthenticated \

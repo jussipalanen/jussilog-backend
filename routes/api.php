@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UploadTestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -80,6 +81,9 @@ Route::middleware('auth:sanctum')->get('/check-auth', [AuthController::class, 'c
 Route::get('/hello', function () {
     return 'Hello world from Laravel';
 });
+
+// Upload test route
+Route::post('/upload-test', [UploadTestController::class, 'upload']);
 
 // Product routes
 Route::get('/products', [ProductController::class, 'index']);

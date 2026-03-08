@@ -59,7 +59,7 @@ class Product extends Model
             return null;
         }
 
-        return url(Storage::url($this->featured_image));
+        return $this->resolveImageUrl($this->featured_image);
     }
 
     /**
@@ -74,8 +74,24 @@ class Product extends Model
         }
 
         return array_map(function ($path) {
-            return url(Storage::url($path));
+            return $this->resolveImageUrl($path) ?? '';
         }, $this->images);
+    }
+
+    private function resolveImageUrl(string $path): ?string
+    {
+        $diskName = (string) config('filesystems.default');
+        $disk = Storage::disk($diskName);
+        if (method_exists($disk, 'temporaryUrl')) {
+            return $disk->temporaryUrl($path, now()->addHour());
+        }
+
+        $url = $disk->url($path);
+        if (is_string($url) && str_starts_with($url, '/')) {
+            $url = url($url);
+        }
+
+        return $url;
     }
 
     /**

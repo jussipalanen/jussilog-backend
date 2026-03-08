@@ -45,12 +45,13 @@ class UserList extends Command
             return [
                 'id' => $user->id,
                 'name' => $user->name ?? '-',
+                'username' => $user->username ?? '-',
                 'email' => $user->email ?? '-',
                 'roles' => $roles === '' ? '-' : $roles,
             ];
         })->all();
 
-        $this->table(['ID', 'Name', 'Email', 'Roles'], $rows);
+        $this->table(['ID', 'Name', 'Username', 'Email', 'Roles'], $rows);
 
         return self::SUCCESS;
     }

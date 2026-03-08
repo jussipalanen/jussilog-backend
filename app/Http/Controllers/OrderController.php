@@ -150,10 +150,18 @@ class OrderController extends Controller
             $orderItems = [];
 
             foreach ($data['items'] as $item) {
-                $product = Product::findOrFail($item['product_id']);
+                // Lock the product row to avoid race conditions on concurrent orders.
+                $product = Product::whereKey($item['product_id'])
+                    ->lockForUpdate()
+                    ->firstOrFail();
                 $effectivePrice = $product->sale_price ?? $product->price;
                 $subtotal = $effectivePrice * $item['quantity'];
                 $totalAmount += $subtotal;
+
+                // Allow backorders by letting quantity go negative.
+                $currentQuantity = $product->quantity ?? 0;
+                $product->quantity = $currentQuantity - $item['quantity'];
+                $product->save();
 
                 $orderItems[] = [
                     'product_id' => $product->id,

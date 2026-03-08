@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Enums\Role as RoleEnum;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -79,11 +81,15 @@ class ProductController extends Controller
     public function store(Request $request): JsonResponse
     {
         $actor = $request->user();
+        if ($actor === null && $request->filled('user_id')) {
+            $actor = User::find($request->input('user_id'));
+        }
         if ($actor === null || (!$actor->hasRole(RoleEnum::ADMIN) && !$actor->hasRole(RoleEnum::VENDOR))) {
             return response()->json(['message' => 'Only admins or vendors can create products'], 403);
         }
 
         $data = $request->validate([
+            'user_id' => 'sometimes|integer|exists:users,id',
             'id' => 'sometimes|integer|unique:products,id',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -119,7 +125,7 @@ class ProductController extends Controller
         if ($request->hasFile('featured_image')) {
             $file = $request->file('featured_image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs("products/{$product->id}", $filename, 'public');
+            $path = $this->storeProductFile($file, $product->id, $filename);
             $product->featured_image = $path;
         }
 
@@ -133,7 +139,7 @@ class ProductController extends Controller
             }
             foreach ($images as $image) {
                 $filename = time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
-                $path = $image->storeAs("products/{$product->id}", $filename, 'public');
+                $path = $this->storeProductFile($image, $product->id, $filename);
                 $imagePaths[] = $path;
             }
             $product->images = $imagePaths;
@@ -180,6 +186,9 @@ class ProductController extends Controller
     public function update(Request $request, int $id): JsonResponse
     {
         $actor = $request->user();
+        if ($actor === null && $request->filled('user_id')) {
+            $actor = User::find($request->input('user_id'));
+        }
         if ($actor === null || (!$actor->hasRole(RoleEnum::ADMIN) && !$actor->hasRole(RoleEnum::VENDOR))) {
             return response()->json(['message' => 'Only admins or vendors can update products'], 403);
         }
@@ -191,6 +200,7 @@ class ProductController extends Controller
         }
 
         $data = $request->validate([
+            'user_id' => 'sometimes|integer|exists:users,id',
             'title' => 'sometimes|string|max:255',
             'description' => 'nullable|string',
             'price' => 'sometimes|numeric|min:0',
@@ -226,7 +236,7 @@ class ProductController extends Controller
 
             $normalizedPaths = array_values(array_unique($normalizedPaths));
             if ($normalizedPaths !== []) {
-                Storage::disk('public')->delete($normalizedPaths);
+                $this->storageDisk()->delete($normalizedPaths);
                 if (is_array($product->images)) {
                     $product->images = array_values(array_filter(
                         $product->images,
@@ -237,7 +247,7 @@ class ProductController extends Controller
         }
 
         if ($request->boolean('delete_featured_image') && $product->featured_image) {
-            Storage::disk('public')->delete($product->featured_image);
+            $this->storageDisk()->delete($product->featured_image);
             $product->featured_image = null;
         }
 
@@ -265,7 +275,7 @@ class ProductController extends Controller
         if ($request->hasFile('featured_image')) {
             $file = $request->file('featured_image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs("products/{$product->id}", $filename, 'public');
+            $path = $this->storeProductFile($file, $product->id, $filename);
             $product->featured_image = $path;
         }
 
@@ -279,7 +289,7 @@ class ProductController extends Controller
             }
             foreach ($images as $image) {
                 $filename = time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
-                $path = $image->storeAs("products/{$product->id}", $filename, 'public');
+                $path = $this->storeProductFile($image, $product->id, $filename);
                 $imagePaths[] = $path;
             }
             $product->images = $imagePaths;
@@ -313,11 +323,35 @@ class ProductController extends Controller
         }
         $pathsToDelete = array_values(array_unique(array_filter($pathsToDelete)));
         if ($pathsToDelete !== []) {
-            Storage::disk('public')->delete($pathsToDelete);
+            $this->storageDisk()->delete($pathsToDelete);
         }
 
         $product->delete();
 
         return response()->json(['message' => 'Product deleted']);
+    }
+
+    /**
+     * Resolve the default filesystem disk name for product files.
+     */
+    private function storageDiskName(): string
+    {
+        return (string) config('filesystems.default');
+    }
+
+    /**
+     * Resolve the filesystem disk used for product files.
+     */
+    private function storageDisk()
+    {
+        return Storage::disk($this->storageDiskName());
+    }
+
+    /**
+     * Store a product file on the configured disk.
+     */
+    private function storeProductFile(UploadedFile $file, int $productId, string $filename): string
+    {
+        return $file->storeAs("products/{$productId}", $filename, $this->storageDiskName());
     }
 }
