@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Role as RoleEnum;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -77,6 +78,11 @@ class ProductController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        $actor = $request->user();
+        if ($actor === null || (!$actor->hasRole(RoleEnum::ADMIN) && !$actor->hasRole(RoleEnum::VENDOR))) {
+            return response()->json(['message' => 'Only admins or vendors can create products'], 403);
+        }
+
         $data = $request->validate([
             'id' => 'sometimes|integer|unique:products,id',
             'title' => 'required|string|max:255',
@@ -173,6 +179,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
+        $actor = $request->user();
+        if ($actor === null || (!$actor->hasRole(RoleEnum::ADMIN) && !$actor->hasRole(RoleEnum::VENDOR))) {
+            return response()->json(['message' => 'Only admins or vendors can update products'], 403);
+        }
+
         $product = Product::find($id);
 
         if (!$product) {

@@ -66,6 +66,8 @@ Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/lost-password', [AuthController::class, 'lostPassword']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth:sanctum')->get('/check-auth', [AuthController::class, 'checkAuth']);
 
@@ -98,6 +100,8 @@ Route::middleware('auth:sanctum')->get('/my-orders', [OrderController::class, 'm
 // User routes
 Route::get('/users/roles', [UserController::class, 'roles']);
 Route::get('/users', [UserController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/users', [UserController::class, 'store']);
 Route::get('/users/{id}', [UserController::class, 'show']);
+Route::middleware('auth:sanctum')->put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 

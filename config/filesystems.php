@@ -56,6 +56,18 @@ return [
             'throw' => false,
         ],
 
+        'gcs' => [
+            'driver' => 's3',
+            'key' => env('GCS_ACCESS_KEY_ID'),
+            'secret' => env('GCS_SECRET_ACCESS_KEY'),
+            'region' => env('GCS_DEFAULT_REGION', 'us'),
+            'bucket' => env('GCS_BUCKET'),
+            'url' => env('GCS_URL'),
+            'endpoint' => env('GCS_ENDPOINT', 'https://storage.googleapis.com'),
+            'use_path_style_endpoint' => env('GCS_USE_PATH_STYLE_ENDPOINT', false),
+            'throw' => false,
+        ],
+
     ],
 
     /*
