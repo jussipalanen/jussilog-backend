@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -132,6 +133,7 @@ class UserController extends Controller
      * @bodyParam username string Username. Example: jussi
      * @bodyParam email string Email address. Example: jussi@example.com
      * @bodyParam password string Password. Example: newpassword
+     * @bodyParam current_password string Required when updating your own password (non-admin).
      * @bodyParam roles array Role names to assign. Example: ["admin", "vendor"]
      */
     public function update(Request $request, string $id): JsonResponse
@@ -159,9 +161,23 @@ class UserController extends Controller
                 Rule::unique('users', 'email')->ignore($user->id),
             ],
             'password' => 'sometimes|string|min:8',
+            'current_password' => 'sometimes|string',
             'roles' => 'nullable|array',
             'roles.*' => 'string',
         ]);
+
+        if (isset($data['password'])) {
+            $actor = $request->user();
+            $isAdmin = $actor?->hasRole(RoleEnum::ADMIN) === true;
+            $isSelf = $actor?->id === $user->id;
+
+            if (!$isAdmin && $isSelf) {
+                $currentPassword = $data['current_password'] ?? null;
+                if ($currentPassword === null || !Hash::check($currentPassword, $user->password)) {
+                    return response()->json(['message' => 'Current password is required'], 422);
+                }
+            }
+        }
 
         if (array_key_exists('roles', $data)) {
             $actor = $request->user();
