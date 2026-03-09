@@ -5,7 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.3.0] - 2026-03-09
+
+### Added
+- Dev CLI script (`dev`) for Docker workflows with init, logs, and artisan/composer/npm helpers.
+- Cloud Run job documentation for manual user management, including SQLite and Secret Manager guidance.
+
+### Changed
+- Enabled hot-reload bind mounts in docker-compose for app, routes, resources, config, and public.
+- Local entrypoint now clears all Laravel caches to avoid stale routes/config during development.
+- `user:create` now requires `first_name`, `last_name`, and `username`, and persists them.
+- `user:update` no longer prompts for other fields when any update options are provided and requires id/email.
+
+### Fixed
+- Prevented cached routes/config from masking code changes in local Docker runs.
 
 ## [Released]
 

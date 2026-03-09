@@ -55,7 +55,8 @@ if [ "$APP_ENV" != "local" ]; then
     su laravel -s /bin/sh -c "php artisan view:cache"
 else
     echo "Local development mode - skipping cache optimizations"
-    su laravel -s /bin/sh -c "php artisan config:clear" || true
+    # Ensure route/config/view caches never mask live code changes in local dev.
+    su laravel -s /bin/sh -c "php artisan optimize:clear" || true
 fi
 
 echo "Starting PHP-FPM..."

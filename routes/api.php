@@ -79,7 +79,7 @@ Route::middleware('auth:sanctum')->get('/check-auth', [AuthController::class, 'c
  * @group Health
  */
 Route::get('/hello', function () {
-    return 'Hello world from Laravel';
+    return 'Hello world from Laravel! This is a test route to check if the API is working.';
 });
 
 // Upload test route
