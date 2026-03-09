@@ -17,7 +17,7 @@ class UserCreate extends Command
      *
      * @var string
      */
-    protected $signature = 'user:create {--name=} {--email=} {--password=} {--role=}';
+    protected $signature = 'user:create {--first-name=} {--last-name=} {--username=} {--name=} {--email=} {--password=} {--role=}';
 
     /**
      * The console command description.
@@ -28,13 +28,16 @@ class UserCreate extends Command
 
     public function handle(): int
     {
-        $name = $this->option('name') ?? $this->ask('Name');
+        $firstName = $this->option('first-name') ?? $this->ask('First name');
+        $lastName = $this->option('last-name') ?? $this->ask('Last name');
+        $username = $this->option('username') ?? $this->ask('Username');
+        $name = $this->option('name');
         $email = $this->option('email') ?? $this->ask('Email');
         $password = $this->option('password') ?? $this->secret('Password');
         $roleValue = $this->resolveRoleValue($this->option('role'));
 
-        if (empty($name) || empty($email) || empty($password) || empty($roleValue)) {
-            $this->error('Name, email, password, and role are required.');
+        if (empty($firstName) || empty($lastName) || empty($username) || empty($email) || empty($password) || empty($roleValue)) {
+            $this->error('First name, last name, username, email, password, and role are required.');
 
             return self::FAILURE;
         }
@@ -51,7 +54,20 @@ class UserCreate extends Command
             return self::FAILURE;
         }
 
+        if (User::query()->where('username', $username)->exists()) {
+            $this->error('A user with that username already exists.');
+
+            return self::FAILURE;
+        }
+
+        if (empty($name)) {
+            $name = trim($firstName.' '.$lastName);
+        }
+
         $user = User::query()->create([
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'username' => $username,
             'name' => $name,
             'email' => $email,
             'password' => Hash::make($password),

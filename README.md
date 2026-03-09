@@ -38,23 +38,43 @@ Jussilog is a modern product catalog API built with Laravel 10, designed for eas
    cd jussilog-backend
    ```
 
-2. **Generate Application Key**
+2. **Initialize Environment**
    ```bash
-   # If you have PHP installed locally
-   php artisan key:generate
-   
-   # Copy the key from .env file
-   cat .env | grep APP_KEY
+   ./dev init
    ```
 
 3. **Build and Start the Container**
    ```bash
-   docker-compose up --build
+   ./dev up
    ```
 
 4. **Access the Application**
    - API: http://localhost:8000
    - Health Check: http://localhost:8000/api/hello
+
+### Dev Script Commands
+
+Common commands are available via the dev script:
+
+```bash
+./dev up
+./dev down
+./dev restart
+./dev status
+./dev logs
+./dev shell
+./dev artisan --version
+./dev composer --version
+./dev npm --version
+```
+
+### Docker Cache Refresh (Manual)
+
+If route or config changes do not appear immediately, clear Laravel caches manually:
+
+```bash
+./dev artisan optimize:clear
+```
 
 ### Local Development without Docker
 
@@ -301,7 +321,14 @@ New users default to `customer` when created via factories/seeders.
 ### Create a user
 
 ```bash
-php artisan user:create --name="Ada Lovelace" --email=ada@example.com --password=secret --role=admin
+php artisan user:create \
+   --first-name="Ada" \
+   --last-name="Lovelace" \
+   --username="ada.lovelace" \
+   --name="Ada Lovelace" \
+   --email=ada@example.com \
+   --password=secret \
+   --role=admin
 ```
 
 You can also run the command without flags to use interactive prompts:
@@ -329,6 +356,156 @@ php artisan user:delete --email=ada@example.com
 
 ```bash
 php artisan user:list
+```
+
+### Manual User Management on Cloud Run (gcloud)
+
+Use Cloud Run Jobs to run Artisan commands in production without SSH access.
+
+1. Set your variables:
+
+```bash
+export PROJECT_ID="client-jussimatic"
+export REGION="europe-north1"
+export IMAGE="europe-north1-docker.pkg.dev/${PROJECT_ID}/jussilog-backend/jussilog-backend:latest"
+```
+
+2. Create one-time jobs:
+
+```bash
+gcloud run jobs create user-create-job \
+   --project "$PROJECT_ID" \
+   --region "$REGION" \
+   --image "$IMAGE" \
+   --command php \
+   --args artisan,user:create,--first-name=Admin,--last-name=User,--username=admin,--name=Admin\ User,--email=admin@example.com,--password=ChangeMe123!,--role=admin
+
+gcloud run jobs create user-update-job \
+   --project "$PROJECT_ID" \
+   --region "$REGION" \
+   --image "$IMAGE" \
+   --command php \
+   --args artisan,user:update,--email=admin@example.com,--role=admin
+
+# If you use SQLite on Cloud Run, set these env vars on the jobs
+gcloud run jobs update user-create-job \
+   --project "$PROJECT_ID" \
+   --region "$REGION" \
+   --set-env-vars "DB_CONNECTION=sqlite,DB_DATABASE=/var/www/html/database/database.sqlite"
+
+gcloud run jobs update user-update-job \
+   --project "$PROJECT_ID" \
+   --region "$REGION" \
+   --set-env-vars "DB_CONNECTION=sqlite,DB_DATABASE=/var/www/html/database/database.sqlite"
+```
+
+3. Execute the jobs:
+
+```bash
+gcloud run jobs execute user-create-job --project "$PROJECT_ID" --region "$REGION" --wait
+gcloud run jobs execute user-update-job --project "$PROJECT_ID" --region "$REGION" --wait
+```
+
+4. Update a job command when needed:
+
+```bash
+gcloud run jobs update user-update-job \
+   --project "$PROJECT_ID" \
+   --region "$REGION" \
+   --command php \
+   --args artisan,user:update,--id=1,--role=vendor
+```
+
+Optional: add local shell functions to make manual user operations faster:
+
+```bash
+create_admin_user() {
+   gcloud run jobs update user-create-job \
+      --project "$PROJECT_ID" \
+      --region "$REGION" \
+      --command php \
+      --args "artisan,user:create,--first-name=$1,--last-name=$2,--username=$3,--name=$1\ $2,--email=$4,--password=$5,--role=admin" && \
+   gcloud run jobs execute user-create-job --project "$PROJECT_ID" --region "$REGION" --wait
+}
+
+update_user_role() {
+   gcloud run jobs update user-update-job \
+      --project "$PROJECT_ID" \
+      --region "$REGION" \
+      --command php \
+      --args "artisan,user:update,--email=$1,--role=$2" && \
+   gcloud run jobs execute user-update-job --project "$PROJECT_ID" --region "$REGION" --wait
+}
+```
+
+Examples:
+
+```bash
+create_admin_user "Admin" "User" "admin" "admin@example.com" "StrongPass123!"
+update_user_role "admin@example.com" "vendor"
+```
+
+Security note:
+
+- Avoid passing real passwords directly in shell history or CI logs.
+- Prefer generating a temporary strong password and rotating it immediately after first login.
+- For production automation, store sensitive values in Google Secret Manager and inject them at runtime.
+
+Create the secret once (interactive prompt):
+
+```bash
+printf '%s' 'StrongPass123!' | gcloud secrets create ADMIN_USER_PASSWORD \
+   --project "$PROJECT_ID" \
+   --replication-policy=automatic \
+   --data-file=-
+```
+
+If the secret already exists, add a new rotated version:
+
+```bash
+printf '%s' 'NewRotatedPass456!' | gcloud secrets versions add ADMIN_USER_PASSWORD \
+   --project "$PROJECT_ID" \
+   --data-file=-
+```
+
+Grant Secret Manager access to the Cloud Run Job service account:
+
+```bash
+export JOB_SA="jussilog-job-runner@${PROJECT_ID}.iam.gserviceaccount.com"
+
+# Create service account if missing
+gcloud iam service-accounts create jussilog-job-runner \
+   --project "$PROJECT_ID" \
+   --display-name "Jussilog Cloud Run Job Runner"
+
+# Let the service account access the admin password secret
+gcloud secrets add-iam-policy-binding ADMIN_USER_PASSWORD \
+   --project "$PROJECT_ID" \
+   --member "serviceAccount:${JOB_SA}" \
+   --role "roles/secretmanager.secretAccessor"
+
+# Use this service account for jobs
+gcloud run jobs update user-create-job \
+   --project "$PROJECT_ID" \
+   --region "$REGION" \
+   --service-account "$JOB_SA"
+
+gcloud run jobs update user-update-job \
+   --project "$PROJECT_ID" \
+   --region "$REGION" \
+   --service-account "$JOB_SA"
+```
+
+Example (read password from Secret Manager and update the job args):
+
+```bash
+ADMIN_PASSWORD="$(gcloud secrets versions access latest --secret=ADMIN_USER_PASSWORD --project "$PROJECT_ID")"
+
+gcloud run jobs update user-create-job \
+   --project "$PROJECT_ID" \
+   --region "$REGION" \
+   --command php \
+   --args "artisan,user:create,--first-name=Admin,--last-name=User,--username=admin,--name=Admin\ User,--email=admin@example.com,--password=${ADMIN_PASSWORD},--role=admin"
 ```
 
 ## Google Cloud Run Deployment

@@ -1,0 +1,179 @@
+#!/bin/sh
+set -e
+
+SCRIPT_NAME="$(basename "$0")"
+APP_SERVICE="app"
+
+print_help() {
+  cat <<EOF
+Usage: $SCRIPT_NAME <command> [args]
+
+Commands:
+  up                 Build and start containers in detached mode
+  down               Stop and remove containers
+  restart            Restart containers (down then up)
+  status             Show container status
+  logs               Tail container logs
+  shell              Open a shell in the app container
+  artisan [args...]  Run php artisan inside the app container
+  composer [args...] Run composer inside the app container
+  npm [args...]      Run npm inside the app container
+  init               Create .env if missing, generate APP_KEY, run migrations
+  help               Show this help
+
+Notes:
+  - Uses docker compose when available, with docker-compose fallback.
+  - The init command will start containers if they are not running.
+EOF
+}
+
+compose_cmd() {
+  if command -v docker >/dev/null 2>&1; then
+    if docker compose version >/dev/null 2>&1; then
+      echo "docker compose"
+      return
+    fi
+  fi
+
+  if command -v docker-compose >/dev/null 2>&1; then
+    echo "docker-compose"
+    return
+  fi
+
+  echo "Error: docker compose or docker-compose not found." >&2
+  exit 1
+}
+
+ensure_env_file() {
+  if [ ! -f .env ]; then
+    if [ -f .env.example ]; then
+      cp .env.example .env
+      echo "Created .env from .env.example"
+    else
+      echo "Error: .env.example not found." >&2
+      exit 1
+    fi
+  fi
+}
+
+is_app_running() {
+  "$@" ps -q "$APP_SERVICE" 2>/dev/null | grep -q .
+}
+
+exec_app() {
+  compose="$(compose_cmd)"
+  $compose exec -T "$APP_SERVICE" "$@"
+}
+
+exec_app_tty() {
+  compose="$(compose_cmd)"
+  $compose exec "$APP_SERVICE" "$@"
+}
+
+run_up() {
+  compose="$(compose_cmd)"
+  ensure_env_file
+  $compose up -d --build
+}
+
+run_down() {
+  compose="$(compose_cmd)"
+  $compose down
+}
+
+run_restart() {
+  run_down
+  run_up
+}
+
+run_status() {
+  compose="$(compose_cmd)"
+  $compose ps
+}
+
+run_logs() {
+  compose="$(compose_cmd)"
+  $compose logs -f --tail=200
+}
+
+run_shell() {
+  exec_app_tty sh
+}
+
+run_artisan() {
+  exec_app php artisan "$@"
+}
+
+run_composer() {
+  exec_app composer "$@"
+}
+
+run_npm() {
+  exec_app npm "$@"
+}
+
+run_init() {
+  compose="$(compose_cmd)"
+  ensure_env_file
+
+  if ! is_app_running $compose; then
+    $compose up -d --build
+  fi
+
+  echo "Generating APP_KEY..."
+  $compose exec -T "$APP_SERVICE" php artisan key:generate --force
+
+  echo "Running migrations..."
+  $compose exec -T "$APP_SERVICE" php artisan migrate --force --no-interaction
+}
+
+case "$1" in
+  up)
+    shift
+    run_up
+    ;;
+  down)
+    shift
+    run_down
+    ;;
+  restart)
+    shift
+    run_restart
+    ;;
+  status)
+    shift
+    run_status
+    ;;
+  logs)
+    shift
+    run_logs
+    ;;
+  shell)
+    shift
+    run_shell
+    ;;
+  artisan)
+    shift
+    run_artisan "$@"
+    ;;
+  composer)
+    shift
+    run_composer "$@"
+    ;;
+  npm)
+    shift
+    run_npm "$@"
+    ;;
+  init)
+    shift
+    run_init
+    ;;
+  help|--help|-h|"")
+    print_help
+    ;;
+  *)
+    echo "Unknown command: $1" >&2
+    print_help
+    exit 1
+    ;;
+esac

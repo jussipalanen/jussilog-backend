@@ -44,12 +44,13 @@ services:
       - ./storage:/var/www/html/storage
       # Persist bootstrap cache
       - ./bootstrap/cache:/var/www/html/bootstrap/cache
-      
-      # Optional: Uncomment for hot-reload development
-      # - ./app:/var/www/html/app
-      # - ./routes:/var/www/html/routes
-      # - ./resources:/var/www/html/resources
-      # - ./config:/var/www/html/config
+
+      # Hot-reload development mounts
+      - ./app:/var/www/html/app
+      - ./routes:/var/www/html/routes
+      - ./resources:/var/www/html/resources
+      - ./config:/var/www/html/config
+      - ./public:/var/www/html/public
     networks:
       - jussilog-network
 
