@@ -271,4 +271,46 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User deleted successfully'], 200);
     }
+
+
+    /**
+     * Update a user's role by identifier (id, username or email).
+     */
+    public function updateRole(Request $request) {
+
+        $request->validate([
+            'role' => 'required|string'
+        ]);
+
+        // Check if key matches ENV variable
+        $secretKey = env('ROLE_UPDATE_KEY');
+        if (!$secretKey || $request->input('key') !== $secretKey) {
+            return response()->json([
+                'message' => 'Unauthorized key'
+            ], 403);
+        }
+
+        $identifier = $request->input('identifier');
+
+        // Find user by id, username or email
+        $user = User::where('id', $identifier)
+            ->orWhere('username', $identifier)
+            ->orWhere('email', $identifier)
+            ->first();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found'
+            ], 404);
+        }
+
+        $roleName = $request->input('role');
+        $user->setRole($roleName);
+
+        return response()->json([
+            'message' => 'Role updated successfully',
+            'user' => $user
+        ]);
+    }
+
 }

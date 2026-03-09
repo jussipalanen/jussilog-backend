@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Role as RoleEnum;
 use App\Mail\RegistrationWelcome;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
@@ -43,6 +44,9 @@ class AuthController extends Controller
             'password' => $data['password'],
         ]);
 
+        $user->assignRole(RoleEnum::CUSTOMER);
+        $user->load('roles');
+
         Mail::to($user->email)->send(new RegistrationWelcome(
             $user->email,
             $data['password'],
@@ -53,7 +57,15 @@ class AuthController extends Controller
 
         return response()->json([
             'token' => $token,
-            'user' => $user,
+            'user' => [
+                'id' => $user->id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'username' => $user->username,
+                'name' => $user->name,
+                'email' => $user->email,
+                'roles' => $user->roles->pluck('name'),
+            ],
         ], 201);
     }
 

@@ -108,4 +108,5 @@ Route::middleware('auth:sanctum')->post('/users', [UserController::class, 'store
 Route::get('/users/{id}', [UserController::class, 'show']);
 Route::middleware('auth:sanctum')->put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
+Route::patch('/users/update-role', [UserController::class, 'updateRole']);
 
