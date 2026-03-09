@@ -43,7 +43,12 @@ class UserUpdate extends Command
             return self::FAILURE;
         }
 
-        if ($this->input->isInteractive()) {
+        $hasUpdateOptions = $this->option('name') !== null
+            || $this->option('new-email') !== null
+            || $this->option('password') !== null
+            || $this->option('role') !== null;
+
+        if ($this->input->isInteractive() && !$hasUpdateOptions) {
             $name = $name ?? $this->ask('New name (leave blank to keep)');
             $name = $this->normalizeBlank($name);
 
@@ -113,20 +118,9 @@ class UserUpdate extends Command
         $email = $this->option('email');
 
         if (empty($id) && empty($email)) {
-            $identifier = $this->ask('User id or email');
-            $identifier = $this->normalizeBlank($identifier);
+            $this->error('User id or email is required.');
 
-            if ($identifier === null) {
-                $this->error('User id or email is required.');
-
-                return null;
-            }
-
-            if (ctype_digit($identifier)) {
-                $id = $identifier;
-            } else {
-                $email = $identifier;
-            }
+            return null;
         }
 
         if (!empty($id)) {
