@@ -650,6 +650,42 @@ For production deployments with Cloud SQL:
 
 2. For Cloud SQL, configure Unix socket connection in Cloud Run for better performance and security.
 
+#### Test Production Cloud SQL Connection Locally
+
+Use Cloud SQL Auth Proxy and the production-style socket settings to validate connectivity before deployment.
+
+1. Start Cloud SQL Auth Proxy:
+   ```bash
+   sudo mkdir -p /cloudsql
+   sudo chown "$USER":"$USER" /cloudsql
+   cloud-sql-proxy --unix-socket /cloudsql client-jussimatic:europe-north1:jussilog-db
+   ```
+
+2. Update local `.env` database values:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=localhost
+   DB_SOCKET=/cloudsql/client-jussimatic:europe-north1:jussilog-db
+   DB_PORT=3306
+   DB_DATABASE=jussilog
+   DB_USERNAME=jussilog
+   DB_PASSWORD=YOUR_DB_PASSWORD
+   ```
+
+3. Verify Laravel can connect:
+   ```bash
+   php artisan tinker
+   ```
+   Then run:
+   ```php
+   DB::connection()->getPdo();
+   ```
+
+4. Create missing tables if needed:
+   ```bash
+   php artisan migrate --force
+   ```
+
 ## Development
 
 ### Running Tests
