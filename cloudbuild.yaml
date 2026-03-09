@@ -25,8 +25,7 @@ steps:
       - --platform
       - managed
       - --allow-unauthenticated
-      - --connect-cloudsql
-      - ${_PROJECT_ID}:${_REGION}:jussilog-db
+      - --set-cloudsql-instances=${_PROJECT_ID}:${_REGION}:jussilog-db
       - --min-instances=0
       - --max-instances=1
       - --memory=512Mi
