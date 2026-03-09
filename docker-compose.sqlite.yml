@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    container_name: jussilog-backend-sqlite
+    restart: unless-stopped
+    ports:
+      - "8000:8080"
+    env_file:
+      - .env
+    environment:
+      # Application
+      APP_NAME: JussiLog
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      FRONTEND_URL: http://localhost:5173
+
+      # Database - SQLite (for local development)
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /var/www/html/database/database.sqlite
+
+      # Cache & Session
+      CACHE_DRIVER: file
+      SESSION_DRIVER: file
+      QUEUE_CONNECTION: sync
+
+      # Logging
+      LOG_CHANNEL: stderr
+      LOG_LEVEL: debug
+
+      # Port for Cloud Run compatibility
+      PORT: 8080
+    volumes:
+      # Persist SQLite database
+      - ./database:/var/www/html/database
+      # Persist storage directory
+      - ./storage:/var/www/html/storage
+      # Persist bootstrap cache
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache
+
+      # Hot-reload development mounts
+      - ./app:/var/www/html/app
+      - ./routes:/var/www/html/routes
+      - ./resources:/var/www/html/resources
+      - ./config:/var/www/html/config
+      - ./public:/var/www/html/public
+    networks:
+      - jussilog-network
+
+networks:
+  jussilog-network:
+    driver: bridge
+

@@ -19,6 +19,19 @@ Commands:
   composer [args...] Run composer inside the app container
   npm [args...]      Run npm inside the app container
   init               Create .env if missing, generate APP_KEY, run migrations
+  db-export [--local|--cloud] [file]
+                     Export database to a .sql file
+                     --local  (default) export from local Docker MySQL
+                     --cloud  export from Cloud SQL via cloud-sql-proxy
+                     Default filename: data/db-YYYY-MM-DD-{local|cloud}.sql
+  db-import [--local|--cloud] <file>
+                     Import a .sql file into local Docker MySQL or Cloud SQL
+                     --local  (default) import into local Docker MySQL
+                     --cloud  import into Cloud SQL via cloud-sql-proxy
+  env-update         Push .env.production vars to Cloud Run (no rebuild needed)
+                     Optionally pass --dry-run to preview the command
+  env-get            Fetch live env vars from Cloud Run as KEY=VALUE pairs
+                     Pass --yaml or --json for alternative formats
   help               Show this help
 
 Notes:
@@ -112,6 +125,172 @@ run_npm() {
   exec_app npm "$@"
 }
 
+# ── Cloud SQL config ─────────────────────────────────────────────────────────
+CLOUD_SQL_INSTANCE="client-jussimatic:europe-north1:jussilog-db"
+CLOUD_SQL_PROXY_PORT="3307"
+CLOUD_SQL_DB="jussilog"
+CLOUD_SQL_USER="root"
+# ─────────────────────────────────────────────────────────────────────────────
+
+_read_env_var() {
+  grep "^${1}=" "${2:-.env}" | cut -d= -f2- | tr -d '\r'
+}
+
+_start_cloud_proxy() {
+  if ! command -v cloud-sql-proxy >/dev/null 2>&1; then
+    echo "ERROR: cloud-sql-proxy not found." >&2
+    echo "Install: curl -o cloud-sql-proxy https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/v2.15.2/cloud-sql-proxy.linux.amd64 && chmod +x cloud-sql-proxy && sudo mv cloud-sql-proxy /usr/local/bin/" >&2
+    exit 1
+  fi
+  echo "Starting Cloud SQL Proxy ($CLOUD_SQL_INSTANCE) on port $CLOUD_SQL_PROXY_PORT ..."
+  cloud-sql-proxy "$CLOUD_SQL_INSTANCE" --port="$CLOUD_SQL_PROXY_PORT" &
+  PROXY_PID=$!
+  TRIES=0
+  while ! nc -z 127.0.0.1 "$CLOUD_SQL_PROXY_PORT" 2>/dev/null; do
+    sleep 1
+    TRIES=$((TRIES + 1))
+    if [ $TRIES -ge 15 ]; then
+      echo "ERROR: Cloud SQL Proxy did not start in time." >&2
+      kill $PROXY_PID 2>/dev/null
+      exit 1
+    fi
+  done
+  echo "Proxy ready."
+}
+
+_stop_cloud_proxy() {
+  if [ -n "${PROXY_PID:-}" ]; then
+    kill $PROXY_PID 2>/dev/null || true
+    PROXY_PID=
+  fi
+}
+
+run_db_export() {
+  TARGET="local"
+  OUTFILE=""
+  for arg in "$@"; do
+    case "$arg" in
+      --local) TARGET="local" ;;
+      --cloud) TARGET="cloud" ;;
+      *) OUTFILE="$arg" ;;
+    esac
+  done
+
+  if [ "$TARGET" = "cloud" ]; then
+    DB_USERNAME="$CLOUD_SQL_USER"
+    DB_PASSWORD="$(_read_env_var DB_PASSWORD .env.production)"
+    DB_DATABASE="$CLOUD_SQL_DB"
+    OUTFILE="${OUTFILE:-data/db-$(date +%Y-%m-%d)-cloud.sql}"
+    mkdir -p "$(dirname "$OUTFILE")"
+    _start_cloud_proxy
+    echo "Exporting Cloud SQL '$DB_DATABASE' to $OUTFILE ..."
+    mysqldump \
+      -h 127.0.0.1 \
+      -P "$CLOUD_SQL_PROXY_PORT" \
+      -u "$DB_USERNAME" \
+      -p"$DB_PASSWORD" \
+      --ssl-mode=DISABLED \
+      --get-server-public-key \
+      --no-tablespaces \
+      --single-transaction \
+      --routines \
+      --triggers \
+      "$DB_DATABASE" > "$OUTFILE"
+    _stop_cloud_proxy
+  else
+    compose="$(compose_cmd)"
+    DB_DATABASE="$(_read_env_var DB_DATABASE)"
+    DB_USERNAME="$(_read_env_var DB_USERNAME)"
+    DB_PASSWORD="$(_read_env_var DB_PASSWORD)"
+    DB_PORT="$(_read_env_var DB_PORT)"
+    OUTFILE="${OUTFILE:-data/db-$(date +%Y-%m-%d)-local.sql}"
+    mkdir -p "$(dirname "$OUTFILE")"
+    echo "Exporting local Docker MySQL '$DB_DATABASE' to $OUTFILE ..."
+    $compose exec -T mysql mysqldump \
+      -h 127.0.0.1 \
+      -P "${DB_PORT:-3306}" \
+      -u "$DB_USERNAME" \
+      -p"$DB_PASSWORD" \
+      --ssl-mode=DISABLED \
+      --get-server-public-key \
+      --no-tablespaces \
+      --single-transaction \
+      --routines \
+      --triggers \
+      "$DB_DATABASE" 2>/dev/null > "$OUTFILE"
+  fi
+  echo "Export done: $OUTFILE"
+}
+
+run_db_import() {
+  TARGET="local"
+  INFILE=""
+  for arg in "$@"; do
+    case "$arg" in
+      --local) TARGET="local" ;;
+      --cloud) TARGET="cloud" ;;
+      *) INFILE="$arg" ;;
+    esac
+  done
+
+  if [ -z "$INFILE" ]; then
+    echo "Usage: ./dev db-import [--local|--cloud] <file.sql>" >&2
+    exit 1
+  fi
+  if [ ! -f "$INFILE" ]; then
+    echo "Error: file not found: $INFILE" >&2
+    exit 1
+  fi
+
+  if [ "$TARGET" = "cloud" ]; then
+    DB_USERNAME="$CLOUD_SQL_USER"
+    DB_PASSWORD="$(_read_env_var DB_PASSWORD .env.production)"
+    DB_DATABASE="$CLOUD_SQL_DB"
+    _start_cloud_proxy
+    echo "Importing '$INFILE' into Cloud SQL '$DB_DATABASE' ..."
+    mysql \
+      -h 127.0.0.1 \
+      -P "$CLOUD_SQL_PROXY_PORT" \
+      -u "$DB_USERNAME" \
+      -p"$DB_PASSWORD" \
+      --ssl-mode=DISABLED \
+      --get-server-public-key \
+      "$DB_DATABASE" < "$INFILE"
+    _stop_cloud_proxy
+  else
+    compose="$(compose_cmd)"
+    DB_DATABASE="$(_read_env_var DB_DATABASE)"
+    DB_USERNAME="$(_read_env_var DB_USERNAME)"
+    DB_PASSWORD="$(_read_env_var DB_PASSWORD)"
+    DB_PORT="$(_read_env_var DB_PORT)"
+    echo "Importing '$INFILE' into local Docker MySQL '$DB_DATABASE' ..."
+    $compose exec -T mysql mysql \
+      -h 127.0.0.1 \
+      -P "${DB_PORT:-3306}" \
+      -u "$DB_USERNAME" \
+      -p"$DB_PASSWORD" \
+      --ssl-mode=DISABLED \
+      "$DB_DATABASE" < "$INFILE"
+  fi
+  echo "Import done."
+}
+
+run_env_update() {
+  if [ ! -f scripts/set-cloud-run-env.sh ]; then
+    echo "Error: scripts/set-cloud-run-env.sh not found." >&2
+    exit 1
+  fi
+  sh scripts/set-cloud-run-env.sh "$@"
+}
+
+run_env_get() {
+  if [ ! -f scripts/get-cloud-run-env.sh ]; then
+    echo "Error: scripts/get-cloud-run-env.sh not found." >&2
+    exit 1
+  fi
+  sh scripts/get-cloud-run-env.sh "$@"
+}
+
 run_init() {
   compose="$(compose_cmd)"
   ensure_env_file
@@ -163,6 +342,22 @@ case "$1" in
   npm)
     shift
     run_npm "$@"
+    ;;
+  db-export)
+    shift
+    run_db_export "$@"
+    ;;
+  db-import)
+    shift
+    run_db_import "$@"
+    ;;
+  env-update)
+    shift
+    run_env_update "$@"
+    ;;
+  env-get)
+    shift
+    run_env_get "$@"
     ;;
   init)
     shift

@@ -82,6 +82,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Set a single role for the user (replaces all existing roles).
+     */
+    public function setRole(RoleEnum|string $role): void
+    {
+        $value = $role instanceof RoleEnum ? $role->value : $role;
+        $roleModel = Role::query()->firstOrCreate(['name' => $value]);
+
+        $this->roles()->sync([$roleModel->id]);
+    }
+
+    /**
      * Send the password reset notification.
      */
     public function sendPasswordResetNotification($token): void
