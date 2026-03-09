@@ -129,7 +129,7 @@ run_npm() {
 CLOUD_SQL_INSTANCE="client-jussimatic:europe-north1:jussilog-db"
 CLOUD_SQL_PROXY_PORT="3307"
 CLOUD_SQL_DB="jussilog"
-CLOUD_SQL_USER="root"
+CLOUD_SQL_SOCKET_DIR="/tmp/cloudsql-dev"
 # ─────────────────────────────────────────────────────────────────────────────
 
 _read_env_var() {
@@ -142,11 +142,21 @@ _start_cloud_proxy() {
     echo "Install: curl -o cloud-sql-proxy https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/v2.15.2/cloud-sql-proxy.linux.amd64 && chmod +x cloud-sql-proxy && sudo mv cloud-sql-proxy /usr/local/bin/" >&2
     exit 1
   fi
-  echo "Starting Cloud SQL Proxy ($CLOUD_SQL_INSTANCE) on port $CLOUD_SQL_PROXY_PORT ..."
-  cloud-sql-proxy "$CLOUD_SQL_INSTANCE" --port="$CLOUD_SQL_PROXY_PORT" &
+  mkdir -p "$CLOUD_SQL_SOCKET_DIR"
+  SOCKET_PATH="$CLOUD_SQL_SOCKET_DIR/$CLOUD_SQL_INSTANCE"
+  PROXY_LOG="/tmp/cloud-sql-proxy-dev.log"
+  echo "Starting Cloud SQL Proxy ($CLOUD_SQL_INSTANCE) on unix socket $SOCKET_PATH ..."
+  cloud-sql-proxy --unix-socket "$CLOUD_SQL_SOCKET_DIR" "$CLOUD_SQL_INSTANCE" >"$PROXY_LOG" 2>&1 &
   PROXY_PID=$!
   TRIES=0
-  while ! nc -z 127.0.0.1 "$CLOUD_SQL_PROXY_PORT" 2>/dev/null; do
+  while [ ! -S "$SOCKET_PATH" ]; do
+    if ! kill -0 "$PROXY_PID" 2>/dev/null; then
+      echo "ERROR: Cloud SQL Proxy exited unexpectedly." >&2
+      if [ -f "$PROXY_LOG" ]; then
+        tail -n 20 "$PROXY_LOG" >&2 || true
+      fi
+      exit 1
+    fi
     sleep 1
     TRIES=$((TRIES + 1))
     if [ $TRIES -ge 15 ]; then
@@ -177,16 +187,18 @@ run_db_export() {
   done
 
   if [ "$TARGET" = "cloud" ]; then
-    DB_USERNAME="$CLOUD_SQL_USER"
+    DB_USERNAME="$(_read_env_var DB_USERNAME .env.production)"
     DB_PASSWORD="$(_read_env_var DB_PASSWORD .env.production)"
-    DB_DATABASE="$CLOUD_SQL_DB"
+    DB_DATABASE="$(_read_env_var DB_DATABASE .env.production)"
+    DB_USERNAME="${DB_USERNAME:-root}"
+    DB_DATABASE="${DB_DATABASE:-$CLOUD_SQL_DB}"
     OUTFILE="${OUTFILE:-data/db-$(date +%Y-%m-%d)-cloud.sql}"
     mkdir -p "$(dirname "$OUTFILE")"
+    trap '_stop_cloud_proxy' EXIT INT TERM
     _start_cloud_proxy
     echo "Exporting Cloud SQL '$DB_DATABASE' to $OUTFILE ..."
     mysqldump \
-      -h 127.0.0.1 \
-      -P "$CLOUD_SQL_PROXY_PORT" \
+      --socket="$SOCKET_PATH" \
       -u "$DB_USERNAME" \
       -p"$DB_PASSWORD" \
       --ssl-mode=DISABLED \
@@ -197,6 +209,7 @@ run_db_export() {
       --triggers \
       "$DB_DATABASE" > "$OUTFILE"
     _stop_cloud_proxy
+    trap - EXIT INT TERM
   else
     compose="$(compose_cmd)"
     DB_DATABASE="$(_read_env_var DB_DATABASE)"
@@ -243,20 +256,23 @@ run_db_import() {
   fi
 
   if [ "$TARGET" = "cloud" ]; then
-    DB_USERNAME="$CLOUD_SQL_USER"
+    DB_USERNAME="$(_read_env_var DB_USERNAME .env.production)"
     DB_PASSWORD="$(_read_env_var DB_PASSWORD .env.production)"
-    DB_DATABASE="$CLOUD_SQL_DB"
+    DB_DATABASE="$(_read_env_var DB_DATABASE .env.production)"
+    DB_USERNAME="${DB_USERNAME:-root}"
+    DB_DATABASE="${DB_DATABASE:-$CLOUD_SQL_DB}"
+    trap '_stop_cloud_proxy' EXIT INT TERM
     _start_cloud_proxy
     echo "Importing '$INFILE' into Cloud SQL '$DB_DATABASE' ..."
     mysql \
-      -h 127.0.0.1 \
-      -P "$CLOUD_SQL_PROXY_PORT" \
+      --socket="$SOCKET_PATH" \
       -u "$DB_USERNAME" \
       -p"$DB_PASSWORD" \
       --ssl-mode=DISABLED \
       --get-server-public-key \
       "$DB_DATABASE" < "$INFILE"
     _stop_cloud_proxy
+    trap - EXIT INT TERM
   else
     compose="$(compose_cmd)"
     DB_DATABASE="$(_read_env_var DB_DATABASE)"
