@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [0.4.0] - 2026-03-09
+
+### Fixed
+- Cloud SQL MySQL connection for Google Cloud Run deployment now uses Unix socket (`DB_SOCKET`) instead of incorrect TCP host configuration.
+- Database health check in entrypoint script now properly detects and handles both Unix socket (Cloud SQL) and TCP (local Docker) connections.
+- Production environment configuration updated with correct Cloud SQL socket path.
+
+### Changed
+- `cloudbuild.yaml` now sets `DB_SOCKET` for Cloud SQL Unix socket connections instead of using socket path in `DB_HOST`.
+- `docker/entrypoint.sh` enhanced with automatic connection method detection (socket vs TCP) and improved error messages.
+
 ## [0.3.0] - 2026-03-09
 
 ### Added
