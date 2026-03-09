@@ -1,4 +1,5 @@
 steps:
+  # Step 1: Build and push the Docker image
   - name: gcr.io/kaniko-project/executor:latest
     args:
       - --destination=${_IMAGE}
@@ -10,6 +11,7 @@ steps:
       - --context=dir:///workspace
       - --dockerfile=Dockerfile
 
+  # Step 2: Deploy image to Cloud Run
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: gcloud
     args:
@@ -23,8 +25,8 @@ steps:
       - --platform
       - managed
       - --allow-unauthenticated
-      - --set-env-vars
-      - APP_ENV=production,APP_DEBUG=false,DB_CONNECTION=sqlite,APP_KEY=${_APP_KEY}
+      - --connect-cloudsql
+      - ${_PROJECT_ID}:${_REGION}:jussilog-db
       - --min-instances=0
       - --max-instances=1
       - --memory=512Mi
@@ -32,11 +34,67 @@ steps:
       - --concurrency=80
       - --timeout=60
 
+  # Step 3: Apply all environment variables from substitutions.
+  # To add/update env vars: edit the --set-env-vars value below and re-run the build,
+  # OR run locally without rebuilding:  ./dev env-update  (reads .env.production)
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: gcloud
+    args:
+      - run
+      - services
+      - update
+      - jussilog-backend-production
+      - --region
+      - ${_REGION}
+      - --set-env-vars
+      - >-
+        APP_NAME=JussiLog,
+        APP_ENV=production,
+        APP_DEBUG=false,
+        APP_KEY=${_APP_KEY},
+        APP_URL=${_APP_URL},
+        FRONTEND_URL=${_FRONTEND_URL},
+        DB_CONNECTION=mysql,
+        DB_HOST=localhost,
+        DB_SOCKET=/cloudsql/${_PROJECT_ID}:${_REGION}:jussilog-db,
+        DB_PORT=3306,
+        DB_DATABASE=jussilog,
+        DB_USERNAME=root,
+        DB_PASSWORD=${_DB_PASSWORD},
+        CACHE_DRIVER=file,
+        SESSION_DRIVER=file,
+        QUEUE_CONNECTION=sync,
+        LOG_CHANNEL=stderr,
+        LOG_LEVEL=error,
+        FILESYSTEM_DISK=${_FILESYSTEM_DISK},
+        MAIL_ENABLED=${_MAIL_ENABLED},
+        MAIL_MAILER=smtp,
+        MAIL_HOST=${_MAIL_HOST},
+        MAIL_PORT=587,
+        MAIL_USERNAME=${_MAIL_USERNAME},
+        MAIL_PASSWORD=${_MAIL_PASSWORD},
+        MAIL_ENCRYPTION=tls,
+        MAIL_FROM_ADDRESS=${_MAIL_FROM_ADDRESS},
+        MAIL_FROM_NAME=JussiLog,
+        UPDATE_USER_ROLE_SECRET=${_UPDATE_USER_ROLE_SECRET}
+
 substitutions:
   _REGION: europe-north1
   _PROJECT_ID: client-jussimatic
   _IMAGE: europe-north1-docker.pkg.dev/${_PROJECT_ID}/jussilog-backend/jussilog-backend:latest
+  # Secrets — pass these via Cloud Build trigger substitutions or the --substitutions flag:
+  #   gcloud builds submit --substitutions=_APP_KEY="base64:...",_DB_PASSWORD="secret"
   _APP_KEY: ''
+  _DB_PASSWORD: ''
+  _APP_URL: ''
+  _FRONTEND_URL: ''
+  _FILESYSTEM_DISK: 'gcs'
+  _MAIL_ENABLED: 'true'
+  _MAIL_HOST: 'smtp-relay.brevo.com'
+  _MAIL_USERNAME: ''
+  _MAIL_PASSWORD: ''
+  _MAIL_FROM_ADDRESS: ''
+  _UPDATE_USER_ROLE_SECRET: ''
 
 timeout: 360s
 

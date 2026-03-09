@@ -35,8 +35,9 @@ RUN addgroup -g ${GID} laravel && \
 RUN apk add --no-cache \
     nginx \
     sqlite-dev \
+    mysql-client \
     shadow \
-    && docker-php-ext-install pdo_sqlite opcache
+    && docker-php-ext-install pdo_sqlite pdo_mysql opcache
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

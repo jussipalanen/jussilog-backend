@@ -8,8 +8,8 @@ Jussilog is a modern product catalog API built with Laravel 10, designed for eas
 
 - **Product Management**: Full CRUD operations for products
 - **RESTful API**: Clean, intuitive API endpoints
-- **SQLite Database**: Lightweight database for development and demo deployments
-- **Docker Support**: Production-ready Docker configuration
+- **MySQL Database**: Production-ready MySQL with Docker support (SQLite also available)
+- **Docker Support**: Production-ready Docker configuration with MySQL persistence
 - **Cloud Run Ready**: Optimized for Google Cloud Run deployment
 - **Laravel Sanctum**: API authentication support
 - **Vite Frontend Assets**: Modern frontend build pipeline
@@ -17,7 +17,7 @@ Jussilog is a modern product catalog API built with Laravel 10, designed for eas
 ## Tech Stack
 
 - **Backend**: Laravel 10 (PHP 8.1+)
-- **Database**: SQLite (configurable for MySQL/PostgreSQL)
+- **Database**: MySQL 8.0 (SQLite alternative for lightweight deployments)
 - **Web Server**: Nginx + PHP-FPM
 - **Frontend Build**: Vite
 - **Authentication**: Laravel Sanctum
@@ -577,21 +577,78 @@ The application uses SQLite by default for simplicity and easy deployment. The d
   - `images`: Additional images (JSON array)
   - `visibility`: Product status (published/draft)
 
-### Switching to MySQL/PostgreSQL
+### Database Configuration
+
+#### Using MySQL with Docker (Local Development)
+
+The default `docker-compose.yml` includes a MySQL 8.0 service with persistent storage. To use MySQL:
+
+1. **Copy and configure environment file:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   
+   The `.env.example` already includes MySQL defaults:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=mysql          # Docker service name
+   DB_PORT=3306
+   DB_DATABASE=jussilog
+   DB_USERNAME=jussilog
+   DB_PASSWORD=jussilog
+   MYSQL_ROOT_PASSWORD=rootpassword
+   ```
+
+2. **Start services:**
+   ```bash
+   ./dev up
+   ```
+   
+   The entrypoint script will:
+   - Wait for MySQL to be ready
+   - Create the database if needed
+   - Run migrations automatically
+
+3. **Access MySQL directly (optional):**
+   ```bash
+   # Via Docker container
+   docker-compose exec mysql mysql -u jussilog -pjussilog jussilog
+   
+   # From host machine (port 3306 is exposed)
+   mysql -h 127.0.0.1 -P 3306 -u jussilog -pjussilog jussilog
+   ```
+
+#### Using SQLite (Alternative)
+
+For lightweight development or demo deployments:
+
+1. **Update `.env`:**
+   ```env
+   DB_CONNECTION=sqlite
+   ```
+
+2. **Create database file:**
+   ```bash
+   touch database/database.sqlite
+   php artisan migrate
+   ```
+
+#### Production Database (Cloud SQL)
 
 For production deployments with Cloud SQL:
 
-1. Update `docker-compose.yml` or Cloud Run environment variables:
+1. Update Cloud Run environment variables:
    ```yaml
    DB_CONNECTION: mysql
-   DB_HOST: your-cloudsql-instance
+   DB_HOST: your-cloudsql-instance  # Or Unix socket path
    DB_PORT: 3306
    DB_DATABASE: jussilog
    DB_USERNAME: your-username
    DB_PASSWORD: your-password
    ```
 
-2. For Cloud SQL, use Unix socket connection in Cloud Run.
+2. For Cloud SQL, configure Unix socket connection in Cloud Run for better performance and security.
 
 ## Development
 
