@@ -71,6 +71,7 @@ elif [ "$DB_CONNECTION" = "mysql" ]; then
     fi
     
     echo "Waiting for MySQL at $CONNECTION_DESC..."
+    DB_READY=false
     
     # Try to connect to MySQL with retries
     MAX_RETRIES=30
@@ -80,12 +81,14 @@ elif [ "$DB_CONNECTION" = "mysql" ]; then
         # Try mysqladmin ping
         if mysqladmin ping $MYSQL_CONN_ARGS -u "$DB_USERNAME" -p"$DB_PASSWORD" --silent 2>/dev/null; then
             echo "MySQL is ready!"
+            DB_READY=true
             break
         fi
         
         # If mysqladmin fails, try with mysql client
         if mysql $MYSQL_CONN_ARGS -u "$DB_USERNAME" -p"$DB_PASSWORD" -e "SELECT 1" >/dev/null 2>&1; then
             echo "MySQL is ready!"
+            DB_READY=true
             break
         fi
         
@@ -94,17 +97,19 @@ elif [ "$DB_CONNECTION" = "mysql" ]; then
         sleep 2
     done
     
-    if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
-        echo "ERROR: Could not connect to MySQL after $MAX_RETRIES attempts"
+    if [ "$DB_READY" != "true" ]; then
+        echo "WARNING: Could not connect to MySQL after $MAX_RETRIES attempts"
         echo "Connection details: $CONNECTION_DESC"
         echo "Username: $DB_USERNAME"
-        exit 1
+        echo "Continuing startup so web server can come up; migrations will be skipped."
     fi
     
     # Create database if it doesn't exist
-    echo "Ensuring database $DB_DATABASE exists..."
-    mysql $MYSQL_CONN_ARGS -u "$DB_USERNAME" -p"$DB_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS \`$DB_DATABASE\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
-    echo "Database ready!"
+    if [ "$DB_READY" = "true" ]; then
+        echo "Ensuring database $DB_DATABASE exists..."
+        mysql $MYSQL_CONN_ARGS -u "$DB_USERNAME" -p"$DB_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS \`$DB_DATABASE\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
+        echo "Database ready!"
+    fi
 fi
 
 # Wait a moment for filesystem to be ready
@@ -112,7 +117,13 @@ sleep 1
 
 # Run database migrations as laravel user
 echo "Running database migrations..."
-su laravel -s /bin/sh -c "php artisan migrate --force --no-interaction"
+if [ "$DB_CONNECTION" = "mysql" ] && [ "$DB_READY" != "true" ]; then
+    echo "Skipping migrations because MySQL is not reachable at startup."
+else
+    if ! su laravel -s /bin/sh -c "php artisan migrate --force --no-interaction"; then
+        echo "WARNING: Migration step failed during startup; continuing to start web server."
+    fi
+fi
 
 # Create storage link if it doesn't exist
 if [ ! -L /var/www/html/public/storage ]; then
