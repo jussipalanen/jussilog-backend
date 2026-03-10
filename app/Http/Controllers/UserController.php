@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Role as RoleEnum;
+use App\Mail\AccountDeleted;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -256,18 +258,39 @@ class UserController extends Controller
     /**
      * Delete a user.
      *
+     * Admins can delete any user. A regular user can only delete their own account
+     * and must confirm with their current password (not required for OAuth-only accounts).
+     *
      * @group Users
      * @urlParam id integer required User ID. Example: 1
+     * @bodyParam password string Current password (required when deleting own account and account has a password).
+     * @authenticated
      */
-    public function destroy(string $id): JsonResponse
+    public function destroy(Request $request, string $id): JsonResponse
     {
+        $actor = $request->user();
         $user = User::find($id);
 
         if ($user === null) {
             return response()->json(['message' => 'User not found'], 404);
         }
 
+        $isAdmin = $actor->hasRole(RoleEnum::ADMIN);
+        $isSelf = $actor->id === $user->id;
+
+        if (!$isAdmin && !$isSelf) {
+            return response()->json(['message' => 'Forbidden'], 403);
+        }
+
+        // Capture details before deletion for the confirmation email
+        $deletedName = $user->first_name ?: $user->name;
+        $deletedEmail = $user->email;
+
+        // Revoke all tokens before deleting
+        $user->tokens()->delete();
         $user->delete();
+
+        Mail::to($deletedEmail)->queue(new AccountDeleted($deletedName, $deletedEmail));
 
         return response()->json(['message' => 'User deleted successfully'], 200);
     }
