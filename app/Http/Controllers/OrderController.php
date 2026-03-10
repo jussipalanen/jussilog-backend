@@ -197,7 +197,7 @@ class OrderController extends Controller
 
             Mail::to($order->customer_email)->send(new OrderConfirmation(
                 $order,
-                'Thanks for a order',
+                'Thank you for your order!',
             ));
 
             return response()->json($order->load(['user', 'items.product']), 201);

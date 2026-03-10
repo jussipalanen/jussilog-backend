@@ -5,6 +5,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UploadTestController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VisitorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -67,6 +68,7 @@ Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/auth/google', [AuthController::class, 'googleLogin']);
 Route::post('/lost-password', [AuthController::class, 'lostPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
@@ -107,6 +109,11 @@ Route::get('/users', [UserController::class, 'index']);
 Route::middleware('auth:sanctum')->post('/users', [UserController::class, 'store']);
 Route::get('/users/{id}', [UserController::class, 'show']);
 Route::middleware('auth:sanctum')->put('/users/{id}', [UserController::class, 'update']);
-Route::delete('/users/{id}', [UserController::class, 'destroy']);
+Route::middleware('auth:sanctum')->delete('/users/{id}', [UserController::class, 'destroy']);
 Route::patch('/users/update-role', [UserController::class, 'updateRole']);
+
+// Visitor routes
+Route::post('/visitors/track', [VisitorController::class, 'track']);
+Route::get('/visitors/today', [VisitorController::class, 'today']);
+Route::get('/visitors/total', [VisitorController::class, 'total']);
 
