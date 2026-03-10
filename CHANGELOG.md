@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [0.6.0] - 2026-03-10
+
+### Added
+- Google OAuth login endpoint (`POST /api/auth/google`) with `GoogleWelcome` mail on first sign-in.
+- Visitor tracking endpoints for frontend analytics:
+  - `POST /api/visitors/track` — records a visit by IP address (public).
+  - `GET /api/visitors/today` — returns unique visitor count for today (authenticated).
+  - `GET /api/visitors/total` — returns unique visitor count of all time (authenticated).
+- `visitors` database table and `Visitor` model; unique visitors counted per IP address.
+
+### Changed
+- All email templates (`order-confirmation`, `registration-welcome`, `account-deleted`, `google-welcome`) fully redesigned with a consistent indigo/violet gradient style, inline CSS for email client compatibility, and icon-enhanced sections.
+- App name in all mail templates now uses `config('app.name')` instead of a hardcoded string.
+- Order confirmation email subject corrected from `Thanks for a order` to `Thank you for your order!`.
+- Billing address displayed before shipping address in order confirmation email.
+
+### Removed
+- "Processing your order" status bar from the order confirmation email template.
+
+
 ## [0.4.0] - 2026-03-09
 
 ### Fixed
