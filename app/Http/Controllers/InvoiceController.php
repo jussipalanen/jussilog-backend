@@ -297,7 +297,8 @@ class InvoiceController extends Controller
             return response()->json(['message' => 'Invoice not found'], 404);
         }
 
-        $data = $request->validate([
+        $data = $request->validate(
+            [
             'status'              => 'sometimes|string|in:draft,issued,paid,cancelled',
             'customer_first_name' => 'sometimes|string|max:255',
             'customer_last_name'  => 'sometimes|string|max:255',
@@ -315,7 +316,8 @@ class InvoiceController extends Controller
             'items.*.unit_price'  => 'required_with:items|numeric',
             'items.*.tax_rate'    => 'sometimes|numeric|min:0|max:1',
             'items.*.total'       => 'required_with:items|numeric',
-        ]);
+            ]
+        );
 
         if (isset($data['status'])) {
             $newStatus = InvoiceStatus::from($data['status']);
