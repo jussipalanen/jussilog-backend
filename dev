@@ -32,6 +32,8 @@ Commands:
                      Optionally pass --dry-run to preview the command
   env-get            Fetch live env vars from Cloud Run as KEY=VALUE pairs
                      Pass --yaml or --json for alternative formats
+  migrate-cloud      Run pending migrations against Cloud SQL production DB
+                     Uses cloud-sql-proxy + a one-off Docker container
   help               Show this help
 
 Notes:
@@ -127,7 +129,7 @@ run_npm() {
 
 # ── Cloud SQL config ─────────────────────────────────────────────────────────
 CLOUD_SQL_INSTANCE="client-jussimatic:europe-north1:jussilog-db"
-CLOUD_SQL_PROXY_PORT="3307"
+CLOUD_SQL_PROXY_PORT="3308"
 CLOUD_SQL_DB="jussilog"
 CLOUD_SQL_SOCKET_DIR="/tmp/cloudsql-dev"
 # ─────────────────────────────────────────────────────────────────────────────
@@ -142,14 +144,12 @@ _start_cloud_proxy() {
     echo "Install: curl -o cloud-sql-proxy https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/v2.15.2/cloud-sql-proxy.linux.amd64 && chmod +x cloud-sql-proxy && sudo mv cloud-sql-proxy /usr/local/bin/" >&2
     exit 1
   fi
-  mkdir -p "$CLOUD_SQL_SOCKET_DIR"
-  SOCKET_PATH="$CLOUD_SQL_SOCKET_DIR/$CLOUD_SQL_INSTANCE"
   PROXY_LOG="/tmp/cloud-sql-proxy-dev.log"
-  echo "Starting Cloud SQL Proxy ($CLOUD_SQL_INSTANCE) on unix socket $SOCKET_PATH ..."
-  cloud-sql-proxy --unix-socket "$CLOUD_SQL_SOCKET_DIR" "$CLOUD_SQL_INSTANCE" >"$PROXY_LOG" 2>&1 &
+  echo "Starting Cloud SQL Proxy ($CLOUD_SQL_INSTANCE) on TCP port $CLOUD_SQL_PROXY_PORT ..."
+  cloud-sql-proxy "$CLOUD_SQL_INSTANCE" --port "$CLOUD_SQL_PROXY_PORT" >"$PROXY_LOG" 2>&1 &
   PROXY_PID=$!
   TRIES=0
-  while [ ! -S "$SOCKET_PATH" ]; do
+  while ! nc -z 127.0.0.1 "$CLOUD_SQL_PROXY_PORT" 2>/dev/null; do
     if ! kill -0 "$PROXY_PID" 2>/dev/null; then
       echo "ERROR: Cloud SQL Proxy exited unexpectedly." >&2
       if [ -f "$PROXY_LOG" ]; then
@@ -198,7 +198,7 @@ run_db_export() {
     _start_cloud_proxy
     echo "Exporting Cloud SQL '$DB_DATABASE' to $OUTFILE ..."
     mysqldump \
-      --socket="$SOCKET_PATH" \
+      -h 127.0.0.1 -P "$CLOUD_SQL_PROXY_PORT" \
       -u "$DB_USERNAME" \
       -p"$DB_PASSWORD" \
       --ssl-mode=DISABLED \
@@ -265,7 +265,7 @@ run_db_import() {
     _start_cloud_proxy
     echo "Importing '$INFILE' into Cloud SQL '$DB_DATABASE' ..."
     mysql \
-      --socket="$SOCKET_PATH" \
+      -h 127.0.0.1 -P "$CLOUD_SQL_PROXY_PORT" \
       -u "$DB_USERNAME" \
       -p"$DB_PASSWORD" \
       --ssl-mode=DISABLED \
@@ -305,6 +305,27 @@ run_env_get() {
     exit 1
   fi
   sh scripts/get-cloud-run-env.sh "$@"
+}
+
+run_migrate_cloud() {
+  DB_USERNAME="$(_read_env_var DB_USERNAME .env.production)"
+  DB_PASSWORD="$(_read_env_var DB_PASSWORD .env.production)"
+  DB_DATABASE="$(_read_env_var DB_DATABASE .env.production)"
+  DB_USERNAME="${DB_USERNAME:-root}"
+  DB_DATABASE="${DB_DATABASE:-$CLOUD_SQL_DB}"
+  trap '_stop_cloud_proxy' EXIT INT TERM
+  _start_cloud_proxy
+  echo "Running migrations against Cloud SQL '$DB_DATABASE' ..."
+  DB_CONNECTION=mysql \
+  DB_HOST=127.0.0.1 \
+  DB_SOCKET= \
+  DB_PORT="$CLOUD_SQL_PROXY_PORT" \
+  DB_DATABASE="$DB_DATABASE" \
+  DB_USERNAME="$DB_USERNAME" \
+  DB_PASSWORD="$DB_PASSWORD" \
+    php artisan migrate --force --no-interaction
+  _stop_cloud_proxy
+  trap - EXIT INT TERM
 }
 
 run_init() {
@@ -374,6 +395,10 @@ case "$1" in
   env-get)
     shift
     run_env_get "$@"
+    ;;
+  migrate-cloud)
+    shift
+    run_migrate_cloud
     ;;
   init)
     shift
