@@ -67,6 +67,7 @@ Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/auth/google', [AuthController::class, 'googleLogin']);
 Route::post('/lost-password', [AuthController::class, 'lostPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);

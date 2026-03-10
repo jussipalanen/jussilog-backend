@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
@@ -100,6 +101,101 @@ class AuthController extends Controller
     }
 
     /**
+     * Login or register using Google ID token.
+     *
+     * @group Auth
+     * @bodyParam id_token string required Google ID token from frontend Google Sign-In flow.
+     */
+    public function googleLogin(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'id_token' => 'required|string',
+        ]);
+
+        $googleProfile = $this->verifyGoogleIdToken($data['id_token']);
+        if (!$googleProfile) {
+            return response()->json(['message' => 'Invalid Google token'], 401);
+        }
+
+        if (!($googleProfile['email_verified'] ?? false)) {
+            return response()->json(['message' => 'Google email is not verified'], 422);
+        }
+
+        $email = $googleProfile['email'] ?? null;
+        if (!$email) {
+            return response()->json(['message' => 'Google account email is required'], 422);
+        }
+
+        $googleId = $googleProfile['sub'];
+
+        $user = User::where('google_id', $googleId)->first();
+
+        if (!$user) {
+            $user = User::where('email', $email)->first();
+        }
+
+        $isNewUser = false;
+        if (!$user) {
+            $isNewUser = true;
+            $name = trim((string) ($googleProfile['name'] ?? ''));
+            $username = $this->generateUniqueUsername($email, $name);
+
+            $user = User::create([
+                'first_name' => (string) ($googleProfile['given_name'] ?? $name ?: 'Google'),
+                'last_name' => (string) ($googleProfile['family_name'] ?? ''),
+                'name' => $name ?: $username,
+                'username' => $username,
+                'email' => $email,
+                'google_id' => $googleId,
+                'avatar' => (string) ($googleProfile['picture'] ?? ''),
+                // Keep password flow intact by storing a random hash for OAuth-created accounts.
+                'password' => Str::random(40),
+                'email_verified_at' => now(),
+            ]);
+        } else {
+            $updates = [];
+
+            if (!$user->google_id) {
+                $updates['google_id'] = $googleId;
+            }
+
+            if (empty($user->avatar) && !empty($googleProfile['picture'])) {
+                $updates['avatar'] = (string) $googleProfile['picture'];
+            }
+
+            if (!$user->email_verified_at) {
+                $updates['email_verified_at'] = now();
+            }
+
+            if (!empty($updates)) {
+                $user->fill($updates);
+                $user->save();
+            }
+        }
+
+        if ($isNewUser) {
+            $user->assignRole(RoleEnum::CUSTOMER);
+        }
+
+        $user->load('roles');
+        $token = $user->createToken('api')->plainTextToken;
+
+        return response()->json([
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'username' => $user->username,
+                'name' => $user->name,
+                'email' => $user->email,
+                'avatar' => $user->avatar,
+                'roles' => $user->roles->pluck('name'),
+            ],
+        ]);
+    }
+
+    /**
      * Logout the authenticated user.
      *
      * @group Auth
@@ -181,5 +277,67 @@ class AuthController extends Controller
         }
 
         return response()->json(['message' => __($status)], 422);
+    }
+
+    /**
+     * Verify Google ID token against Google's tokeninfo endpoint.
+     *
+     * @return array<string, mixed>|null
+     */
+    protected function verifyGoogleIdToken(string $idToken): ?array
+    {
+        $response = Http::asForm()->post('https://oauth2.googleapis.com/tokeninfo', [
+            'id_token' => $idToken,
+        ]);
+
+        if (!$response->ok()) {
+            return null;
+        }
+
+        $payload = $response->json();
+        if (!is_array($payload)) {
+            return null;
+        }
+
+        $clientId = (string) config('services.google.client_id');
+        if (!$clientId) {
+            return null;
+        }
+
+        if (($payload['aud'] ?? null) !== $clientId) {
+            return null;
+        }
+
+        if (empty($payload['sub'])) {
+            return null;
+        }
+
+        return $payload;
+    }
+
+    protected function generateUniqueUsername(string $email, string $name = ''): string
+    {
+        $base = Str::of($email)->before('@')->slug('')->value();
+
+        if ($base === '') {
+            $base = Str::of($name)->slug('')->value();
+        }
+
+        if ($base === '') {
+            $base = 'user';
+        }
+
+        $base = Str::lower(substr($base, 0, 20));
+        $candidate = $base;
+        $counter = 0;
+
+        while (User::where('username', $candidate)->exists()) {
+            $counter++;
+            $suffix = (string) $counter;
+            $trimmedBase = substr($base, 0, max(1, 20 - strlen($suffix)));
+            $candidate = $trimmedBase . $suffix;
+        }
+
+        return $candidate;
     }
 }
