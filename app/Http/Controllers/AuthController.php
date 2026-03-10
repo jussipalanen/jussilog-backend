@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Role as RoleEnum;
+use App\Mail\GoogleWelcome;
 use App\Mail\RegistrationWelcome;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
@@ -175,6 +176,7 @@ class AuthController extends Controller
 
         if ($isNewUser) {
             $user->assignRole(RoleEnum::CUSTOMER);
+            Mail::to($user->email)->queue(new GoogleWelcome($user));
         }
 
         $user->load('roles');
