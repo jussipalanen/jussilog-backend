@@ -24,6 +24,7 @@ steps:
       - ${_REGION}
       - --platform
       - managed
+      - --execution-environment=gen2
       - --allow-unauthenticated
       - --set-cloudsql-instances=${_PROJECT_ID}:${_REGION}:jussilog-db
       - --min-instances=1
