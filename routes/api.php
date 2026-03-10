@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UploadTestController;
@@ -23,37 +24,16 @@ use Illuminate\Support\Facades\Route;
 /**
  * Get the authenticated user.
  *
- * @group Auth
+ * @group         Auth
  * @authenticated
  */
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    $user = $request->user();
-    $user->load('roles');
+Route::middleware('auth:sanctum')->get(
+    '/user', function (Request $request) {
+        $user = $request->user();
+        $user->load('roles');
 
-    return response()->json([
-        'id' => $user->id,
-        'first_name' => $user->first_name,
-        'last_name' => $user->last_name,
-        'username' => $user->username,
-        'name' => $user->name,
-        'email' => $user->email,
-        'roles' => $user->roles->pluck('name'),
-    ]);
-});
-
-/**
- * Get the authenticated user with metadata.
- *
- * @group Auth
- * @authenticated
- */
-Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
-    $user = $request->user();
-    $user->load('roles');
-
-    return response()->json([
-        'user_id' => $user?->id,
-        'user' => [
+        return response()->json(
+            [
             'id' => $user->id,
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
@@ -61,9 +41,38 @@ Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
             'name' => $user->name,
             'email' => $user->email,
             'roles' => $user->roles->pluck('name'),
-        ],
-    ]);
-});
+            ]
+        );
+    }
+);
+
+/**
+ * Get the authenticated user with metadata.
+ *
+ * @group         Auth
+ * @authenticated
+ */
+Route::middleware('auth:sanctum')->get(
+    '/me', function (Request $request) {
+        $user = $request->user();
+        $user->load('roles');
+
+        return response()->json(
+            [
+            'user_id' => $user?->id,
+            'user' => [
+            'id' => $user->id,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'username' => $user->username,
+            'name' => $user->name,
+            'email' => $user->email,
+            'roles' => $user->roles->pluck('name'),
+            ],
+            ]
+        );
+    }
+);
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -80,9 +89,11 @@ Route::middleware('auth:sanctum')->get('/check-auth', [AuthController::class, 'c
  *
  * @group Health
  */
-Route::get('/hello', function () {
-    return 'Hello world from Laravel! This is a test route to check if the API is working.';
-});
+Route::get(
+    '/hello', function () {
+        return 'Hello world from Laravel! This is a test route to check if the API is working.';
+    }
+);
 
 // Upload test route
 Route::post('/upload-test', [UploadTestController::class, 'upload']);
@@ -101,6 +112,20 @@ Route::get('/orders/{id}', [OrderController::class, 'show']);
 Route::put('/orders/{id}', [OrderController::class, 'update']);
 Route::delete('/orders/{id}', [OrderController::class, 'destroy']);
 Route::middleware('auth:sanctum')->get('/my-orders', [OrderController::class, 'myOrders']);
+
+// Invoice routes
+// - Admin & Vendor: full access
+// - Customer: read-only, own invoices only (scoped in controller)
+Route::middleware('auth:sanctum')->group(
+    function () {
+        Route::get('/invoices', [InvoiceController::class, 'index']);
+        Route::get('/invoices/{id}', [InvoiceController::class, 'show']);
+        Route::get('/invoices/{id}/pdf', [InvoiceController::class, 'pdf']);
+        Route::post('/invoices', [InvoiceController::class, 'store'])->middleware('role:admin,vendor');
+        Route::put('/invoices/{id}', [InvoiceController::class, 'update'])->middleware('role:admin,vendor');
+        Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy'])->middleware('role:admin,vendor');
+    }
+);
 
 
 // User routes
