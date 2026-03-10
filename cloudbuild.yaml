@@ -26,11 +26,11 @@ steps:
       - managed
       - --allow-unauthenticated
       - --set-cloudsql-instances=${_PROJECT_ID}:${_REGION}:jussilog-db
-      - --min-instances=0
-      - --max-instances=1
+      - --min-instances=1
+      - --max-instances=5
       - --memory=512Mi
       - --cpu=1
-      - --concurrency=80
+      - --concurrency=8
       - --timeout=60
 
   # Step 3: Apply all environment variables from substitutions.
