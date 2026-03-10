@@ -72,6 +72,9 @@ RUN rm -f bootstrap/cache/packages.php bootstrap/cache/services.php
 RUN composer dump-autoload --optimize --classmap-authoritative && \
     php artisan package:discover --ansi
 
+# Publish Scribe CSS/JS assets so they are baked into the image
+RUN php artisan vendor:publish --provider="Knuckles\Scribe\ScribeServiceProvider" --tag=scribe-assets --force
+
 # Set permissions for Laravel
 RUN chown -R laravel:laravel /var/www/html && \
     chmod -R 755 /var/www/html && \
