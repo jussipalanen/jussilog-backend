@@ -3,6 +3,8 @@ set -e
 
 echo "Starting JussiLog Backend..."
 
+APP_ENV="${APP_ENV:-production}"
+
 # Get port from environment (Cloud Run sets this, default to 8080)
 PORT="${PORT:-8080}"
 echo "Using port: $PORT"
@@ -16,12 +18,42 @@ mkdir -p /var/www/html/storage/framework/cache \
          /var/www/html/storage/framework/sessions \
          /var/www/html/storage/framework/views \
          /var/www/html/storage/logs \
-         /var/www/html/bootstrap/cache
+         /var/www/html/bootstrap/cache \
+         /var/www/html/database
 
-# Fix ownership and permissions for bind-mounted directories
-# This ensures the laravel user can write to these directories
-chown -R laravel:laravel /var/www/html/storage /var/www/html/bootstrap/cache 2>/dev/null || true
-chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache 2>/dev/null || true
+FIX_PERMISSIONS_AT_STARTUP="${FIX_PERMISSIONS_AT_STARTUP:-}"
+if [ -z "$FIX_PERMISSIONS_AT_STARTUP" ]; then
+    if [ "$APP_ENV" = "local" ]; then
+        FIX_PERMISSIONS_AT_STARTUP=true
+    else
+        FIX_PERMISSIONS_AT_STARTUP=false
+    fi
+fi
+
+RUN_MIGRATIONS_AT_STARTUP="${RUN_MIGRATIONS_AT_STARTUP:-}"
+if [ -z "$RUN_MIGRATIONS_AT_STARTUP" ]; then
+    if [ "$APP_ENV" = "local" ]; then
+        RUN_MIGRATIONS_AT_STARTUP=true
+    else
+        RUN_MIGRATIONS_AT_STARTUP=false
+    fi
+fi
+
+WARM_LARAVEL_CACHE_AT_STARTUP="${WARM_LARAVEL_CACHE_AT_STARTUP:-false}"
+CLEAR_LARAVEL_CACHE_AT_STARTUP="${CLEAR_LARAVEL_CACHE_AT_STARTUP:-}"
+if [ -z "$CLEAR_LARAVEL_CACHE_AT_STARTUP" ]; then
+    if [ "$APP_ENV" = "local" ]; then
+        CLEAR_LARAVEL_CACHE_AT_STARTUP=true
+    else
+        CLEAR_LARAVEL_CACHE_AT_STARTUP=false
+    fi
+fi
+
+if [ "$FIX_PERMISSIONS_AT_STARTUP" = "true" ]; then
+    echo "Fixing writable directory permissions..."
+    chown -R laravel:laravel /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database 2>/dev/null || true
+    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database 2>/dev/null || true
+fi
 
 # Get database connection type
 DB_CONNECTION="${DB_CONNECTION:-mysql}"
@@ -46,8 +78,8 @@ if [ "$DB_CONNECTION" = "sqlite" ]; then
     chown laravel:laravel /var/www/html/database /var/www/html/database/database.sqlite 2>/dev/null || true
     chmod -R 775 /var/www/html/database 2>/dev/null || true
 
-elif [ "$DB_CONNECTION" = "mysql" ]; then
-    echo "Setting up MySQL database..."
+elif [ "$DB_CONNECTION" = "mysql" ] && [ "$RUN_MIGRATIONS_AT_STARTUP" = "true" ]; then
+    echo "Preparing MySQL for startup migrations..."
     
     # Wait for MySQL to be ready
     DB_HOST="${DB_HOST:-127.0.0.1}"
@@ -112,35 +144,34 @@ elif [ "$DB_CONNECTION" = "mysql" ]; then
     fi
 fi
 
-# Wait a moment for filesystem to be ready
-sleep 1
-
-# Run database migrations as laravel user
-echo "Running database migrations..."
-if [ "$DB_CONNECTION" = "mysql" ] && [ "$DB_READY" != "true" ]; then
-    echo "Skipping migrations because MySQL is not reachable at startup."
-else
-    if ! su laravel -s /bin/sh -c "php artisan migrate --force --no-interaction"; then
-        echo "WARNING: Migration step failed during startup; continuing to start web server."
+if [ "$RUN_MIGRATIONS_AT_STARTUP" = "true" ]; then
+    echo "Running database migrations..."
+    if [ "$DB_CONNECTION" = "mysql" ] && [ "$DB_READY" != "true" ]; then
+        echo "Skipping migrations because MySQL is not reachable at startup."
+    else
+        if ! su-exec laravel php artisan migrate --force --no-interaction; then
+            echo "WARNING: Migration step failed during startup; continuing to start web server."
+        fi
     fi
+else
+    echo "Skipping database migrations at startup."
 fi
 
 # Create storage link if it doesn't exist
 if [ ! -L /var/www/html/public/storage ]; then
     echo "Creating storage link..."
-    su laravel -s /bin/sh -c "php artisan storage:link" || true
+    su-exec laravel php artisan storage:link || true
 fi
 
-# Production optimizations (skip in local development)
-if [ "$APP_ENV" != "local" ]; then
-    echo "Running production optimizations..."
-    su laravel -s /bin/sh -c "php artisan config:cache"
-    su laravel -s /bin/sh -c "php artisan route:cache"
-    su laravel -s /bin/sh -c "php artisan view:cache"
-else
-    echo "Local development mode - skipping cache optimizations"
-    # Ensure route/config/view caches never mask live code changes in local dev.
-    su laravel -s /bin/sh -c "php artisan optimize:clear" || true
+if [ "$CLEAR_LARAVEL_CACHE_AT_STARTUP" = "true" ]; then
+    echo "Clearing Laravel caches..."
+    su-exec laravel php artisan optimize:clear || true
+fi
+
+if [ "$WARM_LARAVEL_CACHE_AT_STARTUP" = "true" ]; then
+    echo "Warming Laravel caches..."
+    su-exec laravel php artisan config:cache || true
+    su-exec laravel php artisan view:cache || true
 fi
 
 echo "Starting PHP-FPM..."

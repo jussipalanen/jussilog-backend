@@ -553,14 +553,16 @@ gcloud run jobs update user-create-job \
 - **Environment Variables**: Set `APP_KEY`, `APP_ENV=production`, and `APP_DEBUG=false` via Cloud Run console or CLI.
 - **Logging**: Application logs are sent to stdout/stderr and available in Cloud Logging.
 - **Port**: Cloud Run automatically injects the `PORT` environment variable; the entrypoint script handles this.
+- **Startup Work**: The production container now skips migrations and Laravel cache warming at startup by default to reduce cold-start time and instance CPU usage.
+- **Optional Startup Flags**: Set `RUN_MIGRATIONS_AT_STARTUP=true`, `WARM_LARAVEL_CACHE_AT_STARTUP=true`, or `FIX_PERMISSIONS_AT_STARTUP=true` only when you explicitly need that behavior.
 
 ## Docker Files Overview
 
-- **`Dockerfile`**: Multi-stage build with Node.js for frontend assets and PHP-FPM + Nginx
+- **`Dockerfile`**: Production-focused multi-stage build for the Laravel API with Composer, PHP-FPM, Nginx, and OPCache
 - **`docker-compose.yml`**: Local development environment with volume persistence
 - **`.dockerignore`**: Optimizes build context by excluding unnecessary files
 - **`docker/nginx.conf`**: Laravel-optimized Nginx configuration
-- **`docker/entrypoint.sh`**: Container startup script that handles migrations, caching, and dynamic port configuration
+- **`docker/entrypoint.sh`**: Container startup script that handles dynamic port configuration and optional startup tasks
 
 ## Database
 

@@ -42,6 +42,13 @@ coverage
 README.md
 LICENSE
 *.md
+CHANGELOG.md
+
+# Local-only assets and data
+/data
+/scripts
+/dev
+/docker-compose.sqlite.yml
 
 # CI/CD
 .gitlab-ci.yml
