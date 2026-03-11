@@ -1,5 +1,5 @@
 steps:
-  # Step 1: Build and push the Docker image
+  # Step 1: Build and push the Docker image.
   - name: gcr.io/kaniko-project/executor:latest
     args:
       - --destination=${_IMAGE}
@@ -11,92 +11,168 @@ steps:
       - --context=dir:///workspace
       - --dockerfile=Dockerfile
 
-  # Step 2: Deploy image to Cloud Run
+  # Step 2: Create or update the database-migration Cloud Run Job.
+  # Migrations run BEFORE the service is updated so new code never serves requests
+  # against a stale schema.
+  # IAM requirement: the Cloud Build service account needs roles/run.developer.
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
-    entrypoint: gcloud
+    entrypoint: bash
+    secretEnv: ['APP_KEY', 'DB_PASSWORD']
     args:
-      - run
-      - deploy
-      - jussilog-backend-production
-      - --image
-      - ${_IMAGE}
-      - --region
-      - ${_REGION}
-      - --platform
-      - managed
-      - --execution-environment=gen2
-      - --allow-unauthenticated
-      - --set-cloudsql-instances=${_PROJECT_ID}:${_REGION}:jussilog-db
-      - --min-instances=1
-      - --max-instances=5
-      - --memory=512Mi
-      - --cpu=1
-      - --concurrency=8
-      - --timeout=60
+      - -c
+      - |
+        gcloud run jobs deploy jussilog-migrate \
+          --image ${_IMAGE} \
+          --region ${_REGION} \
+          --set-cloudsql-instances=${_PROJECT_ID}:${_REGION}:jussilog-db \
+          --command=php \
+          --args=artisan,migrate,--force,--no-interaction \
+          --set-env-vars "APP_ENV=production,APP_KEY=$$APP_KEY,APP_DEBUG=false,DB_CONNECTION=mysql,DB_HOST=localhost,DB_SOCKET=/cloudsql/${_PROJECT_ID}:${_REGION}:jussilog-db,DB_PORT=3306,DB_DATABASE=jussilog,DB_USERNAME=${_DB_USERNAME},DB_PASSWORD=$$DB_PASSWORD,LOG_CHANNEL=stderr,LOG_LEVEL=error" \
+          --memory=512Mi \
+          --cpu=1 \
+          --max-retries=0 \
+          --task-timeout=120
 
-  # Step 3: Apply all environment variables from substitutions.
-  # To add/update env vars: edit the --set-env-vars value below and re-run the build,
-  # OR run locally without rebuilding:  ./dev env-update  (reads .env.production)
+  # Step 3: Execute the migration job and wait. A non-zero exit fails the whole
+  # build — the service will NOT be updated with a broken schema.
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: gcloud
     args:
       - run
-      - services
-      - update
-      - jussilog-backend-production
+      - jobs
+      - execute
+      - jussilog-migrate
       - --region
       - ${_REGION}
-      - --set-env-vars
-      - >-
-        APP_NAME=JussiLog,
-        APP_ENV=production,
-        APP_DEBUG=false,
-        APP_KEY=${_APP_KEY},
-        APP_URL=${_APP_URL},
-        FRONTEND_URL=${_FRONTEND_URL},
-        DB_CONNECTION=mysql,
-        DB_HOST=localhost,
-        DB_SOCKET=/cloudsql/${_PROJECT_ID}:${_REGION}:jussilog-db,
-        DB_PORT=3306,
-        DB_DATABASE=jussilog,
-        DB_USERNAME=root,
-        DB_PASSWORD=${_DB_PASSWORD},
-        CACHE_DRIVER=file,
-        SESSION_DRIVER=file,
-        QUEUE_CONNECTION=sync,
-        LOG_CHANNEL=stderr,
-        LOG_LEVEL=error,
-        FILESYSTEM_DISK=${_FILESYSTEM_DISK},
-        MAIL_ENABLED=${_MAIL_ENABLED},
-        MAIL_MAILER=smtp,
-        MAIL_HOST=${_MAIL_HOST},
-        MAIL_PORT=587,
-        MAIL_USERNAME=${_MAIL_USERNAME},
-        MAIL_PASSWORD=${_MAIL_PASSWORD},
-        MAIL_ENCRYPTION=tls,
-        MAIL_FROM_ADDRESS=${_MAIL_FROM_ADDRESS},
-        MAIL_FROM_NAME=JussiLog,
-        UPDATE_USER_ROLE_SECRET=${_UPDATE_USER_ROLE_SECRET}
+      - --wait
+
+  # Step 4: Deploy the new image to Cloud Run with all environment variables.
+  # Secrets come from Secret Manager via secretEnv. Running deploy + env-vars in
+  # one step creates a single revision and avoids any window of new code with
+  # stale config. Gets live traffic only after migrations have succeeded above.
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    secretEnv:
+      - APP_KEY
+      - DB_PASSWORD
+      - APP_URL
+      - FRONTEND_URL
+      - MAIL_USERNAME
+      - MAIL_PASSWORD
+      - MAIL_FROM_ADDRESS
+      - UPDATE_USER_ROLE_SECRET
+      - GCS_ACCESS_KEY_ID
+      - GCS_SECRET_ACCESS_KEY
+      - ROLE_UPDATE_KEY
+    args:
+      - -c
+      - |
+        gcloud run deploy jussilog-backend-production \
+          --image ${_IMAGE} \
+          --region ${_REGION} \
+          --platform managed \
+          --execution-environment=gen2 \
+          --allow-unauthenticated \
+          --set-cloudsql-instances=${_PROJECT_ID}:${_REGION}:jussilog-db \
+          --min-instances=0 \
+          --max-instances=3 \
+          --memory=512Mi \
+          --cpu=1 \
+          --concurrency=8 \
+          --timeout=60 \
+          --cpu-boost \
+          --set-env-vars "\
+            APP_NAME=JussiLog,\
+            APP_ENV=production,\
+            APP_DEBUG=false,\
+            APP_KEY=$$APP_KEY,\
+            APP_URL=$$APP_URL,\
+            FRONTEND_URL=$$FRONTEND_URL,\
+            DB_CONNECTION=mysql,\
+            DB_HOST=localhost,\
+            DB_SOCKET=/cloudsql/${_PROJECT_ID}:${_REGION}:jussilog-db,\
+            DB_PORT=3306,\
+            DB_DATABASE=jussilog,\
+            DB_USERNAME=${_DB_USERNAME},\
+            DB_PASSWORD=$$DB_PASSWORD,\
+            CACHE_DRIVER=file,\
+            SESSION_DRIVER=file,\
+            QUEUE_CONNECTION=sync,\
+            LOG_CHANNEL=stderr,\
+            LOG_LEVEL=error,\
+            FILESYSTEM_DISK=${_FILESYSTEM_DISK},\
+            MAIL_ENABLED=${_MAIL_ENABLED},\
+            MAIL_MAILER=smtp,\
+            MAIL_HOST=${_MAIL_HOST},\
+            MAIL_PORT=587,\
+            MAIL_USERNAME=$$MAIL_USERNAME,\
+            MAIL_PASSWORD=$$MAIL_PASSWORD,\
+            MAIL_ENCRYPTION=tls,\
+            MAIL_FROM_ADDRESS=$$MAIL_FROM_ADDRESS,\
+            MAIL_FROM_NAME=JussiLog,\
+            UPDATE_USER_ROLE_SECRET=$$UPDATE_USER_ROLE_SECRET,\
+            GCS_ACCESS_KEY_ID=$$GCS_ACCESS_KEY_ID,\
+            GCS_SECRET_ACCESS_KEY=$$GCS_SECRET_ACCESS_KEY,\
+            GCS_DEFAULT_REGION=${_GCS_DEFAULT_REGION},\
+            GCS_BUCKET=${_GCS_BUCKET},\
+            GCS_ENDPOINT=${_GCS_ENDPOINT},\
+            GCS_USE_PATH_STYLE_ENDPOINT=${_GCS_USE_PATH_STYLE_ENDPOINT},\
+            AWS_DEFAULT_REGION=${_AWS_DEFAULT_REGION},\
+            AWS_USE_PATH_STYLE_ENDPOINT=${_AWS_USE_PATH_STYLE_ENDPOINT},\
+            GOOGLE_CLIENT_ID=${_GOOGLE_CLIENT_ID},\
+            SCRIBE_BASE_URL=${_SCRIBE_BASE_URL},\
+            ROLE_UPDATE_KEY=$$ROLE_UPDATE_KEY"
 
 substitutions:
   _REGION: europe-north1
   _PROJECT_ID: client-jussimatic
   _IMAGE: europe-north1-docker.pkg.dev/${_PROJECT_ID}/jussilog-backend/jussilog-backend:latest
-  # Secrets — pass these via Cloud Build trigger substitutions or the --substitutions flag:
-  #   gcloud builds submit --substitutions=_APP_KEY="base64:...",_DB_PASSWORD="secret"
-  _APP_KEY: ''
-  _DB_PASSWORD: ''
-  _APP_URL: ''
-  _FRONTEND_URL: ''
+  # Non-secret config — safe to keep as substitutions.
+  # Secrets are stored in Secret Manager (see availableSecrets below).
+  _DB_USERNAME: 'jussilog'
   _FILESYSTEM_DISK: 'gcs'
   _MAIL_ENABLED: 'true'
   _MAIL_HOST: 'smtp-relay.brevo.com'
-  _MAIL_USERNAME: ''
-  _MAIL_PASSWORD: ''
-  _MAIL_FROM_ADDRESS: ''
-  _UPDATE_USER_ROLE_SECRET: ''
+  _GCS_DEFAULT_REGION: 'us'
+  _GCS_BUCKET: 'jussilog-backend-uploads'
+  _GCS_ENDPOINT: 'https://storage.googleapis.com'
+  _GCS_USE_PATH_STYLE_ENDPOINT: 'false'
+  _AWS_DEFAULT_REGION: 'us-east-1'
+  _AWS_USE_PATH_STYLE_ENDPOINT: 'false'
+  _GOOGLE_CLIENT_ID: '61766311353-46natffq6p5f6kpbp97caocos6p6gg1e.apps.googleusercontent.com'
+  _SCRIBE_BASE_URL: 'https://backend-laravel.dev.jussialanen.com'
 
-timeout: 360s
+# Secrets are pulled from Secret Manager at build time.
+# To create a secret:   echo -n "value" | gcloud secrets create <name> --data-file=- --project=client-jussimatic
+# To update a secret:   echo -n "value" | gcloud secrets versions add <name> --data-file=- --project=client-jussimatic
+# IAM requirement: Cloud Build SA needs roles/secretmanager.secretAccessor
+availableSecrets:
+  secretManager:
+    - versionName: projects/${_PROJECT_ID}/secrets/app-key/versions/latest
+      env: APP_KEY
+    - versionName: projects/${_PROJECT_ID}/secrets/db-password/versions/latest
+      env: DB_PASSWORD
+    - versionName: projects/${_PROJECT_ID}/secrets/app-url/versions/latest
+      env: APP_URL
+    - versionName: projects/${_PROJECT_ID}/secrets/frontend-url/versions/latest
+      env: FRONTEND_URL
+    - versionName: projects/${_PROJECT_ID}/secrets/mail-username/versions/latest
+      env: MAIL_USERNAME
+    - versionName: projects/${_PROJECT_ID}/secrets/mail-password/versions/latest
+      env: MAIL_PASSWORD
+    - versionName: projects/${_PROJECT_ID}/secrets/mail-from-address/versions/latest
+      env: MAIL_FROM_ADDRESS
+    - versionName: projects/${_PROJECT_ID}/secrets/update-user-role-secret/versions/latest
+      env: UPDATE_USER_ROLE_SECRET
+    - versionName: projects/${_PROJECT_ID}/secrets/gcs-access-key-id/versions/latest
+      env: GCS_ACCESS_KEY_ID
+    - versionName: projects/${_PROJECT_ID}/secrets/gcs-secret-access-key/versions/latest
+      env: GCS_SECRET_ACCESS_KEY
+    - versionName: projects/${_PROJECT_ID}/secrets/role-update-key/versions/latest
+      env: ROLE_UPDATE_KEY
+
+# Extra time for migration job execution on top of Kaniko + deploy step.
+timeout: 600s
 
 options:
   substitutionOption: ALLOW_LOOSE
