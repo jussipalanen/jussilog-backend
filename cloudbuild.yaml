@@ -79,30 +79,6 @@ steps:
         UPDATE_USER_ROLE_SECRET=${_UPDATE_USER_ROLE_SECRET},
         ROLE_UPDATE_KEY=${_ROLE_UPDATE_KEY}
 
-  # Step 3: Create (or update) Cloud Scheduler warmup job
-  # Pings /_ah/warmup every 5 minutes to keep the instance hot and pre-warm OPcache
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
-    entrypoint: bash
-    args:
-      - -c
-      - |
-        if gcloud scheduler jobs describe jussilog-backend-warmup \
-            --location=${_REGION} >/dev/null 2>&1; then
-          gcloud scheduler jobs update http jussilog-backend-warmup \
-            --schedule='*/5 * * * *' \
-            --uri=${_APP_URL}/_ah/warmup \
-            --http-method=GET \
-            --location=${_REGION} \
-            --attempt-deadline=30s
-        else
-          gcloud scheduler jobs create http jussilog-backend-warmup \
-            --schedule='*/5 * * * *' \
-            --uri=${_APP_URL}/_ah/warmup \
-            --http-method=GET \
-            --location=${_REGION} \
-            --attempt-deadline=30s
-        fi
-
 substitutions:
   _REGION: europe-north1
   _PROJECT_ID: client-jussimatic
