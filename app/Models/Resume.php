@@ -22,8 +22,13 @@ class Resume extends Model
         'portfolio_url',
         'github_url',
         'photo',
+        'photo_sizes',
         'summary',
         'language',
+    ];
+
+    protected $casts = [
+        'photo_sizes' => 'array',
     ];
 
     public function user(): BelongsTo

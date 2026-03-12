@@ -18,7 +18,12 @@ RUN apk add --no-cache \
     sqlite-dev \
     mysql-client \
     shadow \
-    && docker-php-ext-install pdo_sqlite pdo_mysql opcache
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install pdo_sqlite pdo_mysql opcache gd
 
 # OPcache tuned for production (validate_timestamps=0 — files never change in the image)
 # memory_consumption=64 is plenty for a small Laravel API; leaves more room for PHP workers
