@@ -1,17 +1,24 @@
 # Jussilog - Laravel backend
 
-**The Product Catalog powered by the Laravel Framework**
+**Full-stack API backend powered by the Laravel Framework**
 
-Jussilog is a modern product catalog API built with Laravel 10, designed for easy deployment on Google Cloud Run with Docker support. It provides a RESTful API for managing products with features like inventory tracking, pricing, images, and visibility controls.
+Jussilog is a modern multi-feature API built with Laravel 10, designed for easy deployment on Google Cloud Run with Docker support. It provides a RESTful API covering product catalog management, order handling, resume building with PDF/HTML export, visitor tracking, and full user authentication.
 
 ## Features
 
-- **Product Management**: Full CRUD operations for products
+- **Product Management**: Full CRUD operations for products with inventory tracking, pricing, images, and visibility controls
+- **Order Management**: Full CRUD for orders and order items, with authenticated user order history
+- **Resume Builder**: Full CRUD for resumes with section management (work experience, education, skills, projects, certifications, languages, awards, recommendations)
+- **Resume Export**: Export resumes as PDF or HTML, with Finnish/English language support
+- **User Authentication**: Register, login, logout, and session check via Laravel Sanctum
+- **Google OAuth**: Sign in with Google via token-based authentication
+- **Password Reset**: Lost password and reset password flows with email notification
+- **User Management**: CRUD for users with role assignment (admin, vendor, customer)
+- **Visitor Tracking**: Track and query daily and total visitor counts
 - **RESTful API**: Clean, intuitive API endpoints
 - **MySQL Database**: Production-ready MySQL with Docker support (SQLite also available)
 - **Docker Support**: Production-ready Docker configuration with MySQL persistence
 - **Cloud Run Ready**: Optimized for Google Cloud Run deployment
-- **Laravel Sanctum**: API authentication support
 - **Vite Frontend Assets**: Modern frontend build pipeline
 
 ## Tech Stack
@@ -162,18 +169,80 @@ Re-run the command whenever you add or change API routes to keep the Swagger doc
 
 - `GET /api/hello` - Health check endpoint
 - `POST /api/upload-test` - Upload a single image (`file`) to the configured disk
+- `POST /api/register` - Register a new user account
+- `POST /api/login` - Log in and receive a Sanctum token
+- `POST /api/auth/google` - Sign in with a Google ID token
+- `POST /api/lost-password` - Request a password reset email
+- `POST /api/reset-password` - Reset password using a token from email
 - `GET /api/products` - List all products (supports `page` and `per_page`)
 - `GET /api/products/{id}` - Get single product
 - `POST /api/products` - Create new product
+- `PUT /api/products/{id}` - Update a product
 - `DELETE /api/products/{id}` - Delete product
+- `GET /api/orders` - List all orders
+- `POST /api/orders` - Create a new order
+- `GET /api/orders/{id}` - Get single order
+- `PUT /api/orders/{id}` - Update an order
+- `DELETE /api/orders/{id}` - Delete an order
 - `GET /api/users/roles` - Get all available roles
 - `GET /api/users` - List all users with roles
 - `GET /api/users/{id}` - Get single user with roles
+- `PATCH /api/users/update-role` - Update a user's role
+- `POST /api/visitors/track` - Track a visitor
+- `GET /api/visitors/today` - Get today's visitor count
+- `GET /api/visitors/total` - Get total visitor count
+
+### Resume Export Endpoints (Sanctum Authentication)
+
+- `GET /api/resumes/{id}/export/pdf` - Download resume as a PDF file
+- `GET /api/resumes/{id}/export/html` - Download resume as an HTML file
+
+Both endpoints accept an optional `lang` query parameter (`en` or `fi`). If omitted, the resume's own language setting is used, falling back to `en`.
+
+**Download resume as PDF:**
+```bash
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "http://localhost:8000/api/resumes/1/export/pdf" \
+  --output resume.pdf
+```
+
+**Download resume as HTML:**
+```bash
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "http://localhost:8000/api/resumes/1/export/html" \
+  --output resume.html
+```
+
+**With explicit language:**
+```bash
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "http://localhost:8000/api/resumes/1/export/pdf?lang=fi" \
+  --output resume.pdf
+```
 
 ### Protected Endpoints (Sanctum Authentication)
 
 - `GET /api/user` - Get authenticated user with roles
 - `GET /api/me` - Get authenticated user with metadata and roles
+- `POST /api/logout` - Log out and revoke the current token
+- `GET /api/check-auth` - Check if the current token is valid
+- `GET /api/my-orders` - Get orders belonging to the authenticated user
+- `POST /api/users` - Create a new user
+- `PUT /api/users/{id}` - Update a user
+- `DELETE /api/users/{id}` - Delete a user
+- `GET /api/resumes` - List all resumes for the authenticated user
+- `POST /api/resumes` - Create a new resume
+- `GET /api/resumes/{id}` - Get a resume with all sections
+- `PUT /api/resumes/{id}` - Update resume details
+- `DELETE /api/resumes/{id}` - Delete a resume
+- `GET /api/resumes/{id}/export/pdf` - Download resume as PDF
+- `GET /api/resumes/{id}/export/html` - Download resume as HTML
+- `GET /api/resumes/{resumeId}/{section}` - List items for a resume section
+- `POST /api/resumes/{resumeId}/{section}` - Add an item to a resume section
+- `PUT /api/resumes/{resumeId}/{section}/{itemId}` - Update a resume section item
+- `DELETE /api/resumes/{resumeId}/{section}/{itemId}` - Delete a resume section item
+
+Valid `{section}` values: `work-experiences`, `educations`, `skills`, `projects`, `certifications`, `languages`, `awards`, `recommendations`
 
 ### Example API Usage
 

@@ -61,6 +61,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function resumes(): HasMany
+    {
+        return $this->hasMany(Resume::class);
+    }
+
     /**
      * Roles assigned to the user.
      */

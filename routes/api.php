@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\ResumeItemController;
 use App\Http\Controllers\UploadTestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorController;
@@ -116,4 +118,24 @@ Route::patch('/users/update-role', [UserController::class, 'updateRole']);
 Route::post('/visitors/track', [VisitorController::class, 'track']);
 Route::get('/visitors/today', [VisitorController::class, 'today']);
 Route::get('/visitors/total', [VisitorController::class, 'total']);
+
+// Resume routes
+$sectionPattern = 'work-experiences|educations|skills|projects|certifications|languages|awards|recommendations';
+
+Route::middleware('auth:sanctum')->group(function () use ($sectionPattern) {
+    // Resume CRUD
+    Route::get('/resumes', [ResumeController::class, 'index']);
+    Route::post('/resumes', [ResumeController::class, 'store']);
+    Route::get('/resumes/{id}', [ResumeController::class, 'show']);
+    Route::put('/resumes/{id}', [ResumeController::class, 'update']);
+    Route::delete('/resumes/{id}', [ResumeController::class, 'destroy']);
+    Route::get('/resumes/{id}/export/pdf', [ResumeController::class, 'exportPdf']);
+    Route::get('/resumes/{id}/export/html', [ResumeController::class, 'exportHtml']);
+
+    // Resume section CRUD
+    Route::get('/resumes/{resumeId}/{section}', [ResumeItemController::class, 'index'])->where('section', $sectionPattern);
+    Route::post('/resumes/{resumeId}/{section}', [ResumeItemController::class, 'store'])->where('section', $sectionPattern);
+    Route::put('/resumes/{resumeId}/{section}/{itemId}', [ResumeItemController::class, 'update'])->where('section', $sectionPattern);
+    Route::delete('/resumes/{resumeId}/{section}/{itemId}', [ResumeItemController::class, 'destroy'])->where('section', $sectionPattern);
+});
 
