@@ -30,9 +30,9 @@ steps:
       - --set-cloudsql-instances=${_PROJECT_ID}:${_REGION}:jussilog-db
       - --min-instances=1
       - --max-instances=3
-      - --memory=512Mi
+      - --memory=256Mi
       - --cpu=1
-      - --concurrency=80
+      - --concurrency=4
       - --timeout=60
       - --cpu-boost           # extra CPU during container startup → faster cold-start
       - --set-env-vars
