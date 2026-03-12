@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Visitor tracking middleware (`TrustProxies.php`): allow Cloud Run proxy headers so visitor IP detection works correctly behind the Google load balancer.
+- **Nginx** (`docker/nginx.conf`): Fixed startup crash — `fastcgi_busy_buffers_size` (64k) exceeded the allowed maximum of total `fastcgi_buffers` minus one buffer (48k). Reduced to 32k.
 
 ## [0.6.0] - 2026-03-10
 
