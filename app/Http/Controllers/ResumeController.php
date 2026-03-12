@@ -8,7 +8,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class ResumeController extends Controller
 {
@@ -90,8 +94,14 @@ class ResumeController extends Controller
 
         $resume = DB::transaction(function () use ($data, $request) {
             $resume = $request->user()->resumes()->create(
-                collect($data)->except(array_keys($this->sectionRelationMap()))->toArray()
+                collect($data)->except([...array_keys($this->sectionRelationMap()), 'photo'])->toArray()
             ); // store always creates for the authenticated user
+
+            if ($request->hasFile('photo')) {
+                $resume->photo = $this->storeResumePhoto($request->file('photo'), $resume->id);
+                $resume->photo_sizes = $this->generateThumbnails($request->file('photo'), $resume->id);
+                $resume->save();
+            }
 
             foreach ($this->sectionRelationMap() as $key => $relation) {
                 if (!empty($data[$key])) {
@@ -133,10 +143,25 @@ class ResumeController extends Controller
             ...$this->sectionValidationRules(update: true),
         ]);
 
-        DB::transaction(function () use ($data, $resume) {
+        DB::transaction(function () use ($data, $resume, $request) {
+            $oldPhoto      = $resume->photo;
+            $oldPhotoSizes = $resume->photo_sizes;
+
             $resume->update(
-                collect($data)->except(array_keys($this->sectionRelationMap()))->toArray()
+                collect($data)->except([...array_keys($this->sectionRelationMap()), 'photo'])->toArray()
             );
+
+            if ($request->hasFile('photo')) {
+                if ($oldPhoto) {
+                    Storage::disk($this->storageDiskName())->delete($oldPhoto);
+                }
+                if ($oldPhotoSizes) {
+                    $this->deleteThumbnails($oldPhotoSizes);
+                }
+                $resume->photo = $this->storeResumePhoto($request->file('photo'), $resume->id);
+                $resume->photo_sizes = $this->generateThumbnails($request->file('photo'), $resume->id);
+                $resume->save();
+            }
 
             foreach ($this->sectionRelationMap() as $key => $relation) {
                 if (array_key_exists($key, $data)) {
@@ -217,9 +242,78 @@ class ResumeController extends Controller
     public function destroy(Request $request, int $id): JsonResponse
     {
         $resume = $this->findResume($request, $id);
+
+        if ($resume->photo) {
+            Storage::disk($this->storageDiskName())->delete($resume->photo);
+        }
+
+        if ($resume->photo_sizes) {
+            $this->deleteThumbnails($resume->photo_sizes);
+        }
+
         $resume->delete();
 
         return response()->json(['message' => 'Resume deleted.']);
+    }
+
+    private function storageDiskName(): string
+    {
+        return (string) config('filesystems.default');
+    }
+
+    /**
+     * Thumbnail size presets: [ name => [width, height] ]
+     *
+     * - thumb  (80×80)   – tiny avatar / list icons
+     * - small  (200×200) – UI preview cards / resume sidebar
+     * - medium (400×400) – PDF & HTML export
+     */
+    private function photoSizes(): array
+    {
+        return [
+            'thumb'  => [80,  80],
+            'small'  => [200, 200],
+            'medium' => [400, 400],
+        ];
+    }
+
+    private function storeResumePhoto(UploadedFile $file, int $resumeId): string
+    {
+        $filename = time() . '_' . $file->getClientOriginalName();
+
+        return $file->storeAs("resumes/{$resumeId}", $filename, $this->storageDiskName());
+    }
+
+    private function generateThumbnails(UploadedFile $file, int $resumeId): array
+    {
+        $manager = new ImageManager(new Driver());
+        $disk    = Storage::disk($this->storageDiskName());
+        $base    = time();
+        $ext     = 'jpg';
+        $paths   = [];
+
+        foreach ($this->photoSizes() as $name => [$w, $h]) {
+            $encoded = $manager->read($file->getPathname())
+                ->cover($w, $h)
+                ->toJpeg(85);
+
+            $path = "resumes/{$resumeId}/{$base}_{$name}.{$ext}";
+            $disk->put($path, (string) $encoded);
+            $paths[$name] = $path;
+        }
+
+        return $paths;
+    }
+
+    private function deleteThumbnails(array $photoSizes): void
+    {
+        $disk = Storage::disk($this->storageDiskName());
+
+        foreach ($photoSizes as $path) {
+            if ($path) {
+                $disk->delete($path);
+            }
+        }
     }
 
     private function findResume(Request $request, int $id): Resume

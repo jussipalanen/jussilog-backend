@@ -45,6 +45,15 @@
             margin-bottom: 4pt;
         }
 
+        .sb-photo {
+            width: 100pt;
+            height: 100pt;
+            border-radius: 50pt;
+            border: 2pt solid #2e5080;
+            margin-bottom: 10pt;
+            display: block;
+        }
+
         .sb-role {
             font-size: 7.5pt;
             color: #7eb8f7;
@@ -290,6 +299,29 @@
      SIDEBAR
 ═══════════════════════════════════════ --}}
 <td class="col-left">
+
+    @php
+        $photoUrl = null;
+        $photoDisk = Storage::disk(config('filesystems.default'));
+        $photoPath = !empty($resume->photo_sizes['medium'])
+            ? $resume->photo_sizes['medium']
+            : ($resume->photo ?: null);
+
+        if ($photoPath) {
+            if (method_exists($photoDisk, 'temporaryUrl')) {
+                try {
+                    $photoUrl = $photoDisk->temporaryUrl($photoPath, now()->addMinutes(10));
+                } catch (\Exception $e) {
+                    $photoUrl = $photoDisk->url($photoPath);
+                }
+            } else {
+                $photoUrl = $photoDisk->url($photoPath);
+            }
+        }
+    @endphp
+    @if($photoUrl)
+    <img src="{{ $photoUrl }}" class="sb-photo" alt="">
+    @endif
 
     <div class="sb-name">{{ $resume->full_name }}</div>
     @if($resume->title)
