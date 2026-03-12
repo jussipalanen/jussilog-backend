@@ -17,6 +17,8 @@ SECRET_KEYS=(
   "GOOGLE_CLIENT_ID"
   "UPDATE_USER_ROLE_SECRET"
   "ROLE_UPDATE_KEY"
+  "MAIL_USERNAME"
+  "MAIL_FROM_ADDRESS"
 )
 # ──────────────────────────────────────────────────────────────────────────────
 

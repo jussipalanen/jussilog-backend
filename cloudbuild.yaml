@@ -25,6 +25,8 @@ steps:
       - GOOGLE_CLIENT_ID
       - UPDATE_USER_ROLE_SECRET
       - ROLE_UPDATE_KEY
+      - MAIL_USERNAME
+      - MAIL_FROM_ADDRESS
     args:
       - -c
       - |
@@ -72,10 +74,10 @@ steps:
         MAIL_MAILER=smtp,\
         MAIL_HOST=${_MAIL_HOST},\
         MAIL_PORT=587,\
-        MAIL_USERNAME=${_MAIL_USERNAME},\
+        MAIL_USERNAME=$$MAIL_USERNAME,\
         MAIL_PASSWORD=$$MAIL_PASSWORD,\
         MAIL_ENCRYPTION=tls,\
-        MAIL_FROM_ADDRESS=${_MAIL_FROM_ADDRESS},\
+        MAIL_FROM_ADDRESS=$$MAIL_FROM_ADDRESS,\
         MAIL_FROM_NAME=JussiLog,\
         SCRIBE_BASE_URL=${_APP_URL},\
         SCRIBE_TRY_IT_OUT_BASE_URL=${_APP_URL},\
@@ -96,8 +98,6 @@ substitutions:
   _GCS_BUCKET: 'jussilog-backend-uploads'
   _MAIL_ENABLED: 'true'
   _MAIL_HOST: 'smtp-relay.brevo.com'
-  _MAIL_USERNAME: 'a44f37001@smtp-brevo.com'
-  _MAIL_FROM_ADDRESS: 'juzapala+noreply@gmail.com'
 
 # Pull secrets from Secret Manager at build time.
 # Secret names match the LARAVEL_BACKEND_ prefix used by update-secret-manager.sh,
@@ -120,6 +120,10 @@ availableSecrets:
       env: UPDATE_USER_ROLE_SECRET
     - versionName: projects/${_PROJECT_ID}/secrets/LARAVEL_BACKEND_ROLE_UPDATE_KEY/versions/latest
       env: ROLE_UPDATE_KEY
+    - versionName: projects/${_PROJECT_ID}/secrets/LARAVEL_BACKEND_MAIL_USERNAME/versions/latest
+      env: MAIL_USERNAME
+    - versionName: projects/${_PROJECT_ID}/secrets/LARAVEL_BACKEND_MAIL_FROM_ADDRESS/versions/latest
+      env: MAIL_FROM_ADDRESS
 
 options:
   machineType: E2_HIGHCPU_8    # faster Kaniko builds, lower wall-clock time
