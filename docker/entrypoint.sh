@@ -49,7 +49,6 @@ if [ "$DB_CONNECTION" = "sqlite" ]; then
 elif [ "$DB_CONNECTION" = "mysql" ]; then
     echo "Setting up MySQL database..."
     
-    # Wait for MySQL to be ready
     DB_HOST="${DB_HOST:-127.0.0.1}"
     DB_SOCKET="${DB_SOCKET:-}"
     DB_PORT="${DB_PORT:-3306}"
@@ -57,72 +56,42 @@ elif [ "$DB_CONNECTION" = "mysql" ]; then
     DB_USERNAME="${DB_USERNAME:-jussilog}"
     DB_PASSWORD="${DB_PASSWORD:-jussilog}"
     
-    # Determine connection method
     if [ -n "$DB_SOCKET" ]; then
-        # Unix socket connection (Cloud SQL)
-        echo "Connecting via Unix socket: $DB_SOCKET"
+        echo "Connecting via Unix socket: $DB_SOCKET (Cloud SQL — no wait needed)"
         MYSQL_CONN_ARGS="--socket=$DB_SOCKET"
-        CONNECTION_DESC="Unix socket $DB_SOCKET"
     else
-        # TCP connection (local/Docker)
+        # TCP path (local Docker) — wait a few seconds for MySQL to come up
         echo "Connecting via TCP: $DB_HOST:$DB_PORT"
         MYSQL_CONN_ARGS="-h $DB_HOST -P $DB_PORT --ssl=0"
-        CONNECTION_DESC="$DB_HOST:$DB_PORT"
-    fi
-    
-    echo "Waiting for MySQL at $CONNECTION_DESC..."
-    DB_READY=false
-    
-    # Try to connect to MySQL with retries
-    MAX_RETRIES=30
-    RETRY_COUNT=0
-    
-    while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
-        # Try mysqladmin ping
-        if mysqladmin ping $MYSQL_CONN_ARGS -u "$DB_USERNAME" -p"$DB_PASSWORD" --silent 2>/dev/null; then
-            echo "MySQL is ready!"
-            DB_READY=true
-            break
+        echo "Waiting for MySQL..."
+        MAX_RETRIES=15
+        RETRY_COUNT=0
+        DB_READY=false
+        while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            if mysqladmin ping $MYSQL_CONN_ARGS -u "$DB_USERNAME" -p"$DB_PASSWORD" --silent 2>/dev/null; then
+                DB_READY=true
+                break
+            fi
+            RETRY_COUNT=$((RETRY_COUNT + 1))
+            echo "  attempt $RETRY_COUNT/$MAX_RETRIES..."
+            sleep 2
+        done
+        if [ "$DB_READY" != "true" ]; then
+            echo "WARNING: Could not connect to MySQL after $MAX_RETRIES attempts — continuing anyway."
         fi
-        
-        # If mysqladmin fails, try with mysql client
-        if mysql $MYSQL_CONN_ARGS -u "$DB_USERNAME" -p"$DB_PASSWORD" -e "SELECT 1" >/dev/null 2>&1; then
-            echo "MySQL is ready!"
-            DB_READY=true
-            break
-        fi
-        
-        RETRY_COUNT=$((RETRY_COUNT + 1))
-        echo "Waiting for MySQL... ($RETRY_COUNT/$MAX_RETRIES)"
-        sleep 2
-    done
-    
-    if [ "$DB_READY" != "true" ]; then
-        echo "WARNING: Could not connect to MySQL after $MAX_RETRIES attempts"
-        echo "Connection details: $CONNECTION_DESC"
-        echo "Username: $DB_USERNAME"
-        echo "Continuing startup so web server can come up; migrations will be skipped."
     fi
-    
-    # Create database if it doesn't exist
-    if [ "$DB_READY" = "true" ]; then
-        echo "Ensuring database $DB_DATABASE exists..."
-        mysql $MYSQL_CONN_ARGS -u "$DB_USERNAME" -p"$DB_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS \`$DB_DATABASE\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
-        echo "Database ready!"
-    fi
+
+    # Ensure database exists (best-effort — Cloud SQL user may lack CREATE DATABASE)
+    mysql $MYSQL_CONN_ARGS -u "$DB_USERNAME" -p"$DB_PASSWORD" \
+        -e "CREATE DATABASE IF NOT EXISTS \`$DB_DATABASE\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" \
+        2>/dev/null || true
+    echo "Database ready!"
 fi
 
-# Wait a moment for filesystem to be ready
-sleep 1
-
-# Run database migrations as laravel user
+# Run database migrations
 echo "Running database migrations..."
-if [ "$DB_CONNECTION" = "mysql" ] && [ "$DB_READY" != "true" ]; then
-    echo "Skipping migrations because MySQL is not reachable at startup."
-else
-    if ! su laravel -s /bin/sh -c "php artisan migrate --force --no-interaction"; then
-        echo "WARNING: Migration step failed during startup; continuing to start web server."
-    fi
+if ! su laravel -s /bin/sh -c "php artisan migrate --force --no-interaction"; then
+    echo "WARNING: Migration step failed during startup; continuing to start web server."
 fi
 
 # Create storage link if it doesn't exist
@@ -134,12 +103,9 @@ fi
 # Production optimizations (skip in local development)
 if [ "$APP_ENV" != "local" ]; then
     echo "Running production optimizations..."
-    su laravel -s /bin/sh -c "php artisan config:cache"
-    su laravel -s /bin/sh -c "php artisan route:cache"
-    su laravel -s /bin/sh -c "php artisan view:cache"
+    su laravel -s /bin/sh -c "php artisan optimize"
 else
     echo "Local development mode - skipping cache optimizations"
-    # Ensure route/config/view caches never mask live code changes in local dev.
     su laravel -s /bin/sh -c "php artisan optimize:clear" || true
 fi
 

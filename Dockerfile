@@ -1,27 +1,8 @@
-# Multi-stage build for Laravel with Vite frontend assets
-ARG PHP_VERSION=8.1
-ARG NODE_VERSION=20
+# Production PHP runtime for Laravel API backend (no frontend build stage)
+ARG PHP_VERSION=8.2
 ARG UID=1000
 ARG GID=1000
 
-# Stage 1: Build frontend assets
-FROM node:${NODE_VERSION}-alpine AS frontend-builder
-
-WORKDIR /app
-
-# Copy ONLY package files first (better cache)
-COPY package*.json vite.config.js ./
-
-# Install dependencies (cached if package.json unchanged)
-RUN npm ci --prefer-offline --no-audit
-
-# Copy resources AFTER deps installed
-COPY resources ./resources
-
-# Build
-RUN npm run build
-
-# Stage 2: Production PHP runtime
 FROM php:${PHP_VERSION}-fpm-alpine
 
 ARG UID=1000
@@ -39,6 +20,19 @@ RUN apk add --no-cache \
     shadow \
     && docker-php-ext-install pdo_sqlite pdo_mysql opcache
 
+# OPcache tuned for production (validate_timestamps=0 — files never change in the image)
+# memory_consumption=64 is plenty for a small Laravel API; leaves more room for PHP workers
+RUN { \
+    echo 'opcache.enable=1'; \
+    echo 'opcache.memory_consumption=64'; \
+    echo 'opcache.interned_strings_buffer=8'; \
+    echo 'opcache.max_accelerated_files=8000'; \
+    echo 'opcache.revalidate_freq=0'; \
+    echo 'opcache.validate_timestamps=0'; \
+    echo 'opcache.save_comments=1'; \
+    echo 'opcache.fast_shutdown=1'; \
+    } > /usr/local/etc/php/conf.d/opcache.ini
+
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -54,10 +48,7 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progre
 # Copy application files AFTER dependencies installed
 COPY . .
 
-# Copy built frontend assets from stage 1
-COPY --from=frontend-builder /app/public/build ./public/build
-
-# Create SQLite database directory and file
+# SQLite database file (used in local dev via docker-compose.sqlite.yml)
 RUN mkdir -p database && \
     touch database/database.sqlite && \
     chmod 664 database/database.sqlite

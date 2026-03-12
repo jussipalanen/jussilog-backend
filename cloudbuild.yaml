@@ -1,5 +1,5 @@
 steps:
-  # Step 1: Build and push the Docker image
+  # Step 1: Build and push the Docker image with Kaniko (layer-cache aware)
   - name: gcr.io/kaniko-project/executor:latest
     args:
       - --destination=${_IMAGE}
@@ -11,7 +11,8 @@ steps:
       - --context=dir:///workspace
       - --dockerfile=Dockerfile
 
-  # Step 2: Deploy image to Cloud Run
+  # Step 2: Deploy image to Cloud Run with all env vars in one shot
+  # (combining deploy + set-env-vars avoids a second rolling restart)
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: gcloud
     args:
@@ -28,24 +29,12 @@ steps:
       - --allow-unauthenticated
       - --set-cloudsql-instances=${_PROJECT_ID}:${_REGION}:jussilog-db
       - --min-instances=1
-      - --max-instances=5
+      - --max-instances=3
       - --memory=512Mi
       - --cpu=1
-      - --concurrency=8
+      - --concurrency=80
       - --timeout=60
-
-  # Step 3: Apply all environment variables from substitutions.
-  # To add/update env vars: edit the --set-env-vars value below and re-run the build,
-  # OR run locally without rebuilding:  ./dev env-update  (reads .env.production)
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
-    entrypoint: gcloud
-    args:
-      - run
-      - services
-      - update
-      - jussilog-backend-production
-      - --region
-      - ${_REGION}
+      - --cpu-boost           # extra CPU during container startup → faster cold-start
       - --set-env-vars
       - >-
         APP_NAME=JussiLog,
@@ -58,8 +47,8 @@ steps:
         DB_HOST=localhost,
         DB_SOCKET=/cloudsql/${_PROJECT_ID}:${_REGION}:jussilog-db,
         DB_PORT=3306,
-        DB_DATABASE=jussilog,
-        DB_USERNAME=root,
+        DB_DATABASE=${_DB_DATABASE},
+        DB_USERNAME=${_DB_USERNAME},
         DB_PASSWORD=${_DB_PASSWORD},
         CACHE_DRIVER=file,
         SESSION_DRIVER=file,
@@ -67,6 +56,13 @@ steps:
         LOG_CHANNEL=stderr,
         LOG_LEVEL=error,
         FILESYSTEM_DISK=${_FILESYSTEM_DISK},
+        GCS_ACCESS_KEY_ID=${_GCS_ACCESS_KEY_ID},
+        GCS_SECRET_ACCESS_KEY=${_GCS_SECRET_ACCESS_KEY},
+        GCS_DEFAULT_REGION=us,
+        GCS_BUCKET=${_GCS_BUCKET},
+        GCS_URL=,
+        GCS_ENDPOINT=https://storage.googleapis.com,
+        GCS_USE_PATH_STYLE_ENDPOINT=false,
         MAIL_ENABLED=${_MAIL_ENABLED},
         MAIL_MAILER=smtp,
         MAIL_HOST=${_MAIL_HOST},
@@ -76,30 +72,65 @@ steps:
         MAIL_ENCRYPTION=tls,
         MAIL_FROM_ADDRESS=${_MAIL_FROM_ADDRESS},
         MAIL_FROM_NAME=JussiLog,
-        UPDATE_USER_ROLE_SECRET=${_UPDATE_USER_ROLE_SECRET}
+        SCRIBE_BASE_URL=${_APP_URL},
+        SCRIBE_TRY_IT_OUT_BASE_URL=${_APP_URL},
+        SCRIBE_AUTH_KEY=${_SCRIBE_AUTH_KEY},
+        GOOGLE_CLIENT_ID=${_GOOGLE_CLIENT_ID},
+        UPDATE_USER_ROLE_SECRET=${_UPDATE_USER_ROLE_SECRET},
+        ROLE_UPDATE_KEY=${_ROLE_UPDATE_KEY}
+
+  # Step 3: Create (or update) Cloud Scheduler warmup job
+  # Pings /_ah/warmup every 5 minutes to keep the instance hot and pre-warm OPcache
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        if gcloud scheduler jobs describe jussilog-backend-warmup \
+            --location=${_REGION} >/dev/null 2>&1; then
+          gcloud scheduler jobs update http jussilog-backend-warmup \
+            --schedule='*/5 * * * *' \
+            --uri=${_APP_URL}/_ah/warmup \
+            --http-method=GET \
+            --location=${_REGION} \
+            --attempt-deadline=30s
+        else
+          gcloud scheduler jobs create http jussilog-backend-warmup \
+            --schedule='*/5 * * * *' \
+            --uri=${_APP_URL}/_ah/warmup \
+            --http-method=GET \
+            --location=${_REGION} \
+            --attempt-deadline=30s
+        fi
 
 substitutions:
   _REGION: europe-north1
   _PROJECT_ID: client-jussimatic
   _IMAGE: europe-north1-docker.pkg.dev/${_PROJECT_ID}/jussilog-backend/jussilog-backend:latest
-  # Secrets — pass these via Cloud Build trigger substitutions or the --substitutions flag:
-  #   gcloud builds submit --substitutions=_APP_KEY="base64:...",_DB_PASSWORD="secret"
+  # Secrets — pass via Cloud Build trigger substitutions or --substitutions flag:
+  #   gcloud builds submit --substitutions=_APP_KEY="base64:...",_DB_PASSWORD="secret",...
   _APP_KEY: ''
+  _DB_DATABASE: 'jussilog'
+  _DB_USERNAME: 'jussilog'
   _DB_PASSWORD: ''
   _APP_URL: ''
   _FRONTEND_URL: ''
   _FILESYSTEM_DISK: 'gcs'
+  _GCS_ACCESS_KEY_ID: ''
+  _GCS_SECRET_ACCESS_KEY: ''
+  _GCS_BUCKET: ''
   _MAIL_ENABLED: 'true'
   _MAIL_HOST: 'smtp-relay.brevo.com'
   _MAIL_USERNAME: ''
   _MAIL_PASSWORD: ''
   _MAIL_FROM_ADDRESS: ''
+  _SCRIBE_AUTH_KEY: ''
+  _GOOGLE_CLIENT_ID: ''
   _UPDATE_USER_ROLE_SECRET: ''
-
-timeout: 360s
+  _ROLE_UPDATE_KEY: ''
 
 options:
-  substitutionOption: ALLOW_LOOSE
-  logging: CLOUD_LOGGING_ONLY
-  machineType: E2_MEDIUM
-  diskSizeGb: 10
+  machineType: E2_HIGHCPU_8    # faster Kaniko builds, lower wall-clock time
+  logging: CLOUD_LOGGING_ONLY  # skip GCS build log bucket → lower storage cost
+
+timeout: 480s
