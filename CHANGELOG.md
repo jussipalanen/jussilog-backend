@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [0.6.2] - 2026-03-12
+
+### Changed
+- **Dockerfile**: Removed Node.js/Vite build stage entirely (API-only backend — no frontend assets). Upgraded PHP 8.1 → 8.2.
+- **OPcache**: Tuned production config (`validate_timestamps=0`, `memory_consumption=64`, `max_accelerated_files=8000`) to avoid per-request filesystem checks and reduce memory footprint.
+- **PHP-FPM** (`docker/www.conf`): Switched from `pm=static` with 8 workers to `pm=dynamic` with a max of 3 workers. Saves ~180 MB RAM vs the previous static pool. Added `pm.max_requests=500` to recycle workers and prevent memory growth.
+- **Nginx** (`docker/nginx.conf`): Reduced FastCGI buffers from 256×16k to 4×16k (JSON API responses are a few KB, not megabytes). Reduced `fastcgi_read_timeout` from 600 s to 30 s.
+- **Cloud Run** (`cloudbuild.yaml`): Reduced `--memory` from 512Mi to 256Mi and `--concurrency` from 80 to 4, better suited for low-traffic and the 3-worker PHP-FPM pool.
+- **Cloud Build** (`cloudbuild.yaml`): Merged the previous two-step deploy+env-update into a single `gcloud run deploy` call to eliminate the second rolling restart per build. Added `machineType: E2_HIGHCPU_8` and `logging: CLOUD_LOGGING_ONLY` to reduce build time and storage cost.
+- **Entrypoint** (`docker/entrypoint.sh`): Removed the 30-retry MySQL wait loop for the Cloud SQL Unix socket path (socket is available instantly in Cloud Run). Removed the startup `sleep 1`. Replaced three separate cache commands with `php artisan optimize`.
+- **Env vars** (`cloudbuild.yaml`): Synced all missing production variables — `GCS_*`, `SCRIBE_BASE_URL`, `SCRIBE_AUTH_KEY`, `GOOGLE_CLIENT_ID`, `ROLE_UPDATE_KEY`. Fixed `DB_USERNAME` default from `root` to `jussilog`.
+- **`.env.production`**: Removed duplicate `ROLE_UPDATE_KEY` entry. Fixed `SCRIBE_BASE_URL` pointing to stale dev domain. Added `SCRIBE_AUTH_KEY`.
+
+### Added
+- **Warmup endpoint** (`routes/web.php`): `GET /_ah/warmup` — Cloud Run sends a warmup request to this path when a new instance starts, bootstrapping the Laravel stack and OPcache before live traffic arrives.
+- **Cloud Scheduler job** (`cloudbuild.yaml`, Step 3): Automatically creates/updates a `jussilog-backend-warmup` scheduler job that pings `/_ah/warmup` every 5 minutes to keep the running instance and its OPcache hot, eliminating the previous 10–15 s cold-start delays.
+- **`--cpu-boost`** on Cloud Run deployment: allocates extra CPU during container startup so migrations and `php artisan optimize` complete faster before the instance receives traffic.
+
+### Fixed
+- Visitor tracking middleware (`TrustProxies.php`): allow Cloud Run proxy headers so visitor IP detection works correctly behind the Google load balancer.
+
 ## [0.6.0] - 2026-03-10
 
 ### Added
