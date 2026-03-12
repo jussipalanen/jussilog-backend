@@ -22,7 +22,6 @@ steps:
       - GCS_ACCESS_KEY_ID
       - GCS_SECRET_ACCESS_KEY
       - MAIL_PASSWORD
-      - SCRIBE_AUTH_KEY
       - GOOGLE_CLIENT_ID
       - UPDATE_USER_ROLE_SECRET
       - ROLE_UPDATE_KEY
@@ -80,7 +79,6 @@ steps:
         MAIL_FROM_NAME=JussiLog,\
         SCRIBE_BASE_URL=${_APP_URL},\
         SCRIBE_TRY_IT_OUT_BASE_URL=${_APP_URL},\
-        SCRIBE_AUTH_KEY=$$SCRIBE_AUTH_KEY,\
         GOOGLE_CLIENT_ID=$$GOOGLE_CLIENT_ID,\
         UPDATE_USER_ROLE_SECRET=$$UPDATE_USER_ROLE_SECRET,\
         ROLE_UPDATE_KEY=$$ROLE_UPDATE_KEY"
@@ -116,8 +114,6 @@ availableSecrets:
       env: GCS_SECRET_ACCESS_KEY
     - versionName: projects/${_PROJECT_ID}/secrets/LARAVEL_BACKEND_MAIL_PASSWORD/versions/latest
       env: MAIL_PASSWORD
-    - versionName: projects/${_PROJECT_ID}/secrets/LARAVEL_BACKEND_SCRIBE_AUTH_KEY/versions/latest
-      env: SCRIBE_AUTH_KEY
     - versionName: projects/${_PROJECT_ID}/secrets/LARAVEL_BACKEND_GOOGLE_CLIENT_ID/versions/latest
       env: GOOGLE_CLIENT_ID
     - versionName: projects/${_PROJECT_ID}/secrets/LARAVEL_BACKEND_UPDATE_USER_ROLE_SECRET/versions/latest
