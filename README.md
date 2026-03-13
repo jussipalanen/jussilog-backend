@@ -253,7 +253,7 @@ Export a resume directly from a JSON payload — nothing is stored in the databa
 | `language` | `en` \| `fi` | no | Output language (default: `en`) |
 | `theme` | see options | no | Colour theme (default: `green`) |
 | `template` | `default` | no | Layout template (default: `default`) |
-| `photo_base64` | string | no | Professional photo as a base64 string (JPEG / PNG / GIF / WebP, max ~5 MB). A `data:image/…;base64,` prefix is accepted but not required. |
+| `photo` | string | no | Professional photo as a base64 string (JPEG / PNG / GIF / WebP, max ~5 MB). A `data:image/…;base64,` prefix is accepted but not required. |
 | `work_experiences` | array | no | Work experience entries (see section fields below) |
 | `educations` | array | no | Education entries |
 | `skills` | array | no | Skill entries |
