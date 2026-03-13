@@ -218,7 +218,7 @@ class ThumbnailService
         $disk    = Storage::disk($this->diskName());
         $raw     = $disk->get($sourcePath);
         $manager = new ImageManager(new Driver());
-        $base    = time();
+        $base    = uniqid('', true);
         $ext     = 'jpg';
         $paths   = [];
 
