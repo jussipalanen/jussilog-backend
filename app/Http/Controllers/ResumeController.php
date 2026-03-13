@@ -370,10 +370,10 @@ class ResumeController extends Controller
         $filename     = str($resume->full_name)->slug() . '-resume.pdf';
 
         if ($view === 'resumes.coming_soon') {
-            return response()->make(
-                view($view, compact('resume', 'theme', 'template', 'photoDataUri'))->render(),
-                200,
-                ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'attachment; filename="' . $filename . '"']
+            return response()->view(
+                $view,
+                compact('resume', 'theme', 'template', 'photoDataUri'),
+                200
             );
         }
 
