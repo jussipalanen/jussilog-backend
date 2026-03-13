@@ -22,6 +22,7 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Spatie\Browsershot\Browsershot;
 use Spatie\LaravelPdf\Facades\Pdf;
+use App\Translations\ResumeTranslations;
 use Carbon\Carbon;
 
 class ResumeController extends Controller
@@ -38,9 +39,27 @@ class ResumeController extends Controller
      *
      * @group Resumes
      * @authenticated
+     * @queryParam per_page integer Number of results per page (1-100). Defaults to 10. Example: 10
+     * @queryParam sort_by string Field to sort by (id, title, created_at, updated_at). Defaults to updated_at. Example: updated_at
+     * @queryParam sort_dir string Sort direction (asc, desc). Defaults to desc. Example: desc
      */
     public function index(Request $request): JsonResponse
     {
+        $perPage = (int) $request->query('per_page', 10);
+        $perPage = max(1, min(100, $perPage));
+
+        $sortBy = (string) $request->query('sort_by', 'updated_at');
+        $sortDir = strtolower((string) $request->query('sort_dir', 'desc'));
+        $allowedSorts = ['id', 'title', 'created_at', 'updated_at'];
+        $allowedDirs = ['asc', 'desc'];
+
+        if (!in_array($sortBy, $allowedSorts, true)) {
+            $sortBy = 'updated_at';
+        }
+        if (!in_array($sortDir, $allowedDirs, true)) {
+            $sortDir = 'desc';
+        }
+
         $user = $request->user();
         $with = ['workExperiences', 'educations', 'skills', 'projects', 'certifications', 'languages', 'awards', 'recommendations'];
 
@@ -48,9 +67,9 @@ class ResumeController extends Controller
             ? Resume::with($with)
             : $user->resumes()->with($with);
 
-        $resumes = $query->orderByDesc('updated_at')->get();
+        $query->orderBy($sortBy, $sortDir);
 
-        return response()->json($resumes);
+        return response()->json($query->paginate($perPage));
     }
 
     /**
@@ -428,16 +447,18 @@ class ResumeController extends Controller
      */
     public function exportOptions(Request $request): JsonResponse
     {
-        $lang = in_array($request->query('lang'), array_keys(self::LANGUAGES))
+        $lang = in_array($request->query('lang'), array_keys(self::LANGUAGES), true)
             ? $request->query('lang')
             : 'en';
-        app()->setLocale($lang);
 
-        $themes    = array_map(fn ($v) => ['value' => $v, 'label' => __('resume_pdf.theme_' . $v)], self::THEMES);
-        $templates = array_map(fn ($v) => ['value' => $v, 'label' => __('resume_pdf.template_' . $v)], self::TEMPLATES);
-        $languages = array_map(fn ($value) => ['value' => $value, 'label' => __('resume_pdf.language_' . $value)], array_keys(self::LANGUAGES));
-
-        return response()->json(compact('themes', 'templates', 'languages'));
+        return response()->json([
+            'themes'                 => ResumeTranslations::themes(self::THEMES, $lang),
+            'templates'              => ResumeTranslations::templates(self::TEMPLATES, $lang),
+            'languages'              => ResumeTranslations::languages(self::LANGUAGES, $lang),
+            'skill_categories'       => ResumeTranslations::skillCategories($lang),
+            'skill_proficiencies'    => ResumeTranslations::skillProficiencies($lang),
+            'language_proficiencies' => ResumeTranslations::languageProficiencies($lang),
+        ]);
     }
 
     private function validatePublicExportPayload(Request $request): array
@@ -649,9 +670,9 @@ class ResumeController extends Controller
             'educations.*.sort_order'             => 'integer|min:0',
 
             'skills'                  => 'sometimes|array',
-            'skills.*.category'       => $r . 'required|string|max:255',
+            'skills.*.category'       => $r . 'required|in:programming_languages,scripting_languages,markup_languages,query_languages,frontend_technologies,backend_technologies,full_stack_development,frameworks,libraries,ui_ux_design,responsive_design,mobile_development,desktop_development,game_development,embedded_systems,databases,database_design,database_administration,orm_data_access,api_development,web_services,graphql,microservices,event_driven_architecture,devops,cloud_platforms,serverless,containerization,ci_cd,infrastructure_as_code,configuration_management,version_control,testing_qa,test_automation,security,authentication_authorization,networking,performance_optimization,architecture_design_patterns,system_design,distributed_systems,data_engineering,big_data,machine_learning_ai,monitoring_logging,development_tools,operating_systems,project_management,agile_methodologies,soft_skills',
             'skills.*.name'           => $r . 'required|string|max:255',
-            'skills.*.proficiency'    => $r . 'required|in:beginner,intermediate,expert',
+            'skills.*.proficiency'    => $r . 'required|in:beginner,basic,intermediate,advanced,expert',
             'skills.*.sort_order'     => 'integer|min:0',
 
             'projects'                    => 'sometimes|array',
@@ -671,7 +692,7 @@ class ResumeController extends Controller
 
             'languages'                   => 'sometimes|array',
             'languages.*.language'        => $r . 'required|string|max:100',
-            'languages.*.proficiency'     => $r . 'required|in:native,fluent,conversational,basic',
+            'languages.*.proficiency'     => $r . 'required|in:native_bilingual,full_professional,professional_working,limited_working,elementary',
             'languages.*.sort_order'      => 'integer|min:0',
 
             'awards'                  => 'sometimes|array',

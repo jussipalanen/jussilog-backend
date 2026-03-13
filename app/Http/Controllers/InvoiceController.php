@@ -4,16 +4,54 @@ namespace App\Http\Controllers;
 
 use App\Enums\InvoiceItemType;
 use App\Enums\InvoiceStatus;
+use App\Mail\InvoiceMail;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\Order;
+use App\Translations\InvoiceTranslations;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
 
 class InvoiceController extends Controller
 {
+    /**
+     * Return available invoice statuses and item types with translated labels.
+     *
+     * @group Invoices
+     * @unauthenticated
+     * @queryParam lang string Language code (en, fi). Defaults to en. Example: fi
+     */
+    public function options(Request $request): JsonResponse
+    {
+        $lang = $this->resolveLanguage($request);
+        $t    = InvoiceTranslations::get($lang);
+
+        $statuses = array_map(
+            fn (InvoiceStatus $s) => [
+                'value' => $s->value,
+                'label' => $t['status_' . $s->value] ?? $s->label(),
+                'color' => $s->color(),
+            ],
+            InvoiceStatus::cases(),
+        );
+
+        $itemTypes = array_map(
+            fn (InvoiceItemType $type) => [
+                'value' => $type->value,
+                'label' => $t['type_' . $type->value] ?? $type->label(),
+            ],
+            InvoiceItemType::cases(),
+        );
+
+        return response()->json([
+            'statuses'   => $statuses,
+            'item_types' => $itemTypes,
+        ]);
+    }
+
     /**
      * List invoices.
      *
@@ -76,6 +114,48 @@ class InvoiceController extends Controller
                 $query->where('user_id', $request->query('user_id'));
             }
         }
+
+        if ($request->has('status')) {
+            $query->where('status', $request->query('status'));
+        }
+
+        $sortBy = $request->query('sort_by', 'created_at');
+        $sortDir = strtolower($request->query('sort_dir', 'desc'));
+        $allowedSorts = ['id', 'invoice_number', 'subtotal', 'total', 'status', 'issued_at', 'paid_at', 'created_at'];
+        $allowedDirs = ['asc', 'desc'];
+
+        if (!in_array($sortBy, $allowedSorts, true)) {
+            $sortBy = 'created_at';
+        }
+        if (!in_array($sortDir, $allowedDirs, true)) {
+            $sortDir = 'desc';
+        }
+
+        $query->orderBy($sortBy, $sortDir);
+
+        return response()->json($query->paginate($perPage));
+    }
+
+    /**
+     * List invoices for the authenticated user.
+     *
+     * Returns a paginated list of invoices belonging to the currently authenticated user.
+     *
+     * @group         Invoices
+     * @authenticated
+     * @queryParam    per_page integer Items per page (1–100). Example: 10
+     * @queryParam    page integer Page number. Example: 1
+     * @queryParam    status string Filter by status (draft, issued, paid, cancelled). Example: paid
+     * @queryParam    sort_by string Sort field (id, invoice_number, subtotal, total, status, issued_at, paid_at, created_at). Example: created_at
+     * @queryParam    sort_dir string Sort direction (asc, desc). Example: desc
+     */
+    public function myInvoices(Request $request): JsonResponse
+    {
+        $perPage = (int) $request->query('per_page', 10);
+        $perPage = max(1, min(100, $perPage));
+
+        $query = Invoice::with(['order', 'items'])
+            ->where('user_id', $request->user()->id);
 
         if ($request->has('status')) {
             $query->where('status', $request->query('status'));
@@ -402,6 +482,56 @@ class InvoiceController extends Controller
     }
 
     /**
+     * Send an invoice by email.
+     *
+     * Sends the invoice as a PDF attachment to the customer email or to a specific email address if provided.
+     *
+     * @group         Invoices
+     * @authenticated
+     * @urlParam      id integer required The invoice ID. Example: 1
+     * @bodyParam     email string Optional recipient email. Defaults to the invoice's customer email. Example: someone@example.com
+     *
+     * @response 200 scenario="Sent" {"message": "Invoice sent to someone@example.com"}
+     * @response 403 scenario="Forbidden" {"message": "Forbidden."}
+     * @response 404 scenario="Not found" {"message": "Invoice not found"}
+     * @response 422 scenario="Validation error" {"message": "The email field must be a valid email address.", "errors": {}}
+     */
+    public function sendEmail(Request $request, int $id): JsonResponse
+    {
+        $invoice = Invoice::with(['order', 'user', 'items'])->find($id);
+
+        if (!$invoice) {
+            return response()->json(['message' => 'Invoice not found'], 404);
+        }
+
+        $user = $request->user();
+        if ($user->hasRole('customer') && $invoice->user_id !== $user->id) {
+            return response()->json(['message' => 'Forbidden.'], 403);
+        }
+
+        $data = $request->validate([
+            'email' => 'sometimes|nullable|email',
+            'lang'  => 'sometimes|nullable|string|in:en,fi',
+        ]);
+
+        $recipient = $data['email'] ?? $invoice->customer_email;
+
+        if (!$recipient) {
+            return response()->json(['message' => 'No recipient email address available.'], 422);
+        }
+
+        $lang       = $this->resolveLanguage($request);
+        $t          = InvoiceTranslations::get($lang);
+        $pdfContent = Pdf::loadView('invoices.pdf', compact('invoice', 'lang', 't'))
+            ->setPaper('a4', 'portrait')
+            ->output();
+
+        Mail::to($recipient)->send(new InvoiceMail($invoice, $pdfContent, $lang));
+
+        return response()->json(['message' => 'Invoice sent to ' . $recipient]);
+    }
+
+    /**
      * Download invoice as PDF.
      *
      * Returns a PDF file of the invoice.
@@ -427,12 +557,49 @@ class InvoiceController extends Controller
             return response()->json(['message' => 'Forbidden.'], 403);
         }
 
-        $pdf = Pdf::loadView('invoices.pdf', compact('invoice'))
+        $lang = $this->resolveLanguage($request);
+        $t    = InvoiceTranslations::get($lang);
+        $pdf  = Pdf::loadView('invoices.pdf', compact('invoice', 'lang', 't'))
             ->setPaper('a4', 'portrait');
 
         $filename = $invoice->invoice_number . '.pdf';
 
         return $pdf->download($filename);
+    }
+
+    /**
+     * Download a stored invoice as HTML.
+     *
+     * @group         Invoices
+     * @authenticated
+     * @urlParam      id integer required The invoice ID. Example: 1
+     *
+     * @response 200 scenario="HTML file" {"binary": "text/html"}
+     * @response 403 scenario="Forbidden" {"message": "Forbidden."}
+     * @response 404 scenario="Not found" {"message": "Invoice not found"}
+     */
+    public function html(Request $request, int $id): Response|JsonResponse
+    {
+        $invoice = Invoice::with(['order', 'user', 'items'])->find($id);
+
+        if (!$invoice) {
+            return response()->json(['message' => 'Invoice not found'], 404);
+        }
+
+        $user = $request->user();
+        if ($user->hasRole('customer') && $invoice->user_id !== $user->id) {
+            return response()->json(['message' => 'Forbidden.'], 403);
+        }
+
+        $lang     = $this->resolveLanguage($request);
+        $t        = InvoiceTranslations::get($lang);
+        $html     = view('invoices.pdf', compact('invoice', 'lang', 't'))->render();
+        $filename = $invoice->invoice_number . '.html';
+
+        return response()->make($html, 200, [
+            'Content-Type'        => 'text/html',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
     }
 
     /**
@@ -466,8 +633,10 @@ class InvoiceController extends Controller
     public function exportPdf(Request $request): Response
     {
         $invoice = $this->buildPreviewInvoice($request);
+        $lang    = $this->resolveLanguage($request);
+        $t       = InvoiceTranslations::get($lang);
 
-        $pdf = Pdf::loadView('invoices.pdf', compact('invoice'))
+        $pdf = Pdf::loadView('invoices.pdf', compact('invoice', 'lang', 't'))
             ->setPaper('a4', 'portrait');
 
         $filename = ($invoice->invoice_number ?: 'invoice-preview') . '.pdf';
@@ -506,14 +675,65 @@ class InvoiceController extends Controller
     public function exportHtml(Request $request): Response
     {
         $invoice = $this->buildPreviewInvoice($request);
+        $lang    = $this->resolveLanguage($request);
+        $t       = InvoiceTranslations::get($lang);
 
-        $html     = view('invoices.pdf', compact('invoice'))->render();
+        $html     = view('invoices.pdf', compact('invoice', 'lang', 't'))->render();
         $filename = ($invoice->invoice_number ?: 'invoice-preview') . '.html';
 
         return response()->make($html, 200, [
             'Content-Type'        => 'text/html',
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ]);
+    }
+
+    /**
+     * Send a preview invoice by email (no auth, no database save).
+     *
+     * Builds a transient invoice from the request body and sends it to `to_email`.
+     * If `to_email` is omitted, falls back to `customer_email` in the payload.
+     *
+     * @group  Invoices
+     * @unauthenticated
+     * @bodyParam to_email string required Recipient email address. Example: someone@example.com
+     * @bodyParam invoice_number string Invoice number shown on the document. Example: INV-2026-00001
+     * @bodyParam customer_first_name string Customer first name. Example: Jussi
+     * @bodyParam customer_last_name string Customer last name. Example: Palanen
+     * @bodyParam customer_email string Customer email shown on the document. Example: jussi@example.com
+     * @bodyParam customer_phone string Customer phone. Example: +358401234567
+     * @bodyParam billing_address object Billing address (street, city, postal_code, country).
+     * @bodyParam subtotal number Invoice subtotal. Example: 99.00
+     * @bodyParam total number Invoice total. Example: 122.76
+     * @bodyParam status string Invoice status (draft, issued, paid, cancelled). Example: draft
+     * @bodyParam notes string Optional notes. Example: Thank you for your business.
+     * @bodyParam items array Invoice line items.
+     * @bodyParam items[].type string required Item type (product, shipping, discount, adjustment). Example: product
+     * @bodyParam items[].description string required Item description. Example: Example Product
+     * @bodyParam items[].quantity integer required Quantity. Example: 2
+     * @bodyParam items[].unit_price number required Unit price. Example: 49.50
+     * @bodyParam items[].tax_rate number Tax rate (0–1). Example: 0.24
+     * @bodyParam items[].total number required Line total. Example: 99.00
+     *
+     * @response 200 scenario="Sent" {"message": "Invoice sent to someone@example.com"}
+     * @response 422 scenario="Validation error" {"message": "The to email field is required.", "errors": {}}
+     */
+    public function exportEmail(Request $request): JsonResponse
+    {
+        $request->validate(['to_email' => 'required|email|max:255']);
+
+        $invoice   = $this->buildPreviewInvoice($request);
+        $lang      = $this->resolveLanguage($request);
+        $recipient = $request->input('to_email');
+
+        Mail::to($recipient)->send(new InvoiceMail($invoice, null, $lang));
+
+        return response()->json(['message' => 'Invoice sent to ' . $recipient]);
+    }
+
+    private function resolveLanguage(Request $request): string
+    {
+        $lang = strtolower((string) ($request->query('lang') ?? $request->input('lang', 'en')));
+        return in_array($lang, ['en', 'fi'], true) ? $lang : 'en';
     }
 
     private function buildPreviewInvoice(Request $request): Invoice
