@@ -1,19 +1,7 @@
-ARG PHP_VERSION=8.1
-
-FROM composer:2 AS composer-builder
-
-WORKDIR /app
-
-COPY composer.json composer.lock ./
-
-RUN composer install \
-    --no-dev \
-    --no-interaction \
-    --no-progress \
-    --prefer-dist \
-    --optimize-autoloader \
-    --classmap-authoritative \
-    --no-scripts
+# Production PHP runtime for Laravel API backend (no frontend build stage)
+ARG PHP_VERSION=8.2
+ARG UID=1000
+ARG GID=1000
 
 FROM php:${PHP_VERSION}-fpm-alpine
 
@@ -21,11 +9,31 @@ ARG UID=1000
 ARG GID=1000
 
 RUN addgroup -g ${GID} laravel && \
-    adduser -D -u ${UID} -G laravel laravel && \
-    apk add --no-cache --virtual .build-deps $PHPIZE_DEPS sqlite-dev && \
-    apk add --no-cache nginx mysql-client sqlite-libs su-exec && \
-    docker-php-ext-install pdo_sqlite pdo_mysql opcache && \
-    apk del .build-deps
+    adduser -D -u ${UID} -G laravel laravel
+
+# Install system dependencies and PHP extensions
+RUN apk add --no-cache \
+    nginx \
+    sqlite-dev \
+    mysql-client \
+    shadow \
+    && docker-php-ext-install pdo_sqlite pdo_mysql opcache
+
+# OPcache tuned for production (validate_timestamps=0 — files never change in the image)
+# memory_consumption=64 is plenty for a small Laravel API; leaves more room for PHP workers
+RUN { \
+    echo 'opcache.enable=1'; \
+    echo 'opcache.memory_consumption=64'; \
+    echo 'opcache.interned_strings_buffer=8'; \
+    echo 'opcache.max_accelerated_files=8000'; \
+    echo 'opcache.revalidate_freq=0'; \
+    echo 'opcache.validate_timestamps=0'; \
+    echo 'opcache.save_comments=1'; \
+    echo 'opcache.fast_shutdown=1'; \
+    } > /usr/local/etc/php/conf.d/opcache.ini
+
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www/html
@@ -35,13 +43,11 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY --chown=laravel:laravel . .
 COPY --from=composer-builder --chown=laravel:laravel /app/vendor ./vendor
 
-RUN mkdir -p \
-        bootstrap/cache \
-        database \
-        storage/framework/cache \
-        storage/framework/sessions \
-        storage/framework/views \
-        storage/logs && \
+# Copy application files AFTER dependencies installed
+COPY . .
+
+# SQLite database file (used in local dev via docker-compose.sqlite.yml)
+RUN mkdir -p database && \
     touch database/database.sqlite && \
     chmod 664 database/database.sqlite && \
     chmod -R 775 storage bootstrap/cache database && \
