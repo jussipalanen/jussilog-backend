@@ -120,6 +120,11 @@ Route::middleware('auth:sanctum')->get('/my-orders', [OrderController::class, 'm
 // Invoice routes
 // - Admin & Vendor: full access
 // - Customer: read-only, own invoices only (scoped in controller)
+
+// Public invoice export (no auth, no database save)
+Route::post('/invoices/export/pdf', [InvoiceController::class, 'exportPdf']);
+Route::post('/invoices/export/html', [InvoiceController::class, 'exportHtml']);
+
 Route::middleware('auth:sanctum')->group(
     function () {
         Route::get('/invoices', [InvoiceController::class, 'index']);

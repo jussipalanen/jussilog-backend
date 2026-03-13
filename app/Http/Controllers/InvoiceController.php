@@ -434,4 +434,140 @@ class InvoiceController extends Controller
 
         return $pdf->download($filename);
     }
+
+    /**
+     * Export a preview invoice as PDF (no auth, no database save).
+     *
+     * Builds a transient invoice from the request body and returns it as a downloadable PDF.
+     *
+     * @group  Invoices
+     * @unauthenticated
+     * @bodyParam invoice_number string Invoice number shown on the document. Example: INV-2026-00001
+     * @bodyParam customer_first_name string Customer first name. Example: Jussi
+     * @bodyParam customer_last_name string Customer last name. Example: Palanen
+     * @bodyParam customer_email string Customer email. Example: jussi@example.com
+     * @bodyParam customer_phone string Customer phone. Example: +358401234567
+     * @bodyParam billing_address object Billing address (street, city, postal_code, country).
+     * @bodyParam subtotal number Invoice subtotal. Example: 99.00
+     * @bodyParam total number Invoice total. Example: 122.76
+     * @bodyParam status string Invoice status (draft, issued, paid, cancelled). Example: draft
+     * @bodyParam notes string Optional notes. Example: Thank you for your business.
+     * @bodyParam items array Invoice line items.
+     * @bodyParam items[].type string required Item type (product, shipping, discount, adjustment). Example: product
+     * @bodyParam items[].description string required Item description. Example: Example Product
+     * @bodyParam items[].quantity integer required Quantity. Example: 2
+     * @bodyParam items[].unit_price number required Unit price. Example: 49.50
+     * @bodyParam items[].tax_rate number Tax rate (0–1). Example: 0.24
+     * @bodyParam items[].total number required Line total. Example: 99.00
+     *
+     * @response 200 scenario="PDF file" {"binary": "application/pdf"}
+     * @response 422 scenario="Validation error" {"message": "The items.0.type field is required.", "errors": {}}
+     */
+    public function exportPdf(Request $request): Response
+    {
+        $invoice = $this->buildPreviewInvoice($request);
+
+        $pdf = Pdf::loadView('invoices.pdf', compact('invoice'))
+            ->setPaper('a4', 'portrait');
+
+        $filename = ($invoice->invoice_number ?: 'invoice-preview') . '.pdf';
+
+        return $pdf->download($filename);
+    }
+
+    /**
+     * Export a preview invoice as HTML (no auth, no database save).
+     *
+     * Builds a transient invoice from the request body and returns it as an HTML file.
+     *
+     * @group  Invoices
+     * @unauthenticated
+     * @bodyParam invoice_number string Invoice number shown on the document. Example: INV-2026-00001
+     * @bodyParam customer_first_name string Customer first name. Example: Jussi
+     * @bodyParam customer_last_name string Customer last name. Example: Palanen
+     * @bodyParam customer_email string Customer email. Example: jussi@example.com
+     * @bodyParam customer_phone string Customer phone. Example: +358401234567
+     * @bodyParam billing_address object Billing address (street, city, postal_code, country).
+     * @bodyParam subtotal number Invoice subtotal. Example: 99.00
+     * @bodyParam total number Invoice total. Example: 122.76
+     * @bodyParam status string Invoice status (draft, issued, paid, cancelled). Example: draft
+     * @bodyParam notes string Optional notes. Example: Thank you for your business.
+     * @bodyParam items array Invoice line items.
+     * @bodyParam items[].type string required Item type (product, shipping, discount, adjustment). Example: product
+     * @bodyParam items[].description string required Item description. Example: Example Product
+     * @bodyParam items[].quantity integer required Quantity. Example: 2
+     * @bodyParam items[].unit_price number required Unit price. Example: 49.50
+     * @bodyParam items[].tax_rate number Tax rate (0–1). Example: 0.24
+     * @bodyParam items[].total number required Line total. Example: 99.00
+     *
+     * @response 200 scenario="HTML file" {"binary": "text/html"}
+     * @response 422 scenario="Validation error" {"message": "The items.0.type field is required.", "errors": {}}
+     */
+    public function exportHtml(Request $request): Response
+    {
+        $invoice = $this->buildPreviewInvoice($request);
+
+        $html     = view('invoices.pdf', compact('invoice'))->render();
+        $filename = ($invoice->invoice_number ?: 'invoice-preview') . '.html';
+
+        return response()->make($html, 200, [
+            'Content-Type'        => 'text/html',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
+    }
+
+    private function buildPreviewInvoice(Request $request): Invoice
+    {
+        $data = $request->validate(
+            [
+            'invoice_number'       => 'nullable|string|max:100',
+            'customer_first_name'  => 'nullable|string|max:255',
+            'customer_last_name'   => 'nullable|string|max:255',
+            'customer_email'       => 'nullable|email|max:255',
+            'customer_phone'       => 'nullable|string|max:50',
+            'billing_address'      => 'nullable|array',
+            'subtotal'             => 'nullable|numeric|min:0',
+            'total'                => 'nullable|numeric|min:0',
+            'status'               => 'nullable|string|in:draft,issued,paid,cancelled',
+            'notes'                => 'nullable|string',
+            'items'                => 'nullable|array',
+            'items.*.type'         => 'required_with:items|string|in:product,shipping,discount,adjustment',
+            'items.*.description'  => 'required_with:items|string|max:500',
+            'items.*.quantity'     => 'required_with:items|integer|min:1',
+            'items.*.unit_price'   => 'required_with:items|numeric',
+            'items.*.tax_rate'     => 'nullable|numeric|min:0|max:1',
+            'items.*.total'        => 'required_with:items|numeric',
+            ]
+        );
+
+        $invoice = new Invoice();
+        $invoice->invoice_number      = $data['invoice_number'] ?? 'PREVIEW';
+        $invoice->customer_first_name = $data['customer_first_name'] ?? '';
+        $invoice->customer_last_name  = $data['customer_last_name'] ?? '';
+        $invoice->customer_email      = $data['customer_email'] ?? null;
+        $invoice->customer_phone      = $data['customer_phone'] ?? null;
+        $invoice->billing_address     = $data['billing_address'] ?? null;
+        $invoice->subtotal            = $data['subtotal'] ?? 0;
+        $invoice->total               = $data['total'] ?? 0;
+        $invoice->status              = $data['status'] ?? InvoiceStatus::DRAFT->value;
+        $invoice->notes               = $data['notes'] ?? null;
+        $invoice->created_at          = now();
+
+        $items = collect($data['items'] ?? [])->map(function (array $itemData) {
+            $item              = new InvoiceItem();
+            $item->type        = $itemData['type'];
+            $item->description = $itemData['description'];
+            $item->quantity    = $itemData['quantity'];
+            $item->unit_price  = $itemData['unit_price'];
+            $item->tax_rate    = $itemData['tax_rate'] ?? 0;
+            $item->total       = $itemData['total'];
+
+            return $item;
+        });
+
+        $invoice->setRelation('items', $items);
+        $invoice->setRelation('order', null);
+
+        return $invoice;
+    }
 }
