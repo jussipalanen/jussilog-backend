@@ -405,7 +405,7 @@ class ProductController extends Controller
     {
         $manager = new ImageManager(new Driver());
         $disk    = $this->storageDisk();
-        $base    = time();
+        $base    = uniqid((string) $productId . '_', true);
         $ext     = 'jpg';
         $paths   = [];
 
