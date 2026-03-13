@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\AdminThumbnailController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\ResumeItemController;
 use App\Http\Controllers\UploadTestController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\VisitorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -137,8 +141,47 @@ Route::middleware('auth:sanctum')->put('/users/{id}', [UserController::class, 'u
 Route::middleware('auth:sanctum')->delete('/users/{id}', [UserController::class, 'destroy']);
 Route::patch('/users/update-role', [UserController::class, 'updateRole']);
 
+// Settings routes
+Route::get('/settings/languages', [SettingsController::class, 'languages']);
+
 // Visitor routes
 Route::post('/visitors/track', [VisitorController::class, 'track']);
 Route::get('/visitors/today', [VisitorController::class, 'today']);
 Route::get('/visitors/total', [VisitorController::class, 'total']);
+
+// Resume routes
+$sectionPattern = 'work-experiences|educations|skills|projects|certifications|languages|awards|recommendations';
+
+Route::get('/resumes/export/options', [ResumeController::class, 'exportOptions']);
+Route::post('/resumes/export/pdf', [ResumeController::class, 'exportPdfPublic']);
+Route::post('/resumes/export/html', [ResumeController::class, 'exportHtmlPublic']);
+
+Route::middleware('auth:sanctum')->group(function () use ($sectionPattern) {
+    // Resume CRUD
+    Route::get('/resumes/current', [ResumeController::class, 'current']);
+    Route::get('/resumes', [ResumeController::class, 'index']);
+    Route::post('/resumes', [ResumeController::class, 'store']);
+    Route::get('/resumes/{id}', [ResumeController::class, 'show']);
+    Route::put('/resumes/{id}', [ResumeController::class, 'update']);
+    // PHP does not parse multipart/form-data on PUT requests, so file uploads (photo)
+    // require POST + _method spoofing. This alias handles that case.
+    Route::post('/resumes/{id}', [ResumeController::class, 'update']);
+    Route::delete('/resumes/{id}', [ResumeController::class, 'destroy']);
+    Route::get('/resumes/{id}/export/pdf', [ResumeController::class, 'exportPdf']);
+    Route::get('/resumes/{id}/export/html', [ResumeController::class, 'exportHtml']);
+
+    // Resume section CRUD
+    Route::get('/resumes/{resumeId}/{section}', [ResumeItemController::class, 'index'])->where('section', $sectionPattern);
+    Route::post('/resumes/{resumeId}/{section}', [ResumeItemController::class, 'store'])->where('section', $sectionPattern);
+    Route::put('/resumes/{resumeId}/{section}/{itemId}', [ResumeItemController::class, 'update'])->where('section', $sectionPattern);
+    Route::delete('/resumes/{resumeId}/{section}/{itemId}', [ResumeItemController::class, 'destroy'])->where('section', $sectionPattern);
+
+    // Admin – Thumbnail management (admin role enforced in controller)
+    Route::post('/admin/thumbnails/regenerate', [AdminThumbnailController::class, 'regenerate']);
+    Route::delete('/admin/thumbnails', [AdminThumbnailController::class, 'purge']);
+    Route::post('/admin/thumbnails/products/{id}/regenerate', [AdminThumbnailController::class, 'regenerateProduct']);
+    Route::delete('/admin/thumbnails/products/{id}', [AdminThumbnailController::class, 'purgeProduct']);
+    Route::post('/admin/thumbnails/resumes/{id}/regenerate', [AdminThumbnailController::class, 'regenerateResume']);
+    Route::delete('/admin/thumbnails/resumes/{id}', [AdminThumbnailController::class, 'purgeResume']);
+});
 

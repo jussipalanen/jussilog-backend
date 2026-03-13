@@ -1,22 +1,30 @@
 # Jussilog - Laravel backend
 
-**The Product Catalog powered by the Laravel Framework**
+**Full-stack API backend powered by the Laravel Framework**
 
-Jussilog is a modern product catalog API built with Laravel 10, designed for easy deployment on Google Cloud Run with Docker support. It provides a RESTful API for managing products with features like inventory tracking, pricing, images, and visibility controls.
+Jussilog is a modern multi-feature API built with Laravel 10, designed for easy deployment on Google Cloud Run with Docker support. It provides a RESTful API covering product catalog management, order handling, resume building with PDF/HTML export, visitor tracking, and full user authentication.
 
 ## Features
 
-- **Product Management**: Full CRUD operations for products
+- **Product Management**: Full CRUD operations for products with inventory tracking, pricing, images, and visibility controls
+- **Order Management**: Full CRUD for orders and order items, with authenticated user order history
+- **Resume Builder**: Full CRUD for resumes with section management (work experience, education, skills, projects, certifications, languages, awards, recommendations)
+- **Resume Photo Upload**: Upload and store a professional photo per resume, with automatic thumbnail generation (thumb 80×80, small 200×200, medium 400×400)
+- **Resume Export**: Export resumes as PDF or HTML with theme and template selection, Finnish/English language support
+- **User Authentication**: Register, login, logout, and session check via Laravel Sanctum
+- **Google OAuth**: Sign in with Google via token-based authentication
+- **Password Reset**: Lost password and reset password flows with email notification
+- **User Management**: CRUD for users with role assignment (admin, vendor, customer)
+- **Visitor Tracking**: Track and query daily and total visitor counts
+- **Admin Thumbnail Management**: Admin endpoints to regenerate or purge product and resume photo thumbnails
 - **RESTful API**: Clean, intuitive API endpoints
 - **MySQL Database**: Production-ready MySQL with Docker support (SQLite also available)
-- **Docker Support**: Production-ready Docker configuration with MySQL persistence
-- **Cloud Run Ready**: Optimized for Google Cloud Run deployment
-- **Laravel Sanctum**: API authentication support
-- **Vite Frontend Assets**: Modern frontend build pipeline
+- **Docker Support**: Production-ready Docker configuration (PHP-FPM + Nginx, no Node.js build stage) with MySQL persistence
+- **Cloud Run Ready**: Optimized for Google Cloud Run deployment with warmup endpoint and Cloud Scheduler keep-warm job
 
 ## Tech Stack
 
-- **Backend**: Laravel 10 (PHP 8.1+)
+- **Backend**: Laravel 10 (PHP 8.2+)
 - **Database**: MySQL 8.0 (SQLite alternative for lightweight deployments)
 - **Web Server**: Nginx + PHP-FPM
 - **Frontend Build**: Vite
@@ -162,18 +170,199 @@ Re-run the command whenever you add or change API routes to keep the Swagger doc
 
 - `GET /api/hello` - Health check endpoint
 - `POST /api/upload-test` - Upload a single image (`file`) to the configured disk
+- `POST /api/register` - Register a new user account
+- `POST /api/login` - Log in and receive a Sanctum token
+- `POST /api/auth/google` - Sign in with a Google ID token
+- `POST /api/lost-password` - Request a password reset email
+- `POST /api/reset-password` - Reset password using a token from email
 - `GET /api/products` - List all products (supports `page` and `per_page`)
 - `GET /api/products/{id}` - Get single product
 - `POST /api/products` - Create new product
+- `PUT /api/products/{id}` - Update a product
 - `DELETE /api/products/{id}` - Delete product
+- `GET /api/orders` - List all orders
+- `POST /api/orders` - Create a new order
+- `GET /api/orders/{id}` - Get single order
+- `PUT /api/orders/{id}` - Update an order
+- `DELETE /api/orders/{id}` - Delete an order
 - `GET /api/users/roles` - Get all available roles
 - `GET /api/users` - List all users with roles
 - `GET /api/users/{id}` - Get single user with roles
+- `PATCH /api/users/update-role` - Update a user's role
+- `POST /api/visitors/track` - Track a visitor
+- `GET /api/visitors/today` - Get today's visitor count
+- `GET /api/visitors/total` - Get total visitor count
+- `GET /api/resumes/export/options` - Get available export themes, templates, and languages
+- `POST /api/resumes/export/pdf` - Export a resume as PDF from JSON payload (no auth required)
+- `POST /api/resumes/export/html` - Export a resume as HTML from JSON payload (no auth required)
+
+### Resume Export Endpoints (Sanctum Authentication)
+
+- `GET /api/resumes/{id}/export/pdf` - Download resume as a PDF file
+- `GET /api/resumes/{id}/export/html` - Download resume as an HTML file
+
+Accepted query parameters:
+
+| Parameter  | Values | Default |
+|------------|--------|---------|
+| `lang`     | `en`, `fi` | Resume's language setting, fallback `en` |
+| `theme`    | `green`, `blue`, `red`, `yellow`, `cyan`, `orange`, `violet`, `black`, `white`, `grey` | Resume's theme setting, fallback `green` |
+| `template` | `default` | Resume's template setting, fallback `default` |
+
+**Download resume as PDF:**
+```bash
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "http://localhost:8000/api/resumes/1/export/pdf" \
+  --output resume.pdf
+```
+
+**Download resume as HTML:**
+```bash
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "http://localhost:8000/api/resumes/1/export/html" \
+  --output resume.html
+```
+
+**With explicit language and theme:**
+```bash
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "http://localhost:8000/api/resumes/1/export/pdf?lang=fi&theme=blue" \
+  --output resume.pdf
+```
+
+### Public Resume Export Endpoints (no authentication)
+
+Export a resume directly from a JSON payload — nothing is stored in the database. Ideal for live previews and client-side resume builders.
+
+- `POST /api/resumes/export/pdf` - Export a resume as a downloadable PDF
+- `POST /api/resumes/export/html` - Export a resume as a downloadable HTML file
+
+#### Request body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `full_name` | string | yes | Full name |
+| `email` | string | yes | Email address |
+| `phone` | string | no | Phone number |
+| `location` | string | no | Location (city / country) |
+| `linkedin_url` | string | no | LinkedIn profile URL |
+| `portfolio_url` | string | no | Portfolio / website URL |
+| `github_url` | string | no | GitHub profile URL |
+| `title` | string | no | Resume label / role title |
+| `summary` | string | no | Professional summary paragraph |
+| `language` | `en` \| `fi` | no | Output language (default: `en`) |
+| `theme` | see options | no | Colour theme (default: `green`) |
+| `template` | `default` | no | Layout template (default: `default`) |
+| `photo` | string | no | Professional photo as a base64 string (JPEG / PNG / GIF / WebP, max ~5 MB). A `data:image/…;base64,` prefix is accepted but not required. |
+| `work_experiences` | array | no | Work experience entries (see section fields below) |
+| `educations` | array | no | Education entries |
+| `skills` | array | no | Skill entries |
+| `projects` | array | no | Project entries |
+| `certifications` | array | no | Certification entries |
+| `languages` | array | no | Language entries |
+| `awards` | array | no | Award entries |
+| `recommendations` | array | no | Recommendation entries |
+
+#### Section field reference
+
+**`work_experiences[]`**
+
+| Field | Type | Required |
+|-------|------|----------|
+| `job_title` | string | yes |
+| `company_name` | string | yes |
+| `location` | string | no |
+| `start_date` | date | yes |
+| `end_date` | date | no |
+| `is_current` | boolean | no |
+| `description` | string | no |
+| `sort_order` | integer | no |
+
+**`educations[]`**
+
+| Field | Type | Required |
+|-------|------|----------|
+| `degree` | string | yes |
+| `field_of_study` | string | yes |
+| `institution_name` | string | yes |
+| `location` | string | no |
+| `graduation_year` | integer | no |
+| `gpa` | number | no |
+| `sort_order` | integer | no |
+
+**`skills[]`** — `category`, `name` (required), `proficiency` (`beginner`/`intermediate`/`expert`, required), `sort_order`
+
+**`projects[]`** — `name` (required), `description`, `technologies[]`, `live_url`, `github_url`, `sort_order`
+
+**`certifications[]`** — `name`, `issuing_organization` (required), `issue_date`, `sort_order`
+
+**`languages[]`** — `language` (required), `proficiency` (`native`/`fluent`/`conversational`/`basic`, required), `sort_order`
+
+**`awards[]`** — `title` (required), `issuer`, `date`, `description`, `sort_order`
+
+**`recommendations[]`** — `full_name` (required), `title`, `company`, `email`, `phone`, `recommendation`, `sort_order`
+
+#### Example request
+
+```bash
+curl -X POST http://localhost:8000/api/resumes/export/pdf \
+  -H "Content-Type: application/json" \
+  -d '{
+    "full_name": "Ada Lovelace",
+    "email": "ada@example.com",
+    "phone": "+358401234567",
+    "location": "Helsinki, Finland",
+    "title": "Software Engineer",
+    "theme": "blue",
+    "language": "en",
+    "photo_base64": "<base64-encoded image>",
+    "work_experiences": [
+      {
+        "job_title": "Senior Engineer",
+        "company_name": "Acme Corp",
+        "start_date": "2020-01-01",
+        "is_current": true
+      }
+    ],
+    "skills": [
+      { "category": "Backend", "name": "PHP", "proficiency": "expert" }
+    ]
+  }' \
+  --output ada-lovelace-resume.pdf
+```
 
 ### Protected Endpoints (Sanctum Authentication)
 
 - `GET /api/user` - Get authenticated user with roles
 - `GET /api/me` - Get authenticated user with metadata and roles
+- `POST /api/logout` - Log out and revoke the current token
+- `GET /api/check-auth` - Check if the current token is valid
+- `GET /api/my-orders` - Get orders belonging to the authenticated user
+- `POST /api/users` - Create a new user
+- `PUT /api/users/{id}` - Update a user
+- `DELETE /api/users/{id}` - Delete a user
+- `GET /api/resumes` - List all resumes for the authenticated user
+- `POST /api/resumes` - Create a new resume
+- `GET /api/resumes/{id}` - Get a resume with all sections
+- `PUT /api/resumes/{id}` - Update resume details
+- `DELETE /api/resumes/{id}` - Delete a resume
+- `GET /api/resumes/{id}/export/pdf` - Download resume as PDF
+- `GET /api/resumes/{id}/export/html` - Download resume as HTML
+- `GET /api/resumes/{resumeId}/{section}` - List items for a resume section
+- `POST /api/resumes/{resumeId}/{section}` - Add an item to a resume section
+- `PUT /api/resumes/{resumeId}/{section}/{itemId}` - Update a resume section item
+- `DELETE /api/resumes/{resumeId}/{section}/{itemId}` - Delete a resume section item
+
+Valid `{section}` values: `work-experiences`, `educations`, `skills`, `projects`, `certifications`, `languages`, `awards`, `recommendations`
+
+### Admin Endpoints (Sanctum Authentication + Admin Role)
+
+- `POST /api/admin/thumbnails/regenerate` - Regenerate all thumbnails across all records
+- `DELETE /api/admin/thumbnails` - Purge all thumbnails across all records
+- `POST /api/admin/thumbnails/products/{id}/regenerate` - Regenerate thumbnails for a product
+- `DELETE /api/admin/thumbnails/products/{id}` - Purge thumbnails for a product
+- `POST /api/admin/thumbnails/resumes/{id}/regenerate` - Regenerate photo thumbnails for a resume
+- `DELETE /api/admin/thumbnails/resumes/{id}` - Purge photo thumbnails for a resume
 
 ### Example API Usage
 
@@ -558,7 +747,7 @@ gcloud run jobs update user-create-job \
 
 ## Docker Files Overview
 
-- **`Dockerfile`**: Production-focused multi-stage build for the Laravel API with Composer, PHP-FPM, Nginx, and OPCache
+- **`Dockerfile`**: Single-stage build with PHP-FPM + Nginx (API-only, no Node.js build step)
 - **`docker-compose.yml`**: Local development environment with volume persistence
 - **`.dockerignore`**: Optimizes build context by excluding unnecessary files
 - **`docker/nginx.conf`**: Laravel-optimized Nginx configuration
