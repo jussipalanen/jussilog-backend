@@ -385,25 +385,25 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
 
     {{-- Contact --}}
     <div class="sb-section">
-    <div class="sb-heading">{{ __('resume_pdf.contact') }}</div>
+    <div class="sb-heading">{{ __('resume.contact') }}</div>
 
     @if($resume->email)
     <div class="sb-item">
-        <div class="sb-item-label">{{ __('resume_pdf.email') }}</div>
+        <div class="sb-item-label">{{ __('resume.email') }}</div>
         <div class="sb-item-value">{{ $resume->email }}</div>
     </div>
     @endif
 
     @if($resume->phone)
     <div class="sb-item">
-        <div class="sb-item-label">{{ __('resume_pdf.phone') }}</div>
+        <div class="sb-item-label">{{ __('resume.phone') }}</div>
         <div class="sb-item-value">{{ $resume->phone }}</div>
     </div>
     @endif
 
     @if($resume->location)
     <div class="sb-item">
-        <div class="sb-item-label">{{ __('resume_pdf.location') }}</div>
+        <div class="sb-item-label">{{ __('resume.location') }}</div>
         <div class="sb-item-value">{{ $resume->location }}</div>
     </div>
     @endif
@@ -412,7 +412,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     {{-- Links --}}
     @if($resume->linkedin_url || $resume->github_url || $resume->portfolio_url)
     <div class="sb-section">
-    <div class="sb-heading">{{ __('resume_pdf.links') }}</div>
+    <div class="sb-heading">{{ __('resume.links') }}</div>
 
     @if($resume->linkedin_url)
     <div class="sb-item">
@@ -430,7 +430,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
 
     @if($resume->portfolio_url)
     <div class="sb-item">
-        <div class="sb-item-label">{{ __('resume_pdf.portfolio') }}</div>
+        <div class="sb-item-label">{{ __('resume.portfolio') }}</div>
         <div class="sb-item-value">{{ $resume->portfolio_url }}</div>
     </div>
     @endif
@@ -440,13 +440,13 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     {{-- Skills --}}
     @if($resume->skills?->isNotEmpty())
     <div class="sb-section">
-    <div class="sb-heading">{{ __('resume_pdf.skills') }}</div>
+    <div class="sb-heading">{{ __('resume.skills') }}</div>
 
     @foreach($resume->skills->groupBy('category') as $category => $catSkills)
     <div class="sb-skill-group">
         <div class="sb-skill-group-name">{{ $category }}</div>
         @foreach($catSkills as $skill)
-        @php $w = match($skill->proficiency) { 'expert' => '90%', 'intermediate' => '60%', default => '30%' }; @endphp
+        @php $w = match($skill->proficiency) { 'expert' => '100%', 'advanced' => '80%', 'intermediate' => '60%', 'basic' => '40%', default => '20%' }; @endphp
         <div class="sb-skill">
             <div class="sb-skill-name">{{ $skill->name }}</div>
             <div class="sb-track"><div class="sb-fill" style="width:{{ $w }};"></div></div>
@@ -460,15 +460,15 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     {{-- Languages --}}
     @if($resume->languages?->isNotEmpty())
     <div class="sb-section">
-    <div class="sb-heading">{{ __('resume_pdf.languages') }}</div>
+    <div class="sb-heading">{{ __('resume.languages') }}</div>
 
     @foreach($resume->languages as $lang)
     @php
-        $filled = ['basic' => 1, 'conversational' => 2, 'fluent' => 3, 'native' => 4][$lang->proficiency] ?? 1;
+        $filled = ['elementary' => 1, 'limited_working' => 2, 'professional_working' => 3, 'full_professional' => 4, 'native_bilingual' => 5][$lang->proficiency] ?? 1;
     @endphp
     <div class="sb-lang">
         <div class="sb-lang-name">{{ $lang->language }}</div>
-        @for($d = 1; $d <= 4; $d++)
+        @for($d = 1; $d <= 5; $d++)
         <span class="sb-dot {{ $d <= $filled ? 'sb-dot-on' : 'sb-dot-off' }}"></span>
         @endfor
     </div>
@@ -481,7 +481,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     {{-- Summary --}}
     @if($resume->summary)
     <div class="section">
-        <div class="section-title">{{ __('resume_pdf.professional_summary') }}</div>
+        <div class="section-title">{{ __('resume.professional_summary') }}</div>
         <p class="summary">{{ $resume->summary }}</p>
     </div>
     @endif
@@ -489,7 +489,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     {{-- Work Experience --}}
     @if($resume->workExperiences?->isNotEmpty())
     <div class="section">
-        <div class="section-title">{{ __('resume_pdf.work_experience') }}</div>
+        <div class="section-title">{{ __('resume.work_experience') }}</div>
         @foreach($resume->workExperiences as $job)
         <div class="item">
             <div class="item-head">
@@ -499,7 +499,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
                 </div>
                 <div class="item-head-right">
                     <span class="date-badge">
-                        {{ \Carbon\Carbon::parse($job->start_date)->translatedFormat('M Y') }}&nbsp;&ndash;&nbsp;{{ $job->is_current ? __('resume_pdf.present') : ($job->end_date ? \Carbon\Carbon::parse($job->end_date)->translatedFormat('M Y') : '') }}
+                        {{ \Carbon\Carbon::parse($job->start_date)->translatedFormat('M Y') }}&nbsp;&ndash;&nbsp;{{ $job->is_current ? __('resume.present') : ($job->end_date ? \Carbon\Carbon::parse($job->end_date)->translatedFormat('M Y') : '') }}
                     </span>
                 </div>
             </div>
@@ -514,12 +514,12 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     {{-- Education --}}
     @if($resume->educations?->isNotEmpty())
     <div class="section">
-        <div class="section-title">{{ __('resume_pdf.education') }}</div>
+        <div class="section-title">{{ __('resume.education') }}</div>
         @foreach($resume->educations as $edu)
         <div class="item">
             <div class="item-head">
                 <div class="item-head-left">
-                    <div class="item-title">{{ $edu->degree }}{{ $edu->field_of_study ? ' ' . __('resume_pdf.field_of_study_in') . ' ' . $edu->field_of_study : '' }}</div>
+                    <div class="item-title">{{ $edu->degree }}{{ $edu->field_of_study ? ' ' . __('resume.field_of_study_in') . ' ' . $edu->field_of_study : '' }}</div>
                     <div class="item-sub">{{ $edu->institution_name }}{{ $edu->location ? ' &middot; ' . $edu->location : '' }}</div>
                 </div>
                 @if($edu->graduation_year)
@@ -529,7 +529,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
                 @endif
             </div>
             @if($edu->gpa)
-            <div class="item-body">{{ __('resume_pdf.gpa') }}: {{ number_format($edu->gpa, 2) }}</div>
+            <div class="item-body">{{ __('resume.gpa') }}: {{ number_format($edu->gpa, 2) }}</div>
             @endif
         </div>
         @endforeach
@@ -539,7 +539,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     {{-- Projects --}}
     @if($resume->projects?->isNotEmpty())
     <div class="section">
-        <div class="section-title">{{ __('resume_pdf.projects') }}</div>
+        <div class="section-title">{{ __('resume.projects') }}</div>
         @foreach($resume->projects as $project)
         <div class="item">
             <div class="item-title">{{ $project->name }}</div>
@@ -567,7 +567,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     {{-- Certifications --}}
     @if($resume->certifications?->isNotEmpty())
     <div class="section">
-        <div class="section-title">{{ __('resume_pdf.certifications') }}</div>
+        <div class="section-title">{{ __('resume.certifications') }}</div>
         @foreach($resume->certifications as $cert)
         <div class="item">
             <div class="item-head">
@@ -589,7 +589,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     {{-- Awards --}}
     @if($resume->awards?->isNotEmpty())
     <div class="section">
-        <div class="section-title">{{ __('resume_pdf.awards') }}</div>
+        <div class="section-title">{{ __('resume.awards') }}</div>
         @foreach($resume->awards as $award)
         <div class="item">
             <div class="item-head">
@@ -614,7 +614,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     {{-- Recommendations --}}
     @if($resume->recommendations?->isNotEmpty())
     <div class="section">
-        <div class="section-title">{{ __('resume_pdf.recommendations') }}</div>
+        <div class="section-title">{{ __('resume.recommendations') }}</div>
         @foreach($resume->recommendations as $rec)
         <div class="rec-card">
             <div class="rec-name">{{ $rec->full_name }}</div>

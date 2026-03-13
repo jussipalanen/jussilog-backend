@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeItemController;
+use App\Http\Controllers\TaxRateController;
 use App\Http\Controllers\UploadTestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingsController;
@@ -116,20 +117,26 @@ Route::get('/orders/{id}', [OrderController::class, 'show']);
 Route::put('/orders/{id}', [OrderController::class, 'update']);
 Route::delete('/orders/{id}', [OrderController::class, 'destroy']);
 Route::middleware('auth:sanctum')->get('/my-orders', [OrderController::class, 'myOrders']);
+Route::middleware('auth:sanctum')->get('/my-invoices', [InvoiceController::class, 'myInvoices']);
 
 // Invoice routes
 // - Admin & Vendor: full access
 // - Customer: read-only, own invoices only (scoped in controller)
 
+Route::get('/invoices/options', [InvoiceController::class, 'options']);
+
 // Public invoice export (no auth, no database save)
 Route::post('/invoices/export/pdf', [InvoiceController::class, 'exportPdf']);
 Route::post('/invoices/export/html', [InvoiceController::class, 'exportHtml']);
+Route::post('/invoices/export/email', [InvoiceController::class, 'exportEmail']);
 
 Route::middleware('auth:sanctum')->group(
     function () {
         Route::get('/invoices', [InvoiceController::class, 'index']);
         Route::get('/invoices/{id}', [InvoiceController::class, 'show']);
         Route::get('/invoices/{id}/pdf', [InvoiceController::class, 'pdf']);
+        Route::get('/invoices/{id}/html', [InvoiceController::class, 'html']);
+        Route::post('/invoices/{id}/send', [InvoiceController::class, 'sendEmail']);
         Route::post('/invoices', [InvoiceController::class, 'store'])->middleware('role:admin,vendor');
         Route::put('/invoices/{id}', [InvoiceController::class, 'update'])->middleware('role:admin,vendor');
         Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy'])->middleware('role:admin,vendor');
@@ -148,6 +155,8 @@ Route::patch('/users/update-role', [UserController::class, 'updateRole']);
 
 // Settings routes
 Route::get('/settings/languages', [SettingsController::class, 'languages']);
+Route::get('/settings/countries', [SettingsController::class, 'countries']);
+Route::get('/settings/countries/{code}', [SettingsController::class, 'country']);
 
 // Visitor routes
 Route::post('/visitors/track', [VisitorController::class, 'track']);
@@ -160,6 +169,9 @@ $sectionPattern = 'work-experiences|educations|skills|projects|certifications|la
 Route::get('/resumes/export/options', [ResumeController::class, 'exportOptions']);
 Route::post('/resumes/export/pdf', [ResumeController::class, 'exportPdfPublic']);
 Route::post('/resumes/export/html', [ResumeController::class, 'exportHtmlPublic']);
+
+Route::get('/settings/taxrates', [TaxRateController::class, 'index']);
+Route::get('/settings/taxrates/{code}', [TaxRateController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () use ($sectionPattern) {
     // Resume CRUD

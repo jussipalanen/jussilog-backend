@@ -9,15 +9,17 @@ enum InvoiceItemType: string
     case PRODUCT = 'product';
     case SHIPPING = 'shipping';
     case DISCOUNT = 'discount';
-    case ADJUSTMENT = 'adjustment';
+    case FEE = 'fee';
+    case OTHER = 'other';
 
     public function label(): string
     {
         return match ($this) {
-            self::PRODUCT => 'Product',
+            self::PRODUCT  => 'Product',
             self::SHIPPING => 'Shipping',
             self::DISCOUNT => 'Discount',
-            self::ADJUSTMENT => 'Adjustment',
+            self::FEE      => 'Fee',
+            self::OTHER    => 'Other',
         };
     }
 }

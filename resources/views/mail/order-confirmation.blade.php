@@ -50,16 +50,18 @@
                 <div style="background:#fafafa; border:1px solid #f3f4f6; border-radius:12px; padding:18px 20px;">
                     <h2 style="font-size:11px; font-weight:700; color:#9ca3af; letter-spacing:1.5px; text-transform:uppercase; margin:0 0 10px;">📄 &nbsp;Billing Address</h2>
                     <address style="font-style:normal; color:#4b5563; font-size:14px; line-height:1.7;">
-                        @foreach ($order->billing_address ?? [] as $value)
-                            @if ($value){{ $value }}<br>@endif
+                        @php use App\Services\CountryService; @endphp
+                        @foreach ($order->billing_address ?? [] as $key => $value)
+                            @if ($value){{ $key === 'country' ? CountryService::getLabel($value) : $value }}<br>@endif
                         @endforeach
                     </address>
                 </div>
                 <div style="background:#fafafa; border:1px solid #f3f4f6; border-radius:12px; padding:18px 20px;">
                     <h2 style="font-size:11px; font-weight:700; color:#9ca3af; letter-spacing:1.5px; text-transform:uppercase; margin:0 0 10px;">🚚 &nbsp;Shipping Address</h2>
                     <address style="font-style:normal; color:#4b5563; font-size:14px; line-height:1.7;">
-                        @foreach ($order->shipping_address ?? [] as $value)
-                            @if ($value){{ $value }}<br>@endif
+                        @php use App\Services\CountryService; @endphp
+                        @foreach ($order->shipping_address ?? [] as $key => $value)
+                            @if ($value){{ $key === 'country' ? CountryService::getLabel($value) : $value }}<br>@endif
                         @endforeach
                     </address>
                 </div>

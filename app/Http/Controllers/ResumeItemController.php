@@ -153,9 +153,9 @@ class ResumeItemController extends Controller
                 'sort_order'       => 'integer|min:0',
             ],
             'skills' => [
-                'category'    => $r . 'required|string|max:255',
+                'category'    => $r . 'required|in:programming_languages,scripting_languages,markup_languages,query_languages,frontend_technologies,backend_technologies,full_stack_development,frameworks,libraries,ui_ux_design,responsive_design,mobile_development,desktop_development,game_development,embedded_systems,databases,database_design,database_administration,orm_data_access,api_development,web_services,graphql,microservices,event_driven_architecture,devops,cloud_platforms,serverless,containerization,ci_cd,infrastructure_as_code,configuration_management,version_control,testing_qa,test_automation,security,authentication_authorization,networking,performance_optimization,architecture_design_patterns,system_design,distributed_systems,data_engineering,big_data,machine_learning_ai,monitoring_logging,development_tools,operating_systems,project_management,agile_methodologies,soft_skills',
                 'name'        => $r . 'required|string|max:255',
-                'proficiency' => $r . 'required|in:beginner,intermediate,expert',
+                'proficiency' => $r . 'required|in:beginner,basic,intermediate,advanced,expert',
                 'sort_order'  => 'integer|min:0',
             ],
             'projects' => [
@@ -175,7 +175,7 @@ class ResumeItemController extends Controller
             ],
             'languages' => [
                 'language'    => $r . 'required|string|max:100',
-                'proficiency' => $r . 'required|in:native,fluent,conversational,basic',
+                'proficiency' => $r . 'required|in:native_bilingual,full_professional,professional_working,limited_working,elementary',
                 'sort_order'  => 'integer|min:0',
             ],
             'awards' => [

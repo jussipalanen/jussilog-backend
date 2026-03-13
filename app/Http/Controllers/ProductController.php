@@ -97,6 +97,9 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'sale_price' => 'nullable|numeric|min:0',
+            'tax_code' => 'nullable|string|in:ZERO,AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,UK,NO,CH,AR,BR,CA,MX,AU,CN,ID,IN,JP,KR,NZ,PH,SG,TH,AE,IL,SA,EG,GH,KE,NG,ZA',
+            // tax_rate is a snapshot; if omitted but tax_code is given, resolve from TaxRateController
+            'tax_rate' => 'nullable|numeric|min:0|max:1',
             'quantity' => 'nullable|integer|min:0',
             'featured_image' => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120',
             'images.*' => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120',
@@ -119,6 +122,8 @@ class ProductController extends Controller
             'description' => $data['description'] ?? null,
             'price' => $data['price'],
             'sale_price' => $data['sale_price'] ?? null,
+            'tax_code' => $data['tax_code'] ?? null,
+            'tax_rate' => $data['tax_rate'] ?? null,
             'quantity' => $data['quantity'] ?? null,
             'visibility' => $data['visibility'] ?? null,
         ]);
@@ -208,6 +213,9 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'price' => 'sometimes|numeric|min:0',
             'sale_price' => 'nullable|numeric|min:0',
+            'tax_code' => 'nullable|string|in:ZERO,AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,UK,NO,CH,AR,BR,CA,MX,AU,CN,ID,IN,JP,KR,NZ,PH,SG,TH,AE,IL,SA,EG,GH,KE,NG,ZA',
+            // tax_rate is a snapshot; if omitted but tax_code is given, resolve from TaxRateController
+            'tax_rate' => 'nullable|numeric|min:0|max:1',
             'quantity' => 'nullable|integer|min:0',
             'featured_image' => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120',
             'images.*' => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120',
@@ -282,6 +290,8 @@ class ProductController extends Controller
             'description' => $data['description'] ?? $product->description,
             'price' => $data['price'] ?? $product->price,
             'sale_price' => $data['sale_price'] ?? $product->sale_price,
+            'tax_code' => array_key_exists('tax_code', $data) ? $data['tax_code'] : $product->tax_code,
+            'tax_rate' => array_key_exists('tax_rate', $data) ? $data['tax_rate'] : $product->tax_rate,
             'quantity' => $data['quantity'] ?? $product->quantity,
             'visibility' => $data['visibility'] ?? $product->visibility,
         ]);

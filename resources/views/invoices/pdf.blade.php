@@ -1,5 +1,46 @@
+@php
+$translations = [
+    'en' => [
+        'invoice'         => 'Invoice',
+        'invoice_date'    => 'Invoice Date',
+        'issued'          => 'Issued',
+        'paid'            => 'Paid',
+        'bill_to'         => 'Bill To',
+        'order_reference' => 'Order Reference',
+        'order'           => 'Order',
+        'description'     => 'Description',
+        'type'            => 'Type',
+        'qty'             => 'Qty',
+        'unit_price'      => 'Unit Price',
+        'tax'             => 'Tax',
+        'total'           => 'Total',
+        'subtotal'        => 'Subtotal',
+        'notes'           => 'Notes',
+        'generated_on'    => 'Generated on',
+    ],
+    'fi' => [
+        'invoice'         => 'Lasku',
+        'invoice_date'    => 'Laskun päiväys',
+        'issued'          => 'Lähetetty',
+        'paid'            => 'Maksettu',
+        'bill_to'         => 'Laskutettava',
+        'order_reference' => 'Tilausviite',
+        'order'           => 'Tilaus',
+        'description'     => 'Kuvaus',
+        'type'            => 'Tyyppi',
+        'qty'             => 'Määrä',
+        'unit_price'      => 'Yksikköhinta',
+        'tax'             => 'Vero',
+        'total'           => 'Yhteensä',
+        'subtotal'        => 'Välisumma',
+        'notes'           => 'Muistiinpanot',
+        'generated_on'    => 'Luotu',
+    ],
+];
+$t = $translations[$lang ?? 'en'] ?? $translations['en'];
+@endphp
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ $lang ?? 'en' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,7 +113,7 @@
             <div class="company-name">{{ config('app.name') }}</div>
         </div>
         <div class="header-right">
-            <div class="invoice-label">Invoice</div>
+            <div class="invoice-label">{{ $t['invoice'] }}</div>
             <div class="invoice-number">{{ $invoice->invoice_number }}</div>
             @php $statusClass = 'status-' . $invoice->status->value; @endphp
             <span class="status-badge {{ $statusClass }}">{{ $invoice->status->label() }}</span>
@@ -82,18 +123,18 @@
     {{-- Meta --}}
     <div class="meta-row">
         <div class="meta-cell">
-            <h3>Invoice Date</h3>
+            <h3>{{ $t['invoice_date'] }}</h3>
             <p>{{ $invoice->created_at->format('d M Y') }}</p>
         </div>
         @if($invoice->issued_at)
         <div class="meta-cell">
-            <h3>Issued</h3>
+            <h3>{{ $t['issued'] }}</h3>
             <p>{{ $invoice->issued_at->format('d M Y') }}</p>
         </div>
         @endif
         @if($invoice->paid_at)
         <div class="meta-cell">
-            <h3>Paid</h3>
+            <h3>{{ $t['paid'] }}</h3>
             <p>{{ $invoice->paid_at->format('d M Y') }}</p>
         </div>
         @endif
@@ -102,7 +143,7 @@
     {{-- Addresses --}}
     <div class="addresses">
         <div class="address-block">
-            <h3>Bill To</h3>
+            <h3>{{ $t['bill_to'] }}</h3>
             <p>
                 {{ $invoice->customer_first_name }} {{ $invoice->customer_last_name }}<br>
                 @if($invoice->customer_email){{ $invoice->customer_email }}<br>@endif
@@ -113,16 +154,19 @@
                         @if(!empty($addr['postal_code']) || !empty($addr['city']))
                             {{ $addr['postal_code'] ?? '' }} {{ $addr['city'] ?? '' }}<br>
                         @endif
-                        @if(!empty($addr['country'])){{ strtoupper($addr['country']) }}@endif
+                        @if(!empty($addr['country']))
+                            @php use App\Services\CountryService; @endphp
+                            {{ CountryService::getLabel($addr['country'], $lang ?? 'en') }}
+                        @endif
                     @endif
                 @endif
             </p>
         </div>
         <div class="address-block">
-            <h3>Order Reference</h3>
+            <h3>{{ $t['order_reference'] }}</h3>
             <p>
                 @if($invoice->order)
-                    Order #{{ $invoice->order->order_number }}<br>
+                    {{ $t['order'] }} #{{ $invoice->order->order_number }}<br>
                     {{ $invoice->order->created_at->format('d M Y') }}
                 @endif
             </p>
@@ -133,12 +177,12 @@
     <table class="items">
         <thead>
             <tr>
-                <th style="width:40%">Description</th>
-                <th>Type</th>
-                <th class="num">Qty</th>
-                <th class="num">Unit Price</th>
-                <th class="num">Tax</th>
-                <th class="num">Total</th>
+                <th style="width:40%">{{ $t['description'] }}</th>
+                <th>{{ $t['type'] }}</th>
+                <th class="num">{{ $t['qty'] }}</th>
+                <th class="num">{{ $t['unit_price'] }}</th>
+                <th class="num">{{ $t['tax'] }}</th>
+                <th class="num">{{ $t['total'] }}</th>
             </tr>
         </thead>
         <tbody>
@@ -159,11 +203,11 @@
     <div class="totals">
         <table>
             <tr>
-                <td class="label">Subtotal</td>
+                <td class="label">{{ $t['subtotal'] }}</td>
                 <td class="amount">{{ number_format($invoice->subtotal, 2) }}</td>
             </tr>
             <tr class="grand-total">
-                <td class="label">Total</td>
+                <td class="label">{{ $t['total'] }}</td>
                 <td class="amount">{{ number_format($invoice->total, 2) }}</td>
             </tr>
         </table>
@@ -172,13 +216,13 @@
     {{-- Notes --}}
     @if($invoice->notes)
     <div class="notes">
-        <h3>Notes</h3>
+        <h3>{{ $t['notes'] }}</h3>
         <p>{{ $invoice->notes }}</p>
     </div>
     @endif
 
     <div class="footer">
-        Generated on {{ now()->format('d M Y, H:i') }} &mdash; {{ config('app.name') }}
+        {{ $t['generated_on'] }} {{ now()->format('d M Y, H:i') }} &mdash; {{ config('app.name') }}
     </div>
 
 </div>
