@@ -21,4 +21,21 @@ return [
     'location'             => 'Sijainti',
     'links'                => 'Linkit',
     'portfolio'            => 'Portfolio',
+
+    // Export option labels
+    'theme_green'   => 'Vihreä',
+    'theme_blue'    => 'Sininen',
+    'theme_red'     => 'Punainen',
+    'theme_yellow'  => 'Keltainen',
+    'theme_cyan'    => 'Syaani',
+    'theme_orange'  => 'Oranssi',
+    'theme_violet'  => 'Violetti',
+    'theme_black'   => 'Musta',
+    'theme_white'   => 'Valkoinen',
+    'theme_grey'    => 'Harmaa',
+
+    'template_default' => 'Oletus',
+
+    'language_en' => 'Englanti',
+    'language_fi' => 'Suomi',
 ];
