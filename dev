@@ -28,6 +28,10 @@ Commands:
                      Import a .sql file into local Docker MySQL or Cloud SQL
                      --local  (default) import into local Docker MySQL
                      --cloud  import into Cloud SQL via cloud-sql-proxy
+  secrets-update [KEY [VALUE]]  Push secrets to GCP Secret Manager.
+                               No args: sync all keys from .env.production.
+                               KEY only: sync one key from .env.production.
+                               KEY VALUE: set one key to an explicit value.
   env-update         Push .env.production vars to Cloud Run (no rebuild needed)
                      Optionally pass --dry-run to preview the command
   env-get            Fetch live env vars from Cloud Run as KEY=VALUE pairs
@@ -291,6 +295,14 @@ run_db_import() {
   echo "Import done."
 }
 
+run_secrets_update() {
+  if [ ! -f scripts/update-secret-manager.sh ]; then
+    echo "Error: scripts/update-secret-manager.sh not found." >&2
+    exit 1
+  fi
+  bash scripts/update-secret-manager.sh "$@"
+}
+
 run_env_update() {
   if [ ! -f scripts/set-cloud-run-env.sh ]; then
     echo "Error: scripts/set-cloud-run-env.sh not found." >&2
@@ -387,6 +399,10 @@ case "$1" in
   db-import)
     shift
     run_db_import "$@"
+    ;;
+  secrets-update)
+    shift
+    run_secrets_update "$@"
     ;;
   env-update)
     shift
