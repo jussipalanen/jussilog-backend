@@ -17,20 +17,37 @@ RUN apk add --no-cache \
     sqlite-dev \
     mysql-client \
     shadow \
-    && docker-php-ext-install pdo_sqlite pdo_mysql opcache
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
+    chromium \
+    nss \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    nodejs \
+    npm \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install pdo_sqlite pdo_mysql gd opcache \
+    && { \
+        echo 'opcache.enable=1'; \
+        echo 'opcache.enable_cli=0'; \
+        echo 'opcache.validate_timestamps=0'; \
+        echo 'opcache.save_comments=1'; \
+        echo 'opcache.memory_consumption=128'; \
+        echo 'opcache.interned_strings_buffer=8'; \
+        echo 'opcache.max_accelerated_files=10000'; \
+        echo 'opcache.revalidate_freq=0'; \
+    } > /usr/local/etc/php/conf.d/docker-php-opcache.prod.ini
 
-# OPcache tuned for production (validate_timestamps=0 — files never change in the image)
-# memory_consumption=64 is plenty for a small Laravel API; leaves more room for PHP workers
-RUN { \
-    echo 'opcache.enable=1'; \
-    echo 'opcache.memory_consumption=64'; \
-    echo 'opcache.interned_strings_buffer=8'; \
-    echo 'opcache.max_accelerated_files=8000'; \
-    echo 'opcache.revalidate_freq=0'; \
-    echo 'opcache.validate_timestamps=0'; \
-    echo 'opcache.save_comments=1'; \
-    echo 'opcache.fast_shutdown=1'; \
-    } > /usr/local/etc/php/conf.d/opcache.ini
+# Tell Browsershot/Chromium where the binary lives and disable sandbox (required in containers)
+ENV CHROME_PATH=/usr/bin/chromium-browser
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+# Install puppeteer globally for Browsershot (skips bundled Chromium download)
+RUN npm install -g puppeteer
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

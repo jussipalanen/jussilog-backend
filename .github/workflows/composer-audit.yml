@@ -1,0 +1,69 @@
+name: Composer Audit
+
+on:
+  push:
+    paths:
+      - "composer.json"
+      - "composer.lock"
+      - "package.json"
+      - "package-lock.json"
+  pull_request:
+    paths:
+      - "composer.json"
+      - "composer.lock"
+      - "package.json"
+      - "package-lock.json"
+  schedule:
+    # Run every Monday at 07:00 Helsinki time (05:00 UTC)
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+
+jobs:
+  composer:
+    name: PHP – security audit & outdated check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies (no scripts)
+        run: composer install --no-dev --no-interaction --no-progress --prefer-dist --no-scripts --ignore-platform-reqs
+
+      - name: Security audit
+        run: composer audit
+
+      - name: Outdated direct dependencies
+        # Show outdated packages but do not fail the build — Dependabot handles updates via PRs
+        run: composer outdated --direct --ignore-platform-reqs || true
+
+  npm:
+    name: Node – security audit & outdated check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "npm"
+
+      - name: Install npm dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Security audit
+        run: npm audit --audit-level=moderate
+
+      - name: Outdated packages
+        # List outdated but do not fail — Dependabot handles updates via PRs
+        run: npm outdated || true

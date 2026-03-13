@@ -24,7 +24,9 @@ class Product extends Model
         'sale_price',
         'quantity',
         'featured_image',
+        'featured_image_sizes',
         'images',
+        'images_sizes',
         'visibility',
     ];
 
@@ -38,6 +40,8 @@ class Product extends Model
         'sale_price' => 'decimal:2',
         'quantity' => 'integer',
         'images' => 'array',
+        'images_sizes' => 'array',
+        'featured_image_sizes' => 'array',
         'visibility' => 'boolean',
     ];
 
@@ -46,7 +50,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $appends = ['featured_image_url', 'images_urls'];
+    protected $appends = ['featured_image_url', 'featured_image_sizes_urls', 'images_urls', 'images_sizes_urls'];
 
     /**
      * Get the full URL for the featured image.
@@ -63,6 +67,20 @@ class Product extends Model
     }
 
     /**
+     * Get the full URLs for the featured image thumbnails.
+     *
+     * @return array
+     */
+    public function getFeaturedImageSizesUrlsAttribute(): array
+    {
+        if (!$this->featured_image_sizes || !is_array($this->featured_image_sizes)) {
+            return [];
+        }
+
+        return array_map(fn ($path) => $path ? ($this->resolveImageUrl($path) ?? '') : '', $this->featured_image_sizes);
+    }
+
+    /**
      * Get the full URLs for the images.
      *
      * @return array
@@ -76,6 +94,25 @@ class Product extends Model
         return array_map(function ($path) {
             return $this->resolveImageUrl($path) ?? '';
         }, $this->images);
+    }
+
+    /**
+     * Get the full URLs for all photo thumbnails (parallel array to images).
+     *
+     * @return array
+     */
+    public function getImagesSizesUrlsAttribute(): array
+    {
+        if (!$this->images_sizes || !is_array($this->images_sizes)) {
+            return [];
+        }
+
+        return array_map(function ($sizes) {
+            if (!is_array($sizes)) {
+                return [];
+            }
+            return array_map(fn ($path) => $path ? ($this->resolveImageUrl($path) ?? '') : '', $sizes);
+        }, $this->images_sizes);
     }
 
     private function resolveImageUrl(string $path): ?string
