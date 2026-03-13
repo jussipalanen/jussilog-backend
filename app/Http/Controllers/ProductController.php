@@ -9,6 +9,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class ProductController extends Controller
 {
@@ -125,24 +127,25 @@ class ProductController extends Controller
         if ($request->hasFile('featured_image')) {
             $file = $request->file('featured_image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $this->storeProductFile($file, $product->id, $filename);
-            $product->featured_image = $path;
+            $product->featured_image = $this->storeProductFile($file, $product->id, $filename);
+            $product->featured_image_sizes = $this->generateThumbnails($file, $product->id);
         }
 
         // Handle multiple images upload
         if ($request->hasFile('images')) {
             $imagePaths = [];
+            $imagesSizes = [];
             $images = $request->file('images');
-            // Ensure images is an array
             if (!is_array($images)) {
                 $images = [$images];
             }
             foreach ($images as $image) {
                 $filename = time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
-                $path = $this->storeProductFile($image, $product->id, $filename);
-                $imagePaths[] = $path;
+                $imagePaths[] = $this->storeProductFile($image, $product->id, $filename);
+                $imagesSizes[] = $this->generateThumbnails($image, $product->id);
             }
             $product->images = $imagePaths;
+            $product->images_sizes = $imagesSizes;
         }
 
         $product->save();
@@ -237,18 +240,30 @@ class ProductController extends Controller
             $normalizedPaths = array_values(array_unique($normalizedPaths));
             if ($normalizedPaths !== []) {
                 $this->storageDisk()->delete($normalizedPaths);
-                if (is_array($product->images)) {
-                    $product->images = array_values(array_filter(
-                        $product->images,
-                        fn ($path) => !in_array($path, $normalizedPaths, true)
-                    ));
+
+                // Remove deleted images and their matching thumbnail entries (parallel arrays)
+                $oldImages = $product->images ?? [];
+                $oldSizes  = $product->images_sizes ?? [];
+                $newImages = [];
+                $newSizes  = [];
+                foreach ($oldImages as $i => $imgPath) {
+                    if (in_array($imgPath, $normalizedPaths, true)) {
+                        $this->deleteThumbnails($oldSizes[$i] ?? null);
+                    } else {
+                        $newImages[] = $imgPath;
+                        $newSizes[]  = $oldSizes[$i] ?? null;
+                    }
                 }
+                $product->images       = $newImages;
+                $product->images_sizes = $newSizes;
             }
         }
 
         if ($request->boolean('delete_featured_image') && $product->featured_image) {
             $this->storageDisk()->delete($product->featured_image);
-            $product->featured_image = null;
+            $this->deleteThumbnails($product->featured_image_sizes);
+            $product->featured_image       = null;
+            $product->featured_image_sizes = null;
         }
 
         // Validate max 15 total images (existing + new)
@@ -273,26 +288,31 @@ class ProductController extends Controller
 
         // Handle featured image upload
         if ($request->hasFile('featured_image')) {
+            if ($product->featured_image) {
+                $this->storageDisk()->delete($product->featured_image);
+                $this->deleteThumbnails($product->featured_image_sizes);
+            }
             $file = $request->file('featured_image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $this->storeProductFile($file, $product->id, $filename);
-            $product->featured_image = $path;
+            $product->featured_image       = $this->storeProductFile($file, $product->id, $filename);
+            $product->featured_image_sizes = $this->generateThumbnails($file, $product->id);
         }
 
         // Handle multiple images upload
         if ($request->hasFile('images')) {
-            $imagePaths = $product->images ?? [];
+            $imagePaths  = $product->images ?? [];
+            $imagesSizes = $product->images_sizes ?? [];
             $images = $request->file('images');
-            // Ensure images is an array
             if (!is_array($images)) {
                 $images = [$images];
             }
             foreach ($images as $image) {
-                $filename = time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
-                $path = $this->storeProductFile($image, $product->id, $filename);
-                $imagePaths[] = $path;
+                $filename      = time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+                $imagePaths[]  = $this->storeProductFile($image, $product->id, $filename);
+                $imagesSizes[] = $this->generateThumbnails($image, $product->id);
             }
-            $product->images = $imagePaths;
+            $product->images       = $imagePaths;
+            $product->images_sizes = $imagesSizes;
         }
 
         $product->save();
@@ -318,8 +338,18 @@ class ProductController extends Controller
         if ($product->featured_image) {
             $pathsToDelete[] = $product->featured_image;
         }
+        if (is_array($product->featured_image_sizes)) {
+            $pathsToDelete = array_merge($pathsToDelete, array_values(array_filter($product->featured_image_sizes)));
+        }
         if (is_array($product->images)) {
             $pathsToDelete = array_merge($pathsToDelete, $product->images);
+        }
+        if (is_array($product->images_sizes)) {
+            foreach ($product->images_sizes as $sizes) {
+                if (is_array($sizes)) {
+                    $pathsToDelete = array_merge($pathsToDelete, array_values(array_filter($sizes)));
+                }
+            }
         }
         $pathsToDelete = array_values(array_unique(array_filter($pathsToDelete)));
         if ($pathsToDelete !== []) {
@@ -353,5 +383,55 @@ class ProductController extends Controller
     private function storeProductFile(UploadedFile $file, int $productId, string $filename): string
     {
         return $file->storeAs("products/{$productId}", $filename, $this->storageDiskName());
+    }
+
+    /**
+     * Thumbnail size presets: [ name => [width, height] ]
+     *
+     * - thumb  (150×150) – cart / tiny previews
+     * - small  (400×400) – product listing cards
+     * - medium (800×800) – product detail view
+     */
+    private function productSizes(): array
+    {
+        return [
+            'thumb'  => [150, 150],
+            'small'  => [400, 400],
+            'medium' => [800, 800],
+        ];
+    }
+
+    private function generateThumbnails(UploadedFile $file, int $productId): array
+    {
+        $manager = new ImageManager(new Driver());
+        $disk    = $this->storageDisk();
+        $base    = time();
+        $ext     = 'jpg';
+        $paths   = [];
+
+        foreach ($this->productSizes() as $name => [$w, $h]) {
+            $encoded = $manager->read($file->getPathname())
+                ->cover($w, $h)
+                ->toJpeg(85);
+
+            $path = "products/{$productId}/{$base}_{$name}.{$ext}";
+            $disk->put($path, (string) $encoded);
+            $paths[$name] = $path;
+        }
+
+        return $paths;
+    }
+
+    private function deleteThumbnails(?array $sizes): void
+    {
+        if (empty($sizes)) {
+            return;
+        }
+
+        foreach ($sizes as $path) {
+            if ($path) {
+                $this->storageDisk()->delete($path);
+            }
+        }
     }
 }

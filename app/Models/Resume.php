@@ -25,10 +25,14 @@ class Resume extends Model
         'photo_sizes',
         'summary',
         'language',
+        'template',
+        'theme',
+        'is_primary',
     ];
 
     protected $casts = [
         'photo_sizes' => 'array',
+        'is_primary'  => 'boolean',
     ];
 
     public function user(): BelongsTo

@@ -88,6 +88,17 @@ elif [ "$DB_CONNECTION" = "mysql" ]; then
     echo "Database ready!"
 fi
 
+# In local development: run a full composer install (including dev dependencies)
+# so tools like PHPUnit/Faker are accessible inside the container.
+# In production: vendor is already baked into the image by the Dockerfile — skip to
+# avoid redundant network calls and accidental installation of dev packages.
+if [ "$APP_ENV" = "local" ]; then
+    echo "Installing Composer dependencies (local, with dev)..."
+    su laravel -s /bin/sh -c "composer install --no-interaction --no-progress --prefer-dist --optimize-autoloader" || true
+else
+    echo "Skipping runtime composer install (vendor baked into image for $APP_ENV)."
+fi
+
 # Run database migrations
 echo "Running database migrations..."
 if ! su laravel -s /bin/sh -c "php artisan migrate --force --no-interaction"; then

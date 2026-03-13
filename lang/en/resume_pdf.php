@@ -21,4 +21,21 @@ return [
     'location'             => 'Location',
     'links'                => 'Links',
     'portfolio'            => 'Portfolio',
+
+    // Export option labels
+    'theme_green'   => 'Green',
+    'theme_blue'    => 'Blue',
+    'theme_red'     => 'Red',
+    'theme_yellow'  => 'Yellow',
+    'theme_cyan'    => 'Cyan',
+    'theme_orange'  => 'Orange',
+    'theme_violet'  => 'Violet',
+    'theme_black'   => 'Black',
+    'theme_white'   => 'White',
+    'theme_grey'    => 'Grey',
+
+    'template_default' => 'Default',
+
+    'language_en' => 'English',
+    'language_fi' => 'Finnish',
 ];

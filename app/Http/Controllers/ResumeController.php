@@ -4,7 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Enums\Role as RoleEnum;
 use App\Models\Resume;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\ResumeAward;
+use App\Models\ResumeCertification;
+use App\Models\ResumeEducation;
+use App\Models\ResumeLanguage;
+use App\Models\ResumeProject;
+use App\Models\ResumeRecommendation;
+use App\Models\ResumeSkill;
+use App\Models\ResumeWorkExperience;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,9 +20,19 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use Spatie\Browsershot\Browsershot;
+use Spatie\LaravelPdf\Facades\Pdf;
+use Carbon\Carbon;
 
 class ResumeController extends Controller
 {
+    private const THEMES = ['green', 'blue', 'red', 'yellow', 'cyan', 'orange', 'violet', 'black', 'white', 'grey'];
+    private const TEMPLATES = ['default'];
+    private const LANGUAGES = [
+        'en' => 'English',
+        'fi' => 'Finnish',
+    ];
+
     /**
      * Display all resumes for the authenticated user.
      *
@@ -89,6 +106,9 @@ class ResumeController extends Controller
             'photo'    => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
             'summary'       => 'nullable|string',
             'language'      => 'sometimes|string|in:en,fi',
+            'template'      => 'sometimes|string|in:' . implode(',', self::TEMPLATES),
+            'theme'         => 'sometimes|string|in:' . implode(',', self::THEMES),
+            'is_primary'    => 'sometimes|boolean',
             ...$this->sectionValidationRules(),
         ]);
 
@@ -96,6 +116,10 @@ class ResumeController extends Controller
             $resume = $request->user()->resumes()->create(
                 collect($data)->except([...array_keys($this->sectionRelationMap()), 'photo'])->toArray()
             ); // store always creates for the authenticated user
+
+            if (!empty($data['is_primary'])) {
+                $this->clearPrimaryForUser($request->user()->id, $resume->id);
+            }
 
             if ($request->hasFile('photo')) {
                 $resume->photo = $this->storeResumePhoto($request->file('photo'), $resume->id);
@@ -140,10 +164,17 @@ class ResumeController extends Controller
             'photo'         => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
             'summary'       => 'nullable|string',
             'language'      => 'sometimes|string|in:en,fi',
+            'template'      => 'sometimes|string|in:' . implode(',', self::TEMPLATES),
+            'theme'         => 'sometimes|string|in:' . implode(',', self::THEMES),
+            'is_primary'    => 'sometimes|boolean',
             ...$this->sectionValidationRules(update: true),
         ]);
 
         DB::transaction(function () use ($data, $resume, $request) {
+            if (!empty($data['is_primary'])) {
+                $this->clearPrimaryForUser($request->user()->id, $resume->id);
+            }
+
             $oldPhoto      = $resume->photo;
             $oldPhotoSizes = $resume->photo_sizes;
 
@@ -185,7 +216,7 @@ class ResumeController extends Controller
      * @authenticated
      * @urlParam resume integer required The resume ID. Example: 1
      */
-    public function exportPdf(Request $request, int $id): Response
+    public function exportPdf(Request $request, int $id): \Symfony\Component\HttpFoundation\Response
     {
         $resume = $this->findResume($request, $id);
 
@@ -193,15 +224,37 @@ class ResumeController extends Controller
             ? $request->query('lang')
             : (in_array($resume->language, ['en', 'fi']) ? $resume->language : 'en');
         app()->setLocale($lang);
+        Carbon::setLocale($lang);
 
         $resume->load(array_values($this->sectionRelationMap()));
 
-        $pdf = Pdf::loadView('resumes.pdf', compact('resume'))
-            ->setPaper('a4', 'portrait');
+        $theme = in_array($request->query('theme'), self::THEMES)
+            ? $request->query('theme')
+            : ($resume->theme ?: 'green');
+
+        $template = $request->query('template', $resume->template ?: 'default');
+        $view = $this->resolveTemplateView($template);
 
         $filename = str($resume->full_name)->slug() . '-resume.pdf';
 
-        return $pdf->download($filename);
+        if ($view === 'resumes.coming_soon') {
+            return response()->make(
+                view($view, compact('resume', 'theme', 'template'))->render(),
+                200,
+                ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'attachment; filename="' . $filename . '"']
+            );
+        }
+
+        return Pdf::view($view, compact('resume', 'theme'))
+            ->format('a4')
+            ->margins(0, 0, 0, 0)
+            ->withBrowsershot(fn (Browsershot $b) => $b
+                ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
+                ->noSandbox()
+                ->disableGpu()
+            )
+            ->download($filename)
+            ->toResponse($request);
     }
 
     /**
@@ -222,7 +275,14 @@ class ResumeController extends Controller
 
         $resume->load(array_values($this->sectionRelationMap()));
 
-        $html = view('resumes.pdf', compact('resume'))->render();
+        $theme = in_array($request->query('theme'), self::THEMES)
+            ? $request->query('theme')
+            : ($resume->theme ?: 'green');
+
+        $template = $request->query('template', $resume->template ?: 'default');
+        $view = $this->resolveTemplateView($template);
+
+        $html = view($view, compact('resume', 'theme', 'template'))->render();
 
         $filename = str($resume->full_name)->slug() . '-resume.html';
 
@@ -256,9 +316,235 @@ class ResumeController extends Controller
         return response()->json(['message' => 'Resume deleted.']);
     }
 
+    /**
+     * Get the primary resume for the authenticated user.
+     *
+     * @group Resumes
+     * @authenticated
+     */
+    public function current(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        $with = array_values($this->sectionRelationMap());
+
+        $resume = $user->resumes()->where('is_primary', true)->with($with)->first();
+
+        if (!$resume) {
+            return response()->json(['message' => 'No primary resume found.'], 404);
+        }
+
+        return response()->json($resume);
+    }
+
+    private function clearPrimaryForUser(int $userId, int $exceptResumeId): void
+    {
+        Resume::where('user_id', $userId)
+            ->where('id', '!=', $exceptResumeId)
+            ->where('is_primary', true)
+            ->update(['is_primary' => false]);
+    }
+
     private function storageDiskName(): string
     {
         return (string) config('filesystems.default');
+    }
+
+    /**
+     * Export a resume as a PDF from a JSON payload (no stored resume required).
+     * The photo can be supplied as a base64-encoded string in `photo`.
+     * The result is identical to the authenticated export but nothing is written to the database.
+     *
+     * @group Resumes
+     * @unauthenticated
+     */
+    public function exportPdfPublic(Request $request): \Symfony\Component\HttpFoundation\Response
+    {
+        $data = $this->validatePublicExportPayload($request);
+
+        $lang = in_array($data['language'] ?? null, ['en', 'fi']) ? $data['language'] : 'en';
+        app()->setLocale($lang);
+        Carbon::setLocale($lang);
+
+        $resume       = $this->buildResumeFromPayload($data);
+        $theme        = in_array($data['theme'] ?? null, self::THEMES) ? $data['theme'] : 'green';
+        $template     = $data['template'] ?? 'default';
+        $view         = $this->resolveTemplateView($template);
+        $photoDataUri = $this->decodePhotoBase64($data['photo'] ?? null);
+        $filename     = str($resume->full_name)->slug() . '-resume.pdf';
+
+        if ($view === 'resumes.coming_soon') {
+            return response()->make(
+                view($view, compact('resume', 'theme', 'template', 'photoDataUri'))->render(),
+                200,
+                ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'attachment; filename="' . $filename . '"']
+            );
+        }
+
+        return Pdf::view($view, compact('resume', 'theme', 'photoDataUri'))
+            ->format('a4')
+            ->margins(0, 0, 0, 0)
+            ->withBrowsershot(fn (Browsershot $b) => $b
+                ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
+                ->noSandbox()
+                ->disableGpu()
+            )
+            ->download($filename)
+            ->toResponse($request);
+    }
+
+    /**
+     * Export a resume as an HTML file from a JSON payload (no stored resume required).
+     * The photo can be supplied as a base64-encoded string in `photo`.
+     *
+     * @group Resumes
+     * @unauthenticated
+     */
+    public function exportHtmlPublic(Request $request): Response
+    {
+        $data = $this->validatePublicExportPayload($request);
+
+        $lang = in_array($data['language'] ?? null, ['en', 'fi']) ? $data['language'] : 'en';
+        app()->setLocale($lang);
+        Carbon::setLocale($lang);
+
+        $resume       = $this->buildResumeFromPayload($data);
+        $theme        = in_array($data['theme'] ?? null, self::THEMES) ? $data['theme'] : 'green';
+        $template     = $data['template'] ?? 'default';
+        $view         = $this->resolveTemplateView($template);
+        $photoDataUri = $this->decodePhotoBase64($data['photo'] ?? null);
+
+        $html     = view($view, compact('resume', 'theme', 'template', 'photoDataUri'))->render();
+        $filename = str($resume->full_name)->slug() . '-resume.html';
+
+        return response()->make($html, 200, [
+            'Content-Type'        => 'text/html',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
+    }
+
+    /**
+     * Return available themes, templates, and languages for PDF/HTML export.
+     * Pass `?lang=fi` to receive translated labels (default: `en`).
+     *
+     * @group Resumes
+     * @unauthenticated
+     */
+    public function exportOptions(Request $request): JsonResponse
+    {
+        $lang = in_array($request->query('lang'), array_keys(self::LANGUAGES))
+            ? $request->query('lang')
+            : 'en';
+        app()->setLocale($lang);
+
+        $themes    = array_map(fn ($v) => ['value' => $v, 'label' => __('resume_pdf.theme_' . $v)], self::THEMES);
+        $templates = array_map(fn ($v) => ['value' => $v, 'label' => __('resume_pdf.template_' . $v)], self::TEMPLATES);
+        $languages = array_map(fn ($value) => ['value' => $value, 'label' => __('resume_pdf.language_' . $value)], array_keys(self::LANGUAGES));
+
+        return response()->json(compact('themes', 'templates', 'languages'));
+    }
+
+    private function validatePublicExportPayload(Request $request): array
+    {
+        return $request->validate([
+            'full_name'     => 'required|string|max:255',
+            'email'         => 'required|email|max:255',
+            'phone'         => 'nullable|string|max:50',
+            'location'      => 'nullable|string|max:255',
+            'linkedin_url'  => 'nullable|url|max:500',
+            'portfolio_url' => 'nullable|url|max:500',
+            'github_url'    => 'nullable|url|max:500',
+            'title'         => 'nullable|string|max:255',
+            'summary'       => 'nullable|string',
+            'language'      => 'sometimes|string|in:en,fi',
+            'template'      => 'sometimes|string|in:' . implode(',', self::TEMPLATES),
+            'theme'         => 'sometimes|string|in:' . implode(',', self::THEMES),
+            // Base64-encoded image, max ~5 MB decoded (≈6.7 MB as base64 text)
+            'photo'         => 'nullable|string|max:7000000',
+            ...$this->sectionValidationRules(),
+        ]);
+    }
+
+    /**
+     * Build an unsaved Resume model (with relations set as in-memory collections)
+     * from validated payload data. Nothing is written to the database.
+     */
+    private function buildResumeFromPayload(array $data): Resume
+    {
+        $resume = (new Resume())->forceFill(
+            collect($data)->only([
+                'title', 'full_name', 'email', 'phone', 'location',
+                'linkedin_url', 'portfolio_url', 'github_url', 'summary',
+                'language', 'template', 'theme',
+            ])->toArray()
+        );
+
+        $sectionModelMap = [
+            'work_experiences' => [ResumeWorkExperience::class, 'workExperiences'],
+            'educations'       => [ResumeEducation::class,      'educations'],
+            'skills'           => [ResumeSkill::class,          'skills'],
+            'projects'         => [ResumeProject::class,        'projects'],
+            'certifications'   => [ResumeCertification::class,  'certifications'],
+            'languages'        => [ResumeLanguage::class,       'languages'],
+            'awards'           => [ResumeAward::class,          'awards'],
+            'recommendations'  => [ResumeRecommendation::class, 'recommendations'],
+        ];
+
+        foreach ($sectionModelMap as $key => [$modelClass, $relation]) {
+            $items = collect($data[$key] ?? [])
+                ->map(fn ($item) => (new $modelClass())->forceFill($item));
+            $resume->setRelation($relation, $items);
+        }
+
+        return $resume;
+    }
+
+    /**
+     * Decode a base64 photo string (with or without a data URI prefix) and
+     * return a safe data URI, or null if the input is absent or invalid.
+     * Only JPEG, PNG, GIF, and WebP are accepted (validated via magic bytes).
+     */
+    private function decodePhotoBase64(?string $base64): ?string
+    {
+        if (!$base64) {
+            return null;
+        }
+
+        // Strip data URI prefix if the caller included it (e.g. "data:image/jpeg;base64,...")
+        if (str_contains($base64, ',')) {
+            $base64 = substr($base64, strpos($base64, ',') + 1);
+        }
+
+        $decoded = base64_decode(trim($base64), strict: true);
+        if ($decoded === false || strlen($decoded) < 8) {
+            return null;
+        }
+
+        // Derive MIME type from magic bytes — never trust the caller's declared type
+        $mime = match (true) {
+            str_starts_with($decoded, "\xFF\xD8\xFF")                              => 'image/jpeg',
+            str_starts_with($decoded, "\x89PNG")                                   => 'image/png',
+            str_starts_with($decoded, 'GIF8')                                      => 'image/gif',
+            str_starts_with($decoded, 'RIFF') && substr($decoded, 8, 4) === 'WEBP' => 'image/webp',
+            default => null,
+        };
+
+        if (!$mime) {
+            return null;
+        }
+
+        return 'data:' . $mime . ';base64,' . base64_encode($decoded);
+    }
+
+    /**
+     * Resolve the Blade view name for a given template slug.
+     * Known templates map to their view; anything unrecognised → coming_soon.
+     */
+    private function resolveTemplateView(string $template): string
+    {
+        return match ($template) {
+            'default' => 'resumes.pdf',
+            default   => 'resumes.coming_soon',
+        };
     }
 
     /**

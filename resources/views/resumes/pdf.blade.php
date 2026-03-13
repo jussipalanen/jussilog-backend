@@ -1,17 +1,37 @@
+@php
+$palettes = [
+    'green'  => ['sb_bg'=>'#14532d','sb_border'=>'#166534','sb_accent'=>'#86efac','sb_text'=>'#dcfce7','sb_group'=>'#bbf7d0','sb_fill'=>'#22c55e','sb_name'=>'#ffffff','main_accent'=>'#14532d','tag_bg'=>'#f0fdf4','tag_border'=>'#86efac','tag_color'=>'#14532d','rec_bg'=>'#f0fdf4','rec_border'=>'#22c55e'],
+    'blue'   => ['sb_bg'=>'#1e3a5f','sb_border'=>'#1d4ed8','sb_accent'=>'#93c5fd','sb_text'=>'#dbeafe','sb_group'=>'#bfdbfe','sb_fill'=>'#3b82f6','sb_name'=>'#ffffff','main_accent'=>'#1e3a5f','tag_bg'=>'#eff6ff','tag_border'=>'#93c5fd','tag_color'=>'#1e3a5f','rec_bg'=>'#eff6ff','rec_border'=>'#3b82f6'],
+    'red'    => ['sb_bg'=>'#7f1d1d','sb_border'=>'#991b1b','sb_accent'=>'#fca5a5','sb_text'=>'#fee2e2','sb_group'=>'#fecaca','sb_fill'=>'#ef4444','sb_name'=>'#ffffff','main_accent'=>'#7f1d1d','tag_bg'=>'#fff5f5','tag_border'=>'#fca5a5','tag_color'=>'#7f1d1d','rec_bg'=>'#fff5f5','rec_border'=>'#ef4444'],
+    'yellow' => ['sb_bg'=>'#78350f','sb_border'=>'#92400e','sb_accent'=>'#fcd34d','sb_text'=>'#fef3c7','sb_group'=>'#fde68a','sb_fill'=>'#f59e0b','sb_name'=>'#ffffff','main_accent'=>'#78350f','tag_bg'=>'#fffbeb','tag_border'=>'#fcd34d','tag_color'=>'#78350f','rec_bg'=>'#fffbeb','rec_border'=>'#f59e0b'],
+    'cyan'   => ['sb_bg'=>'#164e63','sb_border'=>'#155e75','sb_accent'=>'#67e8f9','sb_text'=>'#cffafe','sb_group'=>'#a5f3fc','sb_fill'=>'#06b6d4','sb_name'=>'#ffffff','main_accent'=>'#164e63','tag_bg'=>'#ecfeff','tag_border'=>'#67e8f9','tag_color'=>'#164e63','rec_bg'=>'#ecfeff','rec_border'=>'#06b6d4'],
+    'orange' => ['sb_bg'=>'#7c2d12','sb_border'=>'#9a3412','sb_accent'=>'#fdba74','sb_text'=>'#fed7aa','sb_group'=>'#fed7aa','sb_fill'=>'#f97316','sb_name'=>'#ffffff','main_accent'=>'#7c2d12','tag_bg'=>'#fff7ed','tag_border'=>'#fdba74','tag_color'=>'#7c2d12','rec_bg'=>'#fff7ed','rec_border'=>'#f97316'],
+    'violet' => ['sb_bg'=>'#4c1d95','sb_border'=>'#5b21b6','sb_accent'=>'#c4b5fd','sb_text'=>'#ede9fe','sb_group'=>'#ddd6fe','sb_fill'=>'#8b5cf6','sb_name'=>'#ffffff','main_accent'=>'#4c1d95','tag_bg'=>'#f5f3ff','tag_border'=>'#c4b5fd','tag_color'=>'#4c1d95','rec_bg'=>'#f5f3ff','rec_border'=>'#8b5cf6'],
+    'black'  => ['sb_bg'=>'#111827','sb_border'=>'#374151','sb_accent'=>'#9ca3af','sb_text'=>'#e5e7eb','sb_group'=>'#d1d5db','sb_fill'=>'#6b7280','sb_name'=>'#f9fafb','main_accent'=>'#111827','tag_bg'=>'#f3f4f6','tag_border'=>'#9ca3af','tag_color'=>'#111827','rec_bg'=>'#f3f4f6','rec_border'=>'#6b7280'],
+    'white'  => ['sb_bg'=>'#f1f5f9','sb_border'=>'#cbd5e1','sb_accent'=>'#64748b','sb_text'=>'#1e293b','sb_group'=>'#475569','sb_fill'=>'#334155','sb_name'=>'#0f172a','main_accent'=>'#0f172a','tag_bg'=>'#f8fafc','tag_border'=>'#cbd5e1','tag_color'=>'#0f172a','rec_bg'=>'#f8fafc','rec_border'=>'#334155'],
+    'grey'   => ['sb_bg'=>'#374151','sb_border'=>'#4b5563','sb_accent'=>'#d1d5db','sb_text'=>'#f3f4f6','sb_group'=>'#e5e7eb','sb_fill'=>'#9ca3af','sb_name'=>'#ffffff','main_accent'=>'#374151','tag_bg'=>'#f9fafb','tag_border'=>'#d1d5db','tag_color'=>'#374151','rec_bg'=>'#f9fafb','rec_border'=>'#9ca3af'],
+];
+$c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
+@endphp
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <title>{{ $resume->full_name }}</title>
     <style>
-        @@page { margin: 0; }
+        @@page { margin: 0; size: A4 portrait; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
 
         body {
-            font-family: 'DejaVu Sans', sans-serif;
+            font-family: Arial, 'Helvetica Neue', sans-serif;
             font-size: 9pt;
             color: #222;
-            background: #fff;
+            /* Sidebar color fills the entire left strip on EVERY page */
+            background: linear-gradient(to right, {{ $c['sb_bg'] }} 190pt, #ffffff 190pt);
+            background-attachment: fixed;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
         /* ─────────────────────────────────────────────
@@ -23,15 +43,19 @@
 
         .col-left {
             width: 190pt;
-            background: #1a3558;
-            padding: 28pt 14pt 40pt 16pt;
+            background: transparent;
+            padding: 28pt 14pt 20pt 16pt;
             vertical-align: top;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
         }
 
         .col-right {
-            padding: 28pt 22pt 40pt 22pt;
+            padding: 28pt 22pt 20pt 22pt;
             vertical-align: top;
             background: #ffffff;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
         }
 
         /* ─────────────────────────────────────────────
@@ -40,7 +64,7 @@
         .sb-name {
             font-size: 17pt;
             font-weight: bold;
-            color: #ffffff;
+            color: {{ $c['sb_name'] }};
             line-height: 1.2;
             margin-bottom: 4pt;
         }
@@ -49,18 +73,28 @@
             width: 100pt;
             height: 100pt;
             border-radius: 50pt;
-            border: 2pt solid #2e5080;
+            border: 2pt solid {{ $c['sb_border'] }};
             margin-bottom: 10pt;
             display: block;
+            object-fit: cover;
+            object-position: center;
         }
 
         .sb-role {
             font-size: 7.5pt;
-            color: #7eb8f7;
+            color: {{ $c['sb_accent'] }};
             text-transform: uppercase;
             letter-spacing: 1.3pt;
             padding-bottom: 14pt;
-            border-bottom: 0.5pt solid #2e5080;
+            border-bottom: 0.5pt solid {{ $c['sb_border'] }};
+        }
+
+        /* ─────────────────────────────────────────────
+           SIDEBAR – section wrapper
+        ───────────────────────────────────────────── */
+        .sb-section {
+            break-inside: avoid;
+            page-break-inside: avoid;
         }
 
         /* ─────────────────────────────────────────────
@@ -69,11 +103,13 @@
         .sb-heading {
             font-size: 7pt;
             font-weight: bold;
-            color: #7eb8f7;
+            color: {{ $c['sb_accent'] }};
             text-transform: uppercase;
             letter-spacing: 1.2pt;
             margin-top: 16pt;
             margin-bottom: 8pt;
+            break-after: avoid;
+            page-break-after: avoid;
         }
 
         /* ─────────────────────────────────────────────
@@ -81,17 +117,19 @@
         ───────────────────────────────────────────── */
         .sb-item {
             margin-bottom: 7pt;
+            break-inside: avoid;
+            page-break-inside: avoid;
         }
         .sb-item-label {
             font-size: 6.5pt;
-            color: #7eb8f7;
+            color: {{ $c['sb_accent'] }};
             text-transform: uppercase;
             letter-spacing: 0.6pt;
             margin-bottom: 1pt;
         }
         .sb-item-value {
             font-size: 8pt;
-            color: #d4e6ff;
+            color: {{ $c['sb_text'] }};
             word-break: break-all;
             line-height: 1.4;
         }
@@ -99,11 +137,15 @@
         /* ─────────────────────────────────────────────
            SIDEBAR – skill bars
         ───────────────────────────────────────────── */
-        .sb-skill-group { margin-bottom: 9pt; }
+        .sb-skill-group {
+            margin-bottom: 9pt;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
         .sb-skill-group-name {
             font-size: 7pt;
             font-weight: bold;
-            color: #b3d4ff;
+            color: {{ $c['sb_group'] }};
             text-transform: uppercase;
             letter-spacing: 0.5pt;
             margin-bottom: 5pt;
@@ -111,17 +153,17 @@
         .sb-skill { margin-bottom: 5pt; }
         .sb-skill-name {
             font-size: 8pt;
-            color: #dbeafe;
+            color: {{ $c['sb_text'] }};
             margin-bottom: 2pt;
         }
         .sb-track {
-            background: #2e5080;
+            background: {{ $c['sb_border'] }};
             border-radius: 3pt;
             height: 4pt;
             width: 100%;
         }
         .sb-fill {
-            background: #5b9bd5;
+            background: {{ $c['sb_fill'] }};
             border-radius: 3pt;
             height: 4pt;
         }
@@ -129,10 +171,14 @@
         /* ─────────────────────────────────────────────
            SIDEBAR – language dots
         ───────────────────────────────────────────── */
-        .sb-lang { margin-bottom: 7pt; }
+        .sb-lang {
+            margin-bottom: 7pt;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
         .sb-lang-name {
             font-size: 8.5pt;
-            color: #dbeafe;
+            color: {{ $c['sb_text'] }};
             font-weight: bold;
             margin-bottom: 3pt;
         }
@@ -143,23 +189,26 @@
             border-radius: 4pt;
             margin-right: 3pt;
         }
-        .sb-dot-on  { background: #5b9bd5; }
-        .sb-dot-off { background: #2e5080; }
+        .sb-dot-on  { background: {{ $c['sb_fill'] }}; }
+        .sb-dot-off { background: {{ $c['sb_border'] }}; }
 
         /* ─────────────────────────────────────────────
            MAIN – sections
         ───────────────────────────────────────────── */
-        .section { margin-bottom: 16pt; }
+        .section { margin-bottom: 14pt; break-inside: auto; }
+        .section:last-child { margin-bottom: 0; }
 
         .section-title {
             font-size: 8.5pt;
             font-weight: bold;
-            color: #1a3558;
+            color: {{ $c['main_accent'] }};
             text-transform: uppercase;
             letter-spacing: 1.3pt;
-            border-bottom: 1.5pt solid #1a3558;
+            border-bottom: 1.5pt solid {{ $c['main_accent'] }};
             padding-bottom: 3pt;
             margin-bottom: 10pt;
+            page-break-after: avoid;
+            break-after: avoid;
         }
 
         /* ─────────────────────────────────────────────
@@ -178,6 +227,8 @@
             margin-bottom: 10pt;
             padding-bottom: 9pt;
             border-bottom: 0.5pt solid #e5ecf5;
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
         .item:last-child {
             border-bottom: none;
@@ -209,7 +260,7 @@
 
         .date-badge {
             display: inline-block;
-            background: #1a3558;
+            background: {{ $c['main_accent'] }};
             color: #ffffff;
             font-size: 7.5pt;
             padding: 2pt 6pt;
@@ -231,9 +282,9 @@
         .tags { margin-top: 5pt; }
         .tag {
             display: inline-block;
-            background: #eef5ff;
-            border: 0.5pt solid #b3cff5;
-            color: #1a4f85;
+            background: {{ $c['tag_bg'] }};
+            border: 0.5pt solid {{ $c['tag_border'] }};
+            color: {{ $c['tag_color'] }};
             border-radius: 2pt;
             font-size: 7.5pt;
             padding: 1.5pt 5pt;
@@ -253,16 +304,18 @@
            MAIN – recommendation cards
         ───────────────────────────────────────────── */
         .rec-card {
-            background: #f5f9ff;
-            border-left: 3pt solid #3b82f6;
+            background: {{ $c['rec_bg'] }};
+            border-left: 3pt solid {{ $c['rec_border'] }};
             border-radius: 0 3pt 3pt 0;
             padding: 8pt 10pt;
             margin-bottom: 9pt;
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
         .rec-name {
             font-size: 9.5pt;
             font-weight: bold;
-            color: #1a3558;
+            color: {{ $c['tag_color'] }};
         }
         .rec-meta {
             font-size: 8pt;
@@ -293,32 +346,32 @@
     </style>
 </head>
 <body>
-<table class="page" width="100%" cellpadding="0" cellspacing="0"><tr>
 
-{{-- ═══════════════════════════════════════
-     SIDEBAR
-═══════════════════════════════════════ --}}
-<td class="col-left">
-
-    @php
-        $photoUrl = null;
+@php
+    // $photoDataUri may be passed directly (e.g. public export with base64 photo).
+    // Fall back to reading from the storage disk for authenticated exports.
+    $photoUrl = isset($photoDataUri) && $photoDataUri ? $photoDataUri : null;
+    if (!$photoUrl) {
         $photoDisk = Storage::disk(config('filesystems.default'));
         $photoPath = !empty($resume->photo_sizes['medium'])
             ? $resume->photo_sizes['medium']
             : ($resume->photo ?: null);
 
+        // DomPDF cannot fetch external URLs (e.g. GCS), so read the file and
+        // embed it as a base64 data URI instead.
         if ($photoPath) {
-            if (method_exists($photoDisk, 'temporaryUrl')) {
-                try {
-                    $photoUrl = $photoDisk->temporaryUrl($photoPath, now()->addMinutes(10));
-                } catch (\Exception $e) {
-                    $photoUrl = $photoDisk->url($photoPath);
-                }
-            } else {
-                $photoUrl = $photoDisk->url($photoPath);
+            try {
+                $imageData = $photoDisk->get($photoPath);
+                $mimeType  = $photoDisk->mimeType($photoPath) ?: 'image/jpeg';
+                $photoUrl  = 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
+            } catch (\Exception $e) {
+                $photoUrl = null;
             }
         }
-    @endphp
+    }
+@endphp
+
+<table class="page" width="100%" cellpadding="0" cellspacing="0"><tr><td class="col-left">
     @if($photoUrl)
     <img src="{{ $photoUrl }}" class="sb-photo" alt="">
     @endif
@@ -327,10 +380,11 @@
     @if($resume->title)
     <div class="sb-role">{{ $resume->title }}</div>
     @else
-    <div style="padding-bottom:14pt;border-bottom:0.5pt solid #2e5080;"></div>
+    <div style="padding-bottom:14pt;border-bottom:0.5pt solid {{ $c['sb_border'] }};"></div>
     @endif
 
     {{-- Contact --}}
+    <div class="sb-section">
     <div class="sb-heading">{{ __('resume_pdf.contact') }}</div>
 
     @if($resume->email)
@@ -353,9 +407,11 @@
         <div class="sb-item-value">{{ $resume->location }}</div>
     </div>
     @endif
+    </div>{{-- /sb-section contact --}}
 
     {{-- Links --}}
     @if($resume->linkedin_url || $resume->github_url || $resume->portfolio_url)
+    <div class="sb-section">
     <div class="sb-heading">{{ __('resume_pdf.links') }}</div>
 
     @if($resume->linkedin_url)
@@ -378,10 +434,12 @@
         <div class="sb-item-value">{{ $resume->portfolio_url }}</div>
     </div>
     @endif
+    </div>{{-- /sb-section links --}}
     @endif
 
     {{-- Skills --}}
     @if($resume->skills?->isNotEmpty())
+    <div class="sb-section">
     <div class="sb-heading">{{ __('resume_pdf.skills') }}</div>
 
     @foreach($resume->skills->groupBy('category') as $category => $catSkills)
@@ -396,10 +454,12 @@
         @endforeach
     </div>
     @endforeach
+    </div>{{-- /sb-section skills --}}
     @endif
 
     {{-- Languages --}}
     @if($resume->languages?->isNotEmpty())
+    <div class="sb-section">
     <div class="sb-heading">{{ __('resume_pdf.languages') }}</div>
 
     @foreach($resume->languages as $lang)
@@ -413,14 +473,10 @@
         @endfor
     </div>
     @endforeach
+    </div>{{-- /sb-section languages --}}
     @endif
 
-</td>{{-- /col-left --}}
-
-{{-- ═══════════════════════════════════════
-     MAIN CONTENT
-═══════════════════════════════════════ --}}
-<td class="col-right">
+</td>{{-- /col-left --}}<td class="col-right">
 
     {{-- Summary --}}
     @if($resume->summary)
@@ -443,7 +499,7 @@
                 </div>
                 <div class="item-head-right">
                     <span class="date-badge">
-                        {{ \Carbon\Carbon::parse($job->start_date)->format('M Y') }}&nbsp;&ndash;&nbsp;{{ $job->is_current ? __('resume_pdf.present') : ($job->end_date ? \Carbon\Carbon::parse($job->end_date)->format('M Y') : '') }}
+                        {{ \Carbon\Carbon::parse($job->start_date)->translatedFormat('M Y') }}&nbsp;&ndash;&nbsp;{{ $job->is_current ? __('resume_pdf.present') : ($job->end_date ? \Carbon\Carbon::parse($job->end_date)->translatedFormat('M Y') : '') }}
                     </span>
                 </div>
             </div>
@@ -521,7 +577,7 @@
                 </div>
                 @if($cert->issue_date)
                 <div class="item-head-right">
-                    <span class="date-badge">{{ \Carbon\Carbon::parse($cert->issue_date)->format('M Y') }}</span>
+                    <span class="date-badge">{{ \Carbon\Carbon::parse($cert->issue_date)->translatedFormat('M Y') }}</span>
                 </div>
                 @endif
             </div>
@@ -543,7 +599,7 @@
                 </div>
                 @if($award->date)
                 <div class="item-head-right">
-                    <span class="date-badge">{{ \Carbon\Carbon::parse($award->date)->format('M Y') }}</span>
+                    <span class="date-badge">{{ \Carbon\Carbon::parse($award->date)->translatedFormat('M Y') }}</span>
                 </div>
                 @endif
             </div>
