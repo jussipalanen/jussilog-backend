@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [0.7.0] - 2026-03-13
+
+### Added
+- **Resume system**: Full CRUD API for resumes and all resume sections (work experiences, educations, skills, projects, certifications, languages, awards, recommendations).
+  - `GET /api/resumes` — list all resumes (authenticated).
+  - `GET /api/resumes/current` — get the primary/active resume (authenticated).
+  - `GET /api/resumes/{id}` — get a single resume (authenticated).
+  - `POST /api/resumes` — create a resume (authenticated).
+  - `PUT /api/resumes/{id}` — update a resume; also accepts `POST /api/resumes/{id}` for multipart photo uploads (authenticated).
+  - `DELETE /api/resumes/{id}` — delete a resume (authenticated).
+  - `GET /api/resumes/{resumeId}/{section}` — list items in a resume section (authenticated).
+  - `POST /api/resumes/{resumeId}/{section}` — add an item to a resume section (authenticated).
+  - `PUT /api/resumes/{resumeId}/{section}/{itemId}` — update a resume section item (authenticated).
+  - `DELETE /api/resumes/{resumeId}/{section}/{itemId}` — delete a resume section item (authenticated).
+- **Resume export**: Export resumes as PDF or HTML with template and theme support.
+  - `GET /api/resumes/{id}/export/pdf` — authenticated export.
+  - `GET /api/resumes/{id}/export/html` — authenticated export.
+  - `GET /api/resumes/export/options` — list available templates and themes (public).
+  - `POST /api/resumes/export/pdf` — public PDF export.
+  - `POST /api/resumes/export/html` — public HTML export.
+- **Resume photo**: Photo upload and multi-size storage (`photo_sizes`) for resumes.
+- **`is_primary` flag on resumes**: Mark a resume as the primary/default one.
+- **Resume template & language fields**: Added `template` and `language` columns to the resumes table.
+- **Settings endpoint**: `GET /api/settings/languages` — returns the list of supported languages.
+- **Product thumbnails**: Automatic thumbnail generation for product images on upload (`ThumbnailService`, `AdminThumbnailController`).
+  - `POST /api/admin/thumbnails/regenerate` — regenerate all thumbnails.
+  - `DELETE /api/admin/thumbnails` — purge all thumbnails.
+  - `POST /api/admin/thumbnails/products/{id}/regenerate` / `DELETE /api/admin/thumbnails/products/{id}` — per-product thumbnail management.
+  - `POST /api/admin/thumbnails/resumes/{id}/regenerate` / `DELETE /api/admin/thumbnails/resumes/{id}` — per-resume thumbnail management.
+- **`thumbnails:regenerate` Artisan command**: CLI command to regenerate all product and resume thumbnails.
+- **Dependabot**: Added `.github/dependabot.yml` for automated dependency update PRs.
+- **Composer audit workflow**: Added `.github/workflows/composer-audit.yml` for automated PHP dependency security auditing on every push.
+- **Localization**: Added `lang/en/resume_pdf.php` and `lang/fi/resume_pdf.php` translations for the resume PDF export view.
+- **Resume seeder**: Added `ResumeSeeder` for development seed data.
+
+### Changed
+- PHP requirement bumped from `^8.1` to `^8.2`.
+- `Product` model updated to handle multiple image sizes.
+
+### Fixed
+- `ResumeController::exportPdfPublic()`: Fixed incorrect `Content-Type: application/pdf` header being applied on the non-PDF (coming-soon HTML) branch. Now uses `response()->view()` correctly (Copilot Autofix).
+
 ## [0.6.2] - 2026-03-12
 
 ### Changed
