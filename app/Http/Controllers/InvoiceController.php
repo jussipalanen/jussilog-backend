@@ -739,6 +739,10 @@ class InvoiceController extends Controller
      */
     public function exportEmail(Request $request): JsonResponse
     {
+        if (!auth()->check()) {
+            return response()->json(['message' => 'Authentication required.'], 401);
+        }
+
         $request->validate(['to_email' => 'required|email|max:255']);
 
         $invoice   = $this->buildPreviewInvoice($request);
