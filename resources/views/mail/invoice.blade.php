@@ -99,7 +99,7 @@
                     <table style="width:100%; border-collapse:collapse;">
                         <tr>
                             <td style="padding:6px 0; color:#9490cc; font-size:14px;">{{ $t['status'] }}</td>
-                            <td style="padding:6px 0; color:#ede9fe; font-weight:600; font-size:14px; text-align:right; text-transform:capitalize;">{{ $invoice->status?->value ?? $invoice->status }}</td>
+                            <td style="padding:6px 0; color:#ede9fe; font-weight:600; font-size:14px; text-align:right;">{{ $t['status_' . ($invoice->status?->value ?? $invoice->status)] ?? ucfirst($invoice->status?->value ?? $invoice->status) }}</td>
                         </tr>
                         @if ($invoice->issued_at)
                         <tr>

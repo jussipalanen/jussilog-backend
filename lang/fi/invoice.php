@@ -38,9 +38,10 @@ return [
     'status_cancelled' => 'Peruutettu',
 
     // Invoice item type options
-    'type_product'  => 'Tuote',
-    'type_shipping' => 'Toimitus',
-    'type_discount' => 'Alennus',
-    'type_fee'      => 'Maksu',
-    'type_other'    => 'Muu',
+    'type_product'    => 'Tuote',
+    'type_shipping'   => 'Toimitus',
+    'type_discount'   => 'Alennus',
+    'type_fee'        => 'Maksu',
+    'type_other'      => 'Muu',
+    'type_adjustment' => 'Säätö',
 ];

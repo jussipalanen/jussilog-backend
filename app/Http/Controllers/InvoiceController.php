@@ -513,11 +513,6 @@ class InvoiceController extends Controller
             return response()->json(['message' => 'Invoice not found'], 404);
         }
 
-        $user = $request->user();
-        if ($user->hasRole('customer') && $invoice->user_id !== $user->id) {
-            return response()->json(['message' => 'Forbidden.'], 403);
-        }
-
         $data = $request->validate([
             'email' => 'sometimes|nullable|email',
             'lang'  => 'sometimes|nullable|string|in:en,fi',
@@ -739,10 +734,6 @@ class InvoiceController extends Controller
      */
     public function exportEmail(Request $request): JsonResponse
     {
-        if (!auth()->check()) {
-            return response()->json(['message' => 'Authentication required.'], 401);
-        }
-
         $request->validate(['to_email' => 'required|email|max:255']);
 
         $invoice   = $this->buildPreviewInvoice($request);
