@@ -56,6 +56,9 @@ services:
       - ./config:/var/www/html/config
       - ./public:/var/www/html/public
       - ./database:/var/www/html/database
+      # Test files (excluded from the image via .dockerignore — mount for local dev)
+      - ./tests:/var/www/html/tests
+      - ./phpunit.xml:/var/www/html/phpunit.xml
     depends_on:
       mysql:
         condition: service_healthy

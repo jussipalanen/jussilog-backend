@@ -52,6 +52,9 @@ services:
       - ./resources:/var/www/html/resources
       - ./config:/var/www/html/config
       - ./public:/var/www/html/public
+      # Test files (excluded from the image via .dockerignore — mount for local dev)
+      - ./tests:/var/www/html/tests
+      - ./phpunit.xml:/var/www/html/phpunit.xml
     networks:
       - jussilog-network
 
