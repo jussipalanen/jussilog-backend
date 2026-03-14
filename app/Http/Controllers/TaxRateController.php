@@ -218,7 +218,7 @@ class TaxRateController extends Controller
         $rates = array_map(
             fn (string $code, float $rate) => [
                 'code'  => $code,
-                'label' => $names[$code] ?? $code,
+                'label' => $names[$code],
                 'rate'  => $rate,
             ],
             array_keys(self::TAX_RATES),
@@ -255,7 +255,7 @@ class TaxRateController extends Controller
 
         return response()->json([
             'code'  => $code,
-            'label' => $names[$code] ?? $code,
+            'label' => $names[$code],
             'rate'  => self::TAX_RATES[$code],
         ]);
     }

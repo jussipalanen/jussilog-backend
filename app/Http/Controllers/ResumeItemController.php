@@ -230,6 +230,7 @@ class ResumeItemController extends Controller
                 'recommendation' => 'nullable|string',
                 'sort_order'     => 'integer|min:0',
             ],
+            default => [],
         };
     }
 }
