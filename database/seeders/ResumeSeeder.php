@@ -86,29 +86,29 @@ class ResumeSeeder extends Seeder
 
         // ── Skills ────────────────────────────────────────────────────────────
         $resume->skills()->createMany([
-            ['category' => 'Languages',   'name' => 'PHP',        'proficiency' => 'expert',        'sort_order' => 0],
-            ['category' => 'Languages',   'name' => 'JavaScript', 'proficiency' => 'expert',        'sort_order' => 1],
-            ['category' => 'Languages',   'name' => 'TypeScript', 'proficiency' => 'intermediate',  'sort_order' => 2],
-            ['category' => 'Languages',   'name' => 'SQL',        'proficiency' => 'expert',        'sort_order' => 3],
+            ['category' => 'programming_languages', 'name' => 'PHP',        'proficiency' => 'expert',        'sort_order' => 0],
+            ['category' => 'programming_languages', 'name' => 'JavaScript', 'proficiency' => 'expert',        'sort_order' => 1],
+            ['category' => 'programming_languages', 'name' => 'TypeScript', 'proficiency' => 'intermediate',  'sort_order' => 2],
+            ['category' => 'query_languages',        'name' => 'SQL',        'proficiency' => 'expert',        'sort_order' => 0],
 
-            ['category' => 'Frameworks',  'name' => 'Laravel',    'proficiency' => 'expert',        'sort_order' => 0],
-            ['category' => 'Frameworks',  'name' => 'Vue.js',     'proficiency' => 'expert',        'sort_order' => 1],
-            ['category' => 'Frameworks',  'name' => 'React',      'proficiency' => 'intermediate',  'sort_order' => 2],
-            ['category' => 'Frameworks',  'name' => 'Tailwind CSS', 'proficiency' => 'expert',      'sort_order' => 3],
+            ['category' => 'frameworks',   'name' => 'Laravel',    'proficiency' => 'expert',        'sort_order' => 0],
+            ['category' => 'frameworks',   'name' => 'Vue.js',     'proficiency' => 'expert',        'sort_order' => 1],
+            ['category' => 'frameworks',   'name' => 'React',      'proficiency' => 'intermediate',  'sort_order' => 2],
+            ['category' => 'frameworks',   'name' => 'Tailwind CSS', 'proficiency' => 'expert',      'sort_order' => 3],
 
-            ['category' => 'Tools',       'name' => 'Docker',     'proficiency' => 'expert',        'sort_order' => 0],
-            ['category' => 'Tools',       'name' => 'Git',        'proficiency' => 'expert',        'sort_order' => 1],
-            ['category' => 'Tools',       'name' => 'GitHub Actions', 'proficiency' => 'expert',    'sort_order' => 2],
-            ['category' => 'Tools',       'name' => 'Postman',    'proficiency' => 'expert',        'sort_order' => 3],
+            ['category' => 'development_tools', 'name' => 'Docker',         'proficiency' => 'expert',  'sort_order' => 0],
+            ['category' => 'development_tools', 'name' => 'Git',            'proficiency' => 'expert',  'sort_order' => 1],
+            ['category' => 'development_tools', 'name' => 'GitHub Actions', 'proficiency' => 'expert',  'sort_order' => 2],
+            ['category' => 'development_tools', 'name' => 'Postman',        'proficiency' => 'expert',  'sort_order' => 3],
 
-            ['category' => 'Cloud',       'name' => 'Google Cloud Platform', 'proficiency' => 'expert',       'sort_order' => 0],
-            ['category' => 'Cloud',       'name' => 'Cloud Run',  'proficiency' => 'expert',        'sort_order' => 1],
-            ['category' => 'Cloud',       'name' => 'Cloud Storage', 'proficiency' => 'expert',     'sort_order' => 2],
-            ['category' => 'Cloud',       'name' => 'Cloud SQL',  'proficiency' => 'intermediate',  'sort_order' => 3],
+            ['category' => 'cloud_platforms', 'name' => 'Google Cloud Platform', 'proficiency' => 'expert',       'sort_order' => 0],
+            ['category' => 'cloud_platforms', 'name' => 'Cloud Run',             'proficiency' => 'expert',        'sort_order' => 1],
+            ['category' => 'cloud_platforms', 'name' => 'Cloud Storage',         'proficiency' => 'expert',        'sort_order' => 2],
+            ['category' => 'cloud_platforms', 'name' => 'Cloud SQL',             'proficiency' => 'intermediate',  'sort_order' => 3],
 
-            ['category' => 'Databases',   'name' => 'MySQL',      'proficiency' => 'expert',        'sort_order' => 0],
-            ['category' => 'Databases',   'name' => 'SQLite',     'proficiency' => 'expert',        'sort_order' => 1],
-            ['category' => 'Databases',   'name' => 'Redis',      'proficiency' => 'intermediate',  'sort_order' => 2],
+            ['category' => 'databases',    'name' => 'MySQL',      'proficiency' => 'expert',        'sort_order' => 0],
+            ['category' => 'databases',    'name' => 'SQLite',     'proficiency' => 'expert',        'sort_order' => 1],
+            ['category' => 'databases',    'name' => 'Redis',      'proficiency' => 'intermediate',  'sort_order' => 2],
         ]);
 
         // ── Projects ──────────────────────────────────────────────────────────
