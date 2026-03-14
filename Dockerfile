@@ -32,7 +32,7 @@ RUN apk add --no-cache \
     nodejs \
     npm \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install pdo_sqlite pdo_mysql gd
+    && docker-php-ext-install pdo_sqlite pdo_mysql gd opcache
 
 # Tell Browsershot/Chromium where the binary lives and disable sandbox (required in containers)
 ENV CHROME_PATH=/usr/bin/chromium-browser
@@ -65,6 +65,9 @@ RUN mkdir -p database bootstrap/cache && \
 
 # Copy PHP-FPM pool configuration
 COPY docker/www.conf /usr/local/etc/php-fpm.d/www.conf
+
+# Copy OPcache configuration
+COPY docker/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 # Copy Nginx configuration
 COPY docker/nginx.conf /etc/nginx/http.d/default.conf
