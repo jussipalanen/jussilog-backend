@@ -16,6 +16,7 @@ class TestMail extends Mailable
     use SerializesModels;
 
     public string $messageBody;
+
     public string $subjectLine;
 
     public function __construct(string $subjectLine, string $messageBody)

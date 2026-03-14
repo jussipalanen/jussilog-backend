@@ -20,6 +20,7 @@ class SettingsController extends Controller
      * Pass `?lang=fi` to receive labels in Finnish (default: `en`).
      *
      * @group Settings
+     *
      * @unauthenticated
      */
     public function languages(Request $request): JsonResponse
@@ -43,6 +44,7 @@ class SettingsController extends Controller
      * Pass `?lang=fi` to receive labels in Finnish (default: `en`).
      *
      * @group Settings
+     *
      * @unauthenticated
      */
     public function countries(Request $request): JsonResponse
@@ -64,7 +66,9 @@ class SettingsController extends Controller
      * Pass `?lang=fi` to receive the label in Finnish (default: `en`).
      *
      * @group Settings
+     *
      * @unauthenticated
+     *
      * @urlParam code string required The ISO 3166-1 alpha-2 country code. Example: FI
      */
     public function country(Request $request, string $code): JsonResponse
@@ -73,15 +77,14 @@ class SettingsController extends Controller
             ? $request->query('lang')
             : 'en';
 
-        $label = CountryService::getLabel($code, $locale);
+        $label      = CountryService::getLabel($code, $locale);
         $normalized = strtoupper($code);
 
         // getLabel returns the raw code when not found
-        if ($label === $normalized && !in_array($normalized, array_column(CountryService::all(), 'value'))) {
+        if ($label === $normalized && ! in_array($normalized, array_column(CountryService::all(), 'value'))) {
             return response()->json(['message' => 'Country not found.'], 404);
         }
 
         return response()->json(['value' => $normalized, 'label' => $label]);
     }
 }
-

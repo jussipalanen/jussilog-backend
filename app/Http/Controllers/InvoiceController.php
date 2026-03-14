@@ -23,7 +23,9 @@ class InvoiceController extends Controller
      * Return available invoice statuses and item types with translated labels.
      *
      * @group Invoices
+     *
      * @unauthenticated
+     *
      * @queryParam lang string Language code (en, fi). Defaults to en. Example: fi
      */
     public function options(Request $request): JsonResponse
@@ -34,7 +36,7 @@ class InvoiceController extends Controller
         $statuses = array_map(
             fn (InvoiceStatus $s) => [
                 'value' => $s->value,
-                'label' => $t['status_' . $s->value] ?? $s->label(),
+                'label' => $t['status_'.$s->value] ?? $s->label(),
                 'color' => $s->color(),
             ],
             InvoiceStatus::cases(),
@@ -43,7 +45,7 @@ class InvoiceController extends Controller
         $itemTypes = array_map(
             fn (InvoiceItemType $type) => [
                 'value' => $type->value,
-                'label' => $t['type_' . $type->value] ?? $type->label(),
+                'label' => $t['type_'.$type->value] ?? $type->label(),
             ],
             InvoiceItemType::cases(),
         );
@@ -60,7 +62,9 @@ class InvoiceController extends Controller
      * Returns a paginated list of invoices. Results can be filtered by order, user and status.
      *
      * @group         Invoices
+     *
      * @authenticated
+     *
      * @queryParam    per_page integer Items per page (1–100). Example: 25
      * @queryParam    page integer Page number. Example: 2
      * @queryParam    order_id integer Filter by order ID. Example: 5
@@ -101,7 +105,7 @@ class InvoiceController extends Controller
         $perPage = (int) $request->query('per_page', 10);
         $perPage = max(1, min(100, $perPage));
 
-        $user = $request->user();
+        $user  = $request->user();
         $query = Invoice::with(['order', 'user', 'items']);
 
         // Customers can only see their own invoices
@@ -121,15 +125,15 @@ class InvoiceController extends Controller
             $query->where('status', $request->query('status'));
         }
 
-        $sortBy = $request->query('sort_by', 'created_at');
-        $sortDir = strtolower($request->query('sort_dir', 'desc'));
+        $sortBy       = $request->query('sort_by', 'created_at');
+        $sortDir      = strtolower($request->query('sort_dir', 'desc'));
         $allowedSorts = ['id', 'invoice_number', 'subtotal', 'total', 'status', 'issued_at', 'paid_at', 'created_at'];
-        $allowedDirs = ['asc', 'desc'];
+        $allowedDirs  = ['asc', 'desc'];
 
-        if (!in_array($sortBy, $allowedSorts, true)) {
+        if (! in_array($sortBy, $allowedSorts, true)) {
             $sortBy = 'created_at';
         }
-        if (!in_array($sortDir, $allowedDirs, true)) {
+        if (! in_array($sortDir, $allowedDirs, true)) {
             $sortDir = 'desc';
         }
 
@@ -144,7 +148,9 @@ class InvoiceController extends Controller
      * Returns a paginated list of invoices belonging to the currently authenticated user.
      *
      * @group         Invoices
+     *
      * @authenticated
+     *
      * @queryParam    per_page integer Items per page (1–100). Example: 10
      * @queryParam    page integer Page number. Example: 1
      * @queryParam    status string Filter by status (draft, issued, paid, cancelled). Example: paid
@@ -163,15 +169,15 @@ class InvoiceController extends Controller
             $query->where('status', $request->query('status'));
         }
 
-        $sortBy = $request->query('sort_by', 'created_at');
-        $sortDir = strtolower($request->query('sort_dir', 'desc'));
+        $sortBy       = $request->query('sort_by', 'created_at');
+        $sortDir      = strtolower($request->query('sort_dir', 'desc'));
         $allowedSorts = ['id', 'invoice_number', 'subtotal', 'total', 'status', 'issued_at', 'paid_at', 'created_at'];
-        $allowedDirs = ['asc', 'desc'];
+        $allowedDirs  = ['asc', 'desc'];
 
-        if (!in_array($sortBy, $allowedSorts, true)) {
+        if (! in_array($sortBy, $allowedSorts, true)) {
             $sortBy = 'created_at';
         }
-        if (!in_array($sortDir, $allowedDirs, true)) {
+        if (! in_array($sortDir, $allowedDirs, true)) {
             $sortDir = 'desc';
         }
 
@@ -186,6 +192,7 @@ class InvoiceController extends Controller
      * Creates a new invoice for the given order and automatically generates invoice items from the order's line items.
      *
      * @group     Invoices
+     *
      * @bodyParam order_id integer required The ID of the order to invoice. Example: 1
      * @bodyParam status string Invoice status on creation (draft, issued, paid, cancelled). Defaults to draft. Example: draft
      * @bodyParam notes string Optional free-text notes. Example: Net 30
@@ -231,13 +238,15 @@ class InvoiceController extends Controller
     {
         $data = $request->validate(
             [
-            'order_id' => 'required|integer|exists:orders,id',
-            'notes' => 'nullable|string',
-            'status' => 'sometimes|string|in:draft,issued,paid,cancelled',
+                'order_id' => 'required|integer|exists:orders,id',
+                'due_date' => 'nullable|date',
+                'notes'    => 'nullable|string',
+                'status'   => 'sometimes|string|in:draft,issued,unpaid,overdue,paid,cancelled',
             ]
         );
 
         $order = Order::with('items.product')->findOrFail($data['order_id']);
+        assert($order instanceof Order);
 
         $status = $data['status'] ?? InvoiceStatus::DRAFT->value;
 
@@ -247,38 +256,39 @@ class InvoiceController extends Controller
             function () use ($order, $data, $status, &$invoice) {
                 $invoice = Invoice::create(
                     [
-                    'order_id' => $order->id,
-                    'user_id' => $order->user_id,
-                    'invoice_number' => null,
-                    'customer_first_name' => $order->customer_first_name,
-                    'customer_last_name' => $order->customer_last_name,
-                    'customer_email' => $order->customer_email,
-                    'customer_phone' => $order->customer_phone,
-                    'billing_address' => $order->billing_address,
-                    'subtotal' => $order->total_amount,
-                    'total' => $order->total_amount,
-                    'status' => $status,
-                    'issued_at' => $status === InvoiceStatus::ISSUED->value ? now() : null,
-                    'paid_at' => $status === InvoiceStatus::PAID->value ? now() : null,
-                    'notes' => $data['notes'] ?? null,
+                        'order_id'            => $order->id,
+                        'user_id'             => $order->user_id,
+                        'invoice_number'      => null,
+                        'customer_first_name' => $order->customer_first_name,
+                        'customer_last_name'  => $order->customer_last_name,
+                        'customer_email'      => $order->customer_email,
+                        'customer_phone'      => $order->customer_phone,
+                        'billing_address'     => $order->billing_address,
+                        'subtotal'            => $order->total_amount,
+                        'total'               => $order->total_amount,
+                        'status'              => $status,
+                        'issued_at'           => $status === InvoiceStatus::ISSUED->value ? now() : null,
+                        'due_date'            => $data['due_date'] ?? null,
+                        'paid_at'             => $status === InvoiceStatus::PAID->value ? now() : null,
+                        'notes'               => $data['notes'] ?? null,
                     ]
                 );
 
-                $invoice->invoice_number = 'INV-' . date('Y') . '-' . str_pad((string) $invoice->id, 5, '0', STR_PAD_LEFT);
+                $invoice->invoice_number = 'INV-'.date('Y').'-'.str_pad((string) $invoice->id, 5, '0', STR_PAD_LEFT);
                 $invoice->save();
 
                 // Create invoice items from order items
                 foreach ($order->items as $orderItem) {
                     InvoiceItem::create(
                         [
-                        'invoice_id'    => $invoice->id,
-                        'order_item_id' => $orderItem->id,
-                        'type'          => InvoiceItemType::PRODUCT->value,
-                        'description'   => $orderItem->product_title,
-                        'quantity'      => $orderItem->quantity,
-                        'unit_price'    => $orderItem->unit_price,
-                        'tax_rate'      => 0,
-                        'total'         => $orderItem->subtotal,
+                            'invoice_id'    => $invoice->id,
+                            'order_item_id' => $orderItem->id,
+                            'type'          => InvoiceItemType::PRODUCT->value,
+                            'description'   => $orderItem->product_title,
+                            'quantity'      => $orderItem->quantity,
+                            'unit_price'    => $orderItem->unit_price,
+                            'tax_rate'      => 0,
+                            'total'         => $orderItem->subtotal,
                         ]
                     );
                 }
@@ -294,7 +304,9 @@ class InvoiceController extends Controller
      * Returns a single invoice with its items, associated order and user.
      *
      * @group         Invoices
+     *
      * @authenticated
+     *
      * @urlParam      id integer required The invoice ID. Example: 1
      *
      * @response 200 scenario="Success" {
@@ -314,7 +326,7 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::with(['order.items.product', 'user', 'items.orderItem'])->find($id);
 
-        if (!$invoice) {
+        if (! $invoice) {
             return response()->json(['message' => 'Invoice not found'], 404);
         }
 
@@ -332,8 +344,11 @@ class InvoiceController extends Controller
      * Updates an existing invoice. Automatically sets `issued_at` when status changes to `issued`, and `paid_at` when status changes to `paid`.
      *
      * @group         Invoices
+     *
      * @authenticated
+     *
      * @urlParam      id integer required The invoice ID. Example: 1
+     *
      * @bodyParam     status string Invoice status (draft, issued, paid, cancelled). Example: issued
      * @bodyParam     customer_first_name string Customer first name. Example: Jussi
      * @bodyParam     customer_last_name string Customer last name. Example: Palanen
@@ -382,29 +397,30 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::find($id);
 
-        if (!$invoice) {
+        if (! $invoice) {
             return response()->json(['message' => 'Invoice not found'], 404);
         }
 
         $data = $request->validate(
             [
-            'status'              => 'sometimes|string|in:draft,issued,paid,cancelled',
-            'customer_first_name' => 'sometimes|string|max:255',
-            'customer_last_name'  => 'sometimes|string|max:255',
-            'customer_email'      => 'sometimes|email|max:255',
-            'customer_phone'      => 'sometimes|nullable|string|max:50',
-            'billing_address'     => 'sometimes|array',
-            'subtotal'            => 'sometimes|numeric|min:0',
-            'total'               => 'sometimes|numeric|min:0',
-            'notes'               => 'nullable|string',
-            'items'               => 'sometimes|array',
-            'items.*.id'          => 'sometimes|integer|exists:invoice_items,id',
-            'items.*.type'        => 'required_with:items|string|in:product,shipping,discount,fee,other',
-            'items.*.description' => 'required_with:items|string|max:500',
-            'items.*.quantity'    => 'required_with:items|integer|min:1',
-            'items.*.unit_price'  => 'required_with:items|numeric',
-            'items.*.tax_rate'    => 'sometimes|numeric|min:0|max:1',
-            'items.*.total'       => 'required_with:items|numeric',
+                'status'              => 'sometimes|string|in:draft,issued,unpaid,overdue,paid,cancelled',
+                'customer_first_name' => 'sometimes|string|max:255',
+                'customer_last_name'  => 'sometimes|string|max:255',
+                'customer_email'      => 'sometimes|email|max:255',
+                'customer_phone'      => 'sometimes|nullable|string|max:50',
+                'billing_address'     => 'sometimes|array',
+                'subtotal'            => 'sometimes|numeric|min:0',
+                'total'               => 'sometimes|numeric|min:0',
+                'due_date'            => 'sometimes|nullable|date',
+                'notes'               => 'nullable|string',
+                'items'               => 'sometimes|array',
+                'items.*.id'          => 'sometimes|integer|exists:invoice_items,id',
+                'items.*.type'        => 'required_with:items|string|in:product,shipping,discount,fee,other',
+                'items.*.description' => 'required_with:items|string|max:500',
+                'items.*.quantity'    => 'required_with:items|integer|min:1',
+                'items.*.unit_price'  => 'required_with:items|numeric',
+                'items.*.tax_rate'    => 'sometimes|numeric|min:0|max:1',
+                'items.*.total'       => 'required_with:items|numeric',
             ]
         );
 
@@ -422,7 +438,7 @@ class InvoiceController extends Controller
             $invoice->status = $newStatus;
         }
 
-        foreach (['customer_first_name', 'customer_last_name', 'customer_email', 'billing_address', 'subtotal', 'total', 'notes'] as $field) {
+        foreach (['customer_first_name', 'customer_last_name', 'customer_email', 'billing_address', 'subtotal', 'total', 'due_date', 'notes'] as $field) {
             if (array_key_exists($field, $data)) {
                 $invoice->{$field} = $data[$field];
             }
@@ -451,7 +467,7 @@ class InvoiceController extends Controller
                     'total'       => $itemData['total'],
                 ];
 
-                if (!empty($itemData['id'])) {
+                if (! empty($itemData['id'])) {
                     // Update existing item (must belong to this invoice)
                     $invoice->items()->where('id', $itemData['id'])->update($fields);
                 } else {
@@ -470,7 +486,9 @@ class InvoiceController extends Controller
      * Permanently deletes an invoice and all its associated items.
      *
      * @group         Invoices
+     *
      * @authenticated
+     *
      * @urlParam      id integer required The invoice ID. Example: 1
      *
      * @response 200 scenario="Deleted" {"message": "Invoice deleted"}
@@ -481,7 +499,7 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::find($id);
 
-        if (!$invoice) {
+        if (! $invoice) {
             return response()->json(['message' => 'Invoice not found'], 404);
         }
 
@@ -496,8 +514,11 @@ class InvoiceController extends Controller
      * Sends the invoice as a PDF attachment to the customer email or to a specific email address if provided.
      *
      * @group         Invoices
+     *
      * @authenticated
+     *
      * @urlParam      id integer required The invoice ID. Example: 1
+     *
      * @bodyParam     email string Optional recipient email. Defaults to the invoice's customer email. Example: someone@example.com
      *
      * @response 200 scenario="Sent" {"message": "Invoice sent to someone@example.com"}
@@ -509,7 +530,7 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::with(['order', 'user', 'items'])->find($id);
 
-        if (!$invoice) {
+        if (! $invoice) {
             return response()->json(['message' => 'Invoice not found'], 404);
         }
 
@@ -520,7 +541,7 @@ class InvoiceController extends Controller
 
         $recipient = $data['email'] ?? $invoice->customer_email;
 
-        if (!$recipient) {
+        if (! $recipient) {
             return response()->json(['message' => 'No recipient email address available.'], 422);
         }
 
@@ -530,13 +551,13 @@ class InvoiceController extends Controller
             ->withBrowsershot(fn (Browsershot $b) => $b
                 ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
                 ->noSandbox()
-                ->disableGpu()
+                ->addChromiumArguments(['--disable-gpu'])
             )
             ->base64();
 
         Mail::to($recipient)->send(new InvoiceMail($invoice, base64_decode($pdfContent), $lang));
 
-        return response()->json(['message' => 'Invoice sent to ' . $recipient]);
+        return response()->json(['message' => 'Invoice sent to '.$recipient]);
     }
 
     /**
@@ -545,7 +566,9 @@ class InvoiceController extends Controller
      * Returns a PDF file of the invoice.
      *
      * @group         Invoices
+     *
      * @authenticated
+     *
      * @urlParam      id integer required The invoice ID. Example: 1
      *
      * @response 200 scenario="PDF file" {"binary": "application/pdf"}
@@ -556,7 +579,7 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::with(['order', 'user', 'items'])->find($id);
 
-        if (!$invoice) {
+        if (! $invoice) {
             return response()->json(['message' => 'Invoice not found'], 404);
         }
 
@@ -566,14 +589,14 @@ class InvoiceController extends Controller
         }
 
         $lang     = $this->resolveLanguage($request);
-        $filename = $invoice->invoice_number . '.pdf';
+        $filename = $invoice->invoice_number.'.pdf';
 
         return Pdf::view('invoices.pdf', ['invoice' => $invoice, 'lang' => $lang, 't' => InvoiceTranslations::get($lang)])
             ->format('a4')
             ->withBrowsershot(fn (Browsershot $b) => $b
                 ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
                 ->noSandbox()
-                ->disableGpu()
+                ->addChromiumArguments(['--disable-gpu'])
             )
             ->download($filename)
             ->toResponse($request);
@@ -583,7 +606,9 @@ class InvoiceController extends Controller
      * Download a stored invoice as HTML.
      *
      * @group         Invoices
+     *
      * @authenticated
+     *
      * @urlParam      id integer required The invoice ID. Example: 1
      *
      * @response 200 scenario="HTML file" {"binary": "text/html"}
@@ -594,7 +619,7 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::with(['order', 'user', 'items'])->find($id);
 
-        if (!$invoice) {
+        if (! $invoice) {
             return response()->json(['message' => 'Invoice not found'], 404);
         }
 
@@ -606,11 +631,11 @@ class InvoiceController extends Controller
         $lang     = $this->resolveLanguage($request);
         $t        = InvoiceTranslations::get($lang);
         $html     = view('invoices.pdf', compact('invoice', 'lang', 't'))->render();
-        $filename = $invoice->invoice_number . '.html';
+        $filename = $invoice->invoice_number.'.html';
 
         return response()->make($html, 200, [
             'Content-Type'        => 'text/html',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ]);
     }
 
@@ -620,7 +645,9 @@ class InvoiceController extends Controller
      * Builds a transient invoice from the request body and returns it as a downloadable PDF.
      *
      * @group  Invoices
+     *
      * @unauthenticated
+     *
      * @bodyParam invoice_number string Invoice number shown on the document. Example: INV-2026-00001
      * @bodyParam customer_first_name string Customer first name. Example: Jussi
      * @bodyParam customer_last_name string Customer last name. Example: Palanen
@@ -646,14 +673,14 @@ class InvoiceController extends Controller
     {
         $invoice  = $this->buildPreviewInvoice($request);
         $lang     = $this->resolveLanguage($request);
-        $filename = ($invoice->invoice_number ?: 'invoice-preview') . '.pdf';
+        $filename = ($invoice->invoice_number ?: 'invoice-preview').'.pdf';
 
         return Pdf::view('invoices.pdf', ['invoice' => $invoice, 'lang' => $lang, 't' => InvoiceTranslations::get($lang)])
             ->format('a4')
             ->withBrowsershot(fn (Browsershot $b) => $b
                 ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
                 ->noSandbox()
-                ->disableGpu()
+                ->addChromiumArguments(['--disable-gpu'])
             )
             ->download($filename)
             ->toResponse($request);
@@ -665,7 +692,9 @@ class InvoiceController extends Controller
      * Builds a transient invoice from the request body and returns it as an HTML file.
      *
      * @group  Invoices
+     *
      * @unauthenticated
+     *
      * @bodyParam invoice_number string Invoice number shown on the document. Example: INV-2026-00001
      * @bodyParam customer_first_name string Customer first name. Example: Jussi
      * @bodyParam customer_last_name string Customer last name. Example: Palanen
@@ -694,11 +723,11 @@ class InvoiceController extends Controller
         $t       = InvoiceTranslations::get($lang);
 
         $html     = view('invoices.pdf', compact('invoice', 'lang', 't'))->render();
-        $filename = ($invoice->invoice_number ?: 'invoice-preview') . '.html';
+        $filename = ($invoice->invoice_number ?: 'invoice-preview').'.html';
 
         return response()->make($html, 200, [
             'Content-Type'        => 'text/html',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ]);
     }
 
@@ -709,7 +738,9 @@ class InvoiceController extends Controller
      * If `to_email` is omitted, falls back to `customer_email` in the payload.
      *
      * @group  Invoices
+     *
      * @unauthenticated
+     *
      * @bodyParam to_email string required Recipient email address. Example: someone@example.com
      * @bodyParam invoice_number string Invoice number shown on the document. Example: INV-2026-00001
      * @bodyParam customer_first_name string Customer first name. Example: Jussi
@@ -742,12 +773,13 @@ class InvoiceController extends Controller
 
         Mail::to($recipient)->send(new InvoiceMail($invoice, null, $lang));
 
-        return response()->json(['message' => 'Invoice sent to ' . $recipient]);
+        return response()->json(['message' => 'Invoice sent to '.$recipient]);
     }
 
     private function resolveLanguage(Request $request): string
     {
         $lang = strtolower((string) ($request->query('lang') ?? $request->input('lang', 'en')));
+
         return in_array($lang, ['en', 'fi'], true) ? $lang : 'en';
     }
 
@@ -755,27 +787,28 @@ class InvoiceController extends Controller
     {
         $data = $request->validate(
             [
-            'invoice_number'       => 'nullable|string|max:100',
-            'customer_first_name'  => 'nullable|string|max:255',
-            'customer_last_name'   => 'nullable|string|max:255',
-            'customer_email'       => 'nullable|email|max:255',
-            'customer_phone'       => 'nullable|string|max:50',
-            'billing_address'      => 'nullable|array',
-            'subtotal'             => 'nullable|numeric|min:0',
-            'total'                => 'nullable|numeric|min:0',
-            'status'               => 'nullable|string|in:draft,issued,paid,cancelled',
-            'notes'                => 'nullable|string',
-            'items'                => 'nullable|array',
-            'items.*.type'         => 'required_with:items|string|in:product,shipping,discount,adjustment',
-            'items.*.description'  => 'required_with:items|string|max:500',
-            'items.*.quantity'     => 'required_with:items|integer|min:1',
-            'items.*.unit_price'   => 'required_with:items|numeric',
-            'items.*.tax_rate'     => 'nullable|numeric|min:0|max:1',
-            'items.*.total'        => 'required_with:items|numeric',
+                'invoice_number'      => 'nullable|string|max:100',
+                'customer_first_name' => 'nullable|string|max:255',
+                'customer_last_name'  => 'nullable|string|max:255',
+                'customer_email'      => 'nullable|email|max:255',
+                'customer_phone'      => 'nullable|string|max:50',
+                'billing_address'     => 'nullable|array',
+                'subtotal'            => 'nullable|numeric|min:0',
+                'total'               => 'nullable|numeric|min:0',
+                'status'              => 'nullable|string|in:draft,issued,unpaid,overdue,paid,cancelled',
+                'due_date'            => 'nullable|date',
+                'notes'               => 'nullable|string',
+                'items'               => 'nullable|array',
+                'items.*.type'        => 'required_with:items|string|in:product,shipping,discount,adjustment',
+                'items.*.description' => 'required_with:items|string|max:500',
+                'items.*.quantity'    => 'required_with:items|integer|min:1',
+                'items.*.unit_price'  => 'required_with:items|numeric',
+                'items.*.tax_rate'    => 'nullable|numeric|min:0|max:1',
+                'items.*.total'       => 'required_with:items|numeric',
             ]
         );
 
-        $invoice = new Invoice();
+        $invoice                      = new Invoice;
         $invoice->invoice_number      = $data['invoice_number'] ?? 'PREVIEW';
         $invoice->customer_first_name = $data['customer_first_name'] ?? '';
         $invoice->customer_last_name  = $data['customer_last_name'] ?? '';
@@ -785,11 +818,12 @@ class InvoiceController extends Controller
         $invoice->subtotal            = $data['subtotal'] ?? 0;
         $invoice->total               = $data['total'] ?? 0;
         $invoice->status              = $data['status'] ?? InvoiceStatus::DRAFT->value;
+        $invoice->due_date            = $data['due_date'] ?? null;
         $invoice->notes               = $data['notes'] ?? null;
         $invoice->created_at          = now();
 
         $items = collect($data['items'] ?? [])->map(function (array $itemData) {
-            $item              = new InvoiceItem();
+            $item              = new InvoiceItem;
             $item->type        = $itemData['type'];
             $item->description = $itemData['description'];
             $item->quantity    = $itemData['quantity'];

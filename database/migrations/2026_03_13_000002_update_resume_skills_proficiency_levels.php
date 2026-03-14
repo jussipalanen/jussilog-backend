@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     private const NEW_LEVELS = ['beginner', 'basic', 'intermediate', 'advanced', 'expert'];
+
     private const OLD_LEVELS = ['beginner', 'intermediate', 'expert'];
 
     public function up(): void

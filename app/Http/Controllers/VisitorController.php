@@ -26,6 +26,7 @@ class VisitorController extends Controller
      * Count unique visitors for today.
      *
      * @group Visitors
+     *
      * @authenticated
      */
     public function today(): JsonResponse
@@ -41,6 +42,7 @@ class VisitorController extends Controller
      * Count unique visitors of all time.
      *
      * @group Visitors
+     *
      * @authenticated
      */
     public function total(): JsonResponse

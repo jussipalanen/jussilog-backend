@@ -24,13 +24,15 @@ class ThumbnailsRegenerate extends Command
         $purge = (bool) $this->option('purge');
         $id    = $this->option('id') !== null ? (int) $this->option('id') : null;
 
-        if (!in_array($type, ['all', 'products', 'resumes'], true)) {
+        if (! in_array($type, ['all', 'products', 'resumes'], true)) {
             $this->error("Invalid --type value \"{$type}\". Use: products, resumes, or all.");
+
             return self::FAILURE;
         }
 
         if ($id !== null && $type === 'all') {
             $this->error('--id requires --type=products or --type=resumes (not "all").');
+
             return self::FAILURE;
         }
 
@@ -45,8 +47,9 @@ class ThumbnailsRegenerate extends Command
             $resume = null;
             if ($id !== null) {
                 $resume = Resume::find($id);
-                if (!$resume) {
+                if (! $resume) {
                     $this->error("Resume #{$id} not found.");
+
                     return self::FAILURE;
                 }
             }
@@ -69,8 +72,9 @@ class ThumbnailsRegenerate extends Command
             $product = null;
             if ($id !== null) {
                 $product = Product::find($id);
-                if (!$product) {
+                if (! $product) {
                     $this->error("Product #{$id} not found.");
+
                     return self::FAILURE;
                 }
             }
@@ -97,7 +101,7 @@ class ThumbnailsRegenerate extends Command
         if (empty($errors)) {
             return;
         }
-        $this->warn('  Errors (' . count($errors) . '):');
+        $this->warn('  Errors ('.count($errors).'):');
         foreach ($errors as $msg) {
             $this->warn("    - {$msg}");
         }

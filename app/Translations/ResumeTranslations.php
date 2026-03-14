@@ -116,7 +116,7 @@ class ResumeTranslations
         $t = self::get($lang);
 
         return array_values(array_map(
-            fn ($v) => ['value' => $v, 'label' => $t['skill_category_' . $v] ?? $v],
+            fn ($v) => ['value' => $v, 'label' => $t['skill_category_'.$v] ?? $v],
             self::SKILL_CATEGORIES,
         ));
     }
@@ -127,7 +127,7 @@ class ResumeTranslations
         $t = self::get($lang);
 
         return array_values(array_map(
-            fn ($v) => ['value' => $v, 'label' => $t['skill_proficiency_' . $v] ?? $v],
+            fn ($v) => ['value' => $v, 'label' => $t['skill_proficiency_'.$v] ?? $v],
             self::SKILL_PROFICIENCIES,
         ));
     }
@@ -138,7 +138,7 @@ class ResumeTranslations
         $t = self::get($lang);
 
         return array_values(array_map(
-            fn ($v) => ['value' => $v, 'label' => $t['proficiency_' . $v] ?? $v],
+            fn ($v) => ['value' => $v, 'label' => $t['proficiency_'.$v] ?? $v],
             self::LANGUAGE_PROFICIENCIES,
         ));
     }
@@ -149,7 +149,7 @@ class ResumeTranslations
         $t = self::get($lang);
 
         return array_values(array_map(
-            fn ($v) => ['value' => $v, 'label' => $t['spoken_language_' . $v] ?? $v],
+            fn ($v) => ['value' => $v, 'label' => $t['spoken_language_'.$v] ?? $v],
             self::SPOKEN_LANGUAGES,
         ));
     }
@@ -160,7 +160,7 @@ class ResumeTranslations
         $t = self::get($lang);
 
         return array_values(array_map(
-            fn ($v) => ['value' => $v, 'label' => $t['theme_' . $v] ?? $v],
+            fn ($v) => ['value' => $v, 'label' => $t['theme_'.$v] ?? $v],
             $themes,
         ));
     }
@@ -171,7 +171,7 @@ class ResumeTranslations
         $t = self::get($lang);
 
         return array_values(array_map(
-            fn ($v) => ['value' => $v, 'label' => $t['template_' . $v] ?? $v],
+            fn ($v) => ['value' => $v, 'label' => $t['template_'.$v] ?? $v],
             $templates,
         ));
     }
@@ -182,7 +182,7 @@ class ResumeTranslations
         $t = self::get($lang);
 
         return array_values(array_map(
-            fn ($value) => ['value' => $value, 'label' => $t['language_' . $value] ?? $value],
+            fn ($value) => ['value' => $value, 'label' => $t['language_'.$value] ?? $value],
             array_keys($languages),
         ));
     }

@@ -34,9 +34,9 @@ class UserUpdate extends Command
             return self::FAILURE;
         }
 
-        $name = $this->option('name');
-        $newEmail = $this->resolveNewEmailOption();
-        $password = $this->option('password');
+        $name      = $this->option('name');
+        $newEmail  = $this->resolveNewEmailOption();
+        $password  = $this->option('password');
         $roleValue = $this->resolveRoleValue($this->option('role'));
 
         if ($this->option('role') !== null && $roleValue === null) {
@@ -48,7 +48,7 @@ class UserUpdate extends Command
             || $this->option('password') !== null
             || $this->option('role') !== null;
 
-        if ($this->input->isInteractive() && !$hasUpdateOptions) {
+        if ($this->input->isInteractive() && ! $hasUpdateOptions) {
             $name = $name ?? $this->ask('New name (leave blank to keep)');
             $name = $this->normalizeBlank($name);
 
@@ -69,12 +69,12 @@ class UserUpdate extends Command
 
         $updates = [];
 
-        if (!empty($name)) {
+        if (! empty($name)) {
             $updates['name'] = $name;
         }
 
-        if (!empty($newEmail)) {
-            if (!filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+        if (! empty($newEmail)) {
+            if (! filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
                 $this->error('Email format is invalid.');
 
                 return self::FAILURE;
@@ -94,7 +94,7 @@ class UserUpdate extends Command
             $updates['email'] = $newEmail;
         }
 
-        if (!empty($password)) {
+        if (! empty($password)) {
             $updates['password'] = Hash::make($password);
         }
 
@@ -102,7 +102,7 @@ class UserUpdate extends Command
             $user->update($updates);
         }
 
-        if (!empty($roleValue)) {
+        if (! empty($roleValue)) {
             $roleModel = Role::query()->firstOrCreate(['name' => $roleValue]);
             $user->roles()->sync([$roleModel->id]);
         }
@@ -114,7 +114,7 @@ class UserUpdate extends Command
 
     private function resolveUser(): ?User
     {
-        $id = $this->option('id');
+        $id    = $this->option('id');
         $email = $this->option('email');
 
         if (empty($id) && empty($email)) {
@@ -123,7 +123,7 @@ class UserUpdate extends Command
             return null;
         }
 
-        if (!empty($id)) {
+        if (! empty($id)) {
             $user = User::query()->find($id);
         } else {
             $user = User::query()->where('email', $email)->first();
@@ -138,11 +138,11 @@ class UserUpdate extends Command
 
     private function resolveNewEmailOption(): ?string
     {
-        $id = $this->option('id');
-        $email = $this->option('email');
+        $id       = $this->option('id');
+        $email    = $this->option('email');
         $newEmail = $this->option('new-email');
 
-        if (!empty($id) && empty($newEmail) && !empty($email)) {
+        if (! empty($id) && empty($newEmail) && ! empty($email)) {
             return $email;
         }
 
@@ -155,7 +155,7 @@ class UserUpdate extends Command
             return null;
         }
 
-        $cases = RoleEnum::cases();
+        $cases      = RoleEnum::cases();
         $normalized = $this->normalizeRole($role, $cases);
 
         if ($normalized !== null) {
@@ -169,9 +169,9 @@ class UserUpdate extends Command
 
     private function promptRoleOrKeep(): ?string
     {
-        $cases = RoleEnum::cases();
+        $cases   = RoleEnum::cases();
         $choices = array_merge(['Keep current'], $this->roleLabels($cases));
-        $choice = $this->choice('Role', $choices, 0);
+        $choice  = $this->choice('Role', $choices, 0);
 
         if ($choice === 'Keep current') {
             return null;
@@ -181,7 +181,7 @@ class UserUpdate extends Command
     }
 
     /**
-     * @param array<int, RoleEnum> $cases
+     * @param  array<int, RoleEnum>  $cases
      */
     private function normalizeRole(string $role, array $cases): ?string
     {
@@ -195,7 +195,7 @@ class UserUpdate extends Command
     }
 
     /**
-     * @param array<int, RoleEnum> $cases
+     * @param  array<int, RoleEnum>  $cases
      * @return array<int, string>
      */
     private function roleLabels(array $cases): array
@@ -204,7 +204,7 @@ class UserUpdate extends Command
     }
 
     /**
-     * @param array<int, RoleEnum> $cases
+     * @param  array<int, RoleEnum>  $cases
      * @return array<int, string>
      */
     private function roleKeys(array $cases): array
@@ -213,7 +213,7 @@ class UserUpdate extends Command
     }
 
     /**
-     * @param array<int, RoleEnum> $cases
+     * @param  array<int, RoleEnum>  $cases
      */
     private function labelToValue(string $label, array $cases): string
     {

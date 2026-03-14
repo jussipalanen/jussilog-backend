@@ -15,11 +15,11 @@ return new class extends Migration
         }
 
         // Step 2: NULL any existing value that is not a valid enum member
-        DB::statement('UPDATE resume_skills SET category = NULL WHERE category NOT IN (' . self::ENUM_VALUES . ')');
+        DB::statement('UPDATE resume_skills SET category = NULL WHERE category NOT IN ('.self::ENUM_VALUES.')');
 
         if (DB::getDriverName() !== 'sqlite') {
             // Step 3: convert to nullable enum (preserves rows that already had valid values)
-            DB::statement('ALTER TABLE resume_skills MODIFY category ENUM(' . self::ENUM_VALUES . ') NULL');
+            DB::statement('ALTER TABLE resume_skills MODIFY category ENUM('.self::ENUM_VALUES.') NULL');
         }
     }
 

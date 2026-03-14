@@ -7,10 +7,10 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeItemController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TaxRateController;
 use App\Http\Controllers\UploadTestController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\VisitorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Route;
  * Get the authenticated user.
  *
  * @group         Auth
+ *
  * @authenticated
  */
 Route::middleware('auth:sanctum')->get(
@@ -39,13 +40,13 @@ Route::middleware('auth:sanctum')->get(
 
         return response()->json(
             [
-            'id' => $user->id,
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
-            'username' => $user->username,
-            'name' => $user->name,
-            'email' => $user->email,
-            'roles' => $user->roles->pluck('name'),
+                'id'         => $user->id,
+                'first_name' => $user->first_name,
+                'last_name'  => $user->last_name,
+                'username'   => $user->username,
+                'name'       => $user->name,
+                'email'      => $user->email,
+                'roles'      => $user->roles->pluck('name'),
             ]
         );
     }
@@ -55,6 +56,7 @@ Route::middleware('auth:sanctum')->get(
  * Get the authenticated user with metadata.
  *
  * @group         Auth
+ *
  * @authenticated
  */
 Route::middleware('auth:sanctum')->get(
@@ -64,16 +66,16 @@ Route::middleware('auth:sanctum')->get(
 
         return response()->json(
             [
-            'user_id' => $user?->id,
-            'user' => [
-            'id' => $user->id,
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
-            'username' => $user->username,
-            'name' => $user->name,
-            'email' => $user->email,
-            'roles' => $user->roles->pluck('name'),
-            ],
+                'user_id' => $user?->id,
+                'user'    => [
+                    'id'         => $user->id,
+                    'first_name' => $user->first_name,
+                    'last_name'  => $user->last_name,
+                    'username'   => $user->username,
+                    'name'       => $user->name,
+                    'email'      => $user->email,
+                    'roles'      => $user->roles->pluck('name'),
+                ],
             ]
         );
     }
@@ -145,7 +147,6 @@ Route::middleware('auth:sanctum')->group(
     }
 );
 
-
 // User routes
 Route::get('/users/roles', [UserController::class, 'roles']);
 Route::get('/users', [UserController::class, 'index']);
@@ -205,4 +206,3 @@ Route::middleware('auth:sanctum')->group(function () use ($sectionPattern) {
     Route::post('/admin/thumbnails/resumes/{id}/regenerate', [AdminThumbnailController::class, 'regenerateResume']);
     Route::delete('/admin/thumbnails/resumes/{id}', [AdminThumbnailController::class, 'purgeResume']);
 });
-

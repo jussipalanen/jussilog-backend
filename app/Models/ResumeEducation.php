@@ -25,7 +25,7 @@ class ResumeEducation extends Model
 
     protected $casts = [
         'graduation_year' => 'integer',
-        'gpa' => 'decimal:2',
+        'gpa'             => 'decimal:2',
     ];
 
     public function resume(): BelongsTo

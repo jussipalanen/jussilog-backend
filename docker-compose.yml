@@ -59,6 +59,8 @@ services:
       # Test files (excluded from the image via .dockerignore — mount for local dev)
       - ./tests:/var/www/html/tests
       - ./phpunit.xml:/var/www/html/phpunit.xml
+      # Disable OPcache in local dev so file changes are picked up immediately
+      - ./docker/opcache-dev.ini:/usr/local/etc/php/conf.d/opcache.ini:ro
     depends_on:
       mysql:
         condition: service_healthy
@@ -80,7 +82,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-rootpassword}"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-rootpassword}" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -94,4 +96,5 @@ networks:
 
 volumes:
   mysql_data:
+
 
