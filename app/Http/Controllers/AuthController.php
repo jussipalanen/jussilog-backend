@@ -49,11 +49,9 @@ class AuthController extends Controller
         $user->assignRole(RoleEnum::CUSTOMER);
         $user->load('roles');
 
-        Mail::to($user->email)->send(new RegistrationWelcome(
-            $user->email,
-            $data['password'],
-            'Welcome to Jussimatic',
-        ));
+        $lang = in_array($request->query('lang'), ['en', 'fi']) ? $request->query('lang') : 'en';
+
+        Mail::to($user->email)->send(new RegistrationWelcome($user->email, $lang));
 
         $token = $user->createToken('api')->plainTextToken;
 
@@ -95,10 +93,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('api')->plainTextToken;
 
-        return response()->json([
-            'token' => $token,
-            'user' => $user,
-        ]);
+        return response()->json(['token' => $token]);
     }
 
     /**
@@ -176,7 +171,11 @@ class AuthController extends Controller
 
         if ($isNewUser) {
             $user->assignRole(RoleEnum::CUSTOMER);
-            Mail::to($user->email)->queue(new GoogleWelcome($user));
+            $lang = in_array(strtolower((string) $request->input('lang', 'en')), ['en', 'fi'], true)
+                ? strtolower((string) $request->input('lang', 'en'))
+                : 'en';
+
+            Mail::to($user->email)->queue(new GoogleWelcome($user, $lang));
         }
 
         $user->load('roles');

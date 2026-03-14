@@ -8,6 +8,7 @@ services:
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
+        INSTALL_DEV_DEPS: "true"
     container_name: jussilog-backend-sqlite
     restart: unless-stopped
     ports:
@@ -51,6 +52,9 @@ services:
       - ./resources:/var/www/html/resources
       - ./config:/var/www/html/config
       - ./public:/var/www/html/public
+      # Test files (excluded from the image via .dockerignore — mount for local dev)
+      - ./tests:/var/www/html/tests
+      - ./phpunit.xml:/var/www/html/phpunit.xml
     networks:
       - jussilog-network
 
