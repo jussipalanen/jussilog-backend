@@ -601,6 +601,7 @@ class ResumeController extends Controller
             'skill_categories'       => ResumeTranslations::skillCategories($lang),
             'skill_proficiencies'    => ResumeTranslations::skillProficiencies($lang),
             'language_proficiencies' => ResumeTranslations::languageProficiencies($lang),
+            'spoken_languages'       => ResumeTranslations::spokenLanguages($lang),
         ]);
     }
 

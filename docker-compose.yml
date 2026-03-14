@@ -50,6 +50,7 @@ services:
 
       # Hot-reload development mounts (optional - comment out for production)
       - ./app:/var/www/html/app
+      - ./lang:/var/www/html/lang
       - ./routes:/var/www/html/routes
       - ./resources:/var/www/html/resources
       - ./config:/var/www/html/config

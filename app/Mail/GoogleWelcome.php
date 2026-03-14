@@ -16,13 +16,18 @@ class GoogleWelcome extends Mailable
     use Queueable;
     use SerializesModels;
 
-    public function __construct(public User $user) {}
+    public function __construct(
+        public User $user,
+        public string $lang = 'en',
+    ) {}
 
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: 'Welcome to Jussimatic',
-        );
+        $subject = $this->lang === 'fi'
+            ? 'Tervetuloa ' . config('app.name') . ':hen'
+            : 'Welcome to ' . config('app.name');
+
+        return new Envelope(subject: $subject);
     }
 
     public function content(): Content
@@ -30,8 +35,9 @@ class GoogleWelcome extends Mailable
         return new Content(
             view: 'mail.google-welcome',
             with: [
-                'name' => $this->user->first_name ?: $this->user->name,
+                'name'  => $this->user->first_name ?: $this->user->name,
                 'email' => $this->user->email,
+                'lang'  => $this->lang,
             ],
         );
     }

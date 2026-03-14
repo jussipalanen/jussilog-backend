@@ -155,8 +155,7 @@ $t = $translations[$lang ?? 'en'] ?? $translations['en'];
                             {{ $addr['postal_code'] ?? '' }} {{ $addr['city'] ?? '' }}<br>
                         @endif
                         @if(!empty($addr['country']))
-                            @php use App\Services\CountryService; @endphp
-                            {{ CountryService::getLabel($addr['country'], $lang ?? 'en') }}
+                            {{ \App\Services\CountryService::getLabel($addr['country'], $lang ?? 'en') }}
                         @endif
                     @endif
                 @endif

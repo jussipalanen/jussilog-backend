@@ -290,7 +290,11 @@ class UserController extends Controller
         $user->tokens()->delete();
         $user->delete();
 
-        Mail::to($deletedEmail)->queue(new AccountDeleted($deletedName, $deletedEmail));
+        $lang = in_array(strtolower((string) $request->query('lang', 'en')), ['en', 'fi'], true)
+            ? strtolower((string) $request->query('lang', 'en'))
+            : 'en';
+
+        Mail::to($deletedEmail)->queue(new AccountDeleted($deletedName, $deletedEmail, $lang));
 
         return response()->json(['message' => 'User deleted successfully'], 200);
     }

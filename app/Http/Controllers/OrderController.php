@@ -195,10 +195,11 @@ class OrderController extends Controller
 
             $order->load('items');
 
-            Mail::to($order->customer_email)->send(new OrderConfirmation(
-                $order,
-                'Thank you for your order!',
-            ));
+            $lang = in_array(strtolower((string) $request->query('lang', 'en')), ['en', 'fi'], true)
+                ? strtolower((string) $request->query('lang', 'en'))
+                : 'en';
+
+            Mail::to($order->customer_email)->send(new OrderConfirmation($order, $lang));
 
             return response()->json($order->load(['user', 'items.product']), 201);
         });

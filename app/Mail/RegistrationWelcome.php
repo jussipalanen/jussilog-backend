@@ -16,21 +16,21 @@ class RegistrationWelcome extends Mailable
     use SerializesModels;
 
     public string $email;
-    public string $plainPassword;
-    public string $subjectLine;
+    public string $lang;
 
-    public function __construct(string $email, string $plainPassword, string $subjectLine)
+    public function __construct(string $email, string $lang = 'en')
     {
         $this->email = $email;
-        $this->plainPassword = $plainPassword;
-        $this->subjectLine = $subjectLine;
+        $this->lang  = $lang;
     }
 
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: $this->subjectLine,
-        );
+        $subject = $this->lang === 'fi'
+            ? 'Tervetuloa ' . config('app.name') . '!'
+            : 'Welcome to ' . config('app.name') . '!';
+
+        return new Envelope(subject: $subject);
     }
 
     public function content(): Content
@@ -39,7 +39,7 @@ class RegistrationWelcome extends Mailable
             view: 'mail.registration-welcome',
             with: [
                 'email' => $this->email,
-                'plainPassword' => $this->plainPassword,
+                'lang'  => $this->lang,
             ],
         );
     }
