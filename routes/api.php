@@ -170,6 +170,8 @@ Route::get('/resumes/export/options', [ResumeController::class, 'exportOptions']
 Route::post('/resumes/export/pdf', [ResumeController::class, 'exportPdfPublic']);
 Route::post('/resumes/export/html', [ResumeController::class, 'exportHtmlPublic']);
 Route::get('/resumes/current', [ResumeController::class, 'current']);
+Route::get('/resumes/current/main', [ResumeController::class, 'currentMain']);
+Route::get('/resumes/{id}/public', [ResumeController::class, 'showPublic']);
 
 Route::get('/settings/taxrates', [TaxRateController::class, 'index']);
 Route::get('/settings/taxrates/{code}', [TaxRateController::class, 'show']);
