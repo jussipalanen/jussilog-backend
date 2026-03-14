@@ -130,13 +130,15 @@ Route::post('/invoices/export/pdf', [InvoiceController::class, 'exportPdf']);
 Route::post('/invoices/export/html', [InvoiceController::class, 'exportHtml']);
 Route::post('/invoices/export/email', [InvoiceController::class, 'exportEmail']);
 
+// Public invoice send (no auth)
+Route::post('/invoices/{id}/send', [InvoiceController::class, 'sendEmail']);
+
 Route::middleware('auth:sanctum')->group(
     function () {
         Route::get('/invoices', [InvoiceController::class, 'index']);
         Route::get('/invoices/{id}', [InvoiceController::class, 'show']);
         Route::get('/invoices/{id}/pdf', [InvoiceController::class, 'pdf']);
         Route::get('/invoices/{id}/html', [InvoiceController::class, 'html']);
-        Route::post('/invoices/{id}/send', [InvoiceController::class, 'sendEmail']);
         Route::post('/invoices', [InvoiceController::class, 'store'])->middleware('role:admin,vendor');
         Route::put('/invoices/{id}', [InvoiceController::class, 'update'])->middleware('role:admin,vendor');
         Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy'])->middleware('role:admin,vendor');

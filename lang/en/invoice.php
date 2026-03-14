@@ -38,9 +38,10 @@ return [
     'status_cancelled' => 'Cancelled',
 
     // Invoice item type options
-    'type_product'  => 'Product',
-    'type_shipping' => 'Shipping',
-    'type_discount' => 'Discount',
-    'type_fee'      => 'Fee',
-    'type_other'    => 'Other',
+    'type_product'    => 'Product',
+    'type_shipping'   => 'Shipping',
+    'type_discount'   => 'Discount',
+    'type_fee'        => 'Fee',
+    'type_other'      => 'Other',
+    'type_adjustment' => 'Adjustment',
 ];

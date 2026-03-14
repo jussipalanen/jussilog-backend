@@ -1,44 +1,3 @@
-@php
-$translations = [
-    'en' => [
-        'invoice'         => 'Invoice',
-        'invoice_date'    => 'Invoice Date',
-        'issued'          => 'Issued',
-        'paid'            => 'Paid',
-        'bill_to'         => 'Bill To',
-        'order_reference' => 'Order Reference',
-        'order'           => 'Order',
-        'description'     => 'Description',
-        'type'            => 'Type',
-        'qty'             => 'Qty',
-        'unit_price'      => 'Unit Price',
-        'tax'             => 'Tax',
-        'total'           => 'Total',
-        'subtotal'        => 'Subtotal',
-        'notes'           => 'Notes',
-        'generated_on'    => 'Generated on',
-    ],
-    'fi' => [
-        'invoice'         => 'Lasku',
-        'invoice_date'    => 'Laskun päiväys',
-        'issued'          => 'Lähetetty',
-        'paid'            => 'Maksettu',
-        'bill_to'         => 'Laskutettava',
-        'order_reference' => 'Tilausviite',
-        'order'           => 'Tilaus',
-        'description'     => 'Kuvaus',
-        'type'            => 'Tyyppi',
-        'qty'             => 'Määrä',
-        'unit_price'      => 'Yksikköhinta',
-        'tax'             => 'Vero',
-        'total'           => 'Yhteensä',
-        'subtotal'        => 'Välisumma',
-        'notes'           => 'Muistiinpanot',
-        'generated_on'    => 'Luotu',
-    ],
-];
-$t = $translations[$lang ?? 'en'] ?? $translations['en'];
-@endphp
 <!DOCTYPE html>
 <html lang="{{ $lang ?? 'en' }}">
 <head>
@@ -116,7 +75,7 @@ $t = $translations[$lang ?? 'en'] ?? $translations['en'];
             <div class="invoice-label">{{ $t['invoice'] }}</div>
             <div class="invoice-number">{{ $invoice->invoice_number }}</div>
             @php $statusClass = 'status-' . $invoice->status->value; @endphp
-            <span class="status-badge {{ $statusClass }}">{{ $invoice->status->label() }}</span>
+            <span class="status-badge {{ $statusClass }}">{{ $t['status_' . $invoice->status->value] ?? $invoice->status->label() }}</span>
         </div>
     </div>
 
@@ -188,7 +147,7 @@ $t = $translations[$lang ?? 'en'] ?? $translations['en'];
             @foreach($invoice->items as $item)
             <tr>
                 <td>{{ $item->description }}</td>
-                <td>{{ ucfirst($item->type->value) }}</td>
+                <td>{{ $t['type_' . $item->type->value] ?? ucfirst($item->type->value) }}</td>
                 <td class="num">{{ $item->quantity }}</td>
                 <td class="num">{{ number_format($item->unit_price, 2) }}</td>
                 <td class="num">{{ number_format($item->tax_rate * 100, 0) }}%</td>
