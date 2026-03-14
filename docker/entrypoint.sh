@@ -5,14 +5,6 @@ echo "Starting JussiLog Backend..."
 
 APP_ENV="${APP_ENV:-production}"
 
-# Generate APP_KEY if not set or empty
-if [ -z "${APP_KEY:-}" ]; then
-    echo "APP_KEY is missing — generating a new one..."
-    APP_KEY="$(su laravel -s /bin/sh -c 'php artisan key:generate --show --no-ansi')"
-    export APP_KEY
-    echo "Generated APP_KEY (in-memory only — set it as a persistent env var to avoid regeneration on every restart)."
-fi
-
 # Get port from environment (Cloud Run sets this, default to 8080)
 PORT="${PORT:-8080}"
 echo "Using port: $PORT"
@@ -157,7 +149,9 @@ fi
 # Production optimizations (skip in local development)
 if [ "$APP_ENV" != "local" ]; then
     echo "Running production optimizations..."
-    su laravel -s /bin/sh -c "php artisan optimize"
+    if ! su laravel -s /bin/sh -c "php artisan optimize"; then
+        echo "WARNING: php artisan optimize failed — continuing to start web server."
+    fi
 else
     echo "Local development mode - skipping cache optimizations"
     su laravel -s /bin/sh -c "php artisan optimize:clear" || true
