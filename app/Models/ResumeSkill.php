@@ -20,6 +20,21 @@ class ResumeSkill extends Model
         'sort_order',
     ];
 
+    protected $appends = ['points'];
+
+    private const PROFICIENCY_POINTS = [
+        'beginner'     => 1,
+        'basic'        => 2,
+        'intermediate' => 3,
+        'advanced'     => 4,
+        'expert'       => 5,
+    ];
+
+    public function getPointsAttribute(): ?int
+    {
+        return self::PROFICIENCY_POINTS[$this->proficiency] ?? null;
+    }
+
     public function resume(): BelongsTo
     {
         return $this->belongsTo(Resume::class);
