@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [0.9.0] - 2026-03-15
+
+### Added
+- **`due_date` on invoices**: New nullable `due_date` date column on the `invoices` table, exposed in all invoice responses.
+- **Extended invoice statuses**: `InvoiceStatus` enum expanded with two new cases — `UNPAID` (orange) and `OVERDUE` (red) — in addition to the existing `DRAFT`, `ISSUED`, `PAID`, and `CANCELLED`.
+- **GitHub Actions — Larastan**: Added `.github/workflows/larastan.yml` to run PHPStan static analysis on every push and pull request.
+- **GitHub Actions — Pint**: Added `.github/workflows/pint.yml` to enforce Laravel Pint code style on every push and pull request.
+
+### Changed
+- **Price formatting in Finnish locale**: Invoice PDF, invoice email, and order confirmation email now correctly format prices using Finnish conventions (`,` as decimal separator, non-breaking space as thousands separator) when `lang=fi`.
+- **Euro symbol on prices**: All price, subtotal, and total fields in the invoice PDF and invoice email templates now display the `€` currency symbol.
+- **Codebase-wide Pint formatting**: Applied Laravel Pint to the entire codebase — consistent spacing, imports, and style across all PHP files.
+
+### Fixed
+- **PHPStan errors**: Resolved 11 static analysis errors across `OrderController`, `ResumeController`, `ResumeItemController`, `TaxRateController`, `Product`, and `ResumeLanguage`.
+  - `str_pad()` received `int` instead of `string` (OrderController).
+  - `Browsershot::disableGpu()` does not exist — replaced with `addChromiumArguments(['--disable-gpu'])` (ResumeController).
+  - `match` expression missing `default` arm (ResumeItemController).
+  - Redundant `?? $code` fallbacks on non-nullable array offsets (TaxRateController × 2).
+  - `Product::$appends` PHPDoc type widened to `array<int, string>`; removed always-false negated boolean guards and unnecessary `?? ''` null coalescing; `resolveImageUrl()` return type corrected to `string`.
+  - `ResumeLanguage::getPointsAttribute()` return type corrected to `int`.
+- **Finnish price formatting bug**: Single-quoted `'\u{00A0}'` was passed literally to `number_format` — fixed to double-quoted `"\u{00A0}"` so PHP resolves it to the actual non-breaking space character.
+
 ## [0.8.1] - 2026-03-14
 
 ### Added
