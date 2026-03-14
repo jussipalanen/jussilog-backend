@@ -68,6 +68,7 @@ return [
     'skill_category_project_management'          => 'Projektinhallinta',
     'skill_category_agile_methodologies'         => 'Ketterät menetelmät',
     'skill_category_soft_skills'                 => 'Pehmeät taidot',
+    'skill_category_other'                       => 'Muut',
     'projects'             => 'Projektit',
     'technologies'         => 'Teknologiat',
     'certifications'       => 'Sertifikaatit',

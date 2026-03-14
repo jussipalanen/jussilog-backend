@@ -68,6 +68,7 @@ return [
     'skill_category_project_management'          => 'Project Management',
     'skill_category_agile_methodologies'         => 'Agile & Methodologies',
     'skill_category_soft_skills'                 => 'Soft Skills',
+    'skill_category_other'                       => 'Other',
     'projects'             => 'Projects',
     'technologies'         => 'Technologies',
     'certifications'       => 'Certifications',

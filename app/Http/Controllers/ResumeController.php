@@ -15,7 +15,6 @@ use App\Models\ResumeWorkExperience;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -129,13 +128,10 @@ class ResumeController extends Controller
             'template'      => 'sometimes|string|in:' . implode(',', self::TEMPLATES),
             'theme'         => 'sometimes|string|in:' . implode(',', self::THEMES),
             'is_primary'    => 'sometimes|boolean',
-            'password'      => 'nullable|string|min:6',
+            'is_public'     => 'sometimes|boolean',
+            'code'          => 'nullable|string|max:100',
             ...$this->sectionValidationRules(),
         ]);
-
-        if (isset($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
-        }
 
         $resume = DB::transaction(function () use ($data, $request) {
             $resume = $request->user()->resumes()->create(
@@ -192,13 +188,10 @@ class ResumeController extends Controller
             'template'      => 'sometimes|string|in:' . implode(',', self::TEMPLATES),
             'theme'         => 'sometimes|string|in:' . implode(',', self::THEMES),
             'is_primary'    => 'sometimes|boolean',
-            'password'      => 'nullable|string|min:6',
+            'is_public'     => 'sometimes|boolean',
+            'code'          => 'nullable|string|max:100',
             ...$this->sectionValidationRules(update: true),
         ]);
-
-        if (array_key_exists('password', $data)) {
-            $data['password'] = $data['password'] ? Hash::make($data['password']) : null;
-        }
 
         DB::transaction(function () use ($data, $resume, $request) {
             if (!empty($data['is_primary'])) {
@@ -348,11 +341,11 @@ class ResumeController extends Controller
      *
      * Accessible either with a valid Sanctum token (returns the authenticated
      * user's primary resume) or without a token by supplying `owner` (username)
-     * and `password` query parameters (public/shared access).
+     * query parameter; if the resume has a code set, `code` must also match.
      *
      * @group Resumes
      * @queryParam owner string Username of the resume owner (required for public access). Example: johndoe
-     * @queryParam password string Resume view password (required for public access). Example: secret123
+     * @queryParam code string Resume access code (required when the resume has one). Example: mycode
      */
     public function current(Request $request): JsonResponse
     {
@@ -370,11 +363,11 @@ class ResumeController extends Controller
             return response()->json($resume);
         }
 
-        // Public access: owner username + resume password required.
-        $owner    = (string) $request->query('owner', '');
-        $password = (string) $request->query('password', '');
+        // Public access: owner username required; resume must be public.
+        $owner = (string) $request->query('owner', '');
+        $code  = (string) $request->query('code', '');
 
-        if (!$owner || !$password) {
+        if (!$owner) {
             return response()->json(['message' => 'Unauthenticated.'], 401);
         }
 
@@ -386,15 +379,120 @@ class ResumeController extends Controller
 
         $resume = $ownerUser->resumes()
             ->where('is_primary', true)
-            ->whereNotNull('password')
+            ->where('is_public', true)
             ->with($with)
             ->first();
 
-        if (!$resume || !Hash::check($password, $resume->password)) {
-            return response()->json(['message' => 'Invalid credentials.'], 401);
+        if (!$resume) {
+            return response()->json(['message' => 'Resume not found.'], 404);
         }
 
-        return response()->json($resume);
+        if (!empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
+            return response()->json(['message' => 'Invalid code.'], 401);
+        }
+
+        return response()->json($resume->makeHidden('code'));
+    }
+
+    /**
+     * Get the main (primary) resume for public display.
+     *
+     * The resume must be set to public (`is_public = true`).
+     * Supports two lookup modes:
+     * - By resume ID (`?id=<n>`)
+     * - By owner username (`?owner=<username>`)
+     *
+     * If the resume has a code set, the `code` query parameter must match.
+     *
+     * @group Resumes
+     * @unauthenticated
+     * @queryParam id integer Resume ID. Example: 1
+     * @queryParam owner string Username of the resume owner. Example: johndoe
+     * @queryParam code string Access code (required when the resume has one). Example: mycode
+     */
+    public function currentMain(Request $request): JsonResponse
+    {
+        $with  = array_values($this->sectionRelationMap());
+        $id    = $request->query('id');
+        $owner = (string) $request->query('owner', '');
+        $code  = (string) $request->query('code', '');
+
+        // Lookup by resume ID
+        if ($id !== null) {
+            $resume = Resume::where('id', (int) $id)
+                ->where('is_primary', true)
+                ->where('is_public', true)
+                ->with($with)
+                ->first();
+
+            if (!$resume) {
+                return response()->json(['message' => 'Resume not found.'], 404);
+            }
+
+            if (!empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
+                return response()->json(['message' => 'Invalid code.'], 401);
+            }
+
+            return response()->json($resume->makeHidden('code'));
+        }
+
+        // Lookup by owner username
+        if ($owner) {
+            $ownerUser = \App\Models\User::where('username', $owner)->first();
+
+            if (!$ownerUser) {
+                return response()->json(['message' => 'Resume not found.'], 404);
+            }
+
+            $resume = $ownerUser->resumes()
+                ->where('is_primary', true)
+                ->where('is_public', true)
+                ->with($with)
+                ->first();
+
+            if (!$resume) {
+                return response()->json(['message' => 'Resume not found.'], 404);
+            }
+
+            if (!empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
+                return response()->json(['message' => 'Invalid code.'], 401);
+            }
+
+            return response()->json($resume->makeHidden('code'));
+        }
+
+        return response()->json(['message' => 'Provide id or owner.'], 422);
+    }
+
+    /**
+     * Display a specific public resume (no token required).
+     *
+     * The resume must be set to public (`is_public = true`).
+     * If the resume has a code set, the `code` query parameter must match.
+     *
+     * @group Resumes
+     * @unauthenticated
+     * @urlParam id integer required The resume ID. Example: 1
+     * @queryParam code string Access code (required when the resume has one). Example: mycode
+     */
+    public function showPublic(Request $request, int $id): JsonResponse
+    {
+        $code   = (string) $request->query('code', '');
+        $resume = Resume::where('id', $id)
+            ->where('is_public', true)
+            ->first();
+
+        if (!$resume) {
+            return response()->json(['message' => 'Resume not found.'], 404);
+        }
+
+        if (!empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
+            return response()->json(['message' => 'Invalid code.'], 401);
+        }
+
+        $resume->load(array_values($this->sectionRelationMap()));
+
+        return response()->json($resume->makeHidden('code'));
     }
 
     private function clearPrimaryForUser(int $userId, int $exceptResumeId): void
@@ -715,7 +813,7 @@ class ResumeController extends Controller
             'educations.*.sort_order'             => 'integer|min:0',
 
             'skills'                  => 'sometimes|array',
-            'skills.*.category'       => $r . 'required|in:programming_languages,scripting_languages,markup_languages,query_languages,frontend_technologies,backend_technologies,full_stack_development,frameworks,libraries,ui_ux_design,responsive_design,mobile_development,desktop_development,game_development,embedded_systems,databases,database_design,database_administration,orm_data_access,api_development,web_services,graphql,microservices,event_driven_architecture,devops,cloud_platforms,serverless,containerization,ci_cd,infrastructure_as_code,configuration_management,version_control,testing_qa,test_automation,security,authentication_authorization,networking,performance_optimization,architecture_design_patterns,system_design,distributed_systems,data_engineering,big_data,machine_learning_ai,monitoring_logging,development_tools,operating_systems,project_management,agile_methodologies,soft_skills',
+            'skills.*.category'       => $r . 'required|in:programming_languages,scripting_languages,markup_languages,query_languages,frontend_technologies,backend_technologies,full_stack_development,frameworks,libraries,ui_ux_design,responsive_design,mobile_development,desktop_development,game_development,embedded_systems,databases,database_design,database_administration,orm_data_access,api_development,web_services,graphql,microservices,event_driven_architecture,devops,cloud_platforms,serverless,containerization,ci_cd,infrastructure_as_code,configuration_management,version_control,testing_qa,test_automation,security,authentication_authorization,networking,performance_optimization,architecture_design_patterns,system_design,distributed_systems,data_engineering,big_data,machine_learning_ai,monitoring_logging,development_tools,operating_systems,project_management,agile_methodologies,soft_skills,other',
             'skills.*.name'           => $r . 'required|string|max:255',
             'skills.*.proficiency'    => $r . 'required|in:beginner,basic,intermediate,advanced,expert',
             'skills.*.sort_order'     => 'integer|min:0',

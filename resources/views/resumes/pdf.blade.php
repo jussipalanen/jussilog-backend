@@ -444,7 +444,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
 
     @foreach($resume->skills->groupBy('category') as $category => $catSkills)
     <div class="sb-skill-group">
-        <div class="sb-skill-group-name">{{ $category }}</div>
+        <div class="sb-skill-group-name">{{ __('resume.skill_category_' . $category) }}</div>
         @foreach($catSkills as $skill)
         @php $w = match($skill->proficiency) { 'expert' => '100%', 'advanced' => '80%', 'intermediate' => '60%', 'basic' => '40%', default => '20%' }; @endphp
         <div class="sb-skill">

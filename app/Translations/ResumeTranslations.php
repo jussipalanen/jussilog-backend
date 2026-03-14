@@ -59,6 +59,7 @@ class ResumeTranslations
         'project_management',
         'agile_methodologies',
         'soft_skills',
+        'other',
     ];
 
     public const SKILL_PROFICIENCIES = [
