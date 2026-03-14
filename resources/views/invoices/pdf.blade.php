@@ -22,8 +22,10 @@
         .status-badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; }
         .status-draft      { background: #e5e7eb; color: #374151; }
         .status-issued     { background: #dbeafe; color: #1d4ed8; }
+        .status-unpaid     { background: #ffedd5; color: #c2410c; }
+        .status-overdue    { background: #fee2e2; color: #b91c1c; }
         .status-paid       { background: #dcfce7; color: #15803d; }
-        .status-cancelled  { background: #fee2e2; color: #b91c1c; }
+        .status-cancelled  { background: #e5e7eb; color: #374151; }
 
         /* Addresses */
         .addresses { display: table; width: 100%; margin-bottom: 36px; }
@@ -64,6 +66,11 @@
     </style>
 </head>
 <body>
+@php
+    $dec   = ($lang ?? 'en') === 'fi' ? ',' : '.';
+    $thou  = ($lang ?? 'en') === 'fi' ? '\u{00A0}' : ',';
+    $price = fn($v) => number_format((float) $v, 2, $dec, $thou);
+@endphp
 <div class="page">
 
     {{-- Header --}}
@@ -83,18 +90,24 @@
     <div class="meta-row">
         <div class="meta-cell">
             <h3>{{ $t['invoice_date'] }}</h3>
-            <p>{{ $invoice->created_at->format('d M Y') }}</p>
+            <p>{{ $invoice->created_at->format(($lang ?? 'en') === 'fi' ? 'd.m.Y' : 'j M Y') }}</p>
         </div>
         @if($invoice->issued_at)
         <div class="meta-cell">
             <h3>{{ $t['issued'] }}</h3>
-            <p>{{ $invoice->issued_at->format('d M Y') }}</p>
+            <p>{{ $invoice->issued_at->format(($lang ?? 'en') === 'fi' ? 'd.m.Y' : 'j M Y') }}</p>
+        </div>
+        @endif
+        @if($invoice->due_date)
+        <div class="meta-cell">
+            <h3>{{ $t['due_date'] }}</h3>
+            <p>{{ $invoice->due_date->format(($lang ?? 'en') === 'fi' ? 'd.m.Y' : 'j M Y') }}</p>
         </div>
         @endif
         @if($invoice->paid_at)
         <div class="meta-cell">
             <h3>{{ $t['paid'] }}</h3>
-            <p>{{ $invoice->paid_at->format('d M Y') }}</p>
+            <p>{{ $invoice->paid_at->format(($lang ?? 'en') === 'fi' ? 'd.m.Y' : 'j M Y') }}</p>
         </div>
         @endif
     </div>
@@ -121,13 +134,13 @@
             </p>
         </div>
         <div class="address-block">
+            @if($invoice->order)
             <h3>{{ $t['order_reference'] }}</h3>
             <p>
-                @if($invoice->order)
-                    {{ $t['order'] }} #{{ $invoice->order->order_number }}<br>
-                    {{ $invoice->order->created_at->format('d M Y') }}
-                @endif
+                {{ $t['order'] }} #{{ $invoice->order->order_number }}<br>
+                {{ $invoice->order->created_at->format(($lang ?? 'en') === 'fi' ? 'd.m.Y' : 'j M Y') }}
             </p>
+            @endif
         </div>
     </div>
 
@@ -149,9 +162,9 @@
                 <td>{{ $item->description }}</td>
                 <td>{{ $t['type_' . $item->type->value] ?? ucfirst($item->type->value) }}</td>
                 <td class="num">{{ $item->quantity }}</td>
-                <td class="num">{{ number_format($item->unit_price, 2) }}</td>
-                <td class="num">{{ number_format($item->tax_rate * 100, 0) }}%</td>
-                <td class="num">{{ number_format($item->total, 2) }}</td>
+                <td class="num">{{ $price($item->unit_price) }}</td>
+                <td class="num">{{ str_replace('.', ',', rtrim(rtrim(number_format($item->tax_rate * 100, 2), '0'), '.')) }}%</td>
+                <td class="num">{{ $price($item->total) }}</td>
             </tr>
             @endforeach
         </tbody>
@@ -162,11 +175,11 @@
         <table>
             <tr>
                 <td class="label">{{ $t['subtotal'] }}</td>
-                <td class="amount">{{ number_format($invoice->subtotal, 2) }}</td>
+                <td class="amount">{{ $price($invoice->subtotal) }}</td>
             </tr>
             <tr class="grand-total">
                 <td class="label">{{ $t['total'] }}</td>
-                <td class="amount">{{ number_format($invoice->total, 2) }}</td>
+                <td class="amount">{{ $price($invoice->total) }}</td>
             </tr>
         </table>
     </div>

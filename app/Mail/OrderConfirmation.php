@@ -18,6 +18,7 @@ class OrderConfirmation extends Mailable
     use SerializesModels;
 
     public Order $order;
+
     public string $lang;
 
     public function __construct(Order $order, string $lang = 'en')

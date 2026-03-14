@@ -1,4 +1,9 @@
 @php use App\Services\CountryService; @endphp
+@php
+    $dec   = ($lang ?? 'en') === 'fi' ? ',' : '.';
+    $thou  = ($lang ?? 'en') === 'fi' ? '\u{00A0}' : ',';
+    $price = fn($v) => number_format((float) $v, 2, $dec, $thou);
+@endphp
 <!DOCTYPE html>
 <html lang="{{ $lang ?? 'en' }}">
 <head>
@@ -81,9 +86,9 @@
                             <tr style="border-bottom:1px solid #2d2956;">
                                 <td style="padding:11px 14px; color:#ede9fe;">{{ $item->description }}</td>
                                 <td style="padding:11px 14px; text-align:center; color:#9490cc;">{{ $item->quantity }}</td>
-                                <td style="padding:11px 14px; text-align:right; color:#9490cc;">{{ number_format((float) $item->unit_price, 2) }}</td>
-                                <td style="padding:11px 14px; text-align:right; color:#9490cc;">{{ number_format($item->tax_rate * 100, 0) }}%</td>
-                                <td style="padding:11px 14px; text-align:right; color:#ede9fe; font-weight:600;">{{ number_format((float) $item->total, 2) }}</td>
+                                <td style="padding:11px 14px; text-align:right; color:#9490cc;">{{ $price($item->unit_price) }}</td>
+                                <td style="padding:11px 14px; text-align:right; color:#9490cc;">{{ str_replace('.', ',', rtrim(rtrim(number_format($item->tax_rate * 100, 2), '0'), '.')) }}%</td>
+                                <td style="padding:11px 14px; text-align:right; color:#ede9fe; font-weight:600;">{{ $price($item->total) }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -104,16 +109,22 @@
                         @if ($invoice->issued_at)
                         <tr>
                             <td style="padding:6px 0; color:#9490cc; font-size:14px;">{{ $t['issued'] }}</td>
-                            <td style="padding:6px 0; color:#ede9fe; font-size:14px; text-align:right;">{{ $invoice->issued_at->format('d M Y') }}</td>
+                            <td style="padding:6px 0; color:#ede9fe; font-size:14px; text-align:right;">{{ $invoice->issued_at->format(($lang ?? 'en') === 'fi' ? 'd.m.Y' : 'j M Y') }}</td>
+                        </tr>
+                        @endif
+                        @if ($invoice->due_date)
+                        <tr>
+                            <td style="padding:6px 0; color:#9490cc; font-size:14px;">{{ $t['due_date'] }}</td>
+                            <td style="padding:6px 0; color:#f87171; font-weight:600; font-size:14px; text-align:right;">{{ $invoice->due_date->format(($lang ?? 'en') === 'fi' ? 'd.m.Y' : 'j M Y') }}</td>
                         </tr>
                         @endif
                         <tr>
                             <td style="padding:6px 0; color:#9490cc; font-size:14px;">{{ $t['subtotal'] }}</td>
-                            <td style="padding:6px 0; color:#ede9fe; font-size:14px; text-align:right;">{{ number_format((float) $invoice->subtotal, 2) }}</td>
+                            <td style="padding:6px 0; color:#ede9fe; font-size:14px; text-align:right;">{{ $price($invoice->subtotal) }}</td>
                         </tr>
                         <tr style="border-top:1px solid #2d2956;">
                             <td style="padding:12px 0 4px; color:#c4b5fd; font-weight:700; font-size:16px;">{{ $t['total'] }}</td>
-                            <td style="padding:12px 0 4px; color:#ffffff; font-weight:700; font-size:16px; text-align:right;">{{ number_format((float) $invoice->total, 2) }}</td>
+                            <td style="padding:12px 0 4px; color:#ffffff; font-weight:700; font-size:16px; text-align:right;">{{ $price($invoice->total) }}</td>
                         </tr>
                     </table>
                 </div>

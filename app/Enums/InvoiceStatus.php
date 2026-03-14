@@ -6,17 +6,21 @@ namespace App\Enums;
 
 enum InvoiceStatus: string
 {
-    case DRAFT = 'draft';
-    case ISSUED = 'issued';
-    case PAID = 'paid';
+    case DRAFT     = 'draft';
+    case ISSUED    = 'issued';
+    case UNPAID    = 'unpaid';
+    case OVERDUE   = 'overdue';
+    case PAID      = 'paid';
     case CANCELLED = 'cancelled';
 
     public function label(): string
     {
         return match ($this) {
-            self::DRAFT => 'Draft',
-            self::ISSUED => 'Issued',
-            self::PAID => 'Paid',
+            self::DRAFT     => 'Draft',
+            self::ISSUED    => 'Issued',
+            self::UNPAID    => 'Unpaid',
+            self::OVERDUE   => 'Overdue',
+            self::PAID      => 'Paid',
             self::CANCELLED => 'Cancelled',
         };
     }
@@ -24,10 +28,12 @@ enum InvoiceStatus: string
     public function color(): string
     {
         return match ($this) {
-            self::DRAFT => 'gray',
-            self::ISSUED => 'blue',
-            self::PAID => 'green',
-            self::CANCELLED => 'red',
+            self::DRAFT     => 'gray',
+            self::ISSUED    => 'blue',
+            self::UNPAID    => 'orange',
+            self::OVERDUE   => 'red',
+            self::PAID      => 'green',
+            self::CANCELLED => 'gray',
         };
     }
 }

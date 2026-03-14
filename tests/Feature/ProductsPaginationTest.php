@@ -42,15 +42,15 @@ class ProductsPaginationTest extends TestCase
     public function test_products_list_supports_search_by_title_or_description(): void
     {
         Product::factory()->create([
-            'title' => 'Desk Lamp',
+            'title'       => 'Desk Lamp',
             'description' => 'Warm light for late nights.',
         ]);
         Product::factory()->create([
-            'title' => 'Side Table',
+            'title'       => 'Side Table',
             'description' => 'Desk-friendly surface.',
         ]);
         Product::factory()->create([
-            'title' => 'Couch',
+            'title'       => 'Couch',
             'description' => 'Comfortable seating.',
         ]);
 

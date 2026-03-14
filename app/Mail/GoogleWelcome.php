@@ -25,8 +25,8 @@ class GoogleWelcome extends Mailable
     public function envelope(): Envelope
     {
         $subject = $this->lang === 'fi'
-            ? 'Tervetuloa ' . config('app.name') . ':hen'
-            : 'Welcome to ' . config('app.name');
+            ? 'Tervetuloa '.config('app.name').':hen'
+            : 'Welcome to '.config('app.name');
 
         return new Envelope(subject: $subject);
     }

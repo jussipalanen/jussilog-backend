@@ -37,9 +37,9 @@ class Order extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'total_amount' => 'decimal:2',
+        'total_amount'     => 'decimal:2',
         'shipping_address' => 'array',
-        'billing_address' => 'array',
+        'billing_address'  => 'array',
     ];
 
     /**
@@ -71,7 +71,7 @@ class Order extends Model
      */
     public function getFormattedTotalAttribute(): string
     {
-        return '$' . number_format((float) $this->total_amount, 2);
+        return '$'.number_format((float) $this->total_amount, 2);
     }
 
     /**
@@ -79,13 +79,13 @@ class Order extends Model
      */
     public function getStatusColorAttribute(): string
     {
-        return match($this->status) {
-            'pending' => 'yellow',
+        return match ($this->status) {
+            'pending'    => 'yellow',
             'processing' => 'blue',
-            'completed' => 'green',
-            'cancelled' => 'red',
-            'refunded' => 'orange',
-            default => 'gray',
+            'completed'  => 'green',
+            'cancelled'  => 'red',
+            'refunded'   => 'orange',
+            default      => 'gray',
         };
     }
 }

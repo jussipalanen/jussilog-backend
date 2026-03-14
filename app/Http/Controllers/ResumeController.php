@@ -12,6 +12,9 @@ use App\Models\ResumeProject;
 use App\Models\ResumeRecommendation;
 use App\Models\ResumeSkill;
 use App\Models\ResumeWorkExperience;
+use App\Models\User;
+use App\Translations\ResumeTranslations;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,13 +25,13 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Spatie\Browsershot\Browsershot;
 use Spatie\LaravelPdf\Facades\Pdf;
-use App\Translations\ResumeTranslations;
-use Carbon\Carbon;
 
 class ResumeController extends Controller
 {
     private const THEMES = ['green', 'blue', 'red', 'yellow', 'cyan', 'orange', 'violet', 'black', 'white', 'grey'];
+
     private const TEMPLATES = ['default'];
+
     private const LANGUAGES = [
         'en' => 'English',
         'fi' => 'Finnish',
@@ -38,7 +41,9 @@ class ResumeController extends Controller
      * Display all resumes for the authenticated user.
      *
      * @group Resumes
+     *
      * @authenticated
+     *
      * @queryParam per_page integer Number of results per page (1-100). Defaults to 10. Example: 10
      * @queryParam sort_by string Field to sort by (id, title, created_at, updated_at). Defaults to updated_at. Example: updated_at
      * @queryParam sort_dir string Sort direction (asc, desc). Defaults to desc. Example: desc
@@ -48,15 +53,15 @@ class ResumeController extends Controller
         $perPage = (int) $request->query('per_page', 10);
         $perPage = max(1, min(100, $perPage));
 
-        $sortBy = (string) $request->query('sort_by', 'updated_at');
-        $sortDir = strtolower((string) $request->query('sort_dir', 'desc'));
+        $sortBy       = (string) $request->query('sort_by', 'updated_at');
+        $sortDir      = strtolower((string) $request->query('sort_dir', 'desc'));
         $allowedSorts = ['id', 'title', 'created_at', 'updated_at'];
-        $allowedDirs = ['asc', 'desc'];
+        $allowedDirs  = ['asc', 'desc'];
 
-        if (!in_array($sortBy, $allowedSorts, true)) {
+        if (! in_array($sortBy, $allowedSorts, true)) {
             $sortBy = 'updated_at';
         }
-        if (!in_array($sortDir, $allowedDirs, true)) {
+        if (! in_array($sortDir, $allowedDirs, true)) {
             $sortDir = 'desc';
         }
 
@@ -76,7 +81,9 @@ class ResumeController extends Controller
      * Display a specific resume with all its sections.
      *
      * @group Resumes
+     *
      * @authenticated
+     *
      * @urlParam resume integer required The resume ID. Example: 1
      */
     public function show(Request $request, int $id): JsonResponse
@@ -92,7 +99,9 @@ class ResumeController extends Controller
      * Create a new resume with all sections in one request.
      *
      * @group Resumes
+     *
      * @authenticated
+     *
      * @bodyParam title string Resume label. Example: "Software Engineer CV"
      * @bodyParam full_name string required Full name. Example: Jussi Palanen
      * @bodyParam email string required Email address. Example: jussi@example.com
@@ -124,11 +133,11 @@ class ResumeController extends Controller
             'linkedin_url'  => 'nullable|url|max:500',
             'portfolio_url' => 'nullable|url|max:500',
             'github_url'    => 'nullable|url|max:500',
-            'photo'    => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
+            'photo'         => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
             'summary'       => 'nullable|string',
             'language'      => 'sometimes|string|in:en,fi',
-            'template'      => 'sometimes|string|in:' . implode(',', self::TEMPLATES),
-            'theme'         => 'sometimes|string|in:' . implode(',', self::THEMES),
+            'template'      => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
+            'theme'         => 'sometimes|string|in:'.implode(',', self::THEMES),
             'is_primary'    => 'sometimes|boolean',
             'is_public'     => 'sometimes|boolean',
             'code'          => 'nullable|string|max:100',
@@ -140,18 +149,18 @@ class ResumeController extends Controller
                 collect($data)->except([...array_keys($this->sectionRelationMap()), 'photo'])->toArray()
             ); // store always creates for the authenticated user
 
-            if (!empty($data['is_primary'])) {
+            if (! empty($data['is_primary'])) {
                 $this->clearPrimaryForUser($request->user()->id, $resume->id);
             }
 
             if ($request->hasFile('photo')) {
-                $resume->photo = $this->storeResumePhoto($request->file('photo'), $resume->id);
+                $resume->photo       = $this->storeResumePhoto($request->file('photo'), $resume->id);
                 $resume->photo_sizes = $this->generateThumbnails($request->file('photo'), $resume->id);
                 $resume->save();
             }
 
             foreach ($this->sectionRelationMap() as $key => $relation) {
-                if (!empty($data[$key])) {
+                if (! empty($data[$key])) {
                     $resume->$relation()->createMany($data[$key]);
                 }
             }
@@ -168,8 +177,11 @@ class ResumeController extends Controller
      * Update a resume and sync provided sections.
      *
      * @group Resumes
+     *
      * @authenticated
+     *
      * @urlParam resume integer required The resume ID. Example: 1
+     *
      * @bodyParam skills[].proficiency string Skill level: `beginner` (1), `basic` (2), `intermediate` (3), `advanced` (4), `expert` (5).
      * @bodyParam languages[].proficiency string Spoken-language level: `elementary` (1), `limited_working` (2), `professional_working` (3), `full_professional` (4), `native_bilingual` (5).
      */
@@ -189,8 +201,8 @@ class ResumeController extends Controller
             'photo'         => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
             'summary'       => 'nullable|string',
             'language'      => 'sometimes|string|in:en,fi',
-            'template'      => 'sometimes|string|in:' . implode(',', self::TEMPLATES),
-            'theme'         => 'sometimes|string|in:' . implode(',', self::THEMES),
+            'template'      => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
+            'theme'         => 'sometimes|string|in:'.implode(',', self::THEMES),
             'is_primary'    => 'sometimes|boolean',
             'is_public'     => 'sometimes|boolean',
             'code'          => 'nullable|string|max:100',
@@ -198,7 +210,7 @@ class ResumeController extends Controller
         ]);
 
         DB::transaction(function () use ($data, $resume, $request) {
-            if (!empty($data['is_primary'])) {
+            if (! empty($data['is_primary'])) {
                 $this->clearPrimaryForUser($request->user()->id, $resume->id);
             }
 
@@ -216,7 +228,7 @@ class ResumeController extends Controller
                 if ($oldPhotoSizes) {
                     $this->deleteThumbnails($oldPhotoSizes);
                 }
-                $resume->photo = $this->storeResumePhoto($request->file('photo'), $resume->id);
+                $resume->photo       = $this->storeResumePhoto($request->file('photo'), $resume->id);
                 $resume->photo_sizes = $this->generateThumbnails($request->file('photo'), $resume->id);
                 $resume->save();
             }
@@ -224,7 +236,7 @@ class ResumeController extends Controller
             foreach ($this->sectionRelationMap() as $key => $relation) {
                 if (array_key_exists($key, $data)) {
                     $resume->$relation()->delete();
-                    if (!empty($data[$key])) {
+                    if (! empty($data[$key])) {
                         $resume->$relation()->createMany($data[$key]);
                     }
                 }
@@ -240,7 +252,9 @@ class ResumeController extends Controller
      * Export a resume as a PDF file.
      *
      * @group Resumes
+     *
      * @authenticated
+     *
      * @urlParam resume integer required The resume ID. Example: 1
      */
     public function exportPdf(Request $request, int $id): \Symfony\Component\HttpFoundation\Response
@@ -260,9 +274,9 @@ class ResumeController extends Controller
             : ($resume->theme ?: 'green');
 
         $template = $request->query('template', $resume->template ?: 'default');
-        $view = $this->resolveTemplateView($template);
+        $view     = $this->resolveTemplateView($template);
 
-        $filename = str($resume->full_name)->slug() . '-resume.pdf';
+        $filename = str($resume->full_name)->slug().'-resume.pdf';
 
         if ($view === 'resumes.coming_soon') {
             return response()
@@ -275,7 +289,7 @@ class ResumeController extends Controller
             ->withBrowsershot(fn (Browsershot $b) => $b
                 ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
                 ->noSandbox()
-                ->disableGpu()
+                ->addChromiumArguments(['--disable-gpu'])
             )
             ->download($filename)
             ->toResponse($request);
@@ -285,7 +299,9 @@ class ResumeController extends Controller
      * Export a resume as an HTML file.
      *
      * @group Resumes
+     *
      * @authenticated
+     *
      * @urlParam resume integer required The resume ID. Example: 1
      */
     public function exportHtml(Request $request, int $id): Response
@@ -304,15 +320,15 @@ class ResumeController extends Controller
             : ($resume->theme ?: 'green');
 
         $template = $request->query('template', $resume->template ?: 'default');
-        $view = $this->resolveTemplateView($template);
+        $view     = $this->resolveTemplateView($template);
 
         $html = view($view, compact('resume', 'theme', 'template'))->render();
 
-        $filename = str($resume->full_name)->slug() . '-resume.html';
+        $filename = str($resume->full_name)->slug().'-resume.html';
 
         return response()->make($html, 200, [
-            'Content-Type' => 'text/html',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'Content-Type'        => 'text/html',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ]);
     }
 
@@ -320,7 +336,9 @@ class ResumeController extends Controller
      * Delete a resume and all its sections.
      *
      * @group Resumes
+     *
      * @authenticated
+     *
      * @urlParam resume integer required The resume ID. Example: 1
      */
     public function destroy(Request $request, int $id): JsonResponse
@@ -348,6 +366,7 @@ class ResumeController extends Controller
      * query parameter; if the resume has a code set, `code` must also match.
      *
      * @group Resumes
+     *
      * @queryParam owner string Username of the resume owner (required for public access). Example: johndoe
      * @queryParam code string Resume access code (required when the resume has one). Example: mycode
      */
@@ -360,7 +379,7 @@ class ResumeController extends Controller
         if ($user) {
             $resume = $user->resumes()->where('is_primary', true)->with($with)->first();
 
-            if (!$resume) {
+            if (! $resume) {
                 return response()->json(['message' => 'No primary resume found.'], 404);
             }
 
@@ -371,13 +390,13 @@ class ResumeController extends Controller
         $owner = (string) $request->query('owner', '');
         $code  = (string) $request->query('code', '');
 
-        if (!$owner) {
+        if (! $owner) {
             return response()->json(['message' => 'Unauthenticated.'], 401);
         }
 
-        $ownerUser = \App\Models\User::where('username', $owner)->first();
+        $ownerUser = User::where('username', $owner)->first();
 
-        if (!$ownerUser) {
+        if (! $ownerUser) {
             return response()->json(['message' => 'Resume not found.'], 404);
         }
 
@@ -387,11 +406,11 @@ class ResumeController extends Controller
             ->with($with)
             ->first();
 
-        if (!$resume) {
+        if (! $resume) {
             return response()->json(['message' => 'Resume not found.'], 404);
         }
 
-        if (!empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
+        if (! empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
             return response()->json(['message' => 'Invalid code.'], 401);
         }
 
@@ -409,7 +428,9 @@ class ResumeController extends Controller
      * If the resume has a code set, the `code` query parameter must match.
      *
      * @group Resumes
+     *
      * @unauthenticated
+     *
      * @queryParam id integer Resume ID. Example: 1
      * @queryParam owner string Username of the resume owner. Example: johndoe
      * @queryParam code string Access code (required when the resume has one). Example: mycode
@@ -429,11 +450,11 @@ class ResumeController extends Controller
                 ->with($with)
                 ->first();
 
-            if (!$resume) {
+            if (! $resume) {
                 return response()->json(['message' => 'Resume not found.'], 404);
             }
 
-            if (!empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
+            if (! empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
                 return response()->json(['message' => 'Invalid code.'], 401);
             }
 
@@ -442,9 +463,9 @@ class ResumeController extends Controller
 
         // Lookup by owner username
         if ($owner) {
-            $ownerUser = \App\Models\User::where('username', $owner)->first();
+            $ownerUser = User::where('username', $owner)->first();
 
-            if (!$ownerUser) {
+            if (! $ownerUser) {
                 return response()->json(['message' => 'Resume not found.'], 404);
             }
 
@@ -454,11 +475,11 @@ class ResumeController extends Controller
                 ->with($with)
                 ->first();
 
-            if (!$resume) {
+            if (! $resume) {
                 return response()->json(['message' => 'Resume not found.'], 404);
             }
 
-            if (!empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
+            if (! empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
                 return response()->json(['message' => 'Invalid code.'], 401);
             }
 
@@ -475,8 +496,11 @@ class ResumeController extends Controller
      * If the resume has a code set, the `code` query parameter must match.
      *
      * @group Resumes
+     *
      * @unauthenticated
+     *
      * @urlParam id integer required The resume ID. Example: 1
+     *
      * @queryParam code string Access code (required when the resume has one). Example: mycode
      */
     public function showPublic(Request $request, int $id): JsonResponse
@@ -486,11 +510,11 @@ class ResumeController extends Controller
             ->where('is_public', true)
             ->first();
 
-        if (!$resume) {
+        if (! $resume) {
             return response()->json(['message' => 'Resume not found.'], 404);
         }
 
-        if (!empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
+        if (! empty($resume->getRawOriginal('code')) && $resume->getRawOriginal('code') !== $code) {
             return response()->json(['message' => 'Invalid code.'], 401);
         }
 
@@ -518,6 +542,7 @@ class ResumeController extends Controller
      * The result is identical to the authenticated export but nothing is written to the database.
      *
      * @group Resumes
+     *
      * @unauthenticated
      */
     public function exportPdfPublic(Request $request): \Symfony\Component\HttpFoundation\Response
@@ -533,7 +558,7 @@ class ResumeController extends Controller
         $template     = $data['template'] ?? 'default';
         $view         = $this->resolveTemplateView($template);
         $photoDataUri = $this->decodePhotoBase64($data['photo'] ?? null);
-        $filename     = str($resume->full_name)->slug() . '-resume.pdf';
+        $filename     = str($resume->full_name)->slug().'-resume.pdf';
 
         if ($view === 'resumes.coming_soon') {
             return response()->view(
@@ -560,6 +585,7 @@ class ResumeController extends Controller
      * The photo can be supplied as a base64-encoded string in `photo`.
      *
      * @group Resumes
+     *
      * @unauthenticated
      */
     public function exportHtmlPublic(Request $request): Response
@@ -577,11 +603,11 @@ class ResumeController extends Controller
         $photoDataUri = $this->decodePhotoBase64($data['photo'] ?? null);
 
         $html     = view($view, compact('resume', 'theme', 'template', 'photoDataUri'))->render();
-        $filename = str($resume->full_name)->slug() . '-resume.html';
+        $filename = str($resume->full_name)->slug().'-resume.html';
 
         return response()->make($html, 200, [
             'Content-Type'        => 'text/html',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ]);
     }
 
@@ -590,6 +616,7 @@ class ResumeController extends Controller
      * Pass `?lang=fi` to receive translated labels (default: `en`).
      *
      * @group Resumes
+     *
      * @unauthenticated
      */
     public function exportOptions(Request $request): JsonResponse
@@ -622,10 +649,10 @@ class ResumeController extends Controller
             'title'         => 'nullable|string|max:255',
             'summary'       => 'nullable|string',
             'language'      => 'sometimes|string|in:en,fi',
-            'template'      => 'sometimes|string|in:' . implode(',', self::TEMPLATES),
-            'theme'         => 'sometimes|string|in:' . implode(',', self::THEMES),
+            'template'      => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
+            'theme'         => 'sometimes|string|in:'.implode(',', self::THEMES),
             // Base64-encoded image, max ~5 MB decoded (≈6.7 MB as base64 text)
-            'photo'         => 'nullable|string|max:7000000',
+            'photo' => 'nullable|string|max:7000000',
             ...$this->sectionValidationRules(),
         ]);
     }
@@ -636,7 +663,7 @@ class ResumeController extends Controller
      */
     private function buildResumeFromPayload(array $data): Resume
     {
-        $resume = (new Resume())->forceFill(
+        $resume = (new Resume)->forceFill(
             collect($data)->only([
                 'title', 'full_name', 'email', 'phone', 'location',
                 'linkedin_url', 'portfolio_url', 'github_url', 'summary',
@@ -657,7 +684,7 @@ class ResumeController extends Controller
 
         foreach ($sectionModelMap as $key => [$modelClass, $relation]) {
             $items = collect($data[$key] ?? [])
-                ->map(fn ($item) => (new $modelClass())->forceFill($item));
+                ->map(fn ($item) => (new $modelClass)->forceFill($item));
             $resume->setRelation($relation, $items);
         }
 
@@ -671,7 +698,7 @@ class ResumeController extends Controller
      */
     private function decodePhotoBase64(?string $base64): ?string
     {
-        if (!$base64) {
+        if (! $base64) {
             return null;
         }
 
@@ -691,14 +718,14 @@ class ResumeController extends Controller
             str_starts_with($decoded, "\x89PNG")                                   => 'image/png',
             str_starts_with($decoded, 'GIF8')                                      => 'image/gif',
             str_starts_with($decoded, 'RIFF') && substr($decoded, 8, 4) === 'WEBP' => 'image/webp',
-            default => null,
+            default                                                                => null,
         };
 
-        if (!$mime) {
+        if (! $mime) {
             return null;
         }
 
-        return 'data:' . $mime . ';base64,' . base64_encode($decoded);
+        return 'data:'.$mime.';base64,'.base64_encode($decoded);
     }
 
     /**
@@ -731,14 +758,14 @@ class ResumeController extends Controller
 
     private function storeResumePhoto(UploadedFile $file, int $resumeId): string
     {
-        $filename = time() . '_' . $file->getClientOriginalName();
+        $filename = time().'_'.$file->getClientOriginalName();
 
         return $file->storeAs("resumes/{$resumeId}", $filename, $this->storageDiskName());
     }
 
     private function generateThumbnails(UploadedFile $file, int $resumeId): array
     {
-        $manager = new ImageManager(new Driver());
+        $manager = new ImageManager(new Driver);
         $disk    = Storage::disk($this->storageDiskName());
         $base    = time();
         $ext     = 'jpg';
@@ -799,65 +826,65 @@ class ResumeController extends Controller
 
         return [
             'work_experiences'                => 'sometimes|array',
-            'work_experiences.*.job_title'    => $r . 'required|string|max:255',
-            'work_experiences.*.company_name' => $r . 'required|string|max:255',
+            'work_experiences.*.job_title'    => $r.'required|string|max:255',
+            'work_experiences.*.company_name' => $r.'required|string|max:255',
             'work_experiences.*.location'     => 'nullable|string|max:255',
-            'work_experiences.*.start_date'   => $r . 'required|date',
+            'work_experiences.*.start_date'   => $r.'required|date',
             'work_experiences.*.end_date'     => 'nullable|date|after_or_equal:work_experiences.*.start_date',
             'work_experiences.*.is_current'   => 'boolean',
             'work_experiences.*.description'  => 'nullable|string',
             'work_experiences.*.sort_order'   => 'integer|min:0',
 
-            'educations'                          => 'sometimes|array',
-            'educations.*.degree'                 => $r . 'required|string|max:255',
-            'educations.*.field_of_study'         => $r . 'required|string|max:255',
-            'educations.*.institution_name'       => $r . 'required|string|max:255',
-            'educations.*.location'               => 'nullable|string|max:255',
-            'educations.*.graduation_year'        => 'nullable|integer|min:1900|max:2100',
-            'educations.*.gpa'                    => 'nullable|numeric|min:0|max:10',
-            'educations.*.sort_order'             => 'integer|min:0',
+            'educations'                    => 'sometimes|array',
+            'educations.*.degree'           => $r.'required|string|max:255',
+            'educations.*.field_of_study'   => $r.'required|string|max:255',
+            'educations.*.institution_name' => $r.'required|string|max:255',
+            'educations.*.location'         => 'nullable|string|max:255',
+            'educations.*.graduation_year'  => 'nullable|integer|min:1900|max:2100',
+            'educations.*.gpa'              => 'nullable|numeric|min:0|max:10',
+            'educations.*.sort_order'       => 'integer|min:0',
 
-            'skills'                  => 'sometimes|array',
-            'skills.*.category'       => $r . 'required|in:programming_languages,scripting_languages,markup_languages,query_languages,frontend_technologies,backend_technologies,full_stack_development,frameworks,libraries,ui_ux_design,responsive_design,mobile_development,desktop_development,game_development,embedded_systems,databases,database_design,database_administration,orm_data_access,api_development,web_services,graphql,microservices,event_driven_architecture,devops,cloud_platforms,serverless,containerization,ci_cd,infrastructure_as_code,configuration_management,version_control,testing_qa,test_automation,security,authentication_authorization,networking,performance_optimization,architecture_design_patterns,system_design,distributed_systems,data_engineering,big_data,machine_learning_ai,monitoring_logging,development_tools,operating_systems,project_management,agile_methodologies,soft_skills,other',
-            'skills.*.name'           => $r . 'required|string|max:255',
-            'skills.*.proficiency'    => $r . 'required|in:beginner,basic,intermediate,advanced,expert',
-            'skills.*.sort_order'     => 'integer|min:0',
+            'skills'               => 'sometimes|array',
+            'skills.*.category'    => $r.'required|in:programming_languages,scripting_languages,markup_languages,query_languages,frontend_technologies,backend_technologies,full_stack_development,frameworks,libraries,ui_ux_design,responsive_design,mobile_development,desktop_development,game_development,embedded_systems,databases,database_design,database_administration,orm_data_access,api_development,web_services,graphql,microservices,event_driven_architecture,devops,cloud_platforms,serverless,containerization,ci_cd,infrastructure_as_code,configuration_management,version_control,testing_qa,test_automation,security,authentication_authorization,networking,performance_optimization,architecture_design_patterns,system_design,distributed_systems,data_engineering,big_data,machine_learning_ai,monitoring_logging,development_tools,operating_systems,project_management,agile_methodologies,soft_skills,other',
+            'skills.*.name'        => $r.'required|string|max:255',
+            'skills.*.proficiency' => $r.'required|in:beginner,basic,intermediate,advanced,expert',
+            'skills.*.sort_order'  => 'integer|min:0',
 
-            'projects'                    => 'sometimes|array',
-            'projects.*.name'             => $r . 'required|string|max:255',
-            'projects.*.description'      => 'nullable|string',
-            'projects.*.technologies'     => 'nullable|array',
-            'projects.*.technologies.*'   => 'string|max:100',
-            'projects.*.live_url'         => 'nullable|url|max:500',
-            'projects.*.github_url'       => 'nullable|url|max:500',
-            'projects.*.sort_order'       => 'integer|min:0',
+            'projects'                  => 'sometimes|array',
+            'projects.*.name'           => $r.'required|string|max:255',
+            'projects.*.description'    => 'nullable|string',
+            'projects.*.technologies'   => 'nullable|array',
+            'projects.*.technologies.*' => 'string|max:100',
+            'projects.*.live_url'       => 'nullable|url|max:500',
+            'projects.*.github_url'     => 'nullable|url|max:500',
+            'projects.*.sort_order'     => 'integer|min:0',
 
-            'certifications'                          => 'sometimes|array',
-            'certifications.*.name'                   => $r . 'required|string|max:255',
-            'certifications.*.issuing_organization'   => $r . 'required|string|max:255',
-            'certifications.*.issue_date'             => 'nullable|date',
-            'certifications.*.sort_order'             => 'integer|min:0',
+            'certifications'                        => 'sometimes|array',
+            'certifications.*.name'                 => $r.'required|string|max:255',
+            'certifications.*.issuing_organization' => $r.'required|string|max:255',
+            'certifications.*.issue_date'           => 'nullable|date',
+            'certifications.*.sort_order'           => 'integer|min:0',
 
-            'languages'                   => 'sometimes|array',
-            'languages.*.language'        => $r . 'required|string|max:100',
-            'languages.*.proficiency'     => $r . 'required|in:native_bilingual,full_professional,professional_working,limited_working,elementary',
-            'languages.*.sort_order'      => 'integer|min:0',
+            'languages'               => 'sometimes|array',
+            'languages.*.language'    => $r.'required|string|max:100',
+            'languages.*.proficiency' => $r.'required|in:native_bilingual,full_professional,professional_working,limited_working,elementary',
+            'languages.*.sort_order'  => 'integer|min:0',
 
-            'awards'                  => 'sometimes|array',
-            'awards.*.title'          => $r . 'required|string|max:255',
-            'awards.*.issuer'         => 'nullable|string|max:255',
-            'awards.*.date'           => 'nullable|date',
-            'awards.*.description'    => 'nullable|string',
-            'awards.*.sort_order'     => 'integer|min:0',
+            'awards'               => 'sometimes|array',
+            'awards.*.title'       => $r.'required|string|max:255',
+            'awards.*.issuer'      => 'nullable|string|max:255',
+            'awards.*.date'        => 'nullable|date',
+            'awards.*.description' => 'nullable|string',
+            'awards.*.sort_order'  => 'integer|min:0',
 
-            'recommendations'                      => 'sometimes|array',
-            'recommendations.*.full_name'          => $r . 'required|string|max:255',
-            'recommendations.*.title'              => 'nullable|string|max:255',
-            'recommendations.*.company'            => 'nullable|string|max:255',
-            'recommendations.*.email'              => 'nullable|email|max:255',
-            'recommendations.*.phone'              => 'nullable|string|max:50',
-            'recommendations.*.recommendation'     => 'nullable|string',
-            'recommendations.*.sort_order'         => 'integer|min:0',
+            'recommendations'                  => 'sometimes|array',
+            'recommendations.*.full_name'      => $r.'required|string|max:255',
+            'recommendations.*.title'          => 'nullable|string|max:255',
+            'recommendations.*.company'        => 'nullable|string|max:255',
+            'recommendations.*.email'          => 'nullable|email|max:255',
+            'recommendations.*.phone'          => 'nullable|string|max:50',
+            'recommendations.*.recommendation' => 'nullable|string',
+            'recommendations.*.sort_order'     => 'integer|min:0',
         ];
     }
 }

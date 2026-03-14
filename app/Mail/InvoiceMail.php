@@ -27,8 +27,8 @@ class InvoiceMail extends Mailable
     public function envelope(): Envelope
     {
         $subject = $this->lang === 'fi'
-            ? 'Lasku ' . $this->invoice->invoice_number
-            : 'Invoice ' . $this->invoice->invoice_number;
+            ? 'Lasku '.$this->invoice->invoice_number
+            : 'Invoice '.$this->invoice->invoice_number;
 
         return new Envelope(subject: $subject);
     }
@@ -48,14 +48,14 @@ class InvoiceMail extends Mailable
 
     public function attachments(): array
     {
-        if (!$this->pdfContent) {
+        if (! $this->pdfContent) {
             return [];
         }
 
         return [
             Attachment::fromData(
                 fn () => $this->pdfContent,
-                $this->invoice->invoice_number . '.pdf',
+                $this->invoice->invoice_number.'.pdf',
             )->withMime('application/pdf'),
         ];
     }

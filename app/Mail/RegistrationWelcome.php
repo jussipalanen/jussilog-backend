@@ -17,6 +17,7 @@ class RegistrationWelcome extends Mailable
     use SerializesModels;
 
     public string $email;
+
     public string $lang;
 
     public function __construct(string $email, string $lang = 'en')
@@ -28,8 +29,8 @@ class RegistrationWelcome extends Mailable
     public function envelope(): Envelope
     {
         $subject = $this->lang === 'fi'
-            ? 'Tervetuloa ' . config('app.name') . '!'
-            : 'Welcome to ' . config('app.name') . '!';
+            ? 'Tervetuloa '.config('app.name').'!'
+            : 'Welcome to '.config('app.name').'!';
 
         return new Envelope(subject: $subject);
     }

@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Enums\InvoiceStatus;
+use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Invoice>
+ * @extends Factory<Invoice>
  */
 class InvoiceFactory extends Factory
 {
@@ -19,7 +20,7 @@ class InvoiceFactory extends Factory
         return [
             'order_id'            => Order::factory(),
             'user_id'             => User::factory(),
-            'invoice_number'      => 'INV-' . date('Y') . '-' . fake()->unique()->numerify('#####'),
+            'invoice_number'      => 'INV-'.date('Y').'-'.fake()->unique()->numerify('#####'),
             'customer_first_name' => fake()->firstName(),
             'customer_last_name'  => fake()->lastName(),
             'customer_email'      => fake()->safeEmail(),
@@ -30,12 +31,12 @@ class InvoiceFactory extends Factory
                 'postal_code' => fake()->postcode(),
                 'country'     => 'FI',
             ],
-            'subtotal'            => $subtotal,
-            'total'               => $subtotal,
-            'status'              => InvoiceStatus::DRAFT,
-            'issued_at'           => null,
-            'paid_at'             => null,
-            'notes'               => null,
+            'subtotal'  => $subtotal,
+            'total'     => $subtotal,
+            'status'    => InvoiceStatus::DRAFT,
+            'issued_at' => null,
+            'paid_at'   => null,
+            'notes'     => null,
         ];
     }
 

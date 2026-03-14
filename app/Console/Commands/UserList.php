@@ -43,11 +43,11 @@ class UserList extends Command
                 ->implode(', ');
 
             return [
-                'id' => $user->id,
-                'name' => $user->name ?? '-',
+                'id'       => $user->id,
+                'name'     => $user->name ?? '-',
                 'username' => $user->username ?? '-',
-                'email' => $user->email ?? '-',
-                'roles' => $roles === '' ? '-' : $roles,
+                'email'    => $user->email ?? '-',
+                'roles'    => $roles === '' ? '-' : $roles,
             ];
         })->all();
 

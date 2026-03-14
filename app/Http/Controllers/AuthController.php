@@ -9,11 +9,12 @@ use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
@@ -21,6 +22,7 @@ class AuthController extends Controller
      * Register a new user.
      *
      * @group Auth
+     *
      * @bodyParam first_name string required First name. Example: Jussi
      * @bodyParam last_name string required Last name. Example: Palanen
      * @bodyParam username string required Username. Example: jussi
@@ -31,19 +33,19 @@ class AuthController extends Controller
     {
         $data = $request->validate([
             'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8',
+            'last_name'  => 'required|string|max:255',
+            'username'   => 'required|string|max:255|unique:users,username',
+            'email'      => 'required|string|email|max:255|unique:users,email',
+            'password'   => 'required|string|min:8',
         ]);
 
         $user = User::create([
             'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'username' => $data['username'],
-            'name' => trim($data['first_name'] . ' ' . $data['last_name']),
-            'email' => $data['email'],
-            'password' => $data['password'],
+            'last_name'  => $data['last_name'],
+            'username'   => $data['username'],
+            'name'       => trim($data['first_name'].' '.$data['last_name']),
+            'email'      => $data['email'],
+            'password'   => $data['password'],
         ]);
 
         $user->assignRole(RoleEnum::CUSTOMER);
@@ -57,14 +59,14 @@ class AuthController extends Controller
 
         return response()->json([
             'token' => $token,
-            'user' => [
-                'id' => $user->id,
+            'user'  => [
+                'id'         => $user->id,
                 'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'username' => $user->username,
-                'name' => $user->name,
-                'email' => $user->email,
-                'roles' => $user->roles->pluck('name'),
+                'last_name'  => $user->last_name,
+                'username'   => $user->username,
+                'name'       => $user->name,
+                'email'      => $user->email,
+                'roles'      => $user->roles->pluck('name'),
             ],
         ], 201);
     }
@@ -73,6 +75,7 @@ class AuthController extends Controller
      * Login.
      *
      * @group Auth
+     *
      * @bodyParam username string required Username or email. Example: jussi
      * @bodyParam password string required Password. Example: strongpassword
      */
@@ -87,7 +90,7 @@ class AuthController extends Controller
 
         $user = User::where($loginField, $data['username'])->first();
 
-        if (!$user || !Hash::check($data['password'], $user->password)) {
+        if (! $user || ! Hash::check($data['password'], $user->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
@@ -100,6 +103,7 @@ class AuthController extends Controller
      * Login or register using Google ID token.
      *
      * @group Auth
+     *
      * @bodyParam id_token string required Google ID token from frontend Google Sign-In flow.
      */
     public function googleLogin(Request $request): JsonResponse
@@ -109,16 +113,16 @@ class AuthController extends Controller
         ]);
 
         $googleProfile = $this->verifyGoogleIdToken($data['id_token']);
-        if (!$googleProfile) {
+        if (! $googleProfile) {
             return response()->json(['message' => 'Invalid Google token'], 401);
         }
 
-        if (!($googleProfile['email_verified'] ?? false)) {
+        if (! ($googleProfile['email_verified'] ?? false)) {
             return response()->json(['message' => 'Google email is not verified'], 422);
         }
 
         $email = $googleProfile['email'] ?? null;
-        if (!$email) {
+        if (! $email) {
             return response()->json(['message' => 'Google account email is required'], 422);
         }
 
@@ -126,44 +130,44 @@ class AuthController extends Controller
 
         $user = User::where('google_id', $googleId)->first();
 
-        if (!$user) {
+        if (! $user) {
             $user = User::where('email', $email)->first();
         }
 
         $isNewUser = false;
-        if (!$user) {
+        if (! $user) {
             $isNewUser = true;
-            $name = trim((string) ($googleProfile['name'] ?? ''));
-            $username = $this->generateUniqueUsername($email, $name);
+            $name      = trim((string) ($googleProfile['name'] ?? ''));
+            $username  = $this->generateUniqueUsername($email, $name);
 
             $user = User::create([
                 'first_name' => (string) ($googleProfile['given_name'] ?? $name ?: 'Google'),
-                'last_name' => (string) ($googleProfile['family_name'] ?? ''),
-                'name' => $name ?: $username,
-                'username' => $username,
-                'email' => $email,
-                'google_id' => $googleId,
-                'avatar' => (string) ($googleProfile['picture'] ?? ''),
+                'last_name'  => (string) ($googleProfile['family_name'] ?? ''),
+                'name'       => $name ?: $username,
+                'username'   => $username,
+                'email'      => $email,
+                'google_id'  => $googleId,
+                'avatar'     => (string) ($googleProfile['picture'] ?? ''),
                 // Keep password flow intact by storing a random hash for OAuth-created accounts.
-                'password' => Str::random(40),
+                'password'          => Str::random(40),
                 'email_verified_at' => now(),
             ]);
         } else {
             $updates = [];
 
-            if (!$user->google_id) {
+            if (! $user->google_id) {
                 $updates['google_id'] = $googleId;
             }
 
-            if (empty($user->avatar) && !empty($googleProfile['picture'])) {
+            if (empty($user->avatar) && ! empty($googleProfile['picture'])) {
                 $updates['avatar'] = (string) $googleProfile['picture'];
             }
 
-            if (!$user->email_verified_at) {
+            if (! $user->email_verified_at) {
                 $updates['email_verified_at'] = now();
             }
 
-            if (!empty($updates)) {
+            if (! empty($updates)) {
                 $user->fill($updates);
                 $user->save();
             }
@@ -183,15 +187,15 @@ class AuthController extends Controller
 
         return response()->json([
             'token' => $token,
-            'user' => [
-                'id' => $user->id,
+            'user'  => [
+                'id'         => $user->id,
                 'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'username' => $user->username,
-                'name' => $user->name,
-                'email' => $user->email,
-                'avatar' => $user->avatar,
-                'roles' => $user->roles->pluck('name'),
+                'last_name'  => $user->last_name,
+                'username'   => $user->username,
+                'name'       => $user->name,
+                'email'      => $user->email,
+                'avatar'     => $user->avatar,
+                'roles'      => $user->roles->pluck('name'),
             ],
         ]);
     }
@@ -200,12 +204,13 @@ class AuthController extends Controller
      * Logout the authenticated user.
      *
      * @group Auth
+     *
      * @authenticated
      */
     public function logout(Request $request): JsonResponse
     {
         $token = $request->user()->currentAccessToken();
-        if ($token) {
+        if ($token instanceof PersonalAccessToken) {
             $token->delete();
         }
 
@@ -216,13 +221,14 @@ class AuthController extends Controller
      * Check authentication status.
      *
      * @group Auth
+     *
      * @authenticated
      */
     public function checkAuth(Request $request): JsonResponse
     {
         return response()->json([
             'authenticated' => true,
-            'user' => $request->user(),
+            'user'          => $request->user(),
         ]);
     }
 
@@ -230,6 +236,7 @@ class AuthController extends Controller
      * Send reset password email.
      *
      * @group Auth
+     *
      * @bodyParam email string required Email address. Example: jussi@example.com
      */
     public function lostPassword(Request $request): JsonResponse
@@ -251,6 +258,7 @@ class AuthController extends Controller
      * Reset password with token.
      *
      * @group Auth
+     *
      * @bodyParam email string required Email address. Example: jussi@example.com
      * @bodyParam token string required Reset token
      * @bodyParam password string required New password. Example: newpassword
@@ -259,14 +267,14 @@ class AuthController extends Controller
     public function resetPassword(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'email' => 'required|email',
-            'token' => 'required|string',
+            'email'    => 'required|email',
+            'token'    => 'required|string',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
         $status = Password::reset($data, function (User $user, string $password) {
             $user->forceFill([
-                'password' => $password,
+                'password'       => $password,
                 'remember_token' => Str::random(60),
             ])->save();
 
@@ -291,17 +299,17 @@ class AuthController extends Controller
             'id_token' => $idToken,
         ]);
 
-        if (!$response->ok()) {
+        if (! $response->ok()) {
             return null;
         }
 
         $payload = $response->json();
-        if (!is_array($payload)) {
+        if (! is_array($payload)) {
             return null;
         }
 
         $clientId = (string) config('services.google.client_id');
-        if (!$clientId) {
+        if (! $clientId) {
             return null;
         }
 
@@ -328,15 +336,15 @@ class AuthController extends Controller
             $base = 'user';
         }
 
-        $base = Str::lower(substr($base, 0, 20));
+        $base      = Str::lower(substr($base, 0, 20));
         $candidate = $base;
-        $counter = 0;
+        $counter   = 0;
 
         while (User::where('username', $candidate)->exists()) {
             $counter++;
-            $suffix = (string) $counter;
+            $suffix      = (string) $counter;
             $trimmedBase = substr($base, 0, max(1, 20 - strlen($suffix)));
-            $candidate = $trimmedBase . $suffix;
+            $candidate   = $trimmedBase.$suffix;
         }
 
         return $candidate;
