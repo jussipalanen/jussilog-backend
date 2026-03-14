@@ -78,6 +78,31 @@ class ResumeTranslations
         'elementary',
     ];
 
+    public const SPOKEN_LANGUAGES = [
+        'af', 'sq', 'ar', 'hy', 'az',
+        'be', 'bn', 'bs', 'bg',
+        'ca', 'zh', 'hr', 'cs',
+        'da', 'nl',
+        'en', 'et',
+        'fi', 'fr',
+        'ka', 'de', 'el',
+        'he', 'hi', 'hu',
+        'is', 'id', 'it',
+        'ja',
+        'kk', 'ko',
+        'lv', 'lt',
+        'mk', 'ms', 'mt',
+        'no',
+        'fa', 'pl', 'pt',
+        'ro', 'ru',
+        'sr', 'sk', 'sl', 'es', 'sv',
+        'th', 'tr',
+        'uk', 'ur',
+        'vi',
+        'cy',
+        'other',
+    ];
+
     public static function get(string $lang): array
     {
         $locale = in_array($lang, self::SUPPORTED, true) ? $lang : 'en';
@@ -115,6 +140,17 @@ class ResumeTranslations
         return array_values(array_map(
             fn ($v) => ['value' => $v, 'label' => $t['proficiency_' . $v] ?? $v],
             self::LANGUAGE_PROFICIENCIES,
+        ));
+    }
+
+    /** @return array<int, array{value: string, label: string}> */
+    public static function spokenLanguages(string $lang): array
+    {
+        $t = self::get($lang);
+
+        return array_values(array_map(
+            fn ($v) => ['value' => $v, 'label' => $t['spoken_language_' . $v] ?? $v],
+            self::SPOKEN_LANGUAGES,
         ));
     }
 

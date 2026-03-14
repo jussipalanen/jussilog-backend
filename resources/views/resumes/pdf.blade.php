@@ -465,9 +465,11 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     @foreach($resume->languages as $lang)
     @php
         $filled = ['elementary' => 1, 'limited_working' => 2, 'professional_working' => 3, 'full_professional' => 4, 'native_bilingual' => 5][$lang->proficiency] ?? 1;
+        $langKey = 'resume.spoken_language_' . $lang->language;
+        $langLabel = __($langKey) !== $langKey ? __($langKey) : $lang->language;
     @endphp
     <div class="sb-lang">
-        <div class="sb-lang-name">{{ $lang->language }}</div>
+        <div class="sb-lang-name">{{ $langLabel }}</div>
         @for($d = 1; $d <= 5; $d++)
         <span class="sb-dot {{ $d <= $filled ? 'sb-dot-on' : 'sb-dot-off' }}"></span>
         @endfor

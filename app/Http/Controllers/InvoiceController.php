@@ -9,11 +9,12 @@ use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\Order;
 use App\Translations\InvoiceTranslations;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
+use Spatie\Browsershot\Browsershot;
+use Spatie\LaravelPdf\Facades\Pdf;
 
 class InvoiceController extends Controller
 {
@@ -521,12 +522,16 @@ class InvoiceController extends Controller
         }
 
         $lang       = $this->resolveLanguage($request);
-        $t          = InvoiceTranslations::get($lang);
-        $pdfContent = Pdf::loadView('invoices.pdf', compact('invoice', 'lang', 't'))
-            ->setPaper('a4', 'portrait')
-            ->output();
+        $pdfContent = Pdf::view('invoices.pdf', ['invoice' => $invoice, 'lang' => $lang, 't' => InvoiceTranslations::get($lang)])
+            ->format('a4')
+            ->withBrowsershot(fn (Browsershot $b) => $b
+                ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
+                ->noSandbox()
+                ->disableGpu()
+            )
+            ->base64();
 
-        Mail::to($recipient)->send(new InvoiceMail($invoice, $pdfContent, $lang));
+        Mail::to($recipient)->send(new InvoiceMail($invoice, base64_decode($pdfContent), $lang));
 
         return response()->json(['message' => 'Invoice sent to ' . $recipient]);
     }
@@ -557,14 +562,18 @@ class InvoiceController extends Controller
             return response()->json(['message' => 'Forbidden.'], 403);
         }
 
-        $lang = $this->resolveLanguage($request);
-        $t    = InvoiceTranslations::get($lang);
-        $pdf  = Pdf::loadView('invoices.pdf', compact('invoice', 'lang', 't'))
-            ->setPaper('a4', 'portrait');
-
+        $lang     = $this->resolveLanguage($request);
         $filename = $invoice->invoice_number . '.pdf';
 
-        return $pdf->download($filename);
+        return Pdf::view('invoices.pdf', ['invoice' => $invoice, 'lang' => $lang, 't' => InvoiceTranslations::get($lang)])
+            ->format('a4')
+            ->withBrowsershot(fn (Browsershot $b) => $b
+                ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
+                ->noSandbox()
+                ->disableGpu()
+            )
+            ->download($filename)
+            ->toResponse($request);
     }
 
     /**
@@ -632,16 +641,19 @@ class InvoiceController extends Controller
      */
     public function exportPdf(Request $request): Response
     {
-        $invoice = $this->buildPreviewInvoice($request);
-        $lang    = $this->resolveLanguage($request);
-        $t       = InvoiceTranslations::get($lang);
-
-        $pdf = Pdf::loadView('invoices.pdf', compact('invoice', 'lang', 't'))
-            ->setPaper('a4', 'portrait');
-
+        $invoice  = $this->buildPreviewInvoice($request);
+        $lang     = $this->resolveLanguage($request);
         $filename = ($invoice->invoice_number ?: 'invoice-preview') . '.pdf';
 
-        return $pdf->download($filename);
+        return Pdf::view('invoices.pdf', ['invoice' => $invoice, 'lang' => $lang, 't' => InvoiceTranslations::get($lang)])
+            ->format('a4')
+            ->withBrowsershot(fn (Browsershot $b) => $b
+                ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
+                ->noSandbox()
+                ->disableGpu()
+            )
+            ->download($filename)
+            ->toResponse($request);
     }
 
     /**

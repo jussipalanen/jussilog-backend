@@ -17,19 +17,21 @@ class OrderConfirmation extends Mailable
     use SerializesModels;
 
     public Order $order;
-    public string $subjectLine;
+    public string $lang;
 
-    public function __construct(Order $order, string $subjectLine)
+    public function __construct(Order $order, string $lang = 'en')
     {
         $this->order = $order;
-        $this->subjectLine = $subjectLine;
+        $this->lang  = $lang;
     }
 
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: $this->subjectLine,
-        );
+        $subject = $this->lang === 'fi'
+            ? 'Kiitos tilauksestasi!'
+            : 'Thank you for your order!';
+
+        return new Envelope(subject: $subject);
     }
 
     public function content(): Content
@@ -38,6 +40,7 @@ class OrderConfirmation extends Mailable
             view: 'mail.order-confirmation',
             with: [
                 'order' => $this->order,
+                'lang'  => $this->lang,
             ],
         );
     }
