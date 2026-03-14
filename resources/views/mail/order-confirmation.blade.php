@@ -1,4 +1,9 @@
 @php use App\Services\CountryService; @endphp
+@php
+    $dec   = ($lang ?? 'en') === 'fi' ? ',' : '.';
+    $thou  = ($lang ?? 'en') === 'fi' ? "\u{00A0}" : ',';
+    $price = fn($v) => number_format((float) $v, 2, $dec, $thou);
+@endphp
 <!DOCTYPE html>
 <html lang="{{ $lang ?? 'en' }}">
 <head>
@@ -86,20 +91,20 @@
                                     <td style="padding:13px 16px; text-align:center; color:#9490cc;">{{ $item->quantity }}</td>
                                     <td style="padding:13px 16px; text-align:right; color:#9490cc;">
                                         @if ($item->sale_price)
-                                            <span style="text-decoration:line-through; color:#4e4a80; margin-right:4px;">€{{ number_format((float) $item->unit_price, 2) }}</span>
-                                            <span style="color:#34d399; font-weight:600;">€{{ number_format((float) $item->sale_price, 2) }}</span>
+                                            <span style="text-decoration:line-through; color:#4e4a80; margin-right:4px;">€{{ $price($item->unit_price) }}</span>
+                                            <span style="color:#34d399; font-weight:600;">€{{ $price($item->sale_price) }}</span>
                                         @else
-                                            €{{ number_format((float) $item->unit_price, 2) }}
+                                            €{{ $price($item->unit_price) }}
                                         @endif
                                     </td>
-                                    <td style="padding:13px 16px; text-align:right; color:#ede9fe; font-weight:600;">€{{ number_format((float) $item->subtotal, 2) }}</td>
+                                    <td style="padding:13px 16px; text-align:right; color:#ede9fe; font-weight:600;">€{{ $price($item->subtotal) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr style="background:linear-gradient(135deg, #1e1b4b, #3b1264);">
                                 <td colspan="3" style="padding:16px; text-align:right; color:#c4b5fd; font-weight:600; font-size:13px; letter-spacing:0.5px;">{{ $t['order_total'] }}</td>
-                                <td style="padding:16px; text-align:right; color:#ffffff; font-weight:700; font-size:18px;">€{{ number_format((float) $order->total_amount, 2) }}</td>
+                                <td style="padding:16px; text-align:right; color:#ffffff; font-weight:700; font-size:18px;">€{{ $price($order->total_amount) }}</td>
                             </tr>
                         </tfoot>
                     </table>

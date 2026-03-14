@@ -1,7 +1,8 @@
 @php use App\Services\CountryService; @endphp
 @php
     $dec   = ($lang ?? 'en') === 'fi' ? ',' : '.';
-    $thou  = ($lang ?? 'en') === 'fi' ? '\u{00A0}' : ',';
+    $thou  = ($lang ?? 'en') === 'fi' ? "\u{00A0}" : ',';
+
     $price = fn($v) => number_format((float) $v, 2, $dec, $thou);
 @endphp
 <!DOCTYPE html>
@@ -86,9 +87,9 @@
                             <tr style="border-bottom:1px solid #2d2956;">
                                 <td style="padding:11px 14px; color:#ede9fe;">{{ $item->description }}</td>
                                 <td style="padding:11px 14px; text-align:center; color:#9490cc;">{{ $item->quantity }}</td>
-                                <td style="padding:11px 14px; text-align:right; color:#9490cc;">{{ $price($item->unit_price) }}</td>
+                                <td style="padding:11px 14px; text-align:right; color:#9490cc;">&euro;{{ $price($item->unit_price) }}</td>
                                 <td style="padding:11px 14px; text-align:right; color:#9490cc;">{{ str_replace('.', ',', rtrim(rtrim(number_format($item->tax_rate * 100, 2), '0'), '.')) }}%</td>
-                                <td style="padding:11px 14px; text-align:right; color:#ede9fe; font-weight:600;">{{ $price($item->total) }}</td>
+                                <td style="padding:11px 14px; text-align:right; color:#ede9fe; font-weight:600;">&euro;{{ $price($item->total) }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -120,11 +121,11 @@
                         @endif
                         <tr>
                             <td style="padding:6px 0; color:#9490cc; font-size:14px;">{{ $t['subtotal'] }}</td>
-                            <td style="padding:6px 0; color:#ede9fe; font-size:14px; text-align:right;">{{ $price($invoice->subtotal) }}</td>
+                            <td style="padding:6px 0; color:#ede9fe; font-size:14px; text-align:right;">&euro;{{ $price($invoice->subtotal) }}</td>
                         </tr>
                         <tr style="border-top:1px solid #2d2956;">
                             <td style="padding:12px 0 4px; color:#c4b5fd; font-weight:700; font-size:16px;">{{ $t['total'] }}</td>
-                            <td style="padding:12px 0 4px; color:#ffffff; font-weight:700; font-size:16px; text-align:right;">{{ $price($invoice->total) }}</td>
+                            <td style="padding:12px 0 4px; color:#ffffff; font-weight:700; font-size:16px; text-align:right;">&euro;{{ $price($invoice->total) }}</td>
                         </tr>
                     </table>
                 </div>
