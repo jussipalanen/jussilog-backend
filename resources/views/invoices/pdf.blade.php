@@ -68,7 +68,7 @@
 <body>
 @php
     $dec   = ($lang ?? 'en') === 'fi' ? ',' : '.';
-    $thou  = ($lang ?? 'en') === 'fi' ? '\u{00A0}' : ',';
+    $thou  = ($lang ?? 'en') === 'fi' ? "\u{00A0}" : ',';
     $price = fn($v) => number_format((float) $v, 2, $dec, $thou);
 @endphp
 <div class="page">
@@ -162,9 +162,9 @@
                 <td>{{ $item->description }}</td>
                 <td>{{ $t['type_' . $item->type->value] ?? ucfirst($item->type->value) }}</td>
                 <td class="num">{{ $item->quantity }}</td>
-                <td class="num">{{ $price($item->unit_price) }}</td>
+                <td class="num">&euro;{{ $price($item->unit_price) }}</td>
                 <td class="num">{{ str_replace('.', ',', rtrim(rtrim(number_format($item->tax_rate * 100, 2), '0'), '.')) }}%</td>
-                <td class="num">{{ $price($item->total) }}</td>
+                <td class="num">&euro;{{ $price($item->total) }}</td>
             </tr>
             @endforeach
         </tbody>
@@ -175,11 +175,11 @@
         <table>
             <tr>
                 <td class="label">{{ $t['subtotal'] }}</td>
-                <td class="amount">{{ $price($invoice->subtotal) }}</td>
+                <td class="amount">&euro;{{ $price($invoice->subtotal) }}</td>
             </tr>
             <tr class="grand-total">
                 <td class="label">{{ $t['total'] }}</td>
-                <td class="amount">{{ $price($invoice->total) }}</td>
+                <td class="amount">&euro;{{ $price($invoice->total) }}</td>
             </tr>
         </table>
     </div>
