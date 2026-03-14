@@ -8,6 +8,7 @@ services:
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
+        INSTALL_DEV_DEPS: "true"
     container_name: jussilog-backend-sqlite
     restart: unless-stopped
     ports:
