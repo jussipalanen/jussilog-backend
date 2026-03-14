@@ -9,18 +9,24 @@ return new class extends Migration
 
     public function up(): void
     {
-        // Step 1: make column nullable so we can NULL out non-matching free-text values
-        DB::statement('ALTER TABLE resume_skills MODIFY category VARCHAR(255) NULL');
+        if (DB::getDriverName() !== 'sqlite') {
+            // Step 1: make column nullable so we can NULL out non-matching free-text values
+            DB::statement('ALTER TABLE resume_skills MODIFY category VARCHAR(255) NULL');
+        }
 
         // Step 2: NULL any existing value that is not a valid enum member
         DB::statement('UPDATE resume_skills SET category = NULL WHERE category NOT IN (' . self::ENUM_VALUES . ')');
 
-        // Step 3: convert to nullable enum (preserves rows that already had valid values)
-        DB::statement('ALTER TABLE resume_skills MODIFY category ENUM(' . self::ENUM_VALUES . ') NULL');
+        if (DB::getDriverName() !== 'sqlite') {
+            // Step 3: convert to nullable enum (preserves rows that already had valid values)
+            DB::statement('ALTER TABLE resume_skills MODIFY category ENUM(' . self::ENUM_VALUES . ') NULL');
+        }
     }
 
     public function down(): void
     {
-        DB::statement('ALTER TABLE resume_skills MODIFY category VARCHAR(255) NULL');
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE resume_skills MODIFY category VARCHAR(255) NULL');
+        }
     }
 };
