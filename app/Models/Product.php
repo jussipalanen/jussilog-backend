@@ -51,7 +51,7 @@ class Product extends Model
     /**
      * The accessors to append to the model's array form.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $appends = ['featured_image_url', 'featured_image_sizes_urls', 'images_urls', 'images_sizes_urls'];
 
@@ -72,11 +72,11 @@ class Product extends Model
      */
     public function getFeaturedImageSizesUrlsAttribute(): array
     {
-        if (! $this->featured_image_sizes || ! is_array($this->featured_image_sizes)) {
+        if (! $this->featured_image_sizes) {
             return [];
         }
 
-        return array_map(fn ($path) => $path ? ($this->resolveImageUrl($path) ?? '') : '', $this->featured_image_sizes);
+        return array_map(fn ($path) => $path ? $this->resolveImageUrl($path) : '', $this->featured_image_sizes);
     }
 
     /**
@@ -84,12 +84,12 @@ class Product extends Model
      */
     public function getImagesUrlsAttribute(): array
     {
-        if (! $this->images || ! is_array($this->images)) {
+        if (! $this->images) {
             return [];
         }
 
         return array_map(function ($path) {
-            return $this->resolveImageUrl($path) ?? '';
+            return $this->resolveImageUrl($path);
         }, $this->images);
     }
 
@@ -98,7 +98,7 @@ class Product extends Model
      */
     public function getImagesSizesUrlsAttribute(): array
     {
-        if (! $this->images_sizes || ! is_array($this->images_sizes)) {
+        if (! $this->images_sizes) {
             return [];
         }
 
@@ -107,11 +107,11 @@ class Product extends Model
                 return [];
             }
 
-            return array_map(fn ($path) => $path ? ($this->resolveImageUrl($path) ?? '') : '', $sizes);
+            return array_map(fn ($path) => $path ? $this->resolveImageUrl($path) : '', $sizes);
         }, $this->images_sizes);
     }
 
-    private function resolveImageUrl(string $path): ?string
+    private function resolveImageUrl(string $path): string
     {
         $diskName = (string) config('filesystems.default');
         $disk     = Storage::disk($diskName);

@@ -574,7 +574,7 @@ class ResumeController extends Controller
             ->withBrowsershot(fn (Browsershot $b) => $b
                 ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
                 ->noSandbox()
-                ->disableGpu()
+                ->addChromiumArguments(['--disable-gpu'])
             )
             ->download($filename)
             ->toResponse($request);

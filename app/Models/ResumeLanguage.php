@@ -29,9 +29,9 @@ class ResumeLanguage extends Model
         'native_bilingual'     => 5,
     ];
 
-    public function getPointsAttribute(): ?int
+    public function getPointsAttribute(): int
     {
-        return self::PROFICIENCY_POINTS[$this->proficiency] ?? null;
+        return self::PROFICIENCY_POINTS[$this->proficiency];
     }
 
     public function resume(): BelongsTo

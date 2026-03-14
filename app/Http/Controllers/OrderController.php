@@ -147,7 +147,7 @@ class OrderController extends Controller
             $userId = $request->input('user_id');
 
             // Generate unique order number
-            $orderNumber = 'ORD-'.date('Y').'-'.str_pad(Order::count() + 1, 5, '0', STR_PAD_LEFT);
+            $orderNumber = 'ORD-'.date('Y').'-'.str_pad((string) (Order::count() + 1), 5, '0', STR_PAD_LEFT);
 
             // Calculate total
             $totalAmount = 0;
