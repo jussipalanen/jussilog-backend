@@ -12,6 +12,7 @@ use App\Translations\InvoiceTranslations;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Browsershot\Browsershot;
 use Spatie\LaravelPdf\Facades\Pdf;
@@ -238,44 +239,51 @@ class InvoiceController extends Controller
 
         $order = Order::with('items.product')->findOrFail($data['order_id']);
 
-        $invoiceNumber = 'INV-' . date('Y') . '-' . str_pad((string) (Invoice::count() + 1), 5, '0', STR_PAD_LEFT);
-
         $status = $data['status'] ?? InvoiceStatus::DRAFT->value;
 
-        $invoice = Invoice::create(
-            [
-            'order_id' => $order->id,
-            'user_id' => $order->user_id,
-            'invoice_number' => $invoiceNumber,
-            'customer_first_name' => $order->customer_first_name,
-            'customer_last_name' => $order->customer_last_name,
-            'customer_email' => $order->customer_email,
-            'customer_phone' => $order->customer_phone,
-            'billing_address' => $order->billing_address,
-            'subtotal' => $order->total_amount,
-            'total' => $order->total_amount,
-            'status' => $status,
-            'issued_at' => $status === InvoiceStatus::ISSUED->value ? now() : null,
-            'paid_at' => $status === InvoiceStatus::PAID->value ? now() : null,
-            'notes' => $data['notes'] ?? null,
-            ]
-        );
+        $invoice = null;
 
-        // Create invoice items from order items
-        foreach ($order->items as $orderItem) {
-            InvoiceItem::create(
-                [
-                'invoice_id'    => $invoice->id,
-                'order_item_id' => $orderItem->id,
-                'type'          => InvoiceItemType::PRODUCT->value,
-                'description'   => $orderItem->product_title,
-                'quantity'      => $orderItem->quantity,
-                'unit_price'    => $orderItem->unit_price,
-                'tax_rate'      => 0,
-                'total'         => $orderItem->subtotal,
-                ]
-            );
-        }
+        DB::transaction(
+            function () use ($order, $data, $status, &$invoice) {
+                $invoice = Invoice::create(
+                    [
+                    'order_id' => $order->id,
+                    'user_id' => $order->user_id,
+                    'invoice_number' => null,
+                    'customer_first_name' => $order->customer_first_name,
+                    'customer_last_name' => $order->customer_last_name,
+                    'customer_email' => $order->customer_email,
+                    'customer_phone' => $order->customer_phone,
+                    'billing_address' => $order->billing_address,
+                    'subtotal' => $order->total_amount,
+                    'total' => $order->total_amount,
+                    'status' => $status,
+                    'issued_at' => $status === InvoiceStatus::ISSUED->value ? now() : null,
+                    'paid_at' => $status === InvoiceStatus::PAID->value ? now() : null,
+                    'notes' => $data['notes'] ?? null,
+                    ]
+                );
+
+                $invoice->invoice_number = 'INV-' . date('Y') . '-' . str_pad((string) $invoice->id, 5, '0', STR_PAD_LEFT);
+                $invoice->save();
+
+                // Create invoice items from order items
+                foreach ($order->items as $orderItem) {
+                    InvoiceItem::create(
+                        [
+                        'invoice_id'    => $invoice->id,
+                        'order_item_id' => $orderItem->id,
+                        'type'          => InvoiceItemType::PRODUCT->value,
+                        'description'   => $orderItem->product_title,
+                        'quantity'      => $orderItem->quantity,
+                        'unit_price'    => $orderItem->unit_price,
+                        'tax_rate'      => 0,
+                        'total'         => $orderItem->subtotal,
+                        ]
+                    );
+                }
+            }
+        );
 
         return response()->json($invoice->load(['order', 'user', 'items']), 201);
     }
