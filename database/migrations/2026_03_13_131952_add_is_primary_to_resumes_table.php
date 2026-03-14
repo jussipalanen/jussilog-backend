@@ -1,14 +1,14 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+
 return new class extends Migration
 {
     /**
      * Run the migrations.
-    *
-    * @return void
-    */
+     */
     public function up(): void
     {
         Schema::table('resumes', function (Blueprint $table): void {
@@ -17,11 +17,10 @@ return new class extends Migration
                 ->index();
         });
     }
+
     /**
      * Reverse the migrations.
-    *
-    * @return void
-    */
+     */
     public function down(): void
     {
         Schema::table('resumes', function (Blueprint $table): void {

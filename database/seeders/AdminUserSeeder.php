@@ -16,11 +16,11 @@ class AdminUserSeeder extends Seeder
         $user = User::firstOrCreate(
             ['email' => 'juzapala+superadmin@gmail.com'],
             [
-                'name'       => 'superadmin',
-                'username'   => 'superadmin',
-                'first_name' => 'Super',
-                'last_name'  => 'Admin',
-                'password'   => Str::password(16),
+                'name'              => 'superadmin',
+                'username'          => 'superadmin',
+                'first_name'        => 'Super',
+                'last_name'         => 'Admin',
+                'password'          => Str::password(16),
                 'email_verified_at' => now(),
             ]
         );

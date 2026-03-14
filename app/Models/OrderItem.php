@@ -43,10 +43,10 @@ class OrderItem extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'quantity' => 'integer',
+        'quantity'   => 'integer',
         'unit_price' => 'decimal:2',
         'sale_price' => 'decimal:2',
-        'subtotal' => 'decimal:2',
+        'subtotal'   => 'decimal:2',
     ];
 
     /**
@@ -71,6 +71,7 @@ class OrderItem extends Model
     public function getEffectivePriceAttribute(): string
     {
         $price = $this->sale_price ?? $this->unit_price;
+
         return number_format((float) $price, 2);
     }
 
@@ -79,7 +80,7 @@ class OrderItem extends Model
      */
     public function getFormattedSubtotalAttribute(): string
     {
-        return '$' . number_format((float) $this->subtotal, 2);
+        return '$'.number_format((float) $this->subtotal, 2);
     }
 
     /**

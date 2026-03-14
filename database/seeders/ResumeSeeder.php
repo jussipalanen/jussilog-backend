@@ -12,14 +12,16 @@ class ResumeSeeder extends Seeder
     {
         $user = User::where('email', 'juzapala+superadmin@gmail.com')->first();
 
-        if (!$user) {
+        if (! $user) {
             $this->command->warn('ResumeSeeder: admin user not found, skipping.');
+
             return;
         }
 
         // Skip if a resume for this user already exists
         if (Resume::where('user_id', $user->id)->exists()) {
-            $this->command->info('ResumeSeeder: resume for user #' . $user->id . ' already exists, skipping.');
+            $this->command->info('ResumeSeeder: resume for user #'.$user->id.' already exists, skipping.');
+
             return;
         }
 
@@ -34,9 +36,9 @@ class ResumeSeeder extends Seeder
             'github_url'    => 'https://github.com/jussipalanen',
             'portfolio_url' => 'https://jussipalanen.fi',
             'summary'       => 'Passionate full-stack developer with 7+ years of experience building scalable web applications. '
-                             . 'Specialised in Laravel, Vue.js, and cloud-native architectures on Google Cloud Platform. '
-                             . 'Strong advocate for clean code, test-driven development, and continuous delivery.',
-            'language'      => 'en',
+                             .'Specialised in Laravel, Vue.js, and cloud-native architectures on Google Cloud Platform. '
+                             .'Strong advocate for clean code, test-driven development, and continuous delivery.',
+            'language' => 'en',
         ]);
 
         // ── Work Experiences ──────────────────────────────────────────────────
@@ -49,10 +51,10 @@ class ResumeSeeder extends Seeder
                 'end_date'     => null,
                 'is_current'   => true,
                 'description'  => "Lead developer for a SaaS platform serving 50 000+ users.\n"
-                                . "• Migrated monolith to microservices on GCP Cloud Run.\n"
-                                . "• Reduced API response times by 60 % through query optimisation and Redis caching.\n"
-                                . "• Mentored a team of four junior developers.",
-                'sort_order'   => 0,
+                                ."• Migrated monolith to microservices on GCP Cloud Run.\n"
+                                ."• Reduced API response times by 60 % through query optimisation and Redis caching.\n"
+                                .'• Mentored a team of four junior developers.',
+                'sort_order' => 0,
             ],
             [
                 'job_title'    => 'Full-Stack Developer',
@@ -62,9 +64,9 @@ class ResumeSeeder extends Seeder
                 'end_date'     => '2021-02-28',
                 'is_current'   => false,
                 'description'  => "Built and maintained e-commerce solutions for Finnish SMEs.\n"
-                                . "• Developed custom Laravel + Vue.js storefronts integrated with Stripe and Klarna.\n"
-                                . "• Introduced CI/CD pipelines with GitHub Actions, cutting release cycles from weekly to daily.",
-                'sort_order'   => 1,
+                                ."• Developed custom Laravel + Vue.js storefronts integrated with Stripe and Klarna.\n"
+                                .'• Introduced CI/CD pipelines with GitHub Actions, cutting release cycles from weekly to daily.',
+                'sort_order' => 1,
             ],
             [
                 'job_title'    => 'Junior Web Developer',
@@ -74,8 +76,8 @@ class ResumeSeeder extends Seeder
                 'end_date'     => '2018-05-31',
                 'is_current'   => false,
                 'description'  => 'Delivered WordPress and Laravel projects for local businesses. '
-                                . 'Responsible for front-end development, REST API integration, and client communication.',
-                'sort_order'   => 2,
+                                .'Responsible for front-end development, REST API integration, and client communication.',
+                'sort_order' => 2,
             ],
         ]);
 
@@ -122,19 +124,19 @@ class ResumeSeeder extends Seeder
         // ── Projects ──────────────────────────────────────────────────────────
         $resume->projects()->createMany([
             [
-                'name'         => 'JussiLog',
-                'description'  => 'Open-source personal portfolio and résumé builder. '
-                                . 'Laravel 10 REST API backend deployed on Google Cloud Run, Vue.js 3 + Vite frontend, '
-                                . 'GCS file storage, and DomPDF export to PDF.',
+                'name'        => 'JussiLog',
+                'description' => 'Open-source personal portfolio and résumé builder. '
+                                .'Laravel 10 REST API backend deployed on Google Cloud Run, Vue.js 3 + Vite frontend, '
+                                .'GCS file storage, and DomPDF export to PDF.',
                 'technologies' => ['Laravel', 'Vue.js 3', 'Vite', 'Tailwind CSS', 'Docker', 'GCP Cloud Run', 'MySQL'],
                 'live_url'     => 'https://jussilog.fi',
                 'github_url'   => 'https://github.com/jussipalanen/jussilog-backend',
                 'sort_order'   => 0,
             ],
             [
-                'name'         => 'E-commerce Order Management',
-                'description'  => 'Internal dashboard for a Finnish retailer to manage orders, inventory, and shipping '
-                                . 'with real-time notifications via Laravel Echo and Pusher.',
+                'name'        => 'E-commerce Order Management',
+                'description' => 'Internal dashboard for a Finnish retailer to manage orders, inventory, and shipping '
+                                .'with real-time notifications via Laravel Echo and Pusher.',
                 'technologies' => ['Laravel', 'Vue.js', 'MySQL', 'Redis', 'Pusher', 'Stripe'],
                 'live_url'     => null,
                 'github_url'   => null,
@@ -145,16 +147,16 @@ class ResumeSeeder extends Seeder
         // ── Certifications ────────────────────────────────────────────────────
         $resume->certifications()->createMany([
             [
-                'name'                  => 'Google Associate Cloud Engineer',
-                'issuing_organization'  => 'Google Cloud',
-                'issue_date'            => '2023-04-15',
-                'sort_order'            => 0,
+                'name'                 => 'Google Associate Cloud Engineer',
+                'issuing_organization' => 'Google Cloud',
+                'issue_date'           => '2023-04-15',
+                'sort_order'           => 0,
             ],
             [
-                'name'                  => 'Laravel Certified Developer',
-                'issuing_organization'  => 'Laravel LLC',
-                'issue_date'            => '2022-11-01',
-                'sort_order'            => 1,
+                'name'                 => 'Laravel Certified Developer',
+                'issuing_organization' => 'Laravel LLC',
+                'issue_date'           => '2022-11-01',
+                'sort_order'           => 1,
             ],
         ]);
 
@@ -184,9 +186,9 @@ class ResumeSeeder extends Seeder
                 'company'        => 'TechNord Oy',
                 'email'          => 'matti.virtanen@technord.fi',
                 'recommendation' => 'Jussi is an exceptionally skilled developer with a rare ability to translate complex '
-                                  . 'business requirements into elegant, maintainable code. His initiative in modernising '
-                                  . 'our platform architecture saved both time and cost significantly.',
-                'sort_order'     => 0,
+                                  .'business requirements into elegant, maintainable code. His initiative in modernising '
+                                  .'our platform architecture saved both time and cost significantly.',
+                'sort_order' => 0,
             ],
             [
                 'full_name'      => 'Sanna Korhonen',
@@ -194,8 +196,8 @@ class ResumeSeeder extends Seeder
                 'company'        => 'Digicraft Helsinki',
                 'email'          => 'sanna.korhonen@digicraft.fi',
                 'recommendation' => 'Working with Jussi was a pleasure. He always bridged the gap between design and '
-                                  . 'engineering and delivered pixel-perfect implementations with great attention to detail.',
-                'sort_order'     => 1,
+                                  .'engineering and delivered pixel-perfect implementations with great attention to detail.',
+                'sort_order' => 1,
             ],
         ]);
     }

@@ -29,7 +29,7 @@ class MailTest extends Command
         $to = $this->option('to');
 
         if (empty($to)) {
-            if (!$this->input->isInteractive()) {
+            if (! $this->input->isInteractive()) {
                 $this->error('The --to option is required.');
 
                 return self::FAILURE;
@@ -44,13 +44,13 @@ class MailTest extends Command
             return self::FAILURE;
         }
 
-        if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($to, FILTER_VALIDATE_EMAIL)) {
             $this->error('Email format is invalid.');
 
             return self::FAILURE;
         }
 
-        $subject = $this->option('subject') ?? 'Test email';
+        $subject     = $this->option('subject') ?? 'Test email';
         $messageBody = $this->option('message') ?? 'This is a test email sent from Artisan.';
 
         Mail::to($to)->send(new TestMail($subject, $messageBody));

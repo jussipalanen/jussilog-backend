@@ -30,6 +30,7 @@ class Invoice extends Model
         'total',
         'status',
         'issued_at',
+        'due_date',
         'paid_at',
         'notes',
     ];
@@ -41,11 +42,12 @@ class Invoice extends Model
      */
     protected $casts = [
         'billing_address' => 'array',
-        'subtotal' => 'decimal:2',
-        'total' => 'decimal:2',
-        'status' => InvoiceStatus::class,
-        'issued_at' => 'datetime',
-        'paid_at' => 'datetime',
+        'subtotal'        => 'decimal:2',
+        'total'           => 'decimal:2',
+        'status'          => InvoiceStatus::class,
+        'issued_at'       => 'datetime',
+        'due_date'        => 'date',
+        'paid_at'         => 'datetime',
     ];
 
     /**

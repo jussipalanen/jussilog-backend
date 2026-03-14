@@ -202,7 +202,9 @@ class TaxRateController extends Controller
      * Return all available tax rates with translated country names.
      *
      * @group Tax Rates
+     *
      * @unauthenticated
+     *
      * @queryParam lang string Language code for country name translation (en, fi). Defaults to en. Example: fi
      */
     public function index(Request $request): JsonResponse
@@ -230,16 +232,19 @@ class TaxRateController extends Controller
      * Return the tax rate for a specific country code.
      *
      * @group Tax Rates
+     *
      * @unauthenticated
+     *
      * @urlParam code string required ISO 3166-1 alpha-2 country code (or ZERO). Example: FI
+     *
      * @queryParam lang string Language code for country name translation (en, fi). Defaults to en. Example: fi
      */
     public function show(Request $request, string $code): JsonResponse
     {
         $code = strtoupper($code);
 
-        if (!array_key_exists($code, self::TAX_RATES)) {
-            return response()->json(['message' => 'Tax rate not found for country code: ' . $code], 404);
+        if (! array_key_exists($code, self::TAX_RATES)) {
+            return response()->json(['message' => 'Tax rate not found for country code: '.$code], 404);
         }
 
         $lang = in_array($request->query('lang'), self::SUPPORTED_LANGUAGES, true)

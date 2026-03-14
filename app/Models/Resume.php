@@ -44,7 +44,7 @@ class Resume extends Model
 
     public function getHasCodeAttribute(): bool
     {
-        return !empty($this->attributes['code']);
+        return ! empty($this->attributes['code']);
     }
 
     public function user(): BelongsTo

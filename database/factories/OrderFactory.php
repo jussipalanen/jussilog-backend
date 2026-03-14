@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
+ * @extends Factory<Order>
  */
 class OrderFactory extends Factory
 {
@@ -14,7 +15,7 @@ class OrderFactory extends Factory
     {
         return [
             'user_id'             => User::factory(),
-            'order_number'        => 'ORD-' . fake()->unique()->numerify('######'),
+            'order_number'        => 'ORD-'.fake()->unique()->numerify('######'),
             'status'              => 'pending',
             'total_amount'        => fake()->randomFloat(2, 10, 500),
             'customer_first_name' => fake()->firstName(),
@@ -27,13 +28,13 @@ class OrderFactory extends Factory
                 'postal_code' => fake()->postcode(),
                 'country'     => 'FI',
             ],
-            'shipping_address'    => [
+            'shipping_address' => [
                 'street'      => fake()->streetAddress(),
                 'city'        => fake()->city(),
                 'postal_code' => fake()->postcode(),
                 'country'     => 'FI',
             ],
-            'notes'               => null,
+            'notes' => null,
         ];
     }
 }

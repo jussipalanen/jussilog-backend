@@ -19,6 +19,7 @@ class InvoiceTest extends TestCase
     {
         $user = User::factory()->create();
         $user->setRole('admin');
+
         return $user;
     }
 

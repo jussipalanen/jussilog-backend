@@ -15,6 +15,7 @@ class CheckRoleTest extends TestCase
     {
         $user = User::factory()->create();
         $user->setRole('admin');
+
         return $user;
     }
 
@@ -22,6 +23,7 @@ class CheckRoleTest extends TestCase
     {
         $user = User::factory()->create();
         $user->setRole('vendor');
+
         return $user;
     }
 
@@ -86,7 +88,7 @@ class CheckRoleTest extends TestCase
 
     public function test_admin_can_delete_invoice(): void
     {
-        $admin = $this->makeAdmin();
+        $admin   = $this->makeAdmin();
         $invoice = Invoice::factory()->create();
 
         $response = $this->actingAs($admin)->deleteJson("/api/invoices/{$invoice->id}");
@@ -97,7 +99,7 @@ class CheckRoleTest extends TestCase
     public function test_customer_cannot_delete_invoice(): void
     {
         $customer = $this->makeCustomer();
-        $invoice = Invoice::factory()->create();
+        $invoice  = Invoice::factory()->create();
 
         $response = $this->actingAs($customer)->deleteJson("/api/invoices/{$invoice->id}");
 

@@ -25,8 +25,8 @@ class AccountDeleted extends Mailable
     public function envelope(): Envelope
     {
         $subject = $this->lang === 'fi'
-            ? 'Tilisi ' . config('app.name') . ':ssa on poistettu'
-            : 'Your ' . config('app.name') . ' account has been deleted';
+            ? 'Tilisi '.config('app.name').':ssa on poistettu'
+            : 'Your '.config('app.name').' account has been deleted';
 
         return new Envelope(subject: $subject);
     }
