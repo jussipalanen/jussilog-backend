@@ -169,13 +169,13 @@ $sectionPattern = 'work-experiences|educations|skills|projects|certifications|la
 Route::get('/resumes/export/options', [ResumeController::class, 'exportOptions']);
 Route::post('/resumes/export/pdf', [ResumeController::class, 'exportPdfPublic']);
 Route::post('/resumes/export/html', [ResumeController::class, 'exportHtmlPublic']);
+Route::get('/resumes/current', [ResumeController::class, 'current']);
 
 Route::get('/settings/taxrates', [TaxRateController::class, 'index']);
 Route::get('/settings/taxrates/{code}', [TaxRateController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () use ($sectionPattern) {
     // Resume CRUD
-    Route::get('/resumes/current', [ResumeController::class, 'current']);
     Route::get('/resumes', [ResumeController::class, 'index']);
     Route::post('/resumes', [ResumeController::class, 'store']);
     Route::get('/resumes/{id}', [ResumeController::class, 'show']);

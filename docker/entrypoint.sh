@@ -5,6 +5,14 @@ echo "Starting JussiLog Backend..."
 
 APP_ENV="${APP_ENV:-production}"
 
+# Generate APP_KEY if not set or empty
+if [ -z "${APP_KEY:-}" ]; then
+    echo "APP_KEY is missing — generating a new one..."
+    APP_KEY="$(su laravel -s /bin/sh -c 'php artisan key:generate --show --no-ansi')"
+    export APP_KEY
+    echo "Generated APP_KEY (in-memory only — set it as a persistent env var to avoid regeneration on every restart)."
+fi
+
 # Get port from environment (Cloud Run sets this, default to 8080)
 PORT="${PORT:-8080}"
 echo "Using port: $PORT"
@@ -120,13 +128,16 @@ elif [ "$DB_CONNECTION" = "mysql" ] && [ "$RUN_MIGRATIONS_AT_STARTUP" = "true" ]
     echo "Database ready!"
 fi
 
-# In local development: run a full composer install (including dev dependencies)
-# so tools like PHPUnit/Faker are accessible inside the container.
-# In production: vendor is already baked into the image by the Dockerfile — skip to
-# avoid redundant network calls and accidental installation of dev packages.
+# In local development: composer install with dev packages is baked into the image
+# via the INSTALL_DEV_DEPS=true build arg.  Only fall back to a runtime install if
+# the image was built without that flag (e.g. someone ran a plain `docker build`).
 if [ "$APP_ENV" = "local" ]; then
-    echo "Installing Composer dependencies (local, with dev)..."
-    su laravel -s /bin/sh -c "composer install --no-interaction --no-progress --prefer-dist --optimize-autoloader" || true
+    if [ ! -d /var/www/html/vendor/fakerphp ]; then
+        echo "Dev packages not found in vendor — running composer install (dev)..."
+        su laravel -s /bin/sh -c "composer install --no-interaction --no-progress --prefer-dist --optimize-autoloader"
+    else
+        echo "Dev packages already present in image — skipping runtime composer install."
+    fi
 else
     echo "Skipping runtime composer install (vendor baked into image for $APP_ENV)."
 fi

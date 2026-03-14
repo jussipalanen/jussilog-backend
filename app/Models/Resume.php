@@ -28,12 +28,22 @@ class Resume extends Model
         'template',
         'theme',
         'is_primary',
+        'password',
     ];
+
+    protected $hidden = ['password'];
+
+    protected $appends = ['has_password'];
 
     protected $casts = [
         'photo_sizes' => 'array',
         'is_primary'  => 'boolean',
     ];
+
+    public function getHasPasswordAttribute(): bool
+    {
+        return !empty($this->attributes['password']);
+    }
 
     public function user(): BelongsTo
     {

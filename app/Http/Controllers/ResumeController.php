@@ -15,6 +15,7 @@ use App\Models\ResumeWorkExperience;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -128,8 +129,13 @@ class ResumeController extends Controller
             'template'      => 'sometimes|string|in:' . implode(',', self::TEMPLATES),
             'theme'         => 'sometimes|string|in:' . implode(',', self::THEMES),
             'is_primary'    => 'sometimes|boolean',
+            'password'      => 'nullable|string|min:6',
             ...$this->sectionValidationRules(),
         ]);
+
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
 
         $resume = DB::transaction(function () use ($data, $request) {
             $resume = $request->user()->resumes()->create(
@@ -186,8 +192,13 @@ class ResumeController extends Controller
             'template'      => 'sometimes|string|in:' . implode(',', self::TEMPLATES),
             'theme'         => 'sometimes|string|in:' . implode(',', self::THEMES),
             'is_primary'    => 'sometimes|boolean',
+            'password'      => 'nullable|string|min:6',
             ...$this->sectionValidationRules(update: true),
         ]);
+
+        if (array_key_exists('password', $data)) {
+            $data['password'] = $data['password'] ? Hash::make($data['password']) : null;
+        }
 
         DB::transaction(function () use ($data, $resume, $request) {
             if (!empty($data['is_primary'])) {
@@ -333,20 +344,54 @@ class ResumeController extends Controller
     }
 
     /**
-     * Get the primary resume for the authenticated user.
+     * Get the primary resume.
+     *
+     * Accessible either with a valid Sanctum token (returns the authenticated
+     * user's primary resume) or without a token by supplying `owner` (username)
+     * and `password` query parameters (public/shared access).
      *
      * @group Resumes
-     * @authenticated
+     * @queryParam owner string Username of the resume owner (required for public access). Example: johndoe
+     * @queryParam password string Resume view password (required for public access). Example: secret123
      */
     public function current(Request $request): JsonResponse
     {
-        $user = $request->user();
         $with = array_values($this->sectionRelationMap());
 
-        $resume = $user->resumes()->where('is_primary', true)->with($with)->first();
+        // Authenticated access: return the current user's primary resume.
+        $user = auth('sanctum')->user();
+        if ($user) {
+            $resume = $user->resumes()->where('is_primary', true)->with($with)->first();
 
-        if (!$resume) {
-            return response()->json(['message' => 'No primary resume found.'], 404);
+            if (!$resume) {
+                return response()->json(['message' => 'No primary resume found.'], 404);
+            }
+
+            return response()->json($resume);
+        }
+
+        // Public access: owner username + resume password required.
+        $owner    = (string) $request->query('owner', '');
+        $password = (string) $request->query('password', '');
+
+        if (!$owner || !$password) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
+
+        $ownerUser = \App\Models\User::where('username', $owner)->first();
+
+        if (!$ownerUser) {
+            return response()->json(['message' => 'Resume not found.'], 404);
+        }
+
+        $resume = $ownerUser->resumes()
+            ->where('is_primary', true)
+            ->whereNotNull('password')
+            ->with($with)
+            ->first();
+
+        if (!$resume || !Hash::check($password, $resume->password)) {
+            return response()->json(['message' => 'Invalid credentials.'], 401);
         }
 
         return response()->json($resume);

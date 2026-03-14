@@ -7,6 +7,9 @@ FROM php:${PHP_VERSION}-fpm-alpine
 
 ARG UID=1000
 ARG GID=1000
+# Set to "true" in docker-compose for local dev to include require-dev packages in the image.
+# Leave false (default) for production builds so dev packages are never shipped.
+ARG INSTALL_DEV_DEPS=false
 
 RUN addgroup -g ${GID} laravel && \
     adduser -D -u ${UID} -G laravel laravel
@@ -51,7 +54,11 @@ COPY --chown=laravel:laravel . .
 RUN mkdir -p database bootstrap/cache && \
     touch database/database.sqlite && \
     chmod 664 database/database.sqlite && \
-    composer install --optimize-autoloader --no-dev --no-interaction --no-progress && \
+    if [ "${INSTALL_DEV_DEPS}" = "true" ]; then \
+        composer install --optimize-autoloader --no-interaction --no-progress; \
+    else \
+        composer install --optimize-autoloader --no-dev --no-interaction --no-progress; \
+    fi && \
     chmod -R 775 storage bootstrap/cache database && \
     php artisan package:discover --ansi && \
     php artisan vendor:publish --provider="Knuckles\Scribe\ScribeServiceProvider" --tag=scribe-assets --force
