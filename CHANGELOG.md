@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - **`ResumeSeeder`**: Corrected skill `category` seed values to match the new ENUM (old values `Languages`, `Frameworks`, `Tools`, `Cloud`, `Databases` replaced by `programming_languages`, `query_languages`, `frameworks`, `development_tools`, `cloud_platforms`, `databases`).
+- **`ResumeSeeder`**: Fixed foreign key constraint failure — the resume is now linked to the admin user looked up by email instead of the hardcoded `user_id = 1`, which may not exist after repeated migrations/seeds.
 - **`docker/entrypoint.sh`**: Removed the `APP_KEY` auto-generation block — the key must be set as a persistent environment variable. Made `php artisan optimize` non-fatal: logs a warning and continues startup instead of aborting when the command fails.
 
 ## [0.7.0] - 2026-03-13
