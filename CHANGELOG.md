@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [0.8.1] - 2026-03-14
+
+### Added
+- **Resume public sharing**: Added `is_public` boolean and `code` string columns to the `resumes` table, enabling access-controlled public sharing.
+  - `GET /api/resumes/{id}/public` — view a resume without authentication (respects `is_public` / `code` access control).
+  - `GET /api/resumes/current/main` — returns a simplified view of the primary resume (public).
+- **Countries endpoints**:
+  - `GET /api/settings/countries` — list of world countries with labels translated to `en` or `fi`.
+  - `GET /api/settings/countries/{code}` — single country by ISO 3166-1 alpha-2 code.
+- **Tax rates endpoints**:
+  - `GET /api/settings/taxrates` — standard VAT/GST rates for all supported country codes.
+  - `GET /api/settings/taxrates/{code}` — rate for a single country code.
+- **Tax rate on products**: Added `tax_rate` decimal column to the `products` table.
+- **Invoice options endpoint**: `GET /api/invoices/options` — returns available statuses and item types with translated labels (public, no auth required).
+- **Invoice email endpoints**:
+  - `POST /api/invoices/export/email` — public invoice export delivered by email.
+  - `POST /api/invoices/{id}/send` — send an existing invoice by email (public).
+- **Resume spoken-language translations**: Extended `lang/en/resume.php` and `lang/fi/resume.php` with labels for ~100 spoken languages (ISO 639-1 codes).
+- **`points` field on skills and languages**: `ResumeSkill` and `ResumeLanguage` now expose a computed `points` property (1–5) mapped from `proficiency`. Included automatically in all responses (authenticated and public endpoints).
+  - Skill levels: `beginner` = 1, `basic` = 2, `intermediate` = 3, `advanced` = 4, `expert` = 5.
+  - Language levels: `elementary` = 1, `limited_working` = 2, `professional_working` = 3, `full_professional` = 4, `native_bilingual` = 5.
+
+### Changed
+- **`resume_skills.category` ENUM**: Converted from free-text string to a strict MySQL ENUM with 50 granular values (`programming_languages`, `query_languages`, `frameworks`, `cloud_platforms`, `development_tools`, `databases`, … `other`). Added `other` as a catch-all value.
+- **`invoices.invoice_number`**: Made nullable — the number is auto-assigned when the invoice is issued rather than required at creation time.
+- **Resume proficiency levels**: Updated proficiency ENUM values for both skills (`resume_skills`) and spoken languages (`resume_languages`) to align with the new skill-category schema.
+
+### Fixed
+- **`ResumeSeeder`**: Corrected skill `category` seed values to match the new ENUM (old values `Languages`, `Frameworks`, `Tools`, `Cloud`, `Databases` replaced by `programming_languages`, `query_languages`, `frameworks`, `development_tools`, `cloud_platforms`, `databases`).
+- **`docker/entrypoint.sh`**: Removed the `APP_KEY` auto-generation block — the key must be set as a persistent environment variable. Made `php artisan optimize` non-fatal: logs a warning and continues startup instead of aborting when the command fails.
+
 ## [0.7.0] - 2026-03-13
 
 ### Added

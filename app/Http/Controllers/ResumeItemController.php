@@ -54,6 +54,20 @@ class ResumeItemController extends Controller
      * @authenticated
      * @urlParam resumeId integer required Resume ID. Example: 1
      * @urlParam section string required Section slug. Example: work-experiences
+     *
+     * Skill proficiency levels (section: skills):
+     * - 1 `beginner`      — Just starting out
+     * - 2 `basic`         — Can handle simple tasks
+     * - 3 `intermediate`  — Works independently on common tasks
+     * - 4 `advanced`      — Handles complex scenarios confidently
+     * - 5 `expert`        — Deep mastery
+     *
+     * Spoken-language proficiency levels (section: languages):
+     * - 1 `elementary`             — Basic words and phrases
+     * - 2 `limited_working`        — Can handle routine communication
+     * - 3 `professional_working`   — Effective in most work situations
+     * - 4 `full_professional`      — Precise in demanding contexts
+     * - 5 `native_bilingual`       — Native or bilingual fluency
      */
     public function store(Request $request, int $resumeId, string $section): JsonResponse
     {
@@ -75,6 +89,20 @@ class ResumeItemController extends Controller
      * @urlParam resumeId integer required Resume ID. Example: 1
      * @urlParam section string required Section slug. Example: work-experiences
      * @urlParam itemId integer required Item ID. Example: 3
+     *
+     * Skill proficiency levels (section: skills):
+     * - 1 `beginner`      — Just starting out
+     * - 2 `basic`         — Can handle simple tasks
+     * - 3 `intermediate`  — Works independently on common tasks
+     * - 4 `advanced`      — Handles complex scenarios confidently
+     * - 5 `expert`        — Deep mastery
+     *
+     * Spoken-language proficiency levels (section: languages):
+     * - 1 `elementary`             — Basic words and phrases
+     * - 2 `limited_working`        — Can handle routine communication
+     * - 3 `professional_working`   — Effective in most work situations
+     * - 4 `full_professional`      — Precise in demanding contexts
+     * - 5 `native_bilingual`       — Native or bilingual fluency
      */
     public function update(Request $request, int $resumeId, string $section, int $itemId): JsonResponse
     {

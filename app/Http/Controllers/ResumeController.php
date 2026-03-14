@@ -106,9 +106,11 @@ class ResumeController extends Controller
      * @bodyParam work_experiences array Optional work experience entries.
      * @bodyParam educations array Optional education entries.
      * @bodyParam skills array Optional skill entries.
+     * @bodyParam skills[].proficiency string Skill level: `beginner` (1), `basic` (2), `intermediate` (3), `advanced` (4), `expert` (5).
      * @bodyParam projects array Optional project entries.
      * @bodyParam certifications array Optional certification entries.
      * @bodyParam languages array Optional language entries.
+     * @bodyParam languages[].proficiency string Spoken-language level: `elementary` (1), `limited_working` (2), `professional_working` (3), `full_professional` (4), `native_bilingual` (5).
      * @bodyParam awards array Optional award entries.
      */
     public function store(Request $request): JsonResponse
@@ -168,6 +170,8 @@ class ResumeController extends Controller
      * @group Resumes
      * @authenticated
      * @urlParam resume integer required The resume ID. Example: 1
+     * @bodyParam skills[].proficiency string Skill level: `beginner` (1), `basic` (2), `intermediate` (3), `advanced` (4), `expert` (5).
+     * @bodyParam languages[].proficiency string Spoken-language level: `elementary` (1), `limited_working` (2), `professional_working` (3), `full_professional` (4), `native_bilingual` (5).
      */
     public function update(Request $request, int $id): JsonResponse
     {
