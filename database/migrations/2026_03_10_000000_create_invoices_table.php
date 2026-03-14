@@ -16,7 +16,7 @@ return new class extends Migration
                 $table->id();
                 $table->foreignId('order_id')->constrained()->cascadeOnDelete();
                 $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-                $table->string('invoice_number')->unique();
+                $table->string('invoice_number')->nullable()->unique();
                 $table->string('customer_first_name')->nullable();
                 $table->string('customer_last_name')->nullable();
                 $table->string('customer_email')->nullable();
