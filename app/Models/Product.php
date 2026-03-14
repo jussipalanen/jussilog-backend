@@ -22,6 +22,8 @@ class Product extends Model
         'description',
         'price',
         'sale_price',
+        'tax_code',
+        'tax_rate',
         'quantity',
         'featured_image',
         'featured_image_sizes',
@@ -38,6 +40,7 @@ class Product extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'sale_price' => 'decimal:2',
+        'tax_rate' => 'decimal:4',
         'quantity' => 'integer',
         'images' => 'array',
         'images_sizes' => 'array',

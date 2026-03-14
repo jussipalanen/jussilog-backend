@@ -7,8 +7,10 @@ FROM php:${PHP_VERSION}-fpm-alpine
 
 ARG UID=1000
 ARG GID=1000
+# Set to "true" in docker-compose for local dev to include require-dev packages in the image.
+# Leave false (default) for production builds so dev packages are never shipped.
+ARG INSTALL_DEV_DEPS=false
 
-# Create laravel user with host UID/GID
 RUN addgroup -g ${GID} laravel && \
     adduser -D -u ${UID} -G laravel laravel
 
@@ -30,17 +32,7 @@ RUN apk add --no-cache \
     nodejs \
     npm \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install pdo_sqlite pdo_mysql gd opcache \
-    && { \
-        echo 'opcache.enable=1'; \
-        echo 'opcache.enable_cli=0'; \
-        echo 'opcache.validate_timestamps=0'; \
-        echo 'opcache.save_comments=1'; \
-        echo 'opcache.memory_consumption=128'; \
-        echo 'opcache.interned_strings_buffer=8'; \
-        echo 'opcache.max_accelerated_files=10000'; \
-        echo 'opcache.revalidate_freq=0'; \
-    } > /usr/local/etc/php/conf.d/docker-php-opcache.prod.ini
+    && docker-php-ext-install pdo_sqlite pdo_mysql gd opcache
 
 # Tell Browsershot/Chromium where the binary lives and disable sandbox (required in containers)
 ENV CHROME_PATH=/usr/bin/chromium-browser
@@ -56,40 +48,26 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy ONLY composer files first (better cache)
-COPY composer.json composer.lock ./
-
-# Install PHP dependencies (cached if composer files unchanged)
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress --prefer-dist --no-scripts --no-autoloader
-
-# Copy application files AFTER dependencies installed
-COPY . .
+COPY --chown=laravel:laravel . .
 
 # SQLite database file (used in local dev via docker-compose.sqlite.yml)
-RUN mkdir -p database && \
+RUN mkdir -p database bootstrap/cache && \
     touch database/database.sqlite && \
-    chmod 664 database/database.sqlite
-
-# Ensure Laravel cache directories exist before running artisan commands
-RUN mkdir -p bootstrap/cache storage/framework/cache storage/framework/sessions storage/framework/views
-
-# Clear bootstrap cache to avoid cached dev dependencies
-RUN rm -f bootstrap/cache/packages.php bootstrap/cache/services.php
-
-# Complete composer autoloader
-RUN composer dump-autoload --optimize --classmap-authoritative && \
-    php artisan package:discover --ansi
-
-# Publish Scribe CSS/JS assets so they are baked into the image
-RUN php artisan vendor:publish --provider="Knuckles\Scribe\ScribeServiceProvider" --tag=scribe-assets --force
-
-# Set permissions for Laravel
-RUN chown -R laravel:laravel /var/www/html && \
-    chmod -R 755 /var/www/html && \
-    chmod -R 775 storage bootstrap/cache
+    chmod 664 database/database.sqlite && \
+    if [ "${INSTALL_DEV_DEPS}" = "true" ]; then \
+        composer install --optimize-autoloader --no-interaction --no-progress; \
+    else \
+        composer install --optimize-autoloader --no-dev --no-interaction --no-progress; \
+    fi && \
+    chmod -R 775 storage bootstrap/cache database && \
+    php artisan package:discover --ansi && \
+    php artisan vendor:publish --provider="Knuckles\Scribe\ScribeServiceProvider" --tag=scribe-assets --force
 
 # Copy PHP-FPM pool configuration
 COPY docker/www.conf /usr/local/etc/php-fpm.d/www.conf
+
+# Copy OPcache configuration
+COPY docker/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 # Copy Nginx configuration
 COPY docker/nginx.conf /etc/nginx/http.d/default.conf
@@ -98,8 +76,5 @@ COPY docker/nginx.conf /etc/nginx/http.d/default.conf
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Expose port (Cloud Run will inject PORT env variable)
 EXPOSE 8080
-
-# Set entrypoint
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

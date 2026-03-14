@@ -8,6 +8,7 @@ Jussilog is a modern multi-feature API built with Laravel 10, designed for easy 
 
 - **Product Management**: Full CRUD operations for products with inventory tracking, pricing, images, and visibility controls
 - **Order Management**: Full CRUD for orders and order items, with authenticated user order history
+- **Invoice Management**: Full CRUD for invoices and invoice items, auto-generated from orders with sequential invoice numbers (`INV-YYYY-NNNNN`), status lifecycle (draft → issued → paid → cancelled), PDF/HTML export, and customer-scoped access control
 - **Resume Builder**: Full CRUD for resumes with section management (work experience, education, skills, projects, certifications, languages, awards, recommendations)
 - **Resume Photo Upload**: Upload and store a professional photo per resume, with automatic thumbnail generation (thumb 80×80, small 200×200, medium 400×400)
 - **Resume Export**: Export resumes as PDF or HTML with theme and template selection, Finnish/English language support
@@ -290,7 +291,7 @@ Export a resume directly from a JSON payload — nothing is stored in the databa
 | `gpa` | number | no |
 | `sort_order` | integer | no |
 
-**`skills[]`** — `category`, `name` (required), `proficiency` (`beginner`/`intermediate`/`expert`, required), `sort_order`
+**`skills[]`** — `category`, `name` (required), `proficiency` (`beginner`/`basic`/`intermediate`/`advanced`/`expert`, required), `sort_order`
 
 **`projects[]`** — `name` (required), `description`, `technologies[]`, `live_url`, `github_url`, `sort_order`
 
@@ -354,6 +355,28 @@ curl -X POST http://localhost:8000/api/resumes/export/pdf \
 - `DELETE /api/resumes/{resumeId}/{section}/{itemId}` - Delete a resume section item
 
 Valid `{section}` values: `work-experiences`, `educations`, `skills`, `projects`, `certifications`, `languages`, `awards`, `recommendations`
+
+### Invoice Endpoints
+
+**Public (no authentication)**
+
+- `POST /api/invoices/export/pdf` - Export an invoice as a downloadable PDF from a JSON payload (no database save)
+- `POST /api/invoices/export/html` - Export an invoice as a downloadable HTML file from a JSON payload (no database save)
+
+**Protected (Sanctum Authentication)**
+
+Customers can only read their own invoices. Create, update, and delete require admin or vendor role.
+
+- `GET /api/invoices` - List invoices (paginated; filterable by `order_id`, `user_id`, `status`; sortable)
+- `GET /api/invoices/{id}` - Get a single invoice with items, order, and user
+- `GET /api/invoices/{id}/pdf` - Download the invoice as a PDF file
+- `POST /api/invoices` - Create an invoice from an order (auto-generates items from order lines) *(admin, vendor)*
+- `PUT /api/invoices/{id}` - Update invoice fields and sync items *(admin, vendor)*
+- `DELETE /api/invoices/{id}` - Delete an invoice *(admin, vendor)*
+
+**Invoice statuses:** `draft`, `issued`, `paid`, `cancelled`
+
+**Invoice item types:** `product`, `shipping`, `discount`, `adjustment`
 
 ### Admin Endpoints (Sanctum Authentication + Admin Role)
 
@@ -742,6 +765,8 @@ gcloud run jobs update user-create-job \
 - **Environment Variables**: Set `APP_KEY`, `APP_ENV=production`, and `APP_DEBUG=false` via Cloud Run console or CLI.
 - **Logging**: Application logs are sent to stdout/stderr and available in Cloud Logging.
 - **Port**: Cloud Run automatically injects the `PORT` environment variable; the entrypoint script handles this.
+- **Startup Work**: The production container now skips migrations and Laravel cache warming at startup by default to reduce cold-start time and instance CPU usage.
+- **Optional Startup Flags**: Set `RUN_MIGRATIONS_AT_STARTUP=true`, `WARM_LARAVEL_CACHE_AT_STARTUP=true`, or `FIX_PERMISSIONS_AT_STARTUP=true` only when you explicitly need that behavior.
 
 ## Docker Files Overview
 
@@ -749,7 +774,7 @@ gcloud run jobs update user-create-job \
 - **`docker-compose.yml`**: Local development environment with volume persistence
 - **`.dockerignore`**: Optimizes build context by excluding unnecessary files
 - **`docker/nginx.conf`**: Laravel-optimized Nginx configuration
-- **`docker/entrypoint.sh`**: Container startup script that handles migrations, caching, and dynamic port configuration
+- **`docker/entrypoint.sh`**: Container startup script that handles dynamic port configuration and optional startup tasks
 
 ## Database
 

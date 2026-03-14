@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('resume_id')->constrained('resumes')->cascadeOnDelete();
             $table->string('language');
-            $table->enum('proficiency', ['native', 'fluent', 'conversational', 'basic']);
+            $table->enum('proficiency', ['native_bilingual', 'full_professional', 'professional_working', 'limited_working', 'elementary']);
             $table->unsignedSmallInteger('sort_order')->default(0);
             $table->timestamps();
 

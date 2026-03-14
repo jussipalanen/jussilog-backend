@@ -3,6 +3,16 @@ set -e
 
 echo "Starting JussiLog Backend..."
 
+APP_ENV="${APP_ENV:-production}"
+
+# Generate APP_KEY if not set or empty
+if [ -z "${APP_KEY:-}" ]; then
+    echo "APP_KEY is missing — generating a new one..."
+    APP_KEY="$(su laravel -s /bin/sh -c 'php artisan key:generate --show --no-ansi')"
+    export APP_KEY
+    echo "Generated APP_KEY (in-memory only — set it as a persistent env var to avoid regeneration on every restart)."
+fi
+
 # Get port from environment (Cloud Run sets this, default to 8080)
 PORT="${PORT:-8080}"
 echo "Using port: $PORT"
@@ -16,12 +26,42 @@ mkdir -p /var/www/html/storage/framework/cache \
          /var/www/html/storage/framework/sessions \
          /var/www/html/storage/framework/views \
          /var/www/html/storage/logs \
-         /var/www/html/bootstrap/cache
+         /var/www/html/bootstrap/cache \
+         /var/www/html/database
 
-# Fix ownership and permissions for bind-mounted directories
-# This ensures the laravel user can write to these directories
-chown -R laravel:laravel /var/www/html/storage /var/www/html/bootstrap/cache 2>/dev/null || true
-chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache 2>/dev/null || true
+FIX_PERMISSIONS_AT_STARTUP="${FIX_PERMISSIONS_AT_STARTUP:-}"
+if [ -z "$FIX_PERMISSIONS_AT_STARTUP" ]; then
+    if [ "$APP_ENV" = "local" ]; then
+        FIX_PERMISSIONS_AT_STARTUP=true
+    else
+        FIX_PERMISSIONS_AT_STARTUP=false
+    fi
+fi
+
+RUN_MIGRATIONS_AT_STARTUP="${RUN_MIGRATIONS_AT_STARTUP:-}"
+if [ -z "$RUN_MIGRATIONS_AT_STARTUP" ]; then
+    if [ "$APP_ENV" = "local" ]; then
+        RUN_MIGRATIONS_AT_STARTUP=true
+    else
+        RUN_MIGRATIONS_AT_STARTUP=false
+    fi
+fi
+
+WARM_LARAVEL_CACHE_AT_STARTUP="${WARM_LARAVEL_CACHE_AT_STARTUP:-false}"
+CLEAR_LARAVEL_CACHE_AT_STARTUP="${CLEAR_LARAVEL_CACHE_AT_STARTUP:-}"
+if [ -z "$CLEAR_LARAVEL_CACHE_AT_STARTUP" ]; then
+    if [ "$APP_ENV" = "local" ]; then
+        CLEAR_LARAVEL_CACHE_AT_STARTUP=true
+    else
+        CLEAR_LARAVEL_CACHE_AT_STARTUP=false
+    fi
+fi
+
+if [ "$FIX_PERMISSIONS_AT_STARTUP" = "true" ]; then
+    echo "Fixing writable directory permissions..."
+    chown -R laravel:laravel /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database 2>/dev/null || true
+    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database 2>/dev/null || true
+fi
 
 # Get database connection type
 DB_CONNECTION="${DB_CONNECTION:-mysql}"
@@ -46,8 +86,8 @@ if [ "$DB_CONNECTION" = "sqlite" ]; then
     chown laravel:laravel /var/www/html/database /var/www/html/database/database.sqlite 2>/dev/null || true
     chmod -R 775 /var/www/html/database 2>/dev/null || true
 
-elif [ "$DB_CONNECTION" = "mysql" ]; then
-    echo "Setting up MySQL database..."
+elif [ "$DB_CONNECTION" = "mysql" ] && [ "$RUN_MIGRATIONS_AT_STARTUP" = "true" ]; then
+    echo "Preparing MySQL for startup migrations..."
     
     DB_HOST="${DB_HOST:-127.0.0.1}"
     DB_SOCKET="${DB_SOCKET:-}"
@@ -88,13 +128,16 @@ elif [ "$DB_CONNECTION" = "mysql" ]; then
     echo "Database ready!"
 fi
 
-# In local development: run a full composer install (including dev dependencies)
-# so tools like PHPUnit/Faker are accessible inside the container.
-# In production: vendor is already baked into the image by the Dockerfile — skip to
-# avoid redundant network calls and accidental installation of dev packages.
+# In local development: composer install with dev packages is baked into the image
+# via the INSTALL_DEV_DEPS=true build arg.  Only fall back to a runtime install if
+# the image was built without that flag (e.g. someone ran a plain `docker build`).
 if [ "$APP_ENV" = "local" ]; then
-    echo "Installing Composer dependencies (local, with dev)..."
-    su laravel -s /bin/sh -c "composer install --no-interaction --no-progress --prefer-dist --optimize-autoloader" || true
+    if [ ! -d /var/www/html/vendor/fakerphp ]; then
+        echo "Dev packages not found in vendor — running composer install (dev)..."
+        su laravel -s /bin/sh -c "composer install --no-interaction --no-progress --prefer-dist --optimize-autoloader"
+    else
+        echo "Dev packages already present in image — skipping runtime composer install."
+    fi
 else
     echo "Skipping runtime composer install (vendor baked into image for $APP_ENV)."
 fi
@@ -108,7 +151,7 @@ fi
 # Create storage link if it doesn't exist
 if [ ! -L /var/www/html/public/storage ]; then
     echo "Creating storage link..."
-    su laravel -s /bin/sh -c "php artisan storage:link" || true
+    su-exec laravel php artisan storage:link || true
 fi
 
 # Production optimizations (skip in local development)

@@ -8,6 +8,7 @@ services:
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
+        INSTALL_DEV_DEPS: "true"
     container_name: jussilog-backend
     restart: unless-stopped
     ports:
@@ -49,11 +50,15 @@ services:
 
       # Hot-reload development mounts (optional - comment out for production)
       - ./app:/var/www/html/app
+      - ./lang:/var/www/html/lang
       - ./routes:/var/www/html/routes
       - ./resources:/var/www/html/resources
       - ./config:/var/www/html/config
       - ./public:/var/www/html/public
       - ./database:/var/www/html/database
+      # Test files (excluded from the image via .dockerignore — mount for local dev)
+      - ./tests:/var/www/html/tests
+      - ./phpunit.xml:/var/www/html/phpunit.xml
     depends_on:
       mysql:
         condition: service_healthy

@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AdminThumbnailController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeItemController;
+use App\Http\Controllers\TaxRateController;
 use App\Http\Controllers\UploadTestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingsController;
@@ -27,37 +29,16 @@ use Illuminate\Support\Facades\Route;
 /**
  * Get the authenticated user.
  *
- * @group Auth
+ * @group         Auth
  * @authenticated
  */
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    $user = $request->user();
-    $user->load('roles');
+Route::middleware('auth:sanctum')->get(
+    '/user', function (Request $request) {
+        $user = $request->user();
+        $user->load('roles');
 
-    return response()->json([
-        'id' => $user->id,
-        'first_name' => $user->first_name,
-        'last_name' => $user->last_name,
-        'username' => $user->username,
-        'name' => $user->name,
-        'email' => $user->email,
-        'roles' => $user->roles->pluck('name'),
-    ]);
-});
-
-/**
- * Get the authenticated user with metadata.
- *
- * @group Auth
- * @authenticated
- */
-Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
-    $user = $request->user();
-    $user->load('roles');
-
-    return response()->json([
-        'user_id' => $user?->id,
-        'user' => [
+        return response()->json(
+            [
             'id' => $user->id,
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
@@ -65,9 +46,38 @@ Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
             'name' => $user->name,
             'email' => $user->email,
             'roles' => $user->roles->pluck('name'),
-        ],
-    ]);
-});
+            ]
+        );
+    }
+);
+
+/**
+ * Get the authenticated user with metadata.
+ *
+ * @group         Auth
+ * @authenticated
+ */
+Route::middleware('auth:sanctum')->get(
+    '/me', function (Request $request) {
+        $user = $request->user();
+        $user->load('roles');
+
+        return response()->json(
+            [
+            'user_id' => $user?->id,
+            'user' => [
+            'id' => $user->id,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'username' => $user->username,
+            'name' => $user->name,
+            'email' => $user->email,
+            'roles' => $user->roles->pluck('name'),
+            ],
+            ]
+        );
+    }
+);
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -84,9 +94,11 @@ Route::middleware('auth:sanctum')->get('/check-auth', [AuthController::class, 'c
  *
  * @group Health
  */
-Route::get('/hello', function () {
-    return 'Hello world from Laravel! This is a test route to check if the API is working.';
-});
+Route::get(
+    '/hello', function () {
+        return 'Hello world from Laravel! This is a test route to check if the API is working.';
+    }
+);
 
 // Upload test route
 Route::post('/upload-test', [UploadTestController::class, 'upload']);
@@ -105,6 +117,33 @@ Route::get('/orders/{id}', [OrderController::class, 'show']);
 Route::put('/orders/{id}', [OrderController::class, 'update']);
 Route::delete('/orders/{id}', [OrderController::class, 'destroy']);
 Route::middleware('auth:sanctum')->get('/my-orders', [OrderController::class, 'myOrders']);
+Route::middleware('auth:sanctum')->get('/my-invoices', [InvoiceController::class, 'myInvoices']);
+
+// Invoice routes
+// - Admin & Vendor: full access
+// - Customer: read-only, own invoices only (scoped in controller)
+
+Route::get('/invoices/options', [InvoiceController::class, 'options']);
+
+// Public invoice export (no auth, no database save)
+Route::post('/invoices/export/pdf', [InvoiceController::class, 'exportPdf']);
+Route::post('/invoices/export/html', [InvoiceController::class, 'exportHtml']);
+Route::post('/invoices/export/email', [InvoiceController::class, 'exportEmail']);
+
+// Public invoice send (no auth)
+Route::post('/invoices/{id}/send', [InvoiceController::class, 'sendEmail']);
+
+Route::middleware('auth:sanctum')->group(
+    function () {
+        Route::get('/invoices', [InvoiceController::class, 'index']);
+        Route::get('/invoices/{id}', [InvoiceController::class, 'show']);
+        Route::get('/invoices/{id}/pdf', [InvoiceController::class, 'pdf']);
+        Route::get('/invoices/{id}/html', [InvoiceController::class, 'html']);
+        Route::post('/invoices', [InvoiceController::class, 'store'])->middleware('role:admin,vendor');
+        Route::put('/invoices/{id}', [InvoiceController::class, 'update'])->middleware('role:admin,vendor');
+        Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy'])->middleware('role:admin,vendor');
+    }
+);
 
 
 // User routes
@@ -118,6 +157,8 @@ Route::patch('/users/update-role', [UserController::class, 'updateRole']);
 
 // Settings routes
 Route::get('/settings/languages', [SettingsController::class, 'languages']);
+Route::get('/settings/countries', [SettingsController::class, 'countries']);
+Route::get('/settings/countries/{code}', [SettingsController::class, 'country']);
 
 // Visitor routes
 Route::post('/visitors/track', [VisitorController::class, 'track']);
@@ -130,10 +171,15 @@ $sectionPattern = 'work-experiences|educations|skills|projects|certifications|la
 Route::get('/resumes/export/options', [ResumeController::class, 'exportOptions']);
 Route::post('/resumes/export/pdf', [ResumeController::class, 'exportPdfPublic']);
 Route::post('/resumes/export/html', [ResumeController::class, 'exportHtmlPublic']);
+Route::get('/resumes/current', [ResumeController::class, 'current']);
+Route::get('/resumes/current/main', [ResumeController::class, 'currentMain']);
+Route::get('/resumes/{id}/public', [ResumeController::class, 'showPublic']);
+
+Route::get('/settings/taxrates', [TaxRateController::class, 'index']);
+Route::get('/settings/taxrates/{code}', [TaxRateController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () use ($sectionPattern) {
     // Resume CRUD
-    Route::get('/resumes/current', [ResumeController::class, 'current']);
     Route::get('/resumes', [ResumeController::class, 'index']);
     Route::post('/resumes', [ResumeController::class, 'store']);
     Route::get('/resumes/{id}', [ResumeController::class, 'show']);

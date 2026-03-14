@@ -28,12 +28,24 @@ class Resume extends Model
         'template',
         'theme',
         'is_primary',
+        'is_public',
+        'code',
     ];
+
+    protected $hidden = [];
+
+    protected $appends = ['has_code'];
 
     protected $casts = [
         'photo_sizes' => 'array',
         'is_primary'  => 'boolean',
+        'is_public'   => 'boolean',
     ];
+
+    public function getHasCodeAttribute(): bool
+    {
+        return !empty($this->attributes['code']);
+    }
 
     public function user(): BelongsTo
     {
