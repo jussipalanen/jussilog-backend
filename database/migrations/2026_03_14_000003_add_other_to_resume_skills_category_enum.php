@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         if (DB::getDriverName() !== 'sqlite') {
-            DB::statement('ALTER TABLE resume_skills MODIFY category ENUM(' . self::ENUM_VALUES . ') NULL');
+            DB::statement('ALTER TABLE resume_skills MODIFY category ENUM('.self::ENUM_VALUES.') NULL');
         }
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
         DB::statement("UPDATE resume_skills SET category = NULL WHERE category = 'other'");
 
         if (DB::getDriverName() !== 'sqlite') {
-            DB::statement('ALTER TABLE resume_skills MODIFY category ENUM(' . self::PREV_ENUM_VALUES . ') NULL');
+            DB::statement('ALTER TABLE resume_skills MODIFY category ENUM('.self::PREV_ENUM_VALUES.') NULL');
         }
     }
 };

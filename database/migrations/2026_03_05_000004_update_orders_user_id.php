@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         // Only run this migration if the orders table has customer_id (old schema)
-        // or doesn't have user_id column yet. If it already has user_id and no 
+        // or doesn't have user_id column yet. If it already has user_id and no
         // customer_id, it means the table was created with the new schema.
         if (Schema::hasTable('orders') && Schema::hasColumn('orders', 'customer_id')) {
             $driver = Schema::getConnection()->getDriverName();
@@ -71,20 +71,20 @@ return new class extends Migration
                 DB::table('orders_backup')->select($selectColumns)->orderBy('id')->chunkById(100, function ($rows) {
                     foreach ($rows as $row) {
                         DB::table('orders')->insert([
-                            'id' => $row->id,
-                            'user_id' => property_exists($row, 'user_id') ? $row->user_id : null,
+                            'id'                  => $row->id,
+                            'user_id'             => property_exists($row, 'user_id') ? $row->user_id : null,
                             'customer_first_name' => property_exists($row, 'customer_first_name') ? $row->customer_first_name : null,
-                            'customer_last_name' => property_exists($row, 'customer_last_name') ? $row->customer_last_name : null,
-                            'customer_email' => property_exists($row, 'customer_email') ? $row->customer_email : null,
-                            'customer_phone' => property_exists($row, 'customer_phone') ? $row->customer_phone : null,
-                            'order_number' => $row->order_number,
-                            'status' => $row->status,
-                            'total_amount' => $row->total_amount,
-                            'shipping_address' => $row->shipping_address,
-                            'billing_address' => $row->billing_address,
-                            'notes' => $row->notes,
-                            'created_at' => $row->created_at,
-                            'updated_at' => $row->updated_at,
+                            'customer_last_name'  => property_exists($row, 'customer_last_name') ? $row->customer_last_name : null,
+                            'customer_email'      => property_exists($row, 'customer_email') ? $row->customer_email : null,
+                            'customer_phone'      => property_exists($row, 'customer_phone') ? $row->customer_phone : null,
+                            'order_number'        => $row->order_number,
+                            'status'              => $row->status,
+                            'total_amount'        => $row->total_amount,
+                            'shipping_address'    => $row->shipping_address,
+                            'billing_address'     => $row->billing_address,
+                            'notes'               => $row->notes,
+                            'created_at'          => $row->created_at,
+                            'updated_at'          => $row->updated_at,
                         ]);
                     }
                 });
@@ -96,7 +96,7 @@ return new class extends Migration
                         $table->dropForeign(['customer_id']);
                         $table->dropColumn('customer_id');
                     }
-                    if (!Schema::hasColumn('orders', 'user_id')) {
+                    if (! Schema::hasColumn('orders', 'user_id')) {
                         $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
                         $table->index('user_id');
                     }
@@ -151,16 +151,16 @@ return new class extends Migration
                 )->orderBy('id')->chunkById(100, function ($rows) {
                     foreach ($rows as $row) {
                         DB::table('orders')->insert([
-                            'id' => $row->id,
-                            'customer_id' => null,
-                            'order_number' => $row->order_number,
-                            'status' => $row->status,
-                            'total_amount' => $row->total_amount,
+                            'id'               => $row->id,
+                            'customer_id'      => null,
+                            'order_number'     => $row->order_number,
+                            'status'           => $row->status,
+                            'total_amount'     => $row->total_amount,
                             'shipping_address' => $row->shipping_address,
-                            'billing_address' => $row->billing_address,
-                            'notes' => $row->notes,
-                            'created_at' => $row->created_at,
-                            'updated_at' => $row->updated_at,
+                            'billing_address'  => $row->billing_address,
+                            'notes'            => $row->notes,
+                            'created_at'       => $row->created_at,
+                            'updated_at'       => $row->updated_at,
                         ]);
                     }
                 });
@@ -173,14 +173,14 @@ return new class extends Migration
                         $table->dropIndex(['user_id']);
                         $table->dropColumn('user_id');
                     }
-                    if (!Schema::hasColumn('orders', 'customer_id')) {
+                    if (! Schema::hasColumn('orders', 'customer_id')) {
                         $table->foreignId('customer_id')->nullable();
                     }
                 });
             }
         }
 
-        if (!Schema::hasTable('customers')) {
+        if (! Schema::hasTable('customers')) {
             Schema::create('customers', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();

@@ -29,11 +29,11 @@ class UserCreate extends Command
     public function handle(): int
     {
         $firstName = $this->option('first-name') ?? $this->ask('First name');
-        $lastName = $this->option('last-name') ?? $this->ask('Last name');
-        $username = $this->option('username') ?? $this->ask('Username');
-        $name = $this->option('name');
-        $email = $this->option('email') ?? $this->ask('Email');
-        $password = $this->option('password') ?? $this->secret('Password');
+        $lastName  = $this->option('last-name') ?? $this->ask('Last name');
+        $username  = $this->option('username') ?? $this->ask('Username');
+        $name      = $this->option('name');
+        $email     = $this->option('email') ?? $this->ask('Email');
+        $password  = $this->option('password') ?? $this->secret('Password');
         $roleValue = $this->resolveRoleValue($this->option('role'));
 
         if (empty($firstName) || empty($lastName) || empty($username) || empty($email) || empty($password) || empty($roleValue)) {
@@ -42,7 +42,7 @@ class UserCreate extends Command
             return self::FAILURE;
         }
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->error('Email format is invalid.');
 
             return self::FAILURE;
@@ -66,11 +66,11 @@ class UserCreate extends Command
 
         $user = User::query()->create([
             'first_name' => $firstName,
-            'last_name' => $lastName,
-            'username' => $username,
-            'name' => $name,
-            'email' => $email,
-            'password' => Hash::make($password),
+            'last_name'  => $lastName,
+            'username'   => $username,
+            'name'       => $name,
+            'email'      => $email,
+            'password'   => Hash::make($password),
         ]);
 
         $roleModel = Role::query()->firstOrCreate(['name' => $roleValue]);
@@ -92,7 +92,7 @@ class UserCreate extends Command
                 return $normalized;
             }
 
-                if (!$this->input->isInteractive()) {
+            if (! $this->input->isInteractive()) {
                 $this->error('Role must be one of: '.implode(', ', $this->roleKeys($cases)).'.');
 
                 return null;
@@ -107,7 +107,7 @@ class UserCreate extends Command
     }
 
     /**
-     * @param array<int, RoleEnum> $cases
+     * @param  array<int, RoleEnum>  $cases
      */
     private function normalizeRole(string $role, array $cases): ?string
     {
@@ -121,7 +121,7 @@ class UserCreate extends Command
     }
 
     /**
-     * @param array<int, RoleEnum> $cases
+     * @param  array<int, RoleEnum>  $cases
      * @return array<int, string>
      */
     private function roleLabels(array $cases): array
@@ -130,7 +130,7 @@ class UserCreate extends Command
     }
 
     /**
-     * @param array<int, RoleEnum> $cases
+     * @param  array<int, RoleEnum>  $cases
      * @return array<int, string>
      */
     private function roleKeys(array $cases): array
@@ -139,7 +139,7 @@ class UserCreate extends Command
     }
 
     /**
-     * @param array<int, RoleEnum> $cases
+     * @param  array<int, RoleEnum>  $cases
      */
     private function labelToValue(string $label, array $cases): string
     {

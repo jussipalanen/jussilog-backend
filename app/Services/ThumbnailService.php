@@ -50,8 +50,9 @@ class ThumbnailService
             : Resume::whereNotNull('photo')->cursor();
 
         $query->each(function (Resume $resume) use (&$processed, &$skipped, &$errors) {
-            if (!$resume->photo) {
+            if (! $resume->photo) {
                 $skipped++;
+
                 return;
             }
 
@@ -121,7 +122,7 @@ class ThumbnailService
                         $changed = true;
                     } catch (\Throwable $e) {
                         $newSizes[] = $product->images_sizes[$i] ?? null;
-                        $errors[] = "Product #{$product->id} image[{$i}]: {$e->getMessage()}";
+                        $errors[]   = "Product #{$product->id} image[{$i}]: {$e->getMessage()}";
                     }
                 }
                 $product->images_sizes = $newSizes;
@@ -217,7 +218,7 @@ class ThumbnailService
     {
         $disk    = Storage::disk($this->diskName());
         $raw     = $disk->get($sourcePath);
-        $manager = new ImageManager(new Driver());
+        $manager = new ImageManager(new Driver);
         $base    = uniqid('', true);
         $ext     = 'jpg';
         $paths   = [];

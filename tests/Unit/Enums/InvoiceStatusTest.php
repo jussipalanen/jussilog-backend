@@ -11,6 +11,8 @@ class InvoiceStatusTest extends TestCase
     {
         $this->assertSame('Draft', InvoiceStatus::DRAFT->label());
         $this->assertSame('Issued', InvoiceStatus::ISSUED->label());
+        $this->assertSame('Unpaid', InvoiceStatus::UNPAID->label());
+        $this->assertSame('Overdue', InvoiceStatus::OVERDUE->label());
         $this->assertSame('Paid', InvoiceStatus::PAID->label());
         $this->assertSame('Cancelled', InvoiceStatus::CANCELLED->label());
     }
@@ -19,14 +21,18 @@ class InvoiceStatusTest extends TestCase
     {
         $this->assertSame('gray', InvoiceStatus::DRAFT->color());
         $this->assertSame('blue', InvoiceStatus::ISSUED->color());
+        $this->assertSame('orange', InvoiceStatus::UNPAID->color());
+        $this->assertSame('red', InvoiceStatus::OVERDUE->color());
         $this->assertSame('green', InvoiceStatus::PAID->color());
-        $this->assertSame('red', InvoiceStatus::CANCELLED->color());
+        $this->assertSame('gray', InvoiceStatus::CANCELLED->color());
     }
 
     public function test_from_resolves_valid_values(): void
     {
         $this->assertSame(InvoiceStatus::DRAFT, InvoiceStatus::from('draft'));
         $this->assertSame(InvoiceStatus::ISSUED, InvoiceStatus::from('issued'));
+        $this->assertSame(InvoiceStatus::UNPAID, InvoiceStatus::from('unpaid'));
+        $this->assertSame(InvoiceStatus::OVERDUE, InvoiceStatus::from('overdue'));
         $this->assertSame(InvoiceStatus::PAID, InvoiceStatus::from('paid'));
         $this->assertSame(InvoiceStatus::CANCELLED, InvoiceStatus::from('cancelled'));
     }
@@ -43,8 +49,8 @@ class InvoiceStatusTest extends TestCase
         $this->assertNull(InvoiceStatus::tryFrom('unknown'));
     }
 
-    public function test_cases_returns_all_four_statuses(): void
+    public function test_cases_returns_all_six_statuses(): void
     {
-        $this->assertCount(4, InvoiceStatus::cases());
+        $this->assertCount(6, InvoiceStatus::cases());
     }
 }

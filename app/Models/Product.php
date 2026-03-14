@@ -38,31 +38,29 @@ class Product extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'price' => 'decimal:2',
-        'sale_price' => 'decimal:2',
-        'tax_rate' => 'decimal:4',
-        'quantity' => 'integer',
-        'images' => 'array',
-        'images_sizes' => 'array',
+        'price'                => 'decimal:2',
+        'sale_price'           => 'decimal:2',
+        'tax_rate'             => 'decimal:4',
+        'quantity'             => 'integer',
+        'images'               => 'array',
+        'images_sizes'         => 'array',
         'featured_image_sizes' => 'array',
-        'visibility' => 'boolean',
+        'visibility'           => 'boolean',
     ];
 
     /**
      * The accessors to append to the model's array form.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $appends = ['featured_image_url', 'featured_image_sizes_urls', 'images_urls', 'images_sizes_urls'];
 
     /**
      * Get the full URL for the featured image.
-     *
-     * @return string|null
      */
     public function getFeaturedImageUrlAttribute(): ?string
     {
-        if (!$this->featured_image) {
+        if (! $this->featured_image) {
             return null;
         }
 
@@ -71,57 +69,52 @@ class Product extends Model
 
     /**
      * Get the full URLs for the featured image thumbnails.
-     *
-     * @return array
      */
     public function getFeaturedImageSizesUrlsAttribute(): array
     {
-        if (!$this->featured_image_sizes || !is_array($this->featured_image_sizes)) {
+        if (! $this->featured_image_sizes) {
             return [];
         }
 
-        return array_map(fn ($path) => $path ? ($this->resolveImageUrl($path) ?? '') : '', $this->featured_image_sizes);
+        return array_map(fn ($path) => $path ? $this->resolveImageUrl($path) : '', $this->featured_image_sizes);
     }
 
     /**
      * Get the full URLs for the images.
-     *
-     * @return array
      */
     public function getImagesUrlsAttribute(): array
     {
-        if (!$this->images || !is_array($this->images)) {
+        if (! $this->images) {
             return [];
         }
 
         return array_map(function ($path) {
-            return $this->resolveImageUrl($path) ?? '';
+            return $this->resolveImageUrl($path);
         }, $this->images);
     }
 
     /**
      * Get the full URLs for all photo thumbnails (parallel array to images).
-     *
-     * @return array
      */
     public function getImagesSizesUrlsAttribute(): array
     {
-        if (!$this->images_sizes || !is_array($this->images_sizes)) {
+        if (! $this->images_sizes) {
             return [];
         }
 
         return array_map(function ($sizes) {
-            if (!is_array($sizes)) {
+            if (! is_array($sizes)) {
                 return [];
             }
-            return array_map(fn ($path) => $path ? ($this->resolveImageUrl($path) ?? '') : '', $sizes);
+
+            return array_map(fn ($path) => $path ? $this->resolveImageUrl($path) : '', $sizes);
         }, $this->images_sizes);
     }
 
-    private function resolveImageUrl(string $path): ?string
+    private function resolveImageUrl(string $path): string
     {
         $diskName = (string) config('filesystems.default');
-        $disk = Storage::disk($diskName);
+        $disk     = Storage::disk($diskName);
         if (method_exists($disk, 'temporaryUrl')) {
             return $disk->temporaryUrl($path, now()->addHour());
         }

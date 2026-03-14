@@ -50,7 +50,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'password'          => 'hashed',
     ];
 
     /**
@@ -83,7 +83,7 @@ class User extends Authenticatable
 
     public function assignRole(RoleEnum|string $role): void
     {
-        $value = $role instanceof RoleEnum ? $role->value : $role;
+        $value     = $role instanceof RoleEnum ? $role->value : $role;
         $roleModel = Role::query()->firstOrCreate(['name' => $value]);
 
         $this->roles()->syncWithoutDetaching([$roleModel->id]);
@@ -94,7 +94,7 @@ class User extends Authenticatable
      */
     public function setRole(RoleEnum|string $role): void
     {
-        $value = $role instanceof RoleEnum ? $role->value : $role;
+        $value     = $role instanceof RoleEnum ? $role->value : $role;
         $roleModel = Role::query()->firstOrCreate(['name' => $value]);
 
         $this->roles()->sync([$roleModel->id]);

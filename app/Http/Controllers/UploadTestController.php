@@ -12,6 +12,7 @@ class UploadTestController extends Controller
      * Upload test file.
      *
      * @group Uploads
+     *
      * @bodyParam file file required Image file to upload.
      */
     public function upload(Request $request): JsonResponse
@@ -21,11 +22,11 @@ class UploadTestController extends Controller
         ]);
 
         $path = $this->storageDisk()->putFile('upload-test', $data['file']);
-        $url = $this->resolveFileUrl($path);
+        $url  = $this->resolveFileUrl($path);
 
         return response()->json([
             'path' => $path,
-            'url' => $url,
+            'url'  => $url,
         ]);
     }
 

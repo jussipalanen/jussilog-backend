@@ -31,7 +31,7 @@ class UserDelete extends Command
             return self::FAILURE;
         }
 
-        if (!$this->confirm("Delete user {$user->id} ({$user->email})?")) {
+        if (! $this->confirm("Delete user {$user->id} ({$user->email})?")) {
             $this->info('Aborted.');
 
             return self::SUCCESS;
@@ -46,7 +46,7 @@ class UserDelete extends Command
 
     private function resolveUser(): ?User
     {
-        $id = $this->option('id');
+        $id    = $this->option('id');
         $email = $this->option('email');
 
         if (empty($id) && empty($email)) {
@@ -66,7 +66,7 @@ class UserDelete extends Command
             }
         }
 
-        if (!empty($id)) {
+        if (! empty($id)) {
             $user = User::query()->find($id);
         } else {
             $user = User::query()->where('email', $email)->first();

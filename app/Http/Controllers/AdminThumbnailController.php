@@ -17,18 +17,20 @@ class AdminThumbnailController extends Controller
      * Regenerate thumbnail images for products and/or resumes.
      *
      * @group Admin – Thumbnails
+     *
      * @authenticated
+     *
      * @queryParam type string Which model to process: products, resumes, or all (default). Example: all
      */
     public function regenerate(Request $request): JsonResponse
     {
-        if (!$this->isAdmin($request)) {
+        if (! $this->isAdmin($request)) {
             return response()->json(['message' => 'Forbidden.'], 403);
         }
 
         $type = strtolower((string) $request->query('type', 'all'));
 
-        if (!in_array($type, ['all', 'products', 'resumes'], true)) {
+        if (! in_array($type, ['all', 'products', 'resumes'], true)) {
             return response()->json(['message' => 'Invalid type. Use: products, resumes, or all.'], 422);
         }
 
@@ -49,18 +51,20 @@ class AdminThumbnailController extends Controller
      * Delete all thumbnail images for products and/or resumes (originals are kept).
      *
      * @group Admin – Thumbnails
+     *
      * @authenticated
+     *
      * @queryParam type string Which model to purge: products, resumes, or all (default). Example: all
      */
     public function purge(Request $request): JsonResponse
     {
-        if (!$this->isAdmin($request)) {
+        if (! $this->isAdmin($request)) {
             return response()->json(['message' => 'Forbidden.'], 403);
         }
 
         $type = strtolower((string) $request->query('type', 'all'));
 
-        if (!in_array($type, ['all', 'products', 'resumes'], true)) {
+        if (! in_array($type, ['all', 'products', 'resumes'], true)) {
             return response()->json(['message' => 'Invalid type. Use: products, resumes, or all.'], 422);
         }
 
@@ -80,6 +84,7 @@ class AdminThumbnailController extends Controller
     private function isAdmin(Request $request): bool
     {
         $user = $request->user();
+
         return $user !== null && $user->hasRole(RoleEnum::ADMIN);
     }
 
@@ -87,17 +92,19 @@ class AdminThumbnailController extends Controller
      * Regenerate thumbnails for a single product.
      *
      * @group Admin – Thumbnails
+     *
      * @authenticated
+     *
      * @urlParam id integer required Product ID. Example: 1
      */
     public function regenerateProduct(Request $request, int $id): JsonResponse
     {
-        if (!$this->isAdmin($request)) {
+        if (! $this->isAdmin($request)) {
             return response()->json(['message' => 'Forbidden.'], 403);
         }
 
         $product = Product::find($id);
-        if (!$product) {
+        if (! $product) {
             return response()->json(['message' => 'Product not found.'], 404);
         }
 
@@ -110,17 +117,19 @@ class AdminThumbnailController extends Controller
      * Purge thumbnails for a single product.
      *
      * @group Admin – Thumbnails
+     *
      * @authenticated
+     *
      * @urlParam id integer required Product ID. Example: 1
      */
     public function purgeProduct(Request $request, int $id): JsonResponse
     {
-        if (!$this->isAdmin($request)) {
+        if (! $this->isAdmin($request)) {
             return response()->json(['message' => 'Forbidden.'], 403);
         }
 
         $product = Product::find($id);
-        if (!$product) {
+        if (! $product) {
             return response()->json(['message' => 'Product not found.'], 404);
         }
 
@@ -133,17 +142,19 @@ class AdminThumbnailController extends Controller
      * Regenerate thumbnails for a single resume.
      *
      * @group Admin – Thumbnails
+     *
      * @authenticated
+     *
      * @urlParam id integer required Resume ID. Example: 1
      */
     public function regenerateResume(Request $request, int $id): JsonResponse
     {
-        if (!$this->isAdmin($request)) {
+        if (! $this->isAdmin($request)) {
             return response()->json(['message' => 'Forbidden.'], 403);
         }
 
         $resume = Resume::find($id);
-        if (!$resume) {
+        if (! $resume) {
             return response()->json(['message' => 'Resume not found.'], 404);
         }
 
@@ -156,17 +167,19 @@ class AdminThumbnailController extends Controller
      * Purge thumbnails for a single resume.
      *
      * @group Admin – Thumbnails
+     *
      * @authenticated
+     *
      * @urlParam id integer required Resume ID. Example: 1
      */
     public function purgeResume(Request $request, int $id): JsonResponse
     {
-        if (!$this->isAdmin($request)) {
+        if (! $this->isAdmin($request)) {
             return response()->json(['message' => 'Forbidden.'], 403);
         }
 
         $resume = Resume::find($id);
-        if (!$resume) {
+        if (! $resume) {
             return response()->json(['message' => 'Resume not found.'], 404);
         }
 

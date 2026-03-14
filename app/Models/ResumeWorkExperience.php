@@ -26,7 +26,7 @@ class ResumeWorkExperience extends Model
 
     protected $casts = [
         'start_date' => 'date',
-        'end_date' => 'date',
+        'end_date'   => 'date',
         'is_current' => 'boolean',
     ];
 

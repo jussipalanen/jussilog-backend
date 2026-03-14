@@ -19,6 +19,7 @@ class InvoiceTest extends TestCase
     {
         $user = User::factory()->create();
         $user->setRole('admin');
+
         return $user;
     }
 
@@ -37,9 +38,11 @@ class InvoiceTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonStructure(['statuses', 'item_types'])
-            ->assertJsonCount(4, 'statuses')
+            ->assertJsonCount(6, 'statuses')
             ->assertJsonFragment(['value' => 'draft'])
             ->assertJsonFragment(['value' => 'issued'])
+            ->assertJsonFragment(['value' => 'unpaid'])
+            ->assertJsonFragment(['value' => 'overdue'])
             ->assertJsonFragment(['value' => 'paid'])
             ->assertJsonFragment(['value' => 'cancelled']);
     }

@@ -209,7 +209,7 @@ class CountryService
      */
     public static function getLabel(string $code, string $locale = 'en'): string
     {
-        $code = strtoupper($code);
+        $code   = strtoupper($code);
         $locale = in_array($locale, ['en', 'fi']) ? $locale : 'en';
 
         foreach (self::$countries as $country) {
