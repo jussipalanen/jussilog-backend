@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Mail;
 
 use App\Models\User;
+use App\Translations\MailTranslations;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -38,6 +39,7 @@ class GoogleWelcome extends Mailable
                 'name'  => $this->user->first_name ?: $this->user->name,
                 'email' => $this->user->email,
                 'lang'  => $this->lang,
+                't'     => MailTranslations::get('google_welcome', $this->lang),
             ],
         );
     }

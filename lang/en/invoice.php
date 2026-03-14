@@ -21,11 +21,14 @@ return [
 
     // Email
     'invoice_number'  => 'Invoice Number',
-    'email_title'     => 'Your invoice is attached',
+    'email_title'     => 'Your invoice is ready',
     'hi'              => 'Hi',
-    'email_greeting'  => 'please find your invoice attached to this email as a PDF.',
+    'email_greeting'  => 'please find your invoice details below.',
+    'address'         => 'Billing Address',
+    'items'           => 'Items',
     'summary'         => 'Summary',
     'status'          => 'Status',
+    'issued'          => 'Issued',
     'email_footer'    => 'This email was sent automatically. Please do not reply directly.',
 
     // Invoice status options

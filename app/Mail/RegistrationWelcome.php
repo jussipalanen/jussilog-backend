@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
+use App\Translations\MailTranslations;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -40,6 +41,7 @@ class RegistrationWelcome extends Mailable
             with: [
                 'email' => $this->email,
                 'lang'  => $this->lang,
+                't'     => MailTranslations::get('registration_welcome', $this->lang),
             ],
         );
     }

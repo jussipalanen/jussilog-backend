@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
+use App\Translations\MailTranslations;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -38,6 +39,7 @@ class AccountDeleted extends Mailable
                 'name'  => $this->name,
                 'email' => $this->email,
                 'lang'  => $this->lang,
+                't'     => MailTranslations::get('account_deleted', $this->lang),
             ],
         );
     }
