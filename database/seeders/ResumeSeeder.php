@@ -3,20 +3,28 @@
 namespace Database\Seeders;
 
 use App\Models\Resume;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ResumeSeeder extends Seeder
 {
     public function run(): void
     {
-        // Skip if a resume for user 1 already exists
-        if (Resume::where('user_id', 1)->exists()) {
-            $this->command->info('ResumeSeeder: resume for user #1 already exists, skipping.');
+        $user = User::where('email', 'juzapala+superadmin@gmail.com')->first();
+
+        if (!$user) {
+            $this->command->warn('ResumeSeeder: admin user not found, skipping.');
+            return;
+        }
+
+        // Skip if a resume for this user already exists
+        if (Resume::where('user_id', $user->id)->exists()) {
+            $this->command->info('ResumeSeeder: resume for user #' . $user->id . ' already exists, skipping.');
             return;
         }
 
         $resume = Resume::create([
-            'user_id'       => 1,
+            'user_id'       => $user->id,
             'title'         => 'Full-Stack Developer CV',
             'full_name'     => 'Jussi Palanen',
             'email'         => 'jussi@example.com',
