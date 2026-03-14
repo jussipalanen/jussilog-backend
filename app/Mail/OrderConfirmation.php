@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Mail;
 
 use App\Models\Order;
+use App\Translations\MailTranslations;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -41,6 +42,7 @@ class OrderConfirmation extends Mailable
             with: [
                 'order' => $this->order,
                 'lang'  => $this->lang,
+                't'     => MailTranslations::get('order_confirmation', $this->lang),
             ],
         );
     }

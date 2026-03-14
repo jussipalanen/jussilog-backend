@@ -1,28 +1,3 @@
-@php
-$translations = [
-    'en' => [
-        'badge'          => 'New Account',
-        'heading'        => 'Welcome to ' . config('app.name') . '!',
-        'subtitle'       => "We're thrilled to have you on board. Your account is all set and ready to go.",
-        'account_details'=> 'Your Account Details',
-        'email_username' => 'Email / Username',
-        'need_help'      => 'Need help getting started?',
-        'need_help_body' => 'Reply to this email and our team will be happy to assist you.',
-        'all_rights'     => 'All rights reserved.',
-    ],
-    'fi' => [
-        'badge'          => 'Uusi tili',
-        'heading'        => 'Tervetuloa ' . config('app.name') . '!',
-        'subtitle'       => 'Olemme iloisia, että olet mukana. Tilisi on valmis ja käyttövalmis.',
-        'account_details'=> 'Tilisi tiedot',
-        'email_username' => 'Sähköposti / Käyttäjätunnus',
-        'need_help'      => 'Tarvitsetko apua?',
-        'need_help_body' => 'Vastaa tähän sähköpostiin, niin tiimimme auttaa sinua mielellään.',
-        'all_rights'     => 'Kaikki oikeudet pidätetään.',
-    ],
-];
-$t = $translations[$lang ?? 'en'] ?? $translations['en'];
-@endphp
 <!DOCTYPE html>
 <html lang="{{ $lang ?? 'en' }}">
 <head>

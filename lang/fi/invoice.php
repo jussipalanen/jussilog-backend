@@ -21,11 +21,14 @@ return [
 
     // Email
     'invoice_number'  => 'Laskunumero',
-    'email_title'     => 'Laskusi on liitteenä',
+    'email_title'     => 'Laskusi on valmis',
     'hi'              => 'Hei',
-    'email_greeting'  => 'löydät laskusi tämän sähköpostin liitteestä PDF-muodossa.',
+    'email_greeting'  => 'löydät laskusi tiedot alta.',
+    'address'         => 'Laskutusosoite',
+    'items'           => 'Rivit',
     'summary'         => 'Yhteenveto',
     'status'          => 'Tila',
+    'issued'          => 'Lähetetty',
     'email_footer'    => 'Tämä sähköposti on lähetetty automaattisesti. Älä vastaa suoraan tähän viestiin.',
 
     // Invoice status options
