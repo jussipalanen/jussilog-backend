@@ -399,7 +399,7 @@ class InvoiceController extends Controller
             'notes'               => 'nullable|string',
             'items'               => 'sometimes|array',
             'items.*.id'          => 'sometimes|integer|exists:invoice_items,id',
-            'items.*.type'        => 'required_with:items|string|in:product,shipping,discount,adjustment',
+            'items.*.type'        => 'required_with:items|string|in:product,shipping,discount,fee,other',
             'items.*.description' => 'required_with:items|string|max:500',
             'items.*.quantity'    => 'required_with:items|integer|min:1',
             'items.*.unit_price'  => 'required_with:items|numeric',
