@@ -15,13 +15,14 @@ use App\Models\ResumeWorkExperience;
 use App\Models\User;
 use App\Translations\ResumeTranslations;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Spatie\Browsershot\Browsershot;
@@ -126,19 +127,19 @@ class ResumeController extends Controller
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'title'         => 'sometimes|string|max:255',
-            'full_name'     => 'required|string|max:255',
-            'email'         => 'required|email|max:255',
-            'phone'         => 'nullable|string|max:50',
-            'location'      => 'nullable|string|max:255',
-            'linkedin_url'  => 'nullable|url|max:500',
-            'portfolio_url' => 'nullable|url|max:500',
-            'github_url'    => 'nullable|url|max:500',
-            'photo'         => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
-            'summary'       => 'nullable|string',
-            'language'      => 'sometimes|string|in:en,fi',
-            'template'      => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
-            'theme'         => 'sometimes|string|in:'.implode(',', self::THEMES),
+            'title'                => 'sometimes|string|max:255',
+            'full_name'            => 'required|string|max:255',
+            'email'                => 'required|email|max:255',
+            'phone'                => 'nullable|string|max:50',
+            'location'             => 'nullable|string|max:255',
+            'linkedin_url'         => 'nullable|url|max:500',
+            'portfolio_url'        => 'nullable|url|max:500',
+            'github_url'           => 'nullable|url|max:500',
+            'photo'                => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
+            'summary'              => 'nullable|string',
+            'language'             => 'sometimes|string|in:en,fi',
+            'template'             => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
+            'theme'                => 'sometimes|string|in:'.implode(',', self::THEMES),
             'is_primary'           => 'sometimes|boolean',
             'is_public'            => 'sometimes|boolean',
             'code'                 => 'nullable|string|max:100',
@@ -193,19 +194,19 @@ class ResumeController extends Controller
         $resume = $this->findResume($request, $id);
 
         $data = $request->validate([
-            'title'         => 'sometimes|string|max:255',
-            'full_name'     => 'sometimes|string|max:255',
-            'email'         => 'sometimes|email|max:255',
-            'phone'         => 'nullable|string|max:50',
-            'location'      => 'nullable|string|max:255',
-            'linkedin_url'  => 'nullable|url|max:500',
-            'portfolio_url' => 'nullable|url|max:500',
-            'github_url'    => 'nullable|url|max:500',
-            'photo'         => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
-            'summary'       => 'nullable|string',
-            'language'      => 'sometimes|string|in:en,fi',
-            'template'      => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
-            'theme'         => 'sometimes|string|in:'.implode(',', self::THEMES),
+            'title'                => 'sometimes|string|max:255',
+            'full_name'            => 'sometimes|string|max:255',
+            'email'                => 'sometimes|email|max:255',
+            'phone'                => 'nullable|string|max:50',
+            'location'             => 'nullable|string|max:255',
+            'linkedin_url'         => 'nullable|url|max:500',
+            'portfolio_url'        => 'nullable|url|max:500',
+            'github_url'           => 'nullable|url|max:500',
+            'photo'                => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
+            'summary'              => 'nullable|string',
+            'language'             => 'sometimes|string|in:en,fi',
+            'template'             => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
+            'theme'                => 'sometimes|string|in:'.implode(',', self::THEMES),
             'is_primary'           => 'sometimes|boolean',
             'is_public'            => 'sometimes|boolean',
             'code'                 => 'nullable|string|max:100',
@@ -432,7 +433,7 @@ class ResumeController extends Controller
             // findResume enforces ownership: admins may access any resume, users only their own.
             try {
                 $existingResume = $this->findResume($request, $resumeId);
-            } catch (\Illuminate\Database\Eloquent\ModelNotFoundException) {
+            } catch (ModelNotFoundException) {
                 return response()->json(['message' => 'Resume not found or access denied.'], 404);
             }
         }
