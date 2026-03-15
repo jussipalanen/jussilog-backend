@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [0.9.5] - 2026-03-15
+
+### Added
+- **Order status change emails**: Sending a status update on an order now triggers a transactional email to the customer when the status changes. Supported statuses: `pending`, `processing`, `completed`, `cancelled`, `refunded`.
+  - New `OrderStatusUpdated` Mailable with per-status subject lines, badge colours, headings, and body messages.
+  - New `order-status-updated` Blade email template — dark-themed, matching the existing email design system, with a status transition pill (Previous → New), per-status colour theming, and an order item summary table.
+  - `OrderStatusConfig` service class extracted to hold all per-status visual config (colours, icons, gradients) separately from the template.
+- **`send_status_email` request parameter on `PUT /api/orders/{id}`**: Boolean flag to opt out of sending the status change email. Defaults to `true`.
+- **`lang` field on orders**: New `lang` column (`en`/`fi`, default `en`) stored on the order at placement time and used to send all subsequent status emails in the customer's chosen language.
+  - Migration: `2026_03_15_000001_add_lang_to_orders_table`.
+- **Order status email translations**: Added `order_status_updated` translation group to `lang/en/mail.php` and `lang/fi/mail.php` covering subjects, badge labels, headings, status-specific messages, status pill labels, and all shared UI strings.
+- **Invoice PDF attachment on all send paths**: The `exportEmail` (manual/admin) endpoint now generates and attaches the invoice PDF — bringing it in line with the existing `sendEmail` (invoice tool) path which already attached the PDF.
+- **Barcode on invoice PDF and email**: Code 128 barcode encoding the invoice number is embedded in both the invoice PDF (above the footer) and the HTML invoice email (in the footer card), using `picqer/php-barcode-generator`.
+  - `BarcodeService` with `svg()` (black bars, for PDF) and `svgLight()` (indigo `#a5b4fc` bars, for dark-themed email).
+
+### Changed
+- **`POST /api/orders` — `lang` param**: Order placement accepts an optional `lang` body parameter (`en` or `fi`). The value is persisted on the order and used for all email communications related to that order.
+
 ## [0.9.0] - 2026-03-15
 
 ### Added
