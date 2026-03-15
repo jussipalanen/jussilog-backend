@@ -7,7 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
-## [0.9.5] - 2026-03-15
+## [0.9.6] - 2026-03-15
+
+### Added
+- **Resume JSON export**: `GET /api/resumes/{id}/export/json` — downloads a full resume backup as a `.json` file. Strips internal fields (`id`, `user_id`, `photo`, `photo_sizes`, `code`, timestamps) from all sections. Authenticated, ownership-enforced.
+- **Resume JSON import — create**: `POST /api/resumes/import/json` — uploads a JSON backup file and creates a new resume for the authenticated user. File content is fully validated against existing resume rules.
+- **Resume JSON import — update**: `POST /api/resumes/{id}/import/json` — uploads a JSON backup file and overwrites an existing resume by ID. The URL ID takes priority over any `id` field inside the file. Ownership enforced; admins may update any resume.
+- **Skill level visibility toggle**: `show_skill_levels` boolean field (default `true`) added to the `resumes` table. Controls whether skill proficiency bars are rendered in PDF and HTML exports.
+- **Language level visibility toggle**: `show_language_levels` boolean field (default `true`) added to the `resumes` table. Controls whether language proficiency dots are rendered in PDF and HTML exports.
+  - Both fields are accepted on `POST /api/resumes` and `PUT /api/resumes/{id}`.
+  - Authenticated exports (`exportPdf`, `exportHtml`) use the stored value as default; a query param (`?show_skill_levels=false`) overrides it at export time.
+  - Public exports (`POST /api/resumes/export/pdf`, `POST /api/resumes/export/html`) accept both fields in the JSON body.
+  - Migration: `2026_03_15_202705_add_skill_language_level_visibility_to_resumes_table`.
+
+### Fixed
+- **Resume paragraph text not rendering line breaks**: Long-form text fields (`summary`, work experience `description`, project `description`, award `description`, recommendation `recommendation`) now render newlines correctly in PDF and HTML exports. Fixed by replacing `{{ $value }}` with `{!! nl2br(e($value)) !!}` in the Blade template.
+
+
 
 ### Added
 - **Order status change emails**: Sending a status update on an order now triggers a transactional email to the customer when the status changes. Supported statuses: `pending`, `processing`, `completed`, `cancelled`, `refunded`.
