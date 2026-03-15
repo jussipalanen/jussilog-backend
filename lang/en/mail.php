@@ -54,6 +54,59 @@ return [
         'all_rights'       => 'All rights reserved.',
     ],
 
+    // order-status-updated
+    'order_status_updated' => [
+        // Email subjects
+        'subject_pending'    => 'Your order is pending',
+        'subject_processing' => 'Your order is being processed',
+        'subject_completed'  => 'Your order has been completed!',
+        'subject_cancelled'  => 'Your order has been cancelled',
+        'subject_refunded'   => 'Your order has been refunded',
+
+        // Badge labels
+        'badge_pending'    => 'Order Pending',
+        'badge_processing' => 'Order Processing',
+        'badge_completed'  => 'Order Completed',
+        'badge_cancelled'  => 'Order Cancelled',
+        'badge_refunded'   => 'Order Refunded',
+
+        // Headings
+        'heading_pending'    => 'Your order is pending',
+        'heading_processing' => 'Your order is being processed',
+        'heading_completed'  => 'Your order is complete!',
+        'heading_cancelled'  => 'Your order has been cancelled',
+        'heading_refunded'   => 'Your refund is on the way',
+
+        // Status-specific body messages
+        'message_pending'    => 'Your order is currently pending. We will notify you once it starts being processed.',
+        'message_processing' => 'Good news! Your order is now being processed. We will keep you updated.',
+        'message_completed'  => 'Great news! Your order has been completed. Thank you for your purchase!',
+        'message_cancelled'  => 'Your order has been cancelled. If you have any questions, please don\'t hesitate to contact us.',
+        'message_refunded'   => 'Your refund has been initiated. Please allow a few business days for the amount to appear in your account.',
+
+        // Status labels (used in the from → to transition row)
+        'status_pending'    => 'Pending',
+        'status_processing' => 'Processing',
+        'status_completed'  => 'Completed',
+        'status_cancelled'  => 'Cancelled',
+        'status_refunded'   => 'Refunded',
+
+        // Common
+        'hi'               => 'Hi',
+        'order_number'     => 'Order Number',
+        'status_updated'   => 'Status Update',
+        'previous_status'  => 'Previous Status',
+        'new_status'       => 'New Status',
+        'order_summary'    => 'Order Summary',
+        'col_product'      => 'Product',
+        'col_qty'          => 'Qty',
+        'col_total'        => 'Total',
+        'order_total'      => 'Order Total',
+        'questions'        => 'Questions about your order?',
+        'questions_body'   => "Simply reply to this email and we'll be happy to help.",
+        'all_rights'       => 'All rights reserved.',
+    ],
+
     // registration-welcome
     'registration_welcome' => [
         'badge'           => 'New Account',
