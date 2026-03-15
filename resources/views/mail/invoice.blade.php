@@ -1,4 +1,5 @@
 @php use App\Services\CountryService; @endphp
+@php use App\Services\BarcodeService; @endphp
 @php
     $dec = ($lang ?? 'en') === 'fi' ? ',' : '.';
     $thou = ($lang ?? 'en') === 'fi' ? "\u{00A0}" : ',';
@@ -208,6 +209,14 @@
 
         {{-- Footer --}}
         <div style="background:#080614; border-top:1px solid #1e1b3a; padding:24px 40px; text-align:center;">
+            @if ($invoice->invoice_number)
+                <div style="margin-bottom:20px;">
+                    <div style="display:inline-block; background:rgba(255,255,255,0.04); border:1px solid rgba(165,180,252,0.15); border-radius:10px; padding:14px 20px;">
+                        {!! BarcodeService::svgLight($invoice->invoice_number, 44, 1) !!}
+                        <p style="color:#4e4a80; font-size:10px; letter-spacing:2px; margin:6px 0 0; font-family:monospace;">{{ $invoice->invoice_number }}</p>
+                    </div>
+                </div>
+            @endif
             <p style="color:#9490cc; font-size:13px; margin:0 0 8px;">{{ $t['email_footer'] }}</p>
             <p style="color:#c4b5fd; font-size:13px; margin:0 0 4px; font-weight:600;">{{ config('app.name') }}</p>
             <p style="color:#3d3a66; font-size:12px; margin:0;">&copy; {{ date('Y') }} All rights reserved.</p>
