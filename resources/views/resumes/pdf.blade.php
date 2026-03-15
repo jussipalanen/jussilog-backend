@@ -501,7 +501,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
             <div class="item-head">
                 <div class="item-head-left">
                     <div class="item-title">{{ $job->job_title }}</div>
-                    <div class="item-sub">{{ $job->company_name }}{{ $job->location ? ' &middot; ' . $job->location : '' }}</div>
+                    <div class="item-sub">{!! e($job->company_name) . ($job->location ? ' &middot; ' . e($job->location) : '') !!}</div>
                 </div>
                 <div class="item-head-right">
                     <span class="date-badge">
@@ -526,7 +526,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
             <div class="item-head">
                 <div class="item-head-left">
                     <div class="item-title">{{ $edu->degree }}{{ $edu->field_of_study ? ' ' . __('resume.field_of_study_in') . ' ' . $edu->field_of_study : '' }}</div>
-                    <div class="item-sub">{{ $edu->institution_name }}{{ $edu->location ? ' &middot; ' . $edu->location : '' }}</div>
+                    <div class="item-sub">{!! e($edu->institution_name) . ($edu->location ? ' &middot; ' . e($edu->location) : '') !!}</div>
                 </div>
                 @if($edu->graduation_year)
                 <div class="item-head-right">
