@@ -14,7 +14,7 @@ class BarcodeService
      */
     public static function svg(string $text, int $height = 50, int $widthFactor = 2): string
     {
-        return (new BarcodeGeneratorSVG())->getBarcode(
+        return (new BarcodeGeneratorSVG)->getBarcode(
             $text,
             BarcodeGeneratorSVG::TYPE_CODE_128,
             $widthFactor,
@@ -29,7 +29,7 @@ class BarcodeService
      */
     public static function svgLight(string $text, int $height = 50, int $widthFactor = 2): string
     {
-        return (new BarcodeGeneratorSVG())->getBarcode(
+        return (new BarcodeGeneratorSVG)->getBarcode(
             $text,
             BarcodeGeneratorSVG::TYPE_CODE_128,
             $widthFactor,
