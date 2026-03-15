@@ -191,6 +191,9 @@ Route::middleware('auth:sanctum')->group(function () use ($sectionPattern) {
     Route::delete('/resumes/{id}', [ResumeController::class, 'destroy']);
     Route::get('/resumes/{id}/export/pdf', [ResumeController::class, 'exportPdf']);
     Route::get('/resumes/{id}/export/html', [ResumeController::class, 'exportHtml']);
+    Route::get('/resumes/{id}/export/json', [ResumeController::class, 'exportJson']);
+    Route::post('/resumes/import/json', [ResumeController::class, 'importJson']);
+    Route::post('/resumes/{id}/import/json', [ResumeController::class, 'importJson']);
 
     // Resume section CRUD
     Route::get('/resumes/{resumeId}/{section}', [ResumeItemController::class, 'index'])->where('section', $sectionPattern);

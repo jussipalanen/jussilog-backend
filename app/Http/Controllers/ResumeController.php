@@ -15,12 +15,14 @@ use App\Models\ResumeWorkExperience;
 use App\Models\User;
 use App\Translations\ResumeTranslations;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Spatie\Browsershot\Browsershot;
@@ -125,22 +127,24 @@ class ResumeController extends Controller
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'title'         => 'sometimes|string|max:255',
-            'full_name'     => 'required|string|max:255',
-            'email'         => 'required|email|max:255',
-            'phone'         => 'nullable|string|max:50',
-            'location'      => 'nullable|string|max:255',
-            'linkedin_url'  => 'nullable|url|max:500',
-            'portfolio_url' => 'nullable|url|max:500',
-            'github_url'    => 'nullable|url|max:500',
-            'photo'         => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
-            'summary'       => 'nullable|string',
-            'language'      => 'sometimes|string|in:en,fi',
-            'template'      => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
-            'theme'         => 'sometimes|string|in:'.implode(',', self::THEMES),
-            'is_primary'    => 'sometimes|boolean',
-            'is_public'     => 'sometimes|boolean',
-            'code'          => 'nullable|string|max:100',
+            'title'                => 'sometimes|string|max:255',
+            'full_name'            => 'required|string|max:255',
+            'email'                => 'required|email|max:255',
+            'phone'                => 'nullable|string|max:50',
+            'location'             => 'nullable|string|max:255',
+            'linkedin_url'         => 'nullable|url|max:500',
+            'portfolio_url'        => 'nullable|url|max:500',
+            'github_url'           => 'nullable|url|max:500',
+            'photo'                => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
+            'summary'              => 'nullable|string',
+            'language'             => 'sometimes|string|in:en,fi',
+            'template'             => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
+            'theme'                => 'sometimes|string|in:'.implode(',', self::THEMES),
+            'is_primary'           => 'sometimes|boolean',
+            'is_public'            => 'sometimes|boolean',
+            'code'                 => 'nullable|string|max:100',
+            'show_skill_levels'    => 'sometimes|boolean',
+            'show_language_levels' => 'sometimes|boolean',
             ...$this->sectionValidationRules(),
         ]);
 
@@ -190,22 +194,24 @@ class ResumeController extends Controller
         $resume = $this->findResume($request, $id);
 
         $data = $request->validate([
-            'title'         => 'sometimes|string|max:255',
-            'full_name'     => 'sometimes|string|max:255',
-            'email'         => 'sometimes|email|max:255',
-            'phone'         => 'nullable|string|max:50',
-            'location'      => 'nullable|string|max:255',
-            'linkedin_url'  => 'nullable|url|max:500',
-            'portfolio_url' => 'nullable|url|max:500',
-            'github_url'    => 'nullable|url|max:500',
-            'photo'         => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
-            'summary'       => 'nullable|string',
-            'language'      => 'sometimes|string|in:en,fi',
-            'template'      => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
-            'theme'         => 'sometimes|string|in:'.implode(',', self::THEMES),
-            'is_primary'    => 'sometimes|boolean',
-            'is_public'     => 'sometimes|boolean',
-            'code'          => 'nullable|string|max:100',
+            'title'                => 'sometimes|string|max:255',
+            'full_name'            => 'sometimes|string|max:255',
+            'email'                => 'sometimes|email|max:255',
+            'phone'                => 'nullable|string|max:50',
+            'location'             => 'nullable|string|max:255',
+            'linkedin_url'         => 'nullable|url|max:500',
+            'portfolio_url'        => 'nullable|url|max:500',
+            'github_url'           => 'nullable|url|max:500',
+            'photo'                => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
+            'summary'              => 'nullable|string',
+            'language'             => 'sometimes|string|in:en,fi',
+            'template'             => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
+            'theme'                => 'sometimes|string|in:'.implode(',', self::THEMES),
+            'is_primary'           => 'sometimes|boolean',
+            'is_public'            => 'sometimes|boolean',
+            'code'                 => 'nullable|string|max:100',
+            'show_skill_levels'    => 'sometimes|boolean',
+            'show_language_levels' => 'sometimes|boolean',
             ...$this->sectionValidationRules(update: true),
         ]);
 
@@ -273,8 +279,14 @@ class ResumeController extends Controller
             ? $request->query('theme')
             : ($resume->theme ?: 'green');
 
-        $template = $request->query('template', $resume->template ?: 'default');
-        $view     = $this->resolveTemplateView($template);
+        $template           = $request->query('template', $resume->template ?: 'default');
+        $view               = $this->resolveTemplateView($template);
+        $showSkillLevels    = $request->has('show_skill_levels')
+            ? filter_var($request->query('show_skill_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_skill_levels ?? true);
+        $showLanguageLevels = $request->has('show_language_levels')
+            ? filter_var($request->query('show_language_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_language_levels ?? true);
 
         $filename = str($resume->full_name)->slug().'-resume.pdf';
 
@@ -283,7 +295,7 @@ class ResumeController extends Controller
                 ->view($view, compact('resume', 'theme', 'template'), 200);
         }
 
-        return Pdf::view($view, compact('resume', 'theme'))
+        return Pdf::view($view, compact('resume', 'theme', 'showSkillLevels', 'showLanguageLevels'))
             ->format('a4')
             ->margins(0, 0, 0, 0)
             ->withBrowsershot(fn (Browsershot $b) => $b
@@ -319,10 +331,16 @@ class ResumeController extends Controller
             ? $request->query('theme')
             : ($resume->theme ?: 'green');
 
-        $template = $request->query('template', $resume->template ?: 'default');
-        $view     = $this->resolveTemplateView($template);
+        $template           = $request->query('template', $resume->template ?: 'default');
+        $view               = $this->resolveTemplateView($template);
+        $showSkillLevels    = $request->has('show_skill_levels')
+            ? filter_var($request->query('show_skill_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_skill_levels ?? true);
+        $showLanguageLevels = $request->has('show_language_levels')
+            ? filter_var($request->query('show_language_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_language_levels ?? true);
 
-        $html = view($view, compact('resume', 'theme', 'template'))->render();
+        $html = view($view, compact('resume', 'theme', 'template', 'showSkillLevels', 'showLanguageLevels'))->render();
 
         $filename = str($resume->full_name)->slug().'-resume.html';
 
@@ -330,6 +348,170 @@ class ResumeController extends Controller
             'Content-Type'        => 'text/html',
             'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ]);
+    }
+
+    /**
+     * Export a resume as a downloadable JSON backup file.
+     * The photo is not included. All section items are exported without internal IDs.
+     *
+     * @group Resumes
+     *
+     * @authenticated
+     *
+     * @urlParam resume integer required The resume ID. Example: 1
+     */
+    public function exportJson(Request $request, int $id): Response
+    {
+        $resume = $this->findResume($request, $id);
+        $resume->load(array_values($this->sectionRelationMap()));
+
+        $excludeRoot    = ['id', 'user_id', 'photo', 'photo_sizes', 'code', 'created_at', 'updated_at', 'has_code'];
+        $excludeSection = ['id', 'resume_id', 'created_at', 'updated_at', 'points'];
+
+        $resumeArray = collect($resume->toArray())->except($excludeRoot)->toArray();
+
+        foreach (array_keys($this->sectionRelationMap()) as $sectionKey) {
+            if (isset($resumeArray[$sectionKey]) && is_array($resumeArray[$sectionKey])) {
+                $resumeArray[$sectionKey] = array_map(
+                    fn ($item) => collect($item)->except($excludeSection)->toArray(),
+                    $resumeArray[$sectionKey]
+                );
+            }
+        }
+
+        $payload = [
+            'version'     => '1.0',
+            'exported_at' => now()->toISOString(),
+            'resume'      => $resumeArray,
+        ];
+
+        $filename = str($resume->full_name)->slug().'-resume.json';
+
+        return response()->make(
+            json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+            200,
+            [
+                'Content-Type'        => 'application/json',
+                'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+            ]
+        );
+    }
+
+    /**
+     * Import a resume from a previously exported JSON backup file.
+     * Creates a new resume for the authenticated user. The photo is not restored.
+     *
+     * @group Resumes
+     *
+     * @authenticated
+     *
+     * @bodyParam file file required The JSON backup file produced by the export endpoint.
+     */
+    public function importJson(Request $request, ?int $id = null): JsonResponse
+    {
+        $request->validate([
+            'file' => 'required|file|max:2048',
+        ]);
+
+        $contents = file_get_contents($request->file('file')->getRealPath());
+
+        try {
+            $payload = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException) {
+            return response()->json(['message' => 'The uploaded file is not valid JSON.'], 422);
+        }
+
+        if (! isset($payload['resume']) || ! is_array($payload['resume'])) {
+            return response()->json(['message' => 'Invalid resume backup file.'], 422);
+        }
+
+        // URL parameter takes priority; fall back to id field inside the JSON file.
+        $resumeId       = $id ?? (isset($payload['resume']['id']) ? (int) $payload['resume']['id'] : null);
+        $existingResume = null;
+
+        if ($resumeId !== null) {
+            // findResume enforces ownership: admins may access any resume, users only their own.
+            try {
+                $existingResume = $this->findResume($request, $resumeId);
+            } catch (ModelNotFoundException) {
+                return response()->json(['message' => 'Resume not found or access denied.'], 404);
+            }
+        }
+
+        $isUpdate = $existingResume !== null;
+
+        $validator = Validator::make($payload['resume'], [
+            'title'         => 'sometimes|string|max:255',
+            'full_name'     => 'required|string|max:255',
+            'email'         => 'required|email|max:255',
+            'phone'         => 'nullable|string|max:50',
+            'location'      => 'nullable|string|max:255',
+            'linkedin_url'  => 'nullable|url|max:500',
+            'portfolio_url' => 'nullable|url|max:500',
+            'github_url'    => 'nullable|url|max:500',
+            'summary'       => 'nullable|string',
+            'language'      => 'sometimes|string|in:en,fi',
+            'template'      => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
+            'theme'         => 'sometimes|string|in:'.implode(',', self::THEMES),
+            'is_primary'    => 'sometimes|boolean',
+            'is_public'     => 'sometimes|boolean',
+            ...$this->sectionValidationRules(update: $isUpdate),
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => 'Invalid resume data.', 'errors' => $validator->errors()], 422);
+        }
+
+        $data = $validator->validated();
+
+        if ($isUpdate) {
+            $resume = DB::transaction(function () use ($data, $existingResume, $request) {
+                if (! empty($data['is_primary'])) {
+                    $this->clearPrimaryForUser($request->user()->id, $existingResume->id);
+                }
+
+                $existingResume->update(
+                    collect($data)->except(array_keys($this->sectionRelationMap()))->toArray()
+                );
+
+                foreach ($this->sectionRelationMap() as $key => $relation) {
+                    if (array_key_exists($key, $data)) {
+                        $existingResume->$relation()->delete();
+                        if (! empty($data[$key])) {
+                            $existingResume->$relation()->createMany($data[$key]);
+                        }
+                    }
+                }
+
+                return $existingResume;
+            });
+
+            $resume->load(array_values($this->sectionRelationMap()));
+
+            return response()->json($resume);
+        }
+
+        $resume = DB::transaction(function () use ($data, $request) {
+            $resume = $request->user()->resumes()->create(
+                collect($data)->except(array_keys($this->sectionRelationMap()))->toArray()
+            );
+
+            if (! empty($data['is_primary'])) {
+                $this->clearPrimaryForUser($request->user()->id, $resume->id);
+            }
+
+            foreach ($this->sectionRelationMap() as $key => $relation) {
+                if (! empty($data[$key])) {
+                    $resume->$relation()->createMany($data[$key]);
+                }
+            }
+
+            return $resume;
+        });
+
+        $resume->load(array_values($this->sectionRelationMap()));
+
+        return response()->json($resume, 201);
     }
 
     /**
@@ -553,12 +735,14 @@ class ResumeController extends Controller
         app()->setLocale($lang);
         Carbon::setLocale($lang);
 
-        $resume       = $this->buildResumeFromPayload($data);
-        $theme        = in_array($data['theme'] ?? null, self::THEMES) ? $data['theme'] : 'green';
-        $template     = $data['template'] ?? 'default';
-        $view         = $this->resolveTemplateView($template);
-        $photoDataUri = $this->decodePhotoBase64($data['photo'] ?? null);
-        $filename     = str($resume->full_name)->slug().'-resume.pdf';
+        $resume             = $this->buildResumeFromPayload($data);
+        $theme              = in_array($data['theme'] ?? null, self::THEMES) ? $data['theme'] : 'green';
+        $template           = $data['template'] ?? 'default';
+        $view               = $this->resolveTemplateView($template);
+        $photoDataUri       = $this->decodePhotoBase64($data['photo'] ?? null);
+        $showSkillLevels    = (bool) ($data['show_skill_levels'] ?? true);
+        $showLanguageLevels = (bool) ($data['show_language_levels'] ?? true);
+        $filename           = str($resume->full_name)->slug().'-resume.pdf';
 
         if ($view === 'resumes.coming_soon') {
             return response()->view(
@@ -568,7 +752,7 @@ class ResumeController extends Controller
             );
         }
 
-        return Pdf::view($view, compact('resume', 'theme', 'photoDataUri'))
+        return Pdf::view($view, compact('resume', 'theme', 'photoDataUri', 'showSkillLevels', 'showLanguageLevels'))
             ->format('a4')
             ->margins(0, 0, 0, 0)
             ->withBrowsershot(fn (Browsershot $b) => $b
@@ -596,13 +780,15 @@ class ResumeController extends Controller
         app()->setLocale($lang);
         Carbon::setLocale($lang);
 
-        $resume       = $this->buildResumeFromPayload($data);
-        $theme        = in_array($data['theme'] ?? null, self::THEMES) ? $data['theme'] : 'green';
-        $template     = $data['template'] ?? 'default';
-        $view         = $this->resolveTemplateView($template);
-        $photoDataUri = $this->decodePhotoBase64($data['photo'] ?? null);
+        $resume             = $this->buildResumeFromPayload($data);
+        $theme              = in_array($data['theme'] ?? null, self::THEMES) ? $data['theme'] : 'green';
+        $template           = $data['template'] ?? 'default';
+        $view               = $this->resolveTemplateView($template);
+        $photoDataUri       = $this->decodePhotoBase64($data['photo'] ?? null);
+        $showSkillLevels    = (bool) ($data['show_skill_levels'] ?? true);
+        $showLanguageLevels = (bool) ($data['show_language_levels'] ?? true);
 
-        $html     = view($view, compact('resume', 'theme', 'template', 'photoDataUri'))->render();
+        $html     = view($view, compact('resume', 'theme', 'template', 'photoDataUri', 'showSkillLevels', 'showLanguageLevels'))->render();
         $filename = str($resume->full_name)->slug().'-resume.html';
 
         return response()->make($html, 200, [
@@ -652,7 +838,9 @@ class ResumeController extends Controller
             'template'      => 'sometimes|string|in:'.implode(',', self::TEMPLATES),
             'theme'         => 'sometimes|string|in:'.implode(',', self::THEMES),
             // Base64-encoded image, max ~5 MB decoded (≈6.7 MB as base64 text)
-            'photo' => 'nullable|string|max:7000000',
+            'photo'                => 'nullable|string|max:7000000',
+            'show_skill_levels'    => 'sometimes|boolean',
+            'show_language_levels' => 'sometimes|boolean',
             ...$this->sectionValidationRules(),
         ]);
     }
