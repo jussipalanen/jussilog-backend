@@ -771,7 +771,16 @@ class InvoiceController extends Controller
         $lang      = $this->resolveLanguage($request);
         $recipient = $request->input('to_email');
 
-        Mail::to($recipient)->send(new InvoiceMail($invoice, null, $lang));
+        $pdfContent = Pdf::view('invoices.pdf', ['invoice' => $invoice, 'lang' => $lang, 't' => InvoiceTranslations::get($lang)])
+            ->format('a4')
+            ->withBrowsershot(fn (Browsershot $b) => $b
+                ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
+                ->noSandbox()
+                ->addChromiumArguments(['--disable-gpu'])
+            )
+            ->base64();
+
+        Mail::to($recipient)->send(new InvoiceMail($invoice, base64_decode($pdfContent), $lang));
 
         return response()->json(['message' => 'Invoice sent to '.$recipient]);
     }
