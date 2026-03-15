@@ -389,11 +389,21 @@
             </table>
         </div>
 
+        @php use App\Services\BarcodeService; @endphp
+
         {{-- Notes --}}
         @if ($invoice->notes)
             <div class="notes">
                 <h3>{{ $t['notes'] }}</h3>
                 <p>{{ $invoice->notes }}</p>
+            </div>
+        @endif
+
+        {{-- Barcode --}}
+        @if ($invoice->invoice_number)
+            <div style="text-align:center; margin-top:32px; margin-bottom:8px;">
+                {!! BarcodeService::svg($invoice->invoice_number, 44, 1) !!}
+                <div style="font-size:9px; color:#aaa; margin-top:5px; letter-spacing:2px; font-family:monospace;">{{ $invoice->invoice_number }}</div>
             </div>
         @endif
 
