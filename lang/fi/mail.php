@@ -54,6 +54,59 @@ return [
         'all_rights'       => 'Kaikki oikeudet pidätetään.',
     ],
 
+    // order-status-updated
+    'order_status_updated' => [
+        // Sähköpostin aiherivit
+        'subject_pending'    => 'Tilauksesi odottaa käsittelyä',
+        'subject_processing' => 'Tilaustasi käsitellään',
+        'subject_completed'  => 'Tilauksesi on valmis!',
+        'subject_cancelled'  => 'Tilauksesi on peruutettu',
+        'subject_refunded'   => 'Tilauksesi on hyvitetty',
+
+        // Merkintätekstit
+        'badge_pending'    => 'Tilaus odottaa',
+        'badge_processing' => 'Tilaus käsittelyssä',
+        'badge_completed'  => 'Tilaus valmis',
+        'badge_cancelled'  => 'Tilaus peruutettu',
+        'badge_refunded'   => 'Tilaus hyvitetty',
+
+        // Otsikot
+        'heading_pending'    => 'Tilauksesi odottaa käsittelyä',
+        'heading_processing' => 'Tilaustasi käsitellään',
+        'heading_completed'  => 'Tilauksesi on valmis!',
+        'heading_cancelled'  => 'Tilauksesi on peruutettu',
+        'heading_refunded'   => 'Hyvityksesi on matkalla',
+
+        // Tilakohtaiset viestit
+        'message_pending'    => 'Tilauksesi odottaa käsittelyä. Ilmoitamme sinulle, kun käsittely alkaa.',
+        'message_processing' => 'Hyvä uutinen! Tilaustasi käsitellään nyt. Pidämme sinut ajan tasalla.',
+        'message_completed'  => 'Loistava uutinen! Tilauksesi on valmis. Kiitos ostoksestasi!',
+        'message_cancelled'  => 'Tilauksesi on peruutettu. Jos sinulla on kysyttävää, ota rohkeasti yhteyttä meihin.',
+        'message_refunded'   => 'Hyvityksesi on käynnistetty. Odota muutamia pankkipäiviä, ennen kuin summa näkyy tililläsi.',
+
+        // Tilanimet (käytetään tila-muutosrivillä)
+        'status_pending'    => 'Odottaa',
+        'status_processing' => 'Käsittelyssä',
+        'status_completed'  => 'Valmis',
+        'status_cancelled'  => 'Peruutettu',
+        'status_refunded'   => 'Hyvitetty',
+
+        // Yhteiset
+        'hi'               => 'Hei',
+        'order_number'     => 'Tilausnumero',
+        'status_updated'   => 'Tilapäivitys',
+        'previous_status'  => 'Edellinen tila',
+        'new_status'       => 'Uusi tila',
+        'order_summary'    => 'Tilauksen yhteenveto',
+        'col_product'      => 'Tuote',
+        'col_qty'          => 'Määrä',
+        'col_total'        => 'Yhteensä',
+        'order_total'      => 'Tilauksen kokonaissumma',
+        'questions'        => 'Kysyttävää tilauksestasi?',
+        'questions_body'   => 'Vastaa tähän sähköpostiin, niin autamme sinua mielellään.',
+        'all_rights'       => 'Kaikki oikeudet pidätetään.',
+    ],
+
     // registration-welcome
     'registration_welcome' => [
         'badge'           => 'Uusi tili',

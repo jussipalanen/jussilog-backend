@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrderConfirmation;
+use App\Mail\OrderStatusUpdated;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
@@ -124,6 +125,7 @@ class OrderController extends Controller
      * @bodyParam shipping_address object required Shipping address object.
      * @bodyParam billing_address object Billing address object.
      * @bodyParam notes string Order notes.
+     * @bodyParam lang string Language code for order emails (en or fi). Defaults to en. Example: fi
      * @bodyParam items array required Order items array.
      * @bodyParam items.*.product_id integer required Product ID. Example: 1
      * @bodyParam items.*.quantity integer required Quantity. Example: 2
@@ -138,6 +140,7 @@ class OrderController extends Controller
             'shipping_address'    => 'required|array',
             'billing_address'     => 'nullable|array',
             'notes'               => 'nullable|string',
+            'lang'                => 'sometimes|string|in:en,fi',
             'items'               => 'required|array|min:1',
             'items.*.product_id'  => 'required|integer|exists:products,id',
             'items.*.quantity'    => 'required|integer|min:1',
@@ -190,6 +193,7 @@ class OrderController extends Controller
                 'shipping_address'    => $data['shipping_address'],
                 'billing_address'     => $data['billing_address'] ?? $data['shipping_address'],
                 'notes'               => $data['notes'] ?? null,
+                'lang'                => $data['lang'] ?? 'en',
             ]);
 
             // Create order items
@@ -199,9 +203,7 @@ class OrderController extends Controller
 
             $order->load('items');
 
-            $lang = in_array(strtolower((string) $request->query('lang', 'en')), ['en', 'fi'], true)
-                ? strtolower((string) $request->query('lang', 'en'))
-                : 'en';
+            $lang = $data['lang'] ?? 'en';
 
             Mail::to($order->customer_email)->send(new OrderConfirmation($order, $lang));
 
@@ -245,6 +247,7 @@ class OrderController extends Controller
      * @bodyParam items array Order items array.
      * @bodyParam items.*.product_id integer Product ID. Example: 1
      * @bodyParam items.*.quantity integer Quantity. Example: 2
+     * @bodyParam send_status_email boolean Whether to send the status change email. Defaults to true. Example: false
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -266,9 +269,12 @@ class OrderController extends Controller
             'items'               => 'sometimes|array|min:1',
             'items.*.product_id'  => 'required_with:items|integer|exists:products,id',
             'items.*.quantity'    => 'required_with:items|integer|min:1',
+            'send_status_email'   => 'sometimes|boolean',
         ]);
 
-        return DB::transaction(function () use ($order, $data) {
+        $oldStatus = $order->status;
+
+        $response = DB::transaction(function () use ($order, $data) {
             // Update order fields
             if (isset($data['status'])) {
                 $order->status = $data['status'];
@@ -324,6 +330,16 @@ class OrderController extends Controller
 
             return response()->json($order->load(['user', 'items.product']));
         });
+
+        $sendEmail = (bool) ($data['send_status_email'] ?? true);
+
+        if ($sendEmail && isset($data['status']) && $oldStatus !== $data['status']) {
+            $lang = $order->lang ?? 'en';
+
+            Mail::to($order->customer_email)->send(new OrderStatusUpdated($order->load('items'), $oldStatus, $lang));
+        }
+
+        return $response;
     }
 
     /**
