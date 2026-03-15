@@ -30,6 +30,8 @@ class Resume extends Model
         'is_primary',
         'is_public',
         'code',
+        'show_skill_levels',
+        'show_language_levels',
     ];
 
     protected $hidden = [];
@@ -37,9 +39,11 @@ class Resume extends Model
     protected $appends = ['has_code'];
 
     protected $casts = [
-        'photo_sizes' => 'array',
-        'is_primary'  => 'boolean',
-        'is_public'   => 'boolean',
+        'photo_sizes'          => 'array',
+        'is_primary'           => 'boolean',
+        'is_public'            => 'boolean',
+        'show_skill_levels'    => 'boolean',
+        'show_language_levels' => 'boolean',
     ];
 
     public function getHasCodeAttribute(): bool

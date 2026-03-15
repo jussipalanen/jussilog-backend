@@ -449,7 +449,9 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
         @php $w = match($skill->proficiency) { 'expert' => '100%', 'advanced' => '80%', 'intermediate' => '60%', 'basic' => '40%', default => '20%' }; @endphp
         <div class="sb-skill">
             <div class="sb-skill-name">{{ $skill->name }}</div>
+            @if($showSkillLevels ?? true)
             <div class="sb-track"><div class="sb-fill" style="width:{{ $w }};"></div></div>
+            @endif
         </div>
         @endforeach
     </div>
@@ -470,9 +472,11 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     @endphp
     <div class="sb-lang">
         <div class="sb-lang-name">{{ $langLabel }}</div>
+        @if($showLanguageLevels ?? true)
         @for($d = 1; $d <= 5; $d++)
         <span class="sb-dot {{ $d <= $filled ? 'sb-dot-on' : 'sb-dot-off' }}"></span>
         @endfor
+        @endif
     </div>
     @endforeach
     </div>{{-- /sb-section languages --}}
@@ -484,7 +488,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
     @if($resume->summary)
     <div class="section">
         <div class="section-title">{{ __('resume.professional_summary') }}</div>
-        <p class="summary">{{ $resume->summary }}</p>
+        <p class="summary">{!! nl2br(e($resume->summary)) !!}</p>
     </div>
     @endif
 
@@ -506,7 +510,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
                 </div>
             </div>
             @if($job->description)
-            <div class="item-body">{{ $job->description }}</div>
+            <div class="item-body">{!! nl2br(e($job->description)) !!}</div>
             @endif
         </div>
         @endforeach
@@ -546,7 +550,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
         <div class="item">
             <div class="item-title">{{ $project->name }}</div>
             @if($project->description)
-            <div class="item-body">{{ $project->description }}</div>
+            <div class="item-body">{!! nl2br(e($project->description)) !!}</div>
             @endif
             @if(!empty($project->technologies))
             <div class="tags">
@@ -606,7 +610,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
                 @endif
             </div>
             @if($award->description)
-            <div class="item-body">{{ $award->description }}</div>
+            <div class="item-body">{!! nl2br(e($award->description)) !!}</div>
             @endif
         </div>
         @endforeach
@@ -626,7 +630,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
                 @if($rec->phone) &middot; {{ $rec->phone }}@endif
             </div>
             @if($rec->recommendation)
-            <div class="rec-quote">&ldquo;{{ $rec->recommendation }}&rdquo;</div>
+            <div class="rec-quote">&ldquo;{!! nl2br(e($rec->recommendation)) !!}&rdquo;</div>
             @endif
         </div>
         @endforeach
