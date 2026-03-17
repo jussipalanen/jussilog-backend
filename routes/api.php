@@ -170,7 +170,7 @@ Route::get('/visitors/total', [VisitorController::class, 'total']);
 
 // Blog routes — public read, admin write
 Route::get('/blogs', [BlogController::class, 'index']);
-Route::get('/blogs/{id}', [BlogController::class, 'show']);
+Route::get('/blogs/{idOrSlug}', [BlogController::class, 'show']);
 
 Route::get('/blog-categories', [BlogCategoryController::class, 'index']);
 
