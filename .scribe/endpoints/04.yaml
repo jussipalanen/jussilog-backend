@@ -1,19 +1,19 @@
-name: Users
+name: Invoices
 description: ''
 endpoints:
   -
     custom: []
     httpMethods:
-      - GET
-    uri: api/users
+      - POST
+    uri: api/invoices/export/pdf
     metadata:
       custom: []
-      groupName: Users
+      groupName: Invoices
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'List users.'
-      description: ''
+      title: 'Export a preview invoice as PDF (no auth, no database save).'
+      description: 'Builds a transient invoice from the request body and returns it as a downloadable PDF.'
       authenticated: false
       deprecated: false
     headers:
@@ -23,6 +23,931 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
+    bodyParameters:
+      invoice_number:
+        custom: []
+        name: invoice_number
+        description: 'Invoice number shown on the document.'
+        required: false
+        example: INV-2026-00001
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_first_name:
+        custom: []
+        name: customer_first_name
+        description: 'Customer first name.'
+        required: false
+        example: Jussi
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_last_name:
+        custom: []
+        name: customer_last_name
+        description: 'Customer last name.'
+        required: false
+        example: Palanen
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_email:
+        custom: []
+        name: customer_email
+        description: 'Customer email.'
+        required: false
+        example: jussi@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_phone:
+        custom: []
+        name: customer_phone
+        description: 'Customer phone.'
+        required: false
+        example: '+358401234567'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      billing_address:
+        custom: []
+        name: billing_address
+        description: 'Billing address (street, city, postal_code, country).'
+        required: false
+        example: []
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      subtotal:
+        custom: []
+        name: subtotal
+        description: 'Invoice subtotal.'
+        required: false
+        example: 99.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      total:
+        custom: []
+        name: total
+        description: 'Invoice total.'
+        required: false
+        example: 122.76
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: 'Invoice status (draft, issued, paid, cancelled).'
+        required: false
+        example: draft
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      notes:
+        custom: []
+        name: notes
+        description: 'Optional notes.'
+        required: false
+        example: 'Thank you for your business.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      items:
+        custom: []
+        name: items
+        description: 'Invoice line items.'
+        required: false
+        example:
+          - consequatur
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'items[].type':
+        custom: []
+        name: 'items[].type'
+        description: 'Item type (product, shipping, discount, adjustment).'
+        required: true
+        example: product
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].description':
+        custom: []
+        name: 'items[].description'
+        description: 'Item description.'
+        required: true
+        example: 'Example Product'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].quantity':
+        custom: []
+        name: 'items[].quantity'
+        description: Quantity.
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].unit_price':
+        custom: []
+        name: 'items[].unit_price'
+        description: 'Unit price.'
+        required: true
+        example: 49.5
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].tax_rate':
+        custom: []
+        name: 'items[].tax_rate'
+        description: 'Tax rate (0–1).'
+        required: false
+        example: 0.24
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].total':
+        custom: []
+        name: 'items[].total'
+        description: 'Line total.'
+        required: true
+        example: 99.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      invoice_number: INV-2026-00001
+      customer_first_name: Jussi
+      customer_last_name: Palanen
+      customer_email: jussi@example.com
+      customer_phone: '+358401234567'
+      billing_address: []
+      subtotal: 99.0
+      total: 122.76
+      status: draft
+      notes: 'Thank you for your business.'
+      items:
+        - consequatur
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"binary": "application/pdf"}'
+        headers: []
+        description: 'PDF file'
+      -
+        custom: []
+        status: 422
+        content: '{"message": "The items.0.type field is required.", "errors": {}}'
+        headers: []
+        description: 'Validation error'
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/invoices/export/html
+    metadata:
+      custom: []
+      groupName: Invoices
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Export a preview invoice as HTML (no auth, no database save).'
+      description: 'Builds a transient invoice from the request body and returns it as an HTML file.'
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      invoice_number:
+        custom: []
+        name: invoice_number
+        description: 'Invoice number shown on the document.'
+        required: false
+        example: INV-2026-00001
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_first_name:
+        custom: []
+        name: customer_first_name
+        description: 'Customer first name.'
+        required: false
+        example: Jussi
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_last_name:
+        custom: []
+        name: customer_last_name
+        description: 'Customer last name.'
+        required: false
+        example: Palanen
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_email:
+        custom: []
+        name: customer_email
+        description: 'Customer email.'
+        required: false
+        example: jussi@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_phone:
+        custom: []
+        name: customer_phone
+        description: 'Customer phone.'
+        required: false
+        example: '+358401234567'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      billing_address:
+        custom: []
+        name: billing_address
+        description: 'Billing address (street, city, postal_code, country).'
+        required: false
+        example: []
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      subtotal:
+        custom: []
+        name: subtotal
+        description: 'Invoice subtotal.'
+        required: false
+        example: 99.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      total:
+        custom: []
+        name: total
+        description: 'Invoice total.'
+        required: false
+        example: 122.76
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: 'Invoice status (draft, issued, paid, cancelled).'
+        required: false
+        example: draft
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      notes:
+        custom: []
+        name: notes
+        description: 'Optional notes.'
+        required: false
+        example: 'Thank you for your business.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      items:
+        custom: []
+        name: items
+        description: 'Invoice line items.'
+        required: false
+        example:
+          - consequatur
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'items[].type':
+        custom: []
+        name: 'items[].type'
+        description: 'Item type (product, shipping, discount, adjustment).'
+        required: true
+        example: product
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].description':
+        custom: []
+        name: 'items[].description'
+        description: 'Item description.'
+        required: true
+        example: 'Example Product'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].quantity':
+        custom: []
+        name: 'items[].quantity'
+        description: Quantity.
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].unit_price':
+        custom: []
+        name: 'items[].unit_price'
+        description: 'Unit price.'
+        required: true
+        example: 49.5
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].tax_rate':
+        custom: []
+        name: 'items[].tax_rate'
+        description: 'Tax rate (0–1).'
+        required: false
+        example: 0.24
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].total':
+        custom: []
+        name: 'items[].total'
+        description: 'Line total.'
+        required: true
+        example: 99.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      invoice_number: INV-2026-00001
+      customer_first_name: Jussi
+      customer_last_name: Palanen
+      customer_email: jussi@example.com
+      customer_phone: '+358401234567'
+      billing_address: []
+      subtotal: 99.0
+      total: 122.76
+      status: draft
+      notes: 'Thank you for your business.'
+      items:
+        - consequatur
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"binary": "text/html"}'
+        headers: []
+        description: 'HTML file'
+      -
+        custom: []
+        status: 422
+        content: '{"message": "The items.0.type field is required.", "errors": {}}'
+        headers: []
+        description: 'Validation error'
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/invoices/export/email
+    metadata:
+      custom: []
+      groupName: Invoices
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Send a preview invoice by email (no auth, no database save).'
+      description: |-
+        Builds a transient invoice from the request body and sends it to `to_email`.
+        If `to_email` is omitted, falls back to `customer_email` in the payload.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      to_email:
+        custom: []
+        name: to_email
+        description: 'Recipient email address.'
+        required: true
+        example: someone@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      invoice_number:
+        custom: []
+        name: invoice_number
+        description: 'Invoice number shown on the document.'
+        required: false
+        example: INV-2026-00001
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_first_name:
+        custom: []
+        name: customer_first_name
+        description: 'Customer first name.'
+        required: false
+        example: Jussi
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_last_name:
+        custom: []
+        name: customer_last_name
+        description: 'Customer last name.'
+        required: false
+        example: Palanen
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_email:
+        custom: []
+        name: customer_email
+        description: 'Customer email shown on the document.'
+        required: false
+        example: jussi@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_phone:
+        custom: []
+        name: customer_phone
+        description: 'Customer phone.'
+        required: false
+        example: '+358401234567'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      billing_address:
+        custom: []
+        name: billing_address
+        description: 'Billing address (street, city, postal_code, country).'
+        required: false
+        example: []
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      subtotal:
+        custom: []
+        name: subtotal
+        description: 'Invoice subtotal.'
+        required: false
+        example: 99.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      total:
+        custom: []
+        name: total
+        description: 'Invoice total.'
+        required: false
+        example: 122.76
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: 'Invoice status (draft, issued, paid, cancelled).'
+        required: false
+        example: draft
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      notes:
+        custom: []
+        name: notes
+        description: 'Optional notes.'
+        required: false
+        example: 'Thank you for your business.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      items:
+        custom: []
+        name: items
+        description: 'Invoice line items.'
+        required: false
+        example:
+          - consequatur
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'items[].type':
+        custom: []
+        name: 'items[].type'
+        description: 'Item type (product, shipping, discount, adjustment).'
+        required: true
+        example: product
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].description':
+        custom: []
+        name: 'items[].description'
+        description: 'Item description.'
+        required: true
+        example: 'Example Product'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].quantity':
+        custom: []
+        name: 'items[].quantity'
+        description: Quantity.
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].unit_price':
+        custom: []
+        name: 'items[].unit_price'
+        description: 'Unit price.'
+        required: true
+        example: 49.5
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].tax_rate':
+        custom: []
+        name: 'items[].tax_rate'
+        description: 'Tax rate (0–1).'
+        required: false
+        example: 0.24
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].total':
+        custom: []
+        name: 'items[].total'
+        description: 'Line total.'
+        required: true
+        example: 99.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      to_email: someone@example.com
+      invoice_number: INV-2026-00001
+      customer_first_name: Jussi
+      customer_last_name: Palanen
+      customer_email: jussi@example.com
+      customer_phone: '+358401234567'
+      billing_address: []
+      subtotal: 99.0
+      total: 122.76
+      status: draft
+      notes: 'Thank you for your business.'
+      items:
+        - consequatur
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"message": "Invoice sent to someone@example.com"}'
+        headers: []
+        description: Sent
+      -
+        custom: []
+        status: 422
+        content: '{"message": "The to email field is required.", "errors": {}}'
+        headers: []
+        description: 'Validation error'
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/invoices/{id}/send'
+    metadata:
+      custom: []
+      groupName: Invoices
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Send an invoice by email.'
+      description: 'Sends the invoice as a PDF attachment to the customer email or to a specific email address if provided.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The invoice ID.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: "Optional recipient email. Defaults to the invoice's customer email."
+        required: false
+        example: someone@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      lang:
+        custom: []
+        name: lang
+        description: ''
+        required: false
+        example: en
+        type: string
+        enumValues:
+          - en
+          - fi
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      email: someone@example.com
+      lang: en
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"message": "Invoice sent to someone@example.com"}'
+        headers: []
+        description: Sent
+      -
+        custom: []
+        status: 403
+        content: '{"message": "Forbidden."}'
+        headers: []
+        description: Forbidden
+      -
+        custom: []
+        status: 404
+        content: '{"message": "Invoice not found"}'
+        headers: []
+        description: 'Not found'
+      -
+        custom: []
+        status: 422
+        content: '{"message": "The email field must be a valid email address.", "errors": {}}'
+        headers: []
+        description: 'Validation error'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/invoices
+    metadata:
+      custom: []
+      groupName: Invoices
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List invoices.'
+      description: 'Returns a paginated list of invoices. Results can be filtered by order, user and status.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      per_page:
+        custom: []
+        name: per_page
+        description: 'Items per page (1–100).'
+        required: false
+        example: 25
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      page:
+        custom: []
+        name: page
+        description: 'Page number.'
+        required: false
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      order_id:
+        custom: []
+        name: order_id
+        description: 'Filter by order ID.'
+        required: false
+        example: 5
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      user_id:
+        custom: []
+        name: user_id
+        description: 'Filter by user ID.'
+        required: false
+        example: 3
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: 'Filter by status (draft, issued, paid, cancelled).'
+        required: false
+        example: issued
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      sort_by:
+        custom: []
+        name: sort_by
+        description: 'Sort field (id, invoice_number, subtotal, total, status, issued_at, paid_at, created_at).'
+        required: false
+        example: created_at
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      sort_dir:
+        custom: []
+        name: sort_dir
+        description: 'Sort direction (asc, desc).'
+        required: false
+        example: desc
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      per_page: 25
+      page: 2
+      order_id: 5
+      user_id: 3
+      status: issued
+      sort_by: created_at
+      sort_dir: desc
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
@@ -30,16 +955,744 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '[{"id":1,"first_name":"Jussi","last_name":"Palanen","username":"jussip","email":"jussi@example.com"}]'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '54'
-          access-control-allow-origin: '*'
-        description: null
+        content: |-
+          {
+            "current_page": 1,
+            "data": [
+              {
+                "id": 1,
+                "order_id": 1,
+                "user_id": 2,
+                "invoice_number": "INV-2026-00001",
+                "customer_first_name": "Jussi",
+                "customer_last_name": "Palanen",
+                "customer_email": "jussi@example.com",
+                "customer_phone": "+358401234567",
+                "billing_address": {"street": "Mannerheimintie 1", "city": "Helsinki", "postal_code": "00100", "country": "FI"},
+                "subtotal": "99.00",
+                "total": "99.00",
+                "status": "issued",
+                "issued_at": "2026-03-10T20:00:00.000000Z",
+                "paid_at": null,
+                "notes": null,
+                "created_at": "2026-03-10T19:00:00.000000Z",
+                "updated_at": "2026-03-10T20:00:00.000000Z"
+              }
+            ],
+            "per_page": 25,
+            "total": 1
+          }
+        headers: []
+        description: Success
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/invoices/{id}'
+    metadata:
+      custom: []
+      groupName: Invoices
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get an invoice.'
+      description: 'Returns a single invoice with its items, associated order and user.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The invoice ID.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+            "id": 1,
+            "order_id": 1,
+            "user_id": 2,
+            "invoice_number": "INV-2026-00001",
+            "status": "issued",
+            "items": [],
+            "created_at": "2026-03-10T19:00:00.000000Z",
+            "updated_at": "2026-03-10T20:00:00.000000Z"
+          }
+        headers: []
+        description: Success
+      -
+        custom: []
+        status: 403
+        content: '{"message": "Forbidden."}'
+        headers: []
+        description: Forbidden
+      -
+        custom: []
+        status: 404
+        content: '{"message": "Invoice not found"}'
+        headers: []
+        description: 'Not found'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/invoices/{id}/pdf'
+    metadata:
+      custom: []
+      groupName: Invoices
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Download invoice as PDF.'
+      description: 'Returns a PDF file of the invoice.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The invoice ID.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"binary": "application/pdf"}'
+        headers: []
+        description: 'PDF file'
+      -
+        custom: []
+        status: 403
+        content: '{"message": "Forbidden."}'
+        headers: []
+        description: Forbidden
+      -
+        custom: []
+        status: 404
+        content: '{"message": "Invoice not found"}'
+        headers: []
+        description: 'Not found'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/invoices/{id}/html'
+    metadata:
+      custom: []
+      groupName: Invoices
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Download a stored invoice as HTML.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The invoice ID.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"binary": "text/html"}'
+        headers: []
+        description: 'HTML file'
+      -
+        custom: []
+        status: 403
+        content: '{"message": "Forbidden."}'
+        headers: []
+        description: Forbidden
+      -
+        custom: []
+        status: 404
+        content: '{"message": "Invoice not found"}'
+        headers: []
+        description: 'Not found'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/invoices
+    metadata:
+      custom: []
+      groupName: Invoices
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Create an invoice.'
+      description: "Creates a new invoice for the given order and automatically generates invoice items from the order's line items."
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      order_id:
+        custom: []
+        name: order_id
+        description: 'The ID of the order to invoice.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      due_date:
+        custom: []
+        name: due_date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-03-17T10:27:35'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      notes:
+        custom: []
+        name: notes
+        description: 'Optional free-text notes.'
+        required: false
+        example: 'Net 30'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: 'Invoice status on creation (draft, issued, paid, cancelled). Defaults to draft.'
+        required: false
+        example: draft
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      order_id: 1
+      due_date: '2026-03-17T10:27:35'
+      notes: 'Net 30'
+      status: draft
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 201
+        content: |-
+          {
+            "id": 1,
+            "order_id": 1,
+            "user_id": 2,
+            "invoice_number": "INV-2026-00001",
+            "customer_first_name": "Jussi",
+            "customer_last_name": "Palanen",
+            "customer_email": "jussi@example.com",
+            "customer_phone": "+358401234567",
+            "billing_address": {"street": "Mannerheimintie 1", "city": "Helsinki", "postal_code": "00100", "country": "FI"},
+            "subtotal": "99.00",
+            "total": "99.00",
+            "status": "draft",
+            "issued_at": null,
+            "paid_at": null,
+            "notes": "Net 30",
+            "items": [
+              {
+                "id": 1,
+                "invoice_id": 1,
+                "order_item_id": 3,
+                "type": "product",
+                "description": "Example Product",
+                "quantity": 2,
+                "unit_price": "49.50",
+                "tax_rate": "0.0000",
+                "total": "99.00"
+              }
+            ],
+            "created_at": "2026-03-10T19:00:00.000000Z",
+            "updated_at": "2026-03-10T19:00:00.000000Z"
+          }
+        headers: []
+        description: Created
+      -
+        custom: []
+        status: 422
+        content: |-
+          {
+            "message": "The order id field is required.",
+            "errors": {"order_id": ["The order id field is required."]}
+          }
+        headers: []
+        description: 'Validation error'
     responseFields: []
     auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/invoices/{id}'
+    metadata:
+      custom: []
+      groupName: Invoices
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update an invoice.'
+      description: 'Updates an existing invoice. Automatically sets `issued_at` when status changes to `issued`, and `paid_at` when status changes to `paid`.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The invoice ID.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      status:
+        custom: []
+        name: status
+        description: 'Invoice status (draft, issued, paid, cancelled).'
+        required: false
+        example: issued
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_first_name:
+        custom: []
+        name: customer_first_name
+        description: 'Customer first name.'
+        required: false
+        example: Jussi
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_last_name:
+        custom: []
+        name: customer_last_name
+        description: 'Customer last name.'
+        required: false
+        example: Palanen
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_email:
+        custom: []
+        name: customer_email
+        description: 'Customer email address.'
+        required: false
+        example: jussi@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_phone:
+        custom: []
+        name: customer_phone
+        description: 'Customer phone number.'
+        required: false
+        example: '+358401234567'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      billing_address:
+        custom: []
+        name: billing_address
+        description: 'Billing address object.'
+        required: false
+        example: []
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      subtotal:
+        custom: []
+        name: subtotal
+        description: 'Subtotal amount.'
+        required: false
+        example: 153.47
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      total:
+        custom: []
+        name: total
+        description: 'Total amount.'
+        required: false
+        example: 153.47
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      due_date:
+        custom: []
+        name: due_date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-03-17T10:27:35'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      notes:
+        custom: []
+        name: notes
+        description: 'Free-text notes.'
+        required: false
+        example: 'Net 30'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      items:
+        custom: []
+        name: items
+        description: 'Optional array of invoice items to sync. Items with `id` are updated, items without `id` are created, existing items omitted from the array are deleted.'
+        required: false
+        example:
+          - []
+        type: 'object[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'items[].id':
+        custom: []
+        name: 'items[].id'
+        description: 'Existing item ID to update. Omit to create a new item.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].type':
+        custom: []
+        name: 'items[].type'
+        description: 'Item type (product, shipping, discount, adjustment).'
+        required: false
+        example: product
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].description':
+        custom: []
+        name: 'items[].description'
+        description: 'Item description.'
+        required: false
+        example: 'Wireless Headphones'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].quantity':
+        custom: []
+        name: 'items[].quantity'
+        description: Quantity.
+        required: false
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].unit_price':
+        custom: []
+        name: 'items[].unit_price'
+        description: 'Unit price.'
+        required: false
+        example: 79.99
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].tax_rate':
+        custom: []
+        name: 'items[].tax_rate'
+        description: 'Tax rate as decimal (e.g. 0.24 = 24%).'
+        required: false
+        example: 0.24
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'items[].total':
+        custom: []
+        name: 'items[].total'
+        description: 'Line total.'
+        required: false
+        example: 159.98
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      status: issued
+      customer_first_name: Jussi
+      customer_last_name: Palanen
+      customer_email: jussi@example.com
+      customer_phone: '+358401234567'
+      billing_address: []
+      subtotal: 153.47
+      total: 153.47
+      due_date: '2026-03-17T10:27:35'
+      notes: 'Net 30'
+      items:
+        -
+          id: 1
+          type: product
+          description: 'Wireless Headphones'
+          quantity: 2
+          unit_price: 79.99
+          tax_rate: 0.24
+          total: 159.98
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+            "id": 1,
+            "order_id": 1,
+            "user_id": 2,
+            "invoice_number": "INV-2026-00001",
+            "customer_first_name": "Jussi",
+            "customer_last_name": "Palanen",
+            "customer_email": "jussi@example.com",
+            "customer_phone": "+358401234567",
+            "billing_address": {"street": "Mannerheimintie 1", "city": "Helsinki", "postal_code": "00100", "country": "FI"},
+            "subtotal": "99.00",
+            "total": "99.00",
+            "status": "issued",
+            "issued_at": "2026-03-10T20:00:00.000000Z",
+            "paid_at": null,
+            "notes": "Net 30",
+            "items": [],
+            "created_at": "2026-03-10T19:00:00.000000Z",
+            "updated_at": "2026-03-10T20:00:00.000000Z"
+          }
+        headers: []
+        description: Success
+      -
+        custom: []
+        status: 404
+        content: '{"message": "Invoice not found"}'
+        headers: []
+        description: 'Not found'
+      -
+        custom: []
+        status: 422
+        content: |-
+          {
+            "message": "The status field must be one of draft, issued, paid, cancelled.",
+            "errors": {"status": ["The status field must be one of draft, issued, paid, cancelled."]}
+          }
+        headers: []
+        description: 'Validation error'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/invoices/{id}'
+    metadata:
+      custom: []
+      groupName: Invoices
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete an invoice.'
+      description: 'Permanently deletes an invoice and all its associated items.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The invoice ID.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"message": "Invoice deleted"}'
+        headers: []
+        description: Deleted
+      -
+        custom: []
+        status: 403
+        content: '{"message": "Forbidden."}'
+        headers: []
+        description: Forbidden
+      -
+        custom: []
+        status: 404
+        content: '{"message": "Invoice not found"}'
+        headers: []
+        description: 'Not found'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null

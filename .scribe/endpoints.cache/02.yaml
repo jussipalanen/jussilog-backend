@@ -6,120 +6,6 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - GET
-    uri: api/products
-    metadata:
-      custom: []
-      groupName: Products
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'List products.'
-      description: ''
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters:
-      per_page:
-        custom: []
-        name: per_page
-        description: 'Items per page.'
-        required: false
-        example: 25
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      page:
-        custom: []
-        name: page
-        description: 'Page number.'
-        required: false
-        example: 2
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      search:
-        custom: []
-        name: search
-        description: 'Search by title or description.'
-        required: false
-        example: headphones
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      ids:
-        custom: []
-        name: ids
-        description: 'Comma-separated product IDs.'
-        required: false
-        example: '1,2,3'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      sort_by:
-        custom: []
-        name: sort_by
-        description: 'Sort field.'
-        required: false
-        example: created_at
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      sort_dir:
-        custom: []
-        name: sort_dir
-        description: 'Sort direction.'
-        required: false
-        example: desc
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanQueryParameters:
-      per_page: 25
-      page: 2
-      search: headphones
-      ids: '1,2,3'
-      sort_by: created_at
-      sort_dir: desc
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"current_page":2,"data":[],"first_page_url":"http:\/\/localhost\/api\/products?page=1","from":null,"last_page":1,"last_page_url":"http:\/\/localhost\/api\/products?page=1","links":[{"url":"http:\/\/localhost\/api\/products?page=1","label":"&laquo; Previous","active":false},{"url":"http:\/\/localhost\/api\/products?page=1","label":"1","active":false},{"url":null,"label":"Next &raquo;","active":false}],"next_page_url":null,"path":"http:\/\/localhost\/api\/products","per_page":25,"prev_page_url":"http:\/\/localhost\/api\/products?page=1","to":null,"total":0}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '58'
-          access-control-allow-origin: '*'
-        description: null
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
       - POST
     uri: api/products
     metadata:
@@ -140,6 +26,17 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
+      user_id:
+        custom: []
+        name: user_id
+        description: 'The <code>id</code> of an existing record in the users table.'
+        required: false
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
       id:
         custom: []
         name: id
@@ -193,6 +90,81 @@ endpoints:
         type: number
         enumValues: []
         exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      tax_code:
+        custom: []
+        name: tax_code
+        description: ''
+        required: false
+        example: CN
+        type: string
+        enumValues:
+          - ZERO
+          - AT
+          - BE
+          - BG
+          - HR
+          - CY
+          - CZ
+          - DK
+          - EE
+          - FI
+          - FR
+          - DE
+          - GR
+          - HU
+          - IE
+          - IT
+          - LV
+          - LT
+          - LU
+          - MT
+          - NL
+          - PL
+          - PT
+          - RO
+          - SK
+          - SI
+          - ES
+          - SE
+          - UK
+          - 'NO'
+          - CH
+          - AR
+          - BR
+          - CA
+          - MX
+          - AU
+          - CN
+          - ID
+          - IN
+          - JP
+          - KR
+          - NZ
+          - PH
+          - SG
+          - TH
+          - AE
+          - IL
+          - SA
+          - EG
+          - GH
+          - KE
+          - NG
+          - ZA
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      tax_rate:
+        custom: []
+        name: tax_rate
+        description: 'tax_rate is a snapshot; if omitted but tax_code is given, resolve from TaxRateController. Must be at least 0. Must not be greater than 1.'
+        required: false
+        example: 1
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
         nullable: true
         deprecated: false
       quantity:
@@ -252,11 +224,14 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
+      user_id: 17
       id: 1001
       title: 'Wireless Headphones'
       description: 'Premium noise-cancelling headphones'
       price: 299.99
       sale_price: 249.99
+      tax_code: CN
+      tax_rate: 1
       quantity: 50
       visibility: true
     fileParameters:
@@ -265,60 +240,6 @@ endpoints:
         - null
       'images[]': null
     responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: 'api/products/{id}'
-    metadata:
-      custom: []
-      groupName: Products
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Get a product.'
-      description: ''
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        custom: []
-        name: id
-        description: 'Product ID.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      id: 1
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"id":1,"title":"KIMMOPETTERI","description":"SASDASDSD","price":"100.00","sale_price":"50.00","quantity":25,"featured_image":null,"images":null,"visibility":true,"created_at":"2026-03-05T17:11:35.000000Z","updated_at":"2026-03-05T17:11:35.000000Z","featured_image_url":null,"images_urls":[]}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '57'
-          access-control-allow-origin: '*'
-        description: null
     responseFields: []
     auth: []
     controller: null
@@ -359,6 +280,17 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
+      user_id:
+        custom: []
+        name: user_id
+        description: 'The <code>id</code> of an existing record in the users table.'
+        required: false
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
       title:
         custom: []
         name: title
@@ -401,6 +333,81 @@ endpoints:
         type: number
         enumValues: []
         exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      tax_code:
+        custom: []
+        name: tax_code
+        description: ''
+        required: false
+        example: CN
+        type: string
+        enumValues:
+          - ZERO
+          - AT
+          - BE
+          - BG
+          - HR
+          - CY
+          - CZ
+          - DK
+          - EE
+          - FI
+          - FR
+          - DE
+          - GR
+          - HU
+          - IE
+          - IT
+          - LV
+          - LT
+          - LU
+          - MT
+          - NL
+          - PL
+          - PT
+          - RO
+          - SK
+          - SI
+          - ES
+          - SE
+          - UK
+          - 'NO'
+          - CH
+          - AR
+          - BR
+          - CA
+          - MX
+          - AU
+          - CN
+          - ID
+          - IN
+          - JP
+          - KR
+          - NZ
+          - PH
+          - SG
+          - TH
+          - AE
+          - IL
+          - SA
+          - EG
+          - GH
+          - KE
+          - NG
+          - ZA
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      tax_rate:
+        custom: []
+        name: tax_rate
+        description: 'tax_rate is a snapshot; if omitted but tax_code is given, resolve from TaxRateController. Must be at least 0. Must not be greater than 1.'
+        required: false
+        example: 1
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
         nullable: true
         deprecated: false
       quantity:
@@ -494,10 +501,13 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
+      user_id: 17
       title: 'Wireless Headphones'
       description: 'Premium noise-cancelling headphones'
       price: 299.99
       sale_price: 249.99
+      tax_code: CN
+      tax_rate: 1
       quantity: 50
       visibility: true
       delete_images:

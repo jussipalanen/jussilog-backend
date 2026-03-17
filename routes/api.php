@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminThumbnailController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogCategoryController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -165,6 +167,23 @@ Route::get('/settings/countries/{code}', [SettingsController::class, 'country'])
 Route::post('/visitors/track', [VisitorController::class, 'track']);
 Route::get('/visitors/today', [VisitorController::class, 'today']);
 Route::get('/visitors/total', [VisitorController::class, 'total']);
+
+// Blog routes — public read, admin write
+Route::get('/blogs', [BlogController::class, 'index']);
+Route::get('/blogs/{id}', [BlogController::class, 'show']);
+
+Route::get('/blog-categories', [BlogCategoryController::class, 'index']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/admin/blogs', [BlogController::class, 'adminIndex'])->middleware('role:admin');
+    Route::post('/blogs', [BlogController::class, 'store'])->middleware('role:admin');
+    Route::put('/blogs/{id}', [BlogController::class, 'update'])->middleware('role:admin');
+    Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->middleware('role:admin');
+
+    Route::post('/blog-categories', [BlogCategoryController::class, 'store'])->middleware('role:admin');
+    Route::put('/blog-categories/{id}', [BlogCategoryController::class, 'update'])->middleware('role:admin');
+    Route::delete('/blog-categories/{id}', [BlogCategoryController::class, 'destroy'])->middleware('role:admin');
+});
 
 // Resume routes
 $sectionPattern = 'work-experiences|educations|skills|projects|certifications|languages|awards|recommendations';

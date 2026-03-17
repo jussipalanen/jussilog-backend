@@ -1,43 +1,44 @@
-name: Health
+name: Uploads
 description: ''
 endpoints:
   -
     custom: []
     httpMethods:
-      - GET
-    uri: api/hello
+      - POST
+    uri: api/upload-test
     metadata:
       custom: []
-      groupName: Health
+      groupName: Uploads
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Health check.'
+      title: 'Upload test file.'
       description: ''
       authenticated: false
       deprecated: false
     headers:
-      Content-Type: application/json
+      Content-Type: multipart/form-data
       Accept: application/json
     urlParameters: []
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
+    bodyParameters:
+      file:
         custom: []
-        status: 200
-        content: 'Hello world from Laravel'
-        headers:
-          content-type: 'text/html; charset=UTF-8'
-          cache-control: 'no-cache, private'
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '59'
-          access-control-allow-origin: '*'
-        description: null
+        name: file
+        description: 'Image file to upload.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters: []
+    fileParameters:
+      file: null
+    responses: []
     responseFields: []
     auth: []
     controller: null
