@@ -4,132 +4,6 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - GET
-    uri: api/orders
-    metadata:
-      custom: []
-      groupName: Orders
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Display a listing of orders.'
-      description: ''
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters:
-      per_page:
-        custom: []
-        name: per_page
-        description: 'Items per page.'
-        required: false
-        example: 25
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      page:
-        custom: []
-        name: page
-        description: 'Page number.'
-        required: false
-        example: 2
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      user_id:
-        custom: []
-        name: user_id
-        description: 'Filter by user ID.'
-        required: false
-        example: 5
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      customer_id:
-        custom: []
-        name: customer_id
-        description: 'Legacy filter by user ID.'
-        required: false
-        example: 5
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      status:
-        custom: []
-        name: status
-        description: 'Filter by status.'
-        required: false
-        example: pending
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      sort_by:
-        custom: []
-        name: sort_by
-        description: 'Sort field.'
-        required: false
-        example: created_at
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      sort_dir:
-        custom: []
-        name: sort_dir
-        description: 'Sort direction.'
-        required: false
-        example: desc
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanQueryParameters:
-      per_page: 25
-      page: 2
-      user_id: 5
-      customer_id: 5
-      status: pending
-      sort_by: created_at
-      sort_dir: desc
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"current_page":2,"data":[],"first_page_url":"http:\/\/localhost\/api\/orders?page=1","from":null,"last_page":1,"last_page_url":"http:\/\/localhost\/api\/orders?page=1","links":[{"url":"http:\/\/localhost\/api\/orders?page=1","label":"&laquo; Previous","active":false},{"url":"http:\/\/localhost\/api\/orders?page=1","label":"1","active":false},{"url":null,"label":"Next &raquo;","active":false}],"next_page_url":null,"path":"http:\/\/localhost\/api\/orders","per_page":25,"prev_page_url":"http:\/\/localhost\/api\/orders?page=1","to":null,"total":0}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '56'
-          access-control-allow-origin: '*'
-        description: null
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
       - POST
     uri: api/orders
     metadata:
@@ -227,6 +101,17 @@ endpoints:
         exampleWasSpecified: false
         nullable: true
         deprecated: false
+      lang:
+        custom: []
+        name: lang
+        description: 'Language code for order emails (en or fi). Defaults to en.'
+        required: false
+        example: fi
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
       items:
         custom: []
         name: items
@@ -302,65 +187,12 @@ endpoints:
       shipping_address: []
       billing_address: []
       notes: consequatur
+      lang: fi
       items:
         - consequatur
       user_id: 5
     fileParameters: []
     responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: 'api/orders/{id}'
-    metadata:
-      custom: []
-      groupName: Orders
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Display the specified order.'
-      description: ''
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        custom: []
-        name: id
-        description: 'Order ID.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      id: 1
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"id":1,"user_id":null,"customer_first_name":"Jussi","customer_last_name":"Alanen","customer_email":"juzapala@gmail.com","customer_phone":"0503491653","order_number":"ORD-2026-00001","status":"pending","total_amount":"50.00","shipping_address":{"street":"Patapuronkatu 17 A 6","city":"Joensuu","state":"asds","postal_code":"80160","country":"Finland"},"billing_address":{"street":"Patapuronkatu 17 A 6","city":"Joensuu","state":"asds","postal_code":"80160","country":"Finland"},"notes":"Test","created_at":"2026-03-05T17:11:47.000000Z","updated_at":"2026-03-05T17:11:47.000000Z","user":null,"items":[{"id":1,"order_id":1,"product_id":1,"product_title":"KIMMOPETTERI","quantity":1,"unit_price":"100.00","sale_price":"50.00","subtotal":"50.00","created_at":"2026-03-05T17:11:47.000000Z","updated_at":"2026-03-05T17:11:47.000000Z","product":{"id":1,"title":"KIMMOPETTERI","description":"SASDASDSD","price":"100.00","sale_price":"50.00","quantity":25,"featured_image":null,"images":null,"visibility":true,"created_at":"2026-03-05T17:11:35.000000Z","updated_at":"2026-03-05T17:11:35.000000Z","featured_image_url":null,"images_urls":[]}}]}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '55'
-          access-control-allow-origin: '*'
-        description: null
     responseFields: []
     auth: []
     controller: null
@@ -501,6 +333,17 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      send_status_email:
+        custom: []
+        name: send_status_email
+        description: 'Whether to send the status change email. Defaults to true.'
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
       'items[].product_id':
         custom: []
         name: 'items[].product_id'
@@ -556,6 +399,7 @@ endpoints:
       notes: consequatur
       items:
         - consequatur
+      send_status_email: false
     fileParameters: []
     responses: []
     responseFields: []
@@ -603,110 +447,6 @@ endpoints:
     responses: []
     responseFields: []
     auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: api/my-orders
-    metadata:
-      custom: []
-      groupName: Orders
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Display a listing of orders for the authenticated user.'
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_TOKEN}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters:
-      per_page:
-        custom: []
-        name: per_page
-        description: 'Items per page.'
-        required: false
-        example: 25
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      page:
-        custom: []
-        name: page
-        description: 'Page number.'
-        required: false
-        example: 2
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      status:
-        custom: []
-        name: status
-        description: 'Filter by status.'
-        required: false
-        example: pending
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      sort_by:
-        custom: []
-        name: sort_by
-        description: 'Sort field.'
-        required: false
-        example: created_at
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      sort_dir:
-        custom: []
-        name: sort_dir
-        description: 'Sort direction.'
-        required: false
-        example: desc
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanQueryParameters:
-      per_page: 25
-      page: 2
-      status: pending
-      sort_by: created_at
-      sort_dir: desc
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
