@@ -162,9 +162,9 @@ class ResumeSeeder extends Seeder
 
         // ── Languages ─────────────────────────────────────────────────────────
         $resume->languages()->createMany([
-            ['language' => 'Finnish', 'proficiency' => 'native',        'sort_order' => 0],
-            ['language' => 'English', 'proficiency' => 'fluent',        'sort_order' => 1],
-            ['language' => 'Swedish', 'proficiency' => 'conversational', 'sort_order' => 2],
+            ['language' => 'Finnish', 'proficiency' => 'native_bilingual',     'sort_order' => 0],
+            ['language' => 'English', 'proficiency' => 'full_professional',    'sort_order' => 1],
+            ['language' => 'Swedish', 'proficiency' => 'professional_working', 'sort_order' => 2],
         ]);
 
         // ── Awards ────────────────────────────────────────────────────────────
