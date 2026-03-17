@@ -48,7 +48,7 @@ class BlogCategoryController extends Controller
         $category = BlogCategory::findOrFail($id);
 
         $data = $request->validate([
-            'name' => 'required|string|max:100|unique:blog_categories,name,' . $id,
+            'name' => 'required|string|max:100|unique:blog_categories,name,'.$id,
         ]);
 
         $category->update($data);
