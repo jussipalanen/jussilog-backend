@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [0.9.9] - 2026-03-17
+
+### Added
+- **Blog posts**: Full CRUD API for blog posts with visibility control, tags, and featured image support.
+  - `GET /api/blogs` — list all published blog posts (public).
+  - `GET /api/blogs/{idOrSlug}` — get a single published blog post by ID or slug (public).
+  - `GET /api/admin/blogs` — list all blog posts regardless of visibility (admin only).
+  - `POST /api/blogs` — create a blog post (admin only).
+  - `PUT /api/blogs/{id}` — update a blog post (admin only).
+  - `DELETE /api/blogs/{id}` — delete a blog post (admin only).
+  - `featured_image` upload with automatic multi-size thumbnail generation (`thumb` 400×225, `medium` 800×450, `large` 1200×675).
+  - Sending `featured_image` as empty/null on update removes the existing image and thumbnails from storage.
+  - Tags stored as a JSON array; sortable by `id`, `title`, `created_at`, and `visibility`.
+- **Blog categories**: CRUD API for blog post categories.
+  - `GET /api/blog-categories` — list all categories (public).
+  - `POST /api/blog-categories` — create a category (admin only).
+  - `PUT /api/blog-categories/{id}` — update a category (admin only).
+  - `DELETE /api/blog-categories/{id}` — delete a category (admin only).
+- **Blog seeder**: Added `BlogSeeder` with sample blog category and post for development.
+- **Postman collection generator**: Added `scripts/generate-postman.sh` script to auto-generate a Postman collection from the Scribe API spec.
+- **Skill & language proficiency constants**: `ResumeSkill` and `ResumeLanguage` models now expose proficiency level constants for use across controllers.
+
 ## [0.9.6] - 2026-03-15
 
 ### Added
