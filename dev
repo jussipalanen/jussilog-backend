@@ -28,6 +28,7 @@ Commands:
                      Import a .sql file into local Docker MySQL or Cloud SQL
                      --local  (default) import into local Docker MySQL
                      --cloud  import into Cloud SQL via cloud-sql-proxy
+  generate-postman   Regenerate postman/collection.json from live routes via Scribe
   secrets-update [KEY [VALUE]]  Push secrets to GCP Secret Manager.
                                No args: sync all keys from .env.production.
                                KEY only: sync one key from .env.production.
@@ -295,6 +296,57 @@ run_db_import() {
   echo "Import done."
 }
 
+run_generate_postman() {
+  compose="$(compose_cmd)"
+  trap 'rm -f storage/app/scribe/_postman_process.php storage/app/scribe/_collection_out.json' EXIT
+
+  echo "Running scribe:generate inside container..."
+  $compose exec -T "$APP_SERVICE" php artisan scribe:generate
+
+  # Write the processor to storage/ — volume-mounted, so the container can see it
+  cat > storage/app/scribe/_postman_process.php << 'PHPEOF'
+<?php
+$base = '/var/www/html/storage/app/scribe';
+$data = json_decode(file_get_contents("$base/collection.json"), true);
+
+foreach ($data['variable'] as &$var) {
+    if (in_array($var['id'] ?? '', ['baseUrl', 'BASE_URL'], true) ||
+        in_array($var['key'] ?? '', ['baseUrl', 'BASE_URL'], true)) {
+        $var['id']    = 'BASE_URL';
+        $var['key']   = 'BASE_URL';
+        $var['value'] = 'http://localhost:8000';
+        $var['name']  = 'BASE_URL';
+    }
+}
+
+$hasToken = array_filter($data['variable'], fn($v) => ($v['key'] ?? '') === 'auth_token');
+if (empty($hasToken)) {
+    $data['variable'][] = [
+        'id' => 'auth_token', 'key' => 'auth_token',
+        'type' => 'string', 'name' => 'auth_token', 'value' => '',
+        'description' => 'Paste the token returned by Login here.',
+    ];
+}
+
+$data['auth'] = [
+    'type'   => 'bearer',
+    'bearer' => [['key' => 'token', 'value' => '{{auth_token}}', 'type' => 'string']],
+];
+
+$json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+file_put_contents("$base/_collection_out.json", str_replace('{{baseUrl}}', '{{BASE_URL}}', $json));
+PHPEOF
+
+  echo "Post-processing collection..."
+  $compose exec -T "$APP_SERVICE" php /var/www/html/storage/app/scribe/_postman_process.php
+
+  mkdir -p postman
+  cp storage/app/scribe/_collection_out.json postman/collection.json
+  rm -f storage/app/scribe/_postman_process.php storage/app/scribe/_collection_out.json
+
+  echo "Done! postman/collection.json updated."
+}
+
 run_secrets_update() {
   if [ ! -f scripts/update-secret-manager.sh ]; then
     echo "Error: scripts/update-secret-manager.sh not found." >&2
@@ -399,6 +451,10 @@ case "$1" in
   db-import)
     shift
     run_db_import "$@"
+    ;;
+  generate-postman)
+    shift
+    run_generate_postman
     ;;
   secrets-update)
     shift
