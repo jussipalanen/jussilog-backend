@@ -38,7 +38,7 @@ Commands:
   env-get            Fetch live env vars from Cloud Run as KEY=VALUE pairs
                      Pass --yaml or --json for alternative formats
   migrate-cloud      Run pending migrations against Cloud SQL production DB
-                     Uses cloud-sql-proxy + a one-off Docker container
+                     Uses cloud-sql-proxy; requires PHP + Laravel deps on host
   help               Show this help
 
 Notes:
@@ -140,13 +140,17 @@ CLOUD_SQL_SOCKET_DIR="/tmp/cloudsql-dev"
 # ─────────────────────────────────────────────────────────────────────────────
 
 _read_env_var() {
-  grep "^${1}=" "${2:-.env}" | cut -d= -f2- | tr -d '\r'
+  grep -m 1 "^${1}=" "${2:-.env}" | cut -d= -f2- | tr -d '\r'
 }
 
 _start_cloud_proxy() {
   if ! command -v cloud-sql-proxy >/dev/null 2>&1; then
     echo "ERROR: cloud-sql-proxy not found." >&2
     echo "Install: curl -o cloud-sql-proxy https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/v2.15.2/cloud-sql-proxy.linux.amd64 && chmod +x cloud-sql-proxy && sudo mv cloud-sql-proxy /usr/local/bin/" >&2
+    exit 1
+  fi
+  if ! command -v nc >/dev/null 2>&1; then
+    echo "ERROR: nc (netcat) not found. Install with: apt-get install netcat-openbsd" >&2
     exit 1
   fi
   PROXY_LOG="/tmp/cloud-sql-proxy-dev.log"
@@ -210,6 +214,8 @@ run_db_export() {
       --get-server-public-key \
       --no-tablespaces \
       --single-transaction \
+      --skip-lock-tables \
+      --set-gtid-purged=OFF \
       --routines \
       --triggers \
       "$DB_DATABASE" > "$OUTFILE"
@@ -235,7 +241,7 @@ run_db_export() {
       --single-transaction \
       --routines \
       --triggers \
-      "$DB_DATABASE" 2>/dev/null > "$OUTFILE"
+      "$DB_DATABASE" > "$OUTFILE"
   fi
   echo "Export done: $OUTFILE"
 }
