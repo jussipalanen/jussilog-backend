@@ -118,14 +118,14 @@ class BlogController extends Controller
         $blog = Blog::findOrFail($id);
 
         $data = $request->validate([
-            'title'            => 'sometimes|required|string|max:255',
-            'excerpt'          => 'nullable|string',
-            'content'          => 'sometimes|required|string',
-            'blog_category_id' => 'nullable|integer|exists:blog_categories,id',
+            'title'             => 'sometimes|required|string|max:255',
+            'excerpt'           => 'nullable|string',
+            'content'           => 'sometimes|required|string',
+            'blog_category_id'  => 'nullable|integer|exists:blog_categories,id',
             'featured_image'    => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120',
-            'tags'             => 'nullable|array',
-            'tags.*'           => 'string|max:100',
-            'visibility'       => 'boolean',
+            'tags'              => 'nullable|array',
+            'tags.*'            => 'string|max:100',
+            'visibility'        => 'boolean',
         ]);
 
         if ($request->hasFile('featured_image')) {
@@ -183,7 +183,7 @@ class BlogController extends Controller
 
     private function storeBlogImage(UploadedFile $file, int $blogId): string
     {
-        $filename = 'featured_image_' . time() . '.' . $file->getClientOriginalExtension();
+        $filename = 'featured_image_'.time().'.'.$file->getClientOriginalExtension();
 
         return $file->storeAs("blogs/{$blogId}", $filename, $this->storageDiskName());
     }
