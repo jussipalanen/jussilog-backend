@@ -1,4 +1,4 @@
-# Jussilog - Laravel backend
+# Jussilog - Laravel Backend Service
 
 **Full-stack API backend powered by the Laravel Framework**
 
