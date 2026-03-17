@@ -138,6 +138,15 @@ class BlogController extends Controller
             $file                           = $request->file('featured_image');
             $data['featured_image']         = $this->storeBlogImage($file, $blog->id);
             $data['featured_image_sizes']   = $this->generateThumbnails($file, $blog->id);
+        } elseif ($request->exists('featured_image') && empty($request->input('featured_image'))) {
+            if ($blog->featured_image) {
+                $this->storageDisk()->delete($blog->featured_image);
+            }
+            if ($blog->featured_image_sizes) {
+                $this->deleteThumbnails($blog->featured_image_sizes);
+            }
+            $data['featured_image']       = null;
+            $data['featured_image_sizes'] = null;
         } else {
             unset($data['featured_image']);
         }
