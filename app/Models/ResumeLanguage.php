@@ -21,6 +21,16 @@ class ResumeLanguage extends Model
 
     protected $appends = ['points'];
 
+    /** Valid spoken-language proficiency levels, ordered from lowest to highest. */
+    public const PROFICIENCY_LEVELS = [
+        'elementary',           // Basic words and phrases
+        'limited_working',      // Can handle routine communication
+        'professional_working', // Effective in most work situations
+        'full_professional',    // Precise in demanding contexts
+        'native_bilingual',     // Native or bilingual fluency
+    ];
+
+    /** Maps each proficiency level to a numeric score (1–5) for sorting/display. */
     private const PROFICIENCY_POINTS = [
         'elementary'           => 1,
         'limited_working'      => 2,
