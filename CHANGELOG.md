@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [0.9.10] - 2026-03-18
+
+### Added
+- **Dark resume template**: New `dark` PDF/HTML export template with a full-width header (photo, name, title, contact) and main content left / sidebar right layout.
+  - 5 color themes: `midnight`, `gold`, `aurora`, `ember`, `amethyst`.
+  - Theme/accent/bg swatch data exposed via `GET /api/resumes/export/options` under `template_themes`.
+- **Resume preview endpoints** (authenticated):
+  - `GET /api/resumes/{id}/preview/pdf` — inline PDF preview (no download).
+  - `GET /api/resumes/{id}/preview/html` — inline HTML preview (no download).
+  - `GET /api/resumes/{id}/preview/signed-url` — returns 60-minute signed URLs for token-free iframe embedding.
+  - `GET /api/resumes/{id}/preview/pdf/render` — signed PDF render (no auth required, signature validated).
+  - `GET /api/resumes/{id}/preview/html/render` — signed HTML render (no auth required, signature validated).
+- **Public resume preview endpoints** (no auth, payload-based):
+  - `POST /api/resumes/preview/pdf` — inline PDF preview from JSON payload (same format as export endpoints).
+  - `POST /api/resumes/preview/html` — inline HTML preview from JSON payload.
+- **Resume template translations**: Added EN/FI translations for `template_default`, `template_dark`, and all 5 dark theme names.
+
+### Changed
+- **Classic template renamed**: `pdf.blade.php` → `pdf_classic.blade.php`; controller updated accordingly.
+- **Resume export font improvements**: Bumped minimum font size to 8.5pt for labels and 9pt for body text across both classic and dark templates for better readability at 100% zoom.
+- **Page-break fixes**: Classic template `.sb-section` changed from `break-inside: avoid` to `auto` so large sidebar sections (e.g. long skill lists) flow naturally across pages; individual items retain their own `break-inside: avoid` rules.
+- **Project links**: Rendered inline with a `·` separator between live URL and GitHub URL; removed labels.
+
+### Fixed
+- **Resume update validation bug**: `sectionValidationRules()` was producing `'sometimes|required'` as a single string key when mixed with `Rule::in()` objects, causing a `validateSometimes|required does not exist` exception. Fixed by using array spread `[...$req, Rule::in(...)]`.
+
 ## [0.9.9] - 2026-03-17
 
 ### Added
