@@ -22,6 +22,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -31,9 +32,31 @@ use Spatie\LaravelPdf\Facades\Pdf;
 
 class ResumeController extends Controller
 {
-    private const THEMES = ['green', 'blue', 'red', 'yellow', 'cyan', 'orange', 'violet', 'black', 'white', 'grey'];
+    private const THEMES = ['green', 'blue', 'red', 'yellow', 'cyan', 'orange', 'violet', 'black', 'white', 'grey', 'midnight', 'gold', 'aurora', 'ember', 'amethyst'];
 
-    private const TEMPLATES = ['default'];
+    private const TEMPLATES = ['default', 'dark'];
+
+    private const TEMPLATE_THEMES = [
+        'default' => [
+            ['value' => 'green',  'accent' => '#14532d', 'bg' => '#ffffff'],
+            ['value' => 'blue',   'accent' => '#1e3a5f', 'bg' => '#ffffff'],
+            ['value' => 'red',    'accent' => '#7f1d1d', 'bg' => '#ffffff'],
+            ['value' => 'yellow', 'accent' => '#78350f', 'bg' => '#ffffff'],
+            ['value' => 'cyan',   'accent' => '#164e63', 'bg' => '#ffffff'],
+            ['value' => 'orange', 'accent' => '#7c2d12', 'bg' => '#ffffff'],
+            ['value' => 'violet', 'accent' => '#4c1d95', 'bg' => '#ffffff'],
+            ['value' => 'black',  'accent' => '#111827', 'bg' => '#ffffff'],
+            ['value' => 'white',  'accent' => '#0f172a', 'bg' => '#f1f5f9'],
+            ['value' => 'grey',   'accent' => '#374151', 'bg' => '#ffffff'],
+        ],
+        'dark' => [
+            ['value' => 'midnight', 'accent' => '#58a6ff', 'bg' => '#0d1117'],
+            ['value' => 'gold',     'accent' => '#d4a843', 'bg' => '#0f0d08'],
+            ['value' => 'aurora',   'accent' => '#2dd4bf', 'bg' => '#091518'],
+            ['value' => 'ember',    'accent' => '#fb923c', 'bg' => '#100a07'],
+            ['value' => 'amethyst', 'accent' => '#a78bfa', 'bg' => '#0d0b14'],
+        ],
+    ];
 
     private const LANGUAGES = [
         'en' => 'English',
@@ -306,6 +329,229 @@ class ResumeController extends Controller
             )
             ->download($filename)
             ->toResponse($request);
+    }
+
+    /**
+     * Preview a resume as an inline PDF (opens in browser, no download).
+     *
+     * @group Resumes
+     *
+     * @authenticated
+     *
+     * @urlParam resume integer required The resume ID. Example: 1
+     *
+     * @queryParam theme string Theme name. Example: blue
+     * @queryParam lang string Language code (en, fi). Example: en
+     * @queryParam template string Template name. Example: default
+     * @queryParam show_skill_levels boolean Show skill level bars. Example: true
+     * @queryParam show_language_levels boolean Show language level dots. Example: true
+     */
+    public function previewPdf(Request $request, int $id): \Symfony\Component\HttpFoundation\Response
+    {
+        $resume = $this->findResume($request, $id);
+
+        $lang = in_array($request->query('lang'), ['en', 'fi'])
+            ? $request->query('lang')
+            : (in_array($resume->language, ['en', 'fi']) ? $resume->language : 'en');
+        app()->setLocale($lang);
+        Carbon::setLocale($lang);
+
+        $resume->load(array_values($this->sectionRelationMap()));
+
+        $theme = in_array($request->query('theme'), self::THEMES)
+            ? $request->query('theme')
+            : ($resume->theme ?: 'green');
+
+        $template           = $request->query('template', $resume->template ?: 'default');
+        $view               = $this->resolveTemplateView($template);
+        $showSkillLevels    = $request->has('show_skill_levels')
+            ? filter_var($request->query('show_skill_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_skill_levels ?? true);
+        $showLanguageLevels = $request->has('show_language_levels')
+            ? filter_var($request->query('show_language_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_language_levels ?? true);
+
+        $filename = str($resume->full_name)->slug().'-resume.pdf';
+
+        if ($view === 'resumes.coming_soon') {
+            return response()->view($view, compact('resume', 'theme', 'template'), 200);
+        }
+
+        return Pdf::view($view, compact('resume', 'theme', 'showSkillLevels', 'showLanguageLevels'))
+            ->format('a4')
+            ->margins(0, 0, 0, 0)
+            ->withBrowsershot(fn (Browsershot $b) => $b
+                ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
+                ->noSandbox()
+                ->addChromiumArguments(['--disable-gpu'])
+            )
+            ->inline($filename)
+            ->toResponse($request);
+    }
+
+    /**
+     * Preview a resume as inline HTML (renders in browser, no download).
+     *
+     * @group Resumes
+     *
+     * @authenticated
+     *
+     * @urlParam resume integer required The resume ID. Example: 1
+     *
+     * @queryParam theme string Theme name. Example: blue
+     * @queryParam lang string Language code (en, fi). Example: en
+     * @queryParam template string Template name. Example: default
+     * @queryParam show_skill_levels boolean Show skill level bars. Example: true
+     * @queryParam show_language_levels boolean Show language level dots. Example: true
+     */
+    public function previewHtml(Request $request, int $id): Response
+    {
+        $resume = $this->findResume($request, $id);
+
+        $lang = in_array($request->query('lang'), ['en', 'fi'])
+            ? $request->query('lang')
+            : (in_array($resume->language, ['en', 'fi']) ? $resume->language : 'en');
+        app()->setLocale($lang);
+
+        $resume->load(array_values($this->sectionRelationMap()));
+
+        $theme = in_array($request->query('theme'), self::THEMES)
+            ? $request->query('theme')
+            : ($resume->theme ?: 'green');
+
+        $template           = $request->query('template', $resume->template ?: 'default');
+        $view               = $this->resolveTemplateView($template);
+        $showSkillLevels    = $request->has('show_skill_levels')
+            ? filter_var($request->query('show_skill_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_skill_levels ?? true);
+        $showLanguageLevels = $request->has('show_language_levels')
+            ? filter_var($request->query('show_language_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_language_levels ?? true);
+
+        $html = view($view, compact('resume', 'theme', 'template', 'showSkillLevels', 'showLanguageLevels'))->render();
+
+        return response()->make($html, 200, [
+            'Content-Type' => 'text/html',
+        ]);
+    }
+
+    /**
+     * Generate short-lived signed preview URLs for PDF and HTML (no token needed to open them).
+     *
+     * @group Resumes
+     *
+     * @authenticated
+     *
+     * @urlParam resume integer required The resume ID. Example: 1
+     *
+     * @queryParam theme string Theme name. Example: blue
+     * @queryParam lang string Language code (en, fi). Example: en
+     * @queryParam template string Template name. Example: default
+     * @queryParam show_skill_levels boolean Show skill level bars. Example: true
+     * @queryParam show_language_levels boolean Show language level dots. Example: true
+     */
+    public function signedPreviewUrl(Request $request, int $id): JsonResponse
+    {
+        $resume = $this->findResume($request, $id);
+
+        $params = array_filter([
+            'theme'                => $request->query('theme'),
+            'lang'                 => $request->query('lang'),
+            'template'             => $request->query('template'),
+            'show_skill_levels'    => $request->query('show_skill_levels'),
+            'show_language_levels' => $request->query('show_language_levels'),
+        ], fn ($v) => $v !== null && $v !== '');
+
+        $expiry = now()->addMinutes(60);
+
+        return response()->json([
+            'pdf_url'    => URL::temporarySignedRoute('resume.preview.pdf', $expiry, array_merge(['id' => $resume->id], $params)),
+            'html_url'   => URL::temporarySignedRoute('resume.preview.html', $expiry, array_merge(['id' => $resume->id], $params)),
+            'expires_at' => $expiry->toISOString(),
+        ]);
+    }
+
+    /**
+     * Render a resume as an inline PDF via a signed URL (no auth token required).
+     * Obtain the URL from the signed-url endpoint first.
+     */
+    public function signedPreviewPdf(Request $request, int $id): \Symfony\Component\HttpFoundation\Response
+    {
+        $resume = Resume::with(array_values($this->sectionRelationMap()))->findOrFail($id);
+
+        $lang = in_array($request->query('lang'), ['en', 'fi'])
+            ? $request->query('lang')
+            : (in_array($resume->language, ['en', 'fi']) ? $resume->language : 'en');
+        app()->setLocale($lang);
+        Carbon::setLocale($lang);
+
+        $theme = in_array($request->query('theme'), self::THEMES)
+            ? $request->query('theme')
+            : ($resume->theme ?: 'green');
+
+        $template           = $request->query('template', $resume->template ?: 'default');
+        $view               = $this->resolveTemplateView($template);
+        $showSkillLevels    = $request->has('show_skill_levels')
+            ? filter_var($request->query('show_skill_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_skill_levels ?? true);
+        $showLanguageLevels = $request->has('show_language_levels')
+            ? filter_var($request->query('show_language_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_language_levels ?? true);
+
+        $filename = str($resume->full_name)->slug().'-resume.pdf';
+
+        if ($view === 'resumes.coming_soon') {
+            return response()->view($view, compact('resume', 'theme', 'template'), 200);
+        }
+
+        $response = Pdf::view($view, compact('resume', 'theme', 'showSkillLevels', 'showLanguageLevels'))
+            ->format('a4')
+            ->margins(0, 0, 0, 0)
+            ->withBrowsershot(fn (Browsershot $b) => $b
+                ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
+                ->noSandbox()
+                ->addChromiumArguments(['--disable-gpu'])
+            )
+            ->inline($filename)
+            ->toResponse($request);
+
+        $response->headers->remove('X-Frame-Options');
+
+        return $response;
+    }
+
+    /**
+     * Render a resume as inline HTML via a signed URL (no auth token required).
+     * Obtain the URL from the signed-url endpoint first.
+     */
+    public function signedPreviewHtml(Request $request, int $id): Response
+    {
+        $resume = Resume::with(array_values($this->sectionRelationMap()))->findOrFail($id);
+
+        $lang = in_array($request->query('lang'), ['en', 'fi'])
+            ? $request->query('lang')
+            : (in_array($resume->language, ['en', 'fi']) ? $resume->language : 'en');
+        app()->setLocale($lang);
+
+        $theme = in_array($request->query('theme'), self::THEMES)
+            ? $request->query('theme')
+            : ($resume->theme ?: 'green');
+
+        $template           = $request->query('template', $resume->template ?: 'default');
+        $view               = $this->resolveTemplateView($template);
+        $showSkillLevels    = $request->has('show_skill_levels')
+            ? filter_var($request->query('show_skill_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_skill_levels ?? true);
+        $showLanguageLevels = $request->has('show_language_levels')
+            ? filter_var($request->query('show_language_levels'), FILTER_VALIDATE_BOOLEAN)
+            : ($resume->show_language_levels ?? true);
+
+        $html = view($view, compact('resume', 'theme', 'template', 'showSkillLevels', 'showLanguageLevels'))->render();
+
+        $response = response()->make($html, 200, ['Content-Type' => 'text/html']);
+        $response->headers->remove('X-Frame-Options');
+
+        return $response;
     }
 
     /**
@@ -799,6 +1045,84 @@ class ResumeController extends Controller
     }
 
     /**
+     * Preview a resume as an inline PDF from a JSON payload (no stored resume required).
+     * The photo can be supplied as a base64-encoded string in `photo`.
+     * Returns the PDF inline (for iframe / browser preview), not as a download.
+     *
+     * @group Resumes
+     *
+     * @unauthenticated
+     */
+    public function previewPdfPublic(Request $request): \Symfony\Component\HttpFoundation\Response
+    {
+        $data = $this->validatePublicExportPayload($request);
+
+        $lang = in_array($data['language'] ?? null, ['en', 'fi']) ? $data['language'] : 'en';
+        app()->setLocale($lang);
+        Carbon::setLocale($lang);
+
+        $resume             = $this->buildResumeFromPayload($data);
+        $theme              = in_array($data['theme'] ?? null, self::THEMES) ? $data['theme'] : 'green';
+        $template           = $data['template'] ?? 'default';
+        $view               = $this->resolveTemplateView($template);
+        $photoDataUri       = $this->decodePhotoBase64($data['photo'] ?? null);
+        $showSkillLevels    = (bool) ($data['show_skill_levels'] ?? true);
+        $showLanguageLevels = (bool) ($data['show_language_levels'] ?? true);
+        $filename           = str($resume->full_name)->slug().'-resume.pdf';
+
+        if ($view === 'resumes.coming_soon') {
+            return response()->view(
+                $view,
+                compact('resume', 'theme', 'template', 'photoDataUri'),
+                200
+            );
+        }
+
+        return Pdf::view($view, compact('resume', 'theme', 'photoDataUri', 'showSkillLevels', 'showLanguageLevels'))
+            ->format('a4')
+            ->margins(0, 0, 0, 0)
+            ->withBrowsershot(fn (Browsershot $b) => $b
+                ->setChromePath(env('CHROME_PATH', '/usr/bin/chromium-browser'))
+                ->noSandbox()
+                ->addChromiumArguments(['--disable-gpu'])
+            )
+            ->inline($filename)
+            ->toResponse($request);
+    }
+
+    /**
+     * Preview a resume as inline HTML from a JSON payload (no stored resume required).
+     * The photo can be supplied as a base64-encoded string in `photo`.
+     * Returns HTML inline (for iframe / browser preview), not as a download.
+     *
+     * @group Resumes
+     *
+     * @unauthenticated
+     */
+    public function previewHtmlPublic(Request $request): Response
+    {
+        $data = $this->validatePublicExportPayload($request);
+
+        $lang = in_array($data['language'] ?? null, ['en', 'fi']) ? $data['language'] : 'en';
+        app()->setLocale($lang);
+        Carbon::setLocale($lang);
+
+        $resume             = $this->buildResumeFromPayload($data);
+        $theme              = in_array($data['theme'] ?? null, self::THEMES) ? $data['theme'] : 'green';
+        $template           = $data['template'] ?? 'default';
+        $view               = $this->resolveTemplateView($template);
+        $photoDataUri       = $this->decodePhotoBase64($data['photo'] ?? null);
+        $showSkillLevels    = (bool) ($data['show_skill_levels'] ?? true);
+        $showLanguageLevels = (bool) ($data['show_language_levels'] ?? true);
+
+        $html = view($view, compact('resume', 'theme', 'template', 'photoDataUri', 'showSkillLevels', 'showLanguageLevels'))->render();
+
+        return response()->make($html, 200, [
+            'Content-Type' => 'text/html',
+        ]);
+    }
+
+    /**
      * Return available themes, templates, and languages for PDF/HTML export.
      * Pass `?lang=fi` to receive translated labels (default: `en`).
      *
@@ -815,6 +1139,7 @@ class ResumeController extends Controller
         return response()->json([
             'themes'                 => ResumeTranslations::themes(self::THEMES, $lang),
             'templates'              => ResumeTranslations::templates(self::TEMPLATES, $lang),
+            'template_themes'        => self::TEMPLATE_THEMES,
             'languages'              => ResumeTranslations::languages(self::LANGUAGES, $lang),
             'skill_categories'       => ResumeTranslations::skillCategories($lang),
             'skill_proficiencies'    => ResumeTranslations::skillProficiencies($lang),
@@ -924,7 +1249,8 @@ class ResumeController extends Controller
     private function resolveTemplateView(string $template): string
     {
         return match ($template) {
-            'default' => 'resumes.pdf',
+            'default' => 'resumes.pdf_classic',
+            'dark'    => 'resumes.pdf_dark',
             default   => 'resumes.coming_soon',
         };
     }
@@ -1011,7 +1337,8 @@ class ResumeController extends Controller
 
     private function sectionValidationRules(bool $update = false): array
     {
-        $r = $update ? 'sometimes|' : '';
+        $r   = $update ? 'sometimes|' : '';
+        $req = $update ? ['sometimes', 'required'] : ['required'];
 
         return [
             'work_experiences'                => 'sometimes|array',
@@ -1034,9 +1361,9 @@ class ResumeController extends Controller
             'educations.*.sort_order'       => 'integer|min:0',
 
             'skills'               => 'sometimes|array',
-            'skills.*.category'    => [$r.'required', Rule::in(ResumeSkill::CATEGORIES)],
+            'skills.*.category'    => [...$req, Rule::in(ResumeSkill::CATEGORIES)],
             'skills.*.name'        => $r.'required|string|max:255',
-            'skills.*.proficiency' => [$r.'required', Rule::in(ResumeSkill::PROFICIENCY_LEVELS)],
+            'skills.*.proficiency' => [...$req, Rule::in(ResumeSkill::PROFICIENCY_LEVELS)],
             'skills.*.sort_order'  => 'integer|min:0',
 
             'projects'                  => 'sometimes|array',
@@ -1056,7 +1383,7 @@ class ResumeController extends Controller
 
             'languages'               => 'sometimes|array',
             'languages.*.language'    => $r.'required|string|max:100',
-            'languages.*.proficiency' => [$r.'required', Rule::in(ResumeLanguage::PROFICIENCY_LEVELS)],
+            'languages.*.proficiency' => [...$req, Rule::in(ResumeLanguage::PROFICIENCY_LEVELS)],
             'languages.*.sort_order'  => 'integer|min:0',
 
             'awards'               => 'sometimes|array',
