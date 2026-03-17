@@ -2,7 +2,7 @@
 
 **Full-stack API backend powered by the Laravel Framework**
 
-Jussilog is a modern multi-feature API built with Laravel 10, designed for easy deployment on Google Cloud Run with Docker support. It provides a RESTful API covering product catalog management, order handling, resume building with PDF/HTML export, visitor tracking, and full user authentication.
+Jussilog is a modern multi-feature API built with Laravel 10, designed for easy deployment on Google Cloud Run with Docker support. It provides a RESTful API covering product catalog management, order handling, resume building with PDF/HTML export, blog publishing, visitor tracking, and full user authentication.
 
 ## Features
 
@@ -17,6 +17,7 @@ Jussilog is a modern multi-feature API built with Laravel 10, designed for easy 
 - **Password Reset**: Lost password and reset password flows with email notification
 - **User Management**: CRUD for users with role assignment (admin, vendor, customer)
 - **Visitor Tracking**: Track and query daily and total visitor counts
+- **Blog**: Full CRUD for blog posts with categories, tags, featured image, excerpt, visibility toggle, and author tracking. Public read access, admin-only write access
 - **Admin Thumbnail Management**: Admin endpoints to regenerate or purge product and resume photo thumbnails
 - **RESTful API**: Clean, intuitive API endpoints
 - **MySQL Database**: Production-ready MySQL with Docker support (SQLite also available)
@@ -75,6 +76,7 @@ Common commands are available via the dev script:
 ./dev artisan --version
 ./dev composer --version
 ./dev npm --version
+./dev generate-postman     # Regenerate postman/collection.json from live routes
 ```
 
 ### Docker Cache Refresh (Manual)
@@ -377,6 +379,59 @@ Customers can only read their own invoices. Create, update, and delete require a
 **Invoice statuses:** `draft`, `issued`, `paid`, `cancelled`
 
 **Invoice item types:** `product`, `shipping`, `discount`, `adjustment`
+
+### Blog Endpoints
+
+**Public (no authentication)**
+
+- `GET /api/blogs` - List published blog posts (`visibility=true`), paginated. Supports `per_page`, `sort_by` (`id`, `title`, `created_at`), `sort_dir`
+- `GET /api/blogs/{id}` - Get a single published blog post with author and category
+- `GET /api/blog-categories` - List all blog categories
+
+**Admin only (Sanctum Authentication + Admin Role)**
+
+- `GET /api/admin/blogs` - List all blog posts including hidden drafts, paginated. Supports same query params plus `visibility` as sort field
+- `POST /api/blogs` - Create a blog post
+- `PUT /api/blogs/{id}` - Update a blog post (send only fields to change)
+- `DELETE /api/blogs/{id}` - Delete a blog post
+- `POST /api/blog-categories` - Create a category (slug auto-generated from name)
+- `PUT /api/blog-categories/{id}` - Update a category
+- `DELETE /api/blog-categories/{id}` - Delete a category (linked blogs have category set to null)
+
+**Blog post fields:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `title` | string | yes | Post title (max 255) |
+| `excerpt` | string | no | Short description shown in listings |
+| `content` | string | yes | Full post content (HTML supported) |
+| `blog_category_id` | integer | no | ID of an existing category |
+| `feature_image` | string | no | URL or path to the featured image |
+| `tags` | array of strings | no | e.g. `["laravel", "php"]` |
+| `visibility` | boolean | no | `true` = published, `false` = draft (default) |
+
+**Example — create a blog post:**
+```bash
+curl -X POST http://localhost:8000/api/blogs \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Getting started with Laravel",
+    "excerpt": "A short intro to building APIs with Laravel.",
+    "content": "<p>Laravel makes building APIs enjoyable...</p>",
+    "blog_category_id": 1,
+    "tags": ["laravel", "php", "api"],
+    "visibility": true
+  }'
+```
+
+**Example — publish / unpublish (toggle only):**
+```bash
+curl -X PUT http://localhost:8000/api/blogs/1 \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"visibility": true}'
+```
 
 ### Admin Endpoints (Sanctum Authentication + Admin Role)
 
