@@ -1,7 +1,5 @@
 # Production PHP runtime for Laravel API backend (no frontend build stage)
 ARG PHP_VERSION=8.2
-ARG UID=1000
-ARG GID=1000
 
 FROM php:${PHP_VERSION}-fpm-alpine
 
@@ -18,7 +16,6 @@ RUN addgroup -g ${GID} laravel && \
 RUN apk add --no-cache \
     nginx \
     sqlite-dev \
-    mysql-client \
     shadow \
     freetype-dev \
     libjpeg-turbo-dev \
