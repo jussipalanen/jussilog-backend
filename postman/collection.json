@@ -18,7 +18,7 @@
     ],
     "info": {
         "name": "JussiLog API Documentation",
-        "_postman_id": "f0c33d54-9d6a-4c92-b1be-f8f48a500a3b",
+        "_postman_id": "a386a6b4-5813-4306-9610-94a9a35c9734",
         "description": "REST API documentation for Jussilog endpoints.",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
@@ -387,7 +387,22 @@
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "const res = pm.response.json();",
+                                    "if (res.token) {",
+                                    "    pm.collectionVariables.set('auth_token', res.token);",
+                                    "    console.log('auth_token saved:', res.token);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
                 },
                 {
                     "name": "Login or register using Google ID token.",
@@ -1926,7 +1941,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"order_id\":1,\"due_date\":\"2026-03-19T12:01:18\",\"notes\":\"Net 30\",\"status\":\"draft\"}"
+                            "raw": "{\"order_id\":1,\"due_date\":\"2026-03-19T12:15:04\",\"notes\":\"Net 30\",\"status\":\"draft\"}"
                         },
                         "description": "Creates a new invoice for the given order and automatically generates invoice items from the order's line items.",
                         "auth": {
@@ -1978,7 +1993,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"status\":\"issued\",\"customer_first_name\":\"Jussi\",\"customer_last_name\":\"Palanen\",\"customer_email\":\"jussi@example.com\",\"customer_phone\":\"+358401234567\",\"billing_address\":[],\"subtotal\":153.47,\"total\":153.47,\"due_date\":\"2026-03-19T12:01:18\",\"notes\":\"Net 30\",\"items\":[{\"id\":1,\"type\":\"product\",\"description\":\"Wireless Headphones\",\"quantity\":2,\"unit_price\":79.99,\"tax_rate\":0.24,\"total\":159.98}]}"
+                            "raw": "{\"status\":\"issued\",\"customer_first_name\":\"Jussi\",\"customer_last_name\":\"Palanen\",\"customer_email\":\"jussi@example.com\",\"customer_phone\":\"+358401234567\",\"billing_address\":[],\"subtotal\":153.47,\"total\":153.47,\"due_date\":\"2026-03-19T12:15:04\",\"notes\":\"Net 30\",\"items\":[{\"id\":1,\"type\":\"product\",\"description\":\"Wireless Headphones\",\"quantity\":2,\"unit_price\":79.99,\"tax_rate\":0.24,\"total\":159.98}]}"
                         },
                         "description": "Updates an existing invoice. Automatically sets `issued_at` when status changes to `issued`, and `paid_at` when status changes to `paid`."
                     },
@@ -2580,6 +2595,226 @@
                             "name": ""
                         }
                     ]
+                }
+            ]
+        },
+        {
+            "name": "Permissions",
+            "description": "",
+            "item": [
+                {
+                    "name": "List all permissions, grouped by resource.",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/permissions",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/permissions"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "x-robots-tag",
+                                    "value": "noindex, nofollow, noarchive, nosnippet"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "List permissions assigned to a role.",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/roles/:roleId/permissions",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/roles/:roleId/permissions",
+                            "variable": [
+                                {
+                                    "id": "roleId",
+                                    "key": "roleId",
+                                    "value": "1",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "x-robots-tag",
+                                    "value": "noindex, nofollow, noarchive, nosnippet"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Assign permissions to a role.",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/roles/:roleId/permissions/assign",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/roles/:roleId/permissions/assign",
+                            "variable": [
+                                {
+                                    "id": "roleId",
+                                    "key": "roleId",
+                                    "value": "1",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"permissions\":[17]}"
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Revoke permissions from a role.",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/roles/:roleId/permissions/revoke",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/roles/:roleId/permissions/revoke",
+                            "variable": [
+                                {
+                                    "id": "roleId",
+                                    "key": "roleId",
+                                    "value": "1",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"permissions\":[17]}"
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Sync all permissions for a role (replaces existing).",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/roles/:roleId/permissions/sync",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/roles/:roleId/permissions/sync",
+                            "variable": [
+                                {
+                                    "id": "roleId",
+                                    "key": "roleId",
+                                    "value": "1",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"permissions\":[17]}"
+                        },
+                        "description": ""
+                    },
+                    "response": []
                 }
             ]
         },
@@ -4653,6 +4888,158 @@
                             ]
                         },
                         "description": "Creates a new resume for the authenticated user. The photo is not restored."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Roles",
+            "description": "",
+            "item": [
+                {
+                    "name": "List all roles with their permissions.",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/roles",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/roles"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "x-robots-tag",
+                                    "value": "noindex, nofollow, noarchive, nosnippet"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a role.",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/roles",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/roles"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"vmqeopfuudtdsufvyvddq\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update a role.",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/roles/:id",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/roles/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the role."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete a role.",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/roles/:id",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/roles/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the role."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
                     },
                     "response": []
                 }

@@ -74,6 +74,21 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
+    /**
+     * Check if the user has a given permission through any of their roles.
+     * Admin role always returns true.
+     */
+    public function hasPermission(string $permission): bool
+    {
+        if ($this->hasRole('admin')) {
+            return true;
+        }
+
+        return $this->roles()
+            ->whereHas('permissions', fn ($q) => $q->where('name', $permission))
+            ->exists();
+    }
+
     public function hasRole(RoleEnum|string $role): bool
     {
         $value = $role instanceof RoleEnum ? $role->value : $role;

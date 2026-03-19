@@ -7,9 +7,11 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeItemController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SkillCategoryController;
 use App\Http\Controllers\SkillController;
@@ -146,9 +148,9 @@ Route::middleware('auth:sanctum')->group(
         Route::get('/invoices/{id}', [InvoiceController::class, 'show']);
         Route::get('/invoices/{id}/pdf', [InvoiceController::class, 'pdf']);
         Route::get('/invoices/{id}/html', [InvoiceController::class, 'html']);
-        Route::post('/invoices', [InvoiceController::class, 'store'])->middleware('role:admin,vendor');
-        Route::put('/invoices/{id}', [InvoiceController::class, 'update'])->middleware('role:admin,vendor');
-        Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy'])->middleware('role:admin,vendor');
+        Route::post('/invoices', [InvoiceController::class, 'store'])->middleware('permission:edit_invoices');
+        Route::put('/invoices/{id}', [InvoiceController::class, 'update'])->middleware('permission:edit_invoices');
+        Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy'])->middleware('permission:delete_invoices');
     }
 );
 
@@ -177,23 +179,23 @@ Route::get('/skill-categories/{id}/skills', [SkillCategoryController::class, 'sk
 Route::get('/skills', [SkillController::class, 'index']);
 Route::get('/languages', [LanguageController::class, 'index']);
 
-// Skill category, skill & language management — admin only
-Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-    Route::post('/skill-categories', [SkillCategoryController::class, 'store']);
-    Route::put('/skill-categories/{id}', [SkillCategoryController::class, 'update']);
-    Route::delete('/skill-categories/{id}', [SkillCategoryController::class, 'destroy']);
+// Skill category, skill & language management — permission-gated
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/skill-categories', [SkillCategoryController::class, 'store'])->middleware('permission:edit_skill_categories');
+    Route::put('/skill-categories/{id}', [SkillCategoryController::class, 'update'])->middleware('permission:edit_skill_categories');
+    Route::delete('/skill-categories/{id}', [SkillCategoryController::class, 'destroy'])->middleware('permission:delete_skill_categories');
 
-    Route::post('/skill-categories/{id}/skills', [SkillCategoryController::class, 'storeSkill']);
-    Route::put('/skill-categories/{id}/skills/{skillId}', [SkillCategoryController::class, 'updateSkill']);
-    Route::delete('/skill-categories/{id}/skills/{skillId}', [SkillCategoryController::class, 'destroySkill']);
+    Route::post('/skill-categories/{id}/skills', [SkillCategoryController::class, 'storeSkill'])->middleware('permission:edit_skills');
+    Route::put('/skill-categories/{id}/skills/{skillId}', [SkillCategoryController::class, 'updateSkill'])->middleware('permission:edit_skills');
+    Route::delete('/skill-categories/{id}/skills/{skillId}', [SkillCategoryController::class, 'destroySkill'])->middleware('permission:delete_skills');
 
-    Route::post('/skills', [SkillController::class, 'store']);
-    Route::put('/skills/{id}', [SkillController::class, 'update']);
-    Route::delete('/skills/{id}', [SkillController::class, 'destroy']);
+    Route::post('/skills', [SkillController::class, 'store'])->middleware('permission:edit_skills');
+    Route::put('/skills/{id}', [SkillController::class, 'update'])->middleware('permission:edit_skills');
+    Route::delete('/skills/{id}', [SkillController::class, 'destroy'])->middleware('permission:delete_skills');
 
-    Route::post('/languages', [LanguageController::class, 'store']);
-    Route::put('/languages/{id}', [LanguageController::class, 'update']);
-    Route::delete('/languages/{id}', [LanguageController::class, 'destroy']);
+    Route::post('/languages', [LanguageController::class, 'store'])->middleware('permission:edit_languages');
+    Route::put('/languages/{id}', [LanguageController::class, 'update'])->middleware('permission:edit_languages');
+    Route::delete('/languages/{id}', [LanguageController::class, 'destroy'])->middleware('permission:delete_languages');
 });
 
 // Blog routes — public read, admin write
@@ -203,14 +205,28 @@ Route::get('/blogs/{idOrSlug}', [BlogController::class, 'show']);
 Route::get('/blog-categories', [BlogCategoryController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/admin/blogs', [BlogController::class, 'adminIndex'])->middleware('role:admin');
-    Route::post('/blogs', [BlogController::class, 'store'])->middleware('role:admin');
-    Route::put('/blogs/{id}', [BlogController::class, 'update'])->middleware('role:admin');
-    Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->middleware('role:admin');
+    Route::get('/admin/blogs', [BlogController::class, 'adminIndex'])->middleware('permission:view_blogs');
+    Route::post('/blogs', [BlogController::class, 'store'])->middleware('permission:edit_blogs');
+    Route::put('/blogs/{id}', [BlogController::class, 'update'])->middleware('permission:edit_blogs');
+    Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->middleware('permission:delete_blogs');
 
-    Route::post('/blog-categories', [BlogCategoryController::class, 'store'])->middleware('role:admin');
-    Route::put('/blog-categories/{id}', [BlogCategoryController::class, 'update'])->middleware('role:admin');
-    Route::delete('/blog-categories/{id}', [BlogCategoryController::class, 'destroy'])->middleware('role:admin');
+    Route::post('/blog-categories', [BlogCategoryController::class, 'store'])->middleware('permission:edit_blog_categories');
+    Route::put('/blog-categories/{id}', [BlogCategoryController::class, 'update'])->middleware('permission:edit_blog_categories');
+    Route::delete('/blog-categories/{id}', [BlogCategoryController::class, 'destroy'])->middleware('permission:delete_blog_categories');
+});
+
+// Roles & Permissions management — admin only
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/roles', [RoleController::class, 'index']);
+    Route::post('/roles', [RoleController::class, 'store']);
+    Route::put('/roles/{id}', [RoleController::class, 'update']);
+    Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
+
+    Route::get('/permissions', [PermissionController::class, 'index']);
+    Route::get('/roles/{roleId}/permissions', [PermissionController::class, 'rolePermissions']);
+    Route::post('/roles/{roleId}/permissions/assign', [PermissionController::class, 'assign']);
+    Route::post('/roles/{roleId}/permissions/revoke', [PermissionController::class, 'revoke']);
+    Route::post('/roles/{roleId}/permissions/sync', [PermissionController::class, 'sync']);
 });
 
 // Resume routes

@@ -474,6 +474,38 @@ $data['auth'] = [
     'bearer' => [['key' => 'token', 'value' => '{{auth_token}}', 'type' => 'string']],
 ];
 
+// Inject auto-save script into the Login request
+$loginScript = [
+    'listen' => 'test',
+    'script' => [
+        'type' => 'text/javascript',
+        'exec' => [
+            'const res = pm.response.json();',
+            'if (res.token) {',
+            "    pm.collectionVariables.set('auth_token', res.token);",
+            "    console.log('auth_token saved:', res.token);",
+            '}',
+        ],
+    ],
+];
+$injectLogin = function (array &$items) use (&$injectLogin, $loginScript) {
+    foreach ($items as &$item) {
+        if (isset($item['item'])) {
+            $injectLogin($item['item']);
+        } elseif (
+            isset($item['request']['method'], $item['request']['url']['path']) &&
+            $item['request']['method'] === 'POST' &&
+            $item['request']['url']['path'] === 'api/login'
+        ) {
+            $existing = array_filter($item['event'] ?? [], fn($e) => $e['listen'] === 'test');
+            if (empty($existing)) {
+                $item['event'][] = $loginScript;
+            }
+        }
+    }
+};
+$injectLogin($data['item']);
+
 $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 file_put_contents("$base/_collection_out.json", str_replace('{{baseUrl}}', '{{BASE_URL}}', $json));
 PHPEOF

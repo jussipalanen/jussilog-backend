@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\CheckPermission;
 use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\ForceJsonResponse;
@@ -84,6 +85,7 @@ class Kernel extends HttpKernel
         'auth'             => Authenticate::class,
         'auth.basic'       => AuthenticateWithBasicAuth::class,
         'auth.session'     => AuthenticateSession::class,
+        'permission'       => CheckPermission::class,
         'role'             => CheckRole::class,
         'cache.headers'    => SetCacheHeaders::class,
         'can'              => Authorize::class,
