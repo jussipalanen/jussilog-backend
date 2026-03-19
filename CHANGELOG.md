@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
-## [0.9.10] - 2026-03-18
+## [1.0.0] - 2026-03-19
 
 ### Added
 - **Dark resume template**: New `dark` PDF/HTML export template with a full-width header (photo, name, title, contact) and main content left / sidebar right layout.
@@ -23,12 +23,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `POST /api/resumes/preview/pdf` — inline PDF preview from JSON payload (same format as export endpoints).
   - `POST /api/resumes/preview/html` — inline HTML preview from JSON payload.
 - **Resume template translations**: Added EN/FI translations for `template_default`, `template_dark`, and all 5 dark theme names.
+- **Terraform infrastructure as code** (`terraform/`): Full GCP setup covering Cloud Run, Cloud SQL (MySQL 8.0), Artifact Registry, GCS uploads bucket, Secret Manager secret containers, IAM service account with least-privilege bindings, and Cloud Build trigger on `master`.
+  - Secrets injected into Cloud Run at runtime via `secret_key_ref` (Secret Manager) instead of plain env vars.
+  - `lifecycle { ignore_changes = [image] }` on Cloud Run so Cloud Build can update the image without Terraform reverting configuration.
+  - `terraform/backend.tf` — GCS remote state template (commented, with bootstrap instructions).
+- **Dev script Terraform commands**: `tf-init`, `tf-plan`, `tf-apply`, `tf-import`, `tf-output`. `DB_PASSWORD` is read automatically from `.env.production`; `TF_VAR_db_password` env var supported as override for CI/CD.
+  - `tf-import` imports all existing GCP resources into state in one command (tolerant of already-imported or missing resources).
 
 ### Changed
 - **Classic template renamed**: `pdf.blade.php` → `pdf_classic.blade.php`; controller updated accordingly.
 - **Resume export font improvements**: Bumped minimum font size to 8.5pt for labels and 9pt for body text across both classic and dark templates for better readability at 100% zoom.
 - **Page-break fixes**: Classic template `.sb-section` changed from `break-inside: avoid` to `auto` so large sidebar sections (e.g. long skill lists) flow naturally across pages; individual items retain their own `break-inside: avoid` rules.
 - **Project links**: Rendered inline with a `·` separator between live URL and GitHub URL; removed labels.
+- **README**: Restructured with `<details>` accordion sections — always-visible top (tech stack, quick start, full `./dev` command table) and 12 collapsible sections for detailed content.
 
 ### Fixed
 - **Resume update validation bug**: `sectionValidationRules()` was producing `'sometimes|required'` as a single string key when mixed with `Rule::in()` objects, causing a `validateSometimes|required does not exist` exception. Fixed by using array spread `[...$req, Rule::in(...)]`.
