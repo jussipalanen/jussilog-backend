@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminThumbnailController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ResumeQaAgentController;
 use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\InvoiceController;
@@ -184,6 +185,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/blog-categories/{id}', [BlogCategoryController::class, 'update'])->middleware('role:admin');
     Route::delete('/blog-categories/{id}', [BlogCategoryController::class, 'destroy'])->middleware('role:admin');
 });
+
+// AI Agent – Resume QA
+Route::get('/agent/resume/suggestions', [ResumeQaAgentController::class, 'suggestions']);
+Route::post('/agent/resume/ask', [ResumeQaAgentController::class, 'ask'])->middleware('throttle:ai-agent');
 
 // Resume routes
 $sectionPattern = 'work-experiences|educations|skills|projects|certifications|languages|awards|recommendations';

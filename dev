@@ -28,6 +28,7 @@ Commands:
                      Import a .sql file into local Docker MySQL or Cloud SQL
                      --local  (default) import into local Docker MySQL
                      --cloud  import into Cloud SQL via cloud-sql-proxy
+  ai-key             Download the AI agent service account key to secrets/
   generate-postman   Regenerate postman/collection.json from live routes via Scribe
   secrets-update [KEY [VALUE]]  Push secrets to GCP Secret Manager.
                                No args: sync all keys from .env.production.
@@ -437,6 +438,14 @@ run_db_import() {
   echo "Import done."
 }
 
+run_ai_key() {
+  if [ ! -f scripts/download-ai-agent-key.sh ]; then
+    echo "Error: scripts/download-ai-agent-key.sh not found." >&2
+    exit 1
+  fi
+  sh scripts/download-ai-agent-key.sh
+}
+
 run_generate_postman() {
   compose="$(compose_cmd)"
   trap 'rm -f storage/app/scribe/_postman_process.php storage/app/scribe/_collection_out.json' EXIT
@@ -592,6 +601,10 @@ case "$1" in
   db-import)
     shift
     run_db_import "$@"
+    ;;
+  ai-key)
+    shift
+    run_ai_key
     ;;
   generate-postman)
     shift

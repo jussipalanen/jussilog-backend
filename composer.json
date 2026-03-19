@@ -61,7 +61,8 @@
         "lint": "pint",
         "lint:check": "pint --test",
         "analyse": "phpstan analyse --memory-limit=256M",
-        "generate:postman": "bash scripts/generate-postman.sh"
+        "generate:postman": "bash scripts/generate-postman.sh",
+        "dev:ai-key": "bash scripts/download-ai-agent-key.sh"
     },
     "extra": {
         "laravel": {

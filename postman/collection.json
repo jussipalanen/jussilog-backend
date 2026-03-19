@@ -18,11 +18,73 @@
     ],
     "info": {
         "name": "JussiLog API Documentation",
-        "_postman_id": "19f16df3-896d-40cf-8179-bacfdb15431d",
+        "_postman_id": "3a4ecbff-f0eb-41b6-b6f5-fd12c8070406",
         "description": "REST API documentation for Jussilog endpoints.",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
+        {
+            "name": "AI Agent",
+            "description": "",
+            "item": [
+                {
+                    "name": "Ask a question about the authenticated user's primary resume.",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/agent/resume/ask",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/agent/resume/ask"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"question\":\"What are the main skills on this resume?\",\"language\":\"fi\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"answer\": \"The main skills listed on this resume are...\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"No primary resume found for this user.\"}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"message\": \"The question field is required.\"}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 502,
+                            "body": "{\"message\": \"AI agent error: ...\"}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "name": "Admin – Thumbnails",
             "description": "",
@@ -605,7 +667,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "22"
+                                    "value": "45"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -617,7 +679,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "{\"current_page\":1,\"data\":[],\"first_page_url\":\"http:\\/\\/localhost:8000\\/api\\/blogs?page=1\",\"from\":null,\"last_page\":1,\"last_page_url\":\"http:\\/\\/localhost:8000\\/api\\/blogs?page=1\",\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"active\":false},{\"url\":\"http:\\/\\/localhost:8000\\/api\\/blogs?page=1\",\"label\":\"1\",\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"active\":false}],\"next_page_url\":null,\"path\":\"http:\\/\\/localhost:8000\\/api\\/blogs\",\"per_page\":15,\"prev_page_url\":null,\"to\":null,\"total\":0}",
+                            "body": "{\"current_page\":1,\"data\":[{\"id\":4,\"user_id\":1,\"blog_category_id\":1,\"title\":\"Welcome to the Blog\",\"slug\":\"welcome-to-the-blog\",\"excerpt\":\"This is the first blog post.\",\"content\":\"<p>Welcome! This is an example blog post created by the seeder.<\\/p>\",\"featured_image\":null,\"featured_image_sizes\":null,\"tags\":null,\"visibility\":true,\"created_at\":\"2026-03-19T11:56:10.000000Z\",\"updated_at\":\"2026-03-19T11:56:10.000000Z\",\"author\":{\"id\":1,\"first_name\":\"Super\",\"last_name\":\"Admin\",\"name\":\"superadmin\"},\"category\":{\"id\":1,\"name\":\"Default\",\"slug\":\"default\"}},{\"id\":3,\"user_id\":1,\"blog_category_id\":1,\"title\":\"sdasdsadasdsa\",\"slug\":\"sdasdsadasdsa\",\"excerpt\":\"dasdasdas\",\"content\":\"<p>Until recently, the prevailing view assumed <em>lorem ipsum<\\/em> was born as a nonsense text. \\u201cIt\\u2019s not Latin, though it looks like it, and it actually says nothing,\\u201d Before &amp; After magazine <a target=\\\"_blank\\\" rel=\\\"noopener noreferrer nofollow\\\" class=\\\"underline hover:text-accent\\\" href=\\\"https:\\/\\/www.straightdope.com\\/columns\\/read\\/2290\\/what-does-the-filler-text-lorem-ipsum-mean\\/\\\">answered a curious reader<\\/a>, \\u201cIts \\u2018words\\u2019 loosely approximate the frequency with which letters occur in English, which is why at a glance it looks pretty real.\\u201d<\\/p><p>As Cicero would put it, \\u201cUm, not so fast.\\u201d<\\/p><p>The placeholder text, beginning with the line \\u201cLorem ipsum dolor sit amet, consectetur adipiscing elit\\u201d, looks like Latin because in its youth, centuries ago, it was Latin.<\\/p><p>Richard McClintock, a Latin scholar from Hampden-Sydney College, is <a target=\\\"_blank\\\" rel=\\\"noopener noreferrer nofollow\\\" class=\\\"underline hover:text-accent\\\" href=\\\"https:\\/\\/en.wikipedia.org\\/wiki\\/Lorem_ipsum\\\">credited<\\/a> with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur\\u2014a genuine, albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a passage from De Finibus Bonorum et Malorum (\\u201cOn the Extremes of Good and Evil\\u201d), a first-century B.C. text from the Roman philosopher Cicero.<\\/p><p>In particular, the garbled words of <em>lorem ipsum<\\/em> bear an unmistakable resemblance to sections 1.10.32\\u201333 of Cicero\\u2019s work, with the most notable passage excerpted below:<\\/p><blockquote><p>\\u201cNeque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.\\u201d<\\/p><\\/blockquote><p>A 1914 English translation by <a target=\\\"_blank\\\" rel=\\\"noopener noreferrer nofollow\\\" class=\\\"underline hover:text-accent\\\" href=\\\"https:\\/\\/en.wikipedia.org\\/wiki\\/Lorem_ipsum#English_translation\\\">Harris Rackham<\\/a> reads:<\\/p><blockquote><p>\\u201cNor is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure.\\u201d<\\/p><\\/blockquote><p>McClintock\\u2019s eye for detail certainly helped narrow the whereabouts of lorem ipsum\\u2019s origin, however, the \\u201chow and when\\u201d still remain something of a mystery, with competing theories and timelines.<\\/p>\",\"featured_image\":\"blogs\\/3\\/featured_image_1773787684.jpg\",\"featured_image_sizes\":{\"large\":\"blogs\\/3\\/1773787684_large.jpg\",\"thumb\":\"blogs\\/3\\/1773787684_thumb.jpg\",\"medium\":\"blogs\\/3\\/1773787684_medium.jpg\"},\"tags\":[\"asd\"],\"visibility\":true,\"created_at\":\"2026-03-17T15:11:50.000000Z\",\"updated_at\":\"2026-03-17T22:56:40.000000Z\",\"author\":{\"id\":1,\"first_name\":\"Super\",\"last_name\":\"Admin\",\"name\":\"superadmin\"},\"category\":{\"id\":1,\"name\":\"Default\",\"slug\":\"default\"}}],\"first_page_url\":\"http:\\/\\/localhost:8000\\/api\\/blogs?page=1\",\"from\":1,\"last_page\":1,\"last_page_url\":\"http:\\/\\/localhost:8000\\/api\\/blogs?page=1\",\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"active\":false},{\"url\":\"http:\\/\\/localhost:8000\\/api\\/blogs?page=1\",\"label\":\"1\",\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"active\":false}],\"next_page_url\":null,\"path\":\"http:\\/\\/localhost:8000\\/api\\/blogs\",\"per_page\":15,\"prev_page_url\":null,\"to\":2,\"total\":2}",
                             "name": ""
                         }
                     ]
@@ -627,15 +689,15 @@
                     "request": {
                         "url": {
                             "host": "{{BASE_URL}}",
-                            "path": "api/blogs/:id",
+                            "path": "api/blogs/:idOrSlug",
                             "query": [],
-                            "raw": "{{BASE_URL}}/api/blogs/:id",
+                            "raw": "{{BASE_URL}}/api/blogs/:idOrSlug",
                             "variable": [
                                 {
-                                    "id": "id",
-                                    "key": "id",
-                                    "value": "1",
-                                    "description": "The ID of the blog."
+                                    "id": "idOrSlug",
+                                    "key": "idOrSlug",
+                                    "value": "3",
+                                    "description": ""
                                 }
                             ]
                         },
@@ -673,7 +735,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "21"
+                                    "value": "44"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -684,8 +746,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 404,
-                            "body": "{\n    \"message\": \"No query results for model [App\\\\Models\\\\Blog] 1\"\n}",
+                            "code": 200,
+                            "body": "{\"id\":3,\"user_id\":1,\"blog_category_id\":1,\"title\":\"sdasdsadasdsa\",\"slug\":\"sdasdsadasdsa\",\"excerpt\":\"dasdasdas\",\"content\":\"<p>Until recently, the prevailing view assumed <em>lorem ipsum<\\/em> was born as a nonsense text. \\u201cIt\\u2019s not Latin, though it looks like it, and it actually says nothing,\\u201d Before &amp; After magazine <a target=\\\"_blank\\\" rel=\\\"noopener noreferrer nofollow\\\" class=\\\"underline hover:text-accent\\\" href=\\\"https:\\/\\/www.straightdope.com\\/columns\\/read\\/2290\\/what-does-the-filler-text-lorem-ipsum-mean\\/\\\">answered a curious reader<\\/a>, \\u201cIts \\u2018words\\u2019 loosely approximate the frequency with which letters occur in English, which is why at a glance it looks pretty real.\\u201d<\\/p><p>As Cicero would put it, \\u201cUm, not so fast.\\u201d<\\/p><p>The placeholder text, beginning with the line \\u201cLorem ipsum dolor sit amet, consectetur adipiscing elit\\u201d, looks like Latin because in its youth, centuries ago, it was Latin.<\\/p><p>Richard McClintock, a Latin scholar from Hampden-Sydney College, is <a target=\\\"_blank\\\" rel=\\\"noopener noreferrer nofollow\\\" class=\\\"underline hover:text-accent\\\" href=\\\"https:\\/\\/en.wikipedia.org\\/wiki\\/Lorem_ipsum\\\">credited<\\/a> with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur\\u2014a genuine, albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a passage from De Finibus Bonorum et Malorum (\\u201cOn the Extremes of Good and Evil\\u201d), a first-century B.C. text from the Roman philosopher Cicero.<\\/p><p>In particular, the garbled words of <em>lorem ipsum<\\/em> bear an unmistakable resemblance to sections 1.10.32\\u201333 of Cicero\\u2019s work, with the most notable passage excerpted below:<\\/p><blockquote><p>\\u201cNeque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.\\u201d<\\/p><\\/blockquote><p>A 1914 English translation by <a target=\\\"_blank\\\" rel=\\\"noopener noreferrer nofollow\\\" class=\\\"underline hover:text-accent\\\" href=\\\"https:\\/\\/en.wikipedia.org\\/wiki\\/Lorem_ipsum#English_translation\\\">Harris Rackham<\\/a> reads:<\\/p><blockquote><p>\\u201cNor is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure.\\u201d<\\/p><\\/blockquote><p>McClintock\\u2019s eye for detail certainly helped narrow the whereabouts of lorem ipsum\\u2019s origin, however, the \\u201chow and when\\u201d still remain something of a mystery, with competing theories and timelines.<\\/p>\",\"featured_image\":\"blogs\\/3\\/featured_image_1773787684.jpg\",\"featured_image_sizes\":{\"large\":\"blogs\\/3\\/1773787684_large.jpg\",\"thumb\":\"blogs\\/3\\/1773787684_thumb.jpg\",\"medium\":\"blogs\\/3\\/1773787684_medium.jpg\"},\"tags\":[\"asd\"],\"visibility\":true,\"created_at\":\"2026-03-17T15:11:50.000000Z\",\"updated_at\":\"2026-03-17T22:56:40.000000Z\",\"author\":{\"id\":1,\"first_name\":\"Super\",\"last_name\":\"Admin\",\"name\":\"superadmin\"},\"category\":{\"id\":1,\"name\":\"Default\",\"slug\":\"default\"}}",
                             "name": ""
                         }
                     ]
@@ -752,7 +814,7 @@
                         "header": [
                             {
                                 "key": "Content-Type",
-                                "value": "application/json"
+                                "value": "multipart/form-data"
                             },
                             {
                                 "key": "Accept",
@@ -760,8 +822,50 @@
                             }
                         ],
                         "body": {
-                            "mode": "raw",
-                            "raw": "{\"title\":\"vmqeopfuudtdsufvyvddq\",\"excerpt\":\"consequatur\",\"content\":\"consequatur\",\"blog_category_id\":17,\"feature_image\":\"mqeopfuudtdsufvyvddqa\",\"tags\":[\"mniihfqcoynlazghdtqtq\"],\"visibility\":false}"
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "vmqeopfuudtdsufvyvddq",
+                                    "type": "text",
+                                    "description": "Must not be greater than 255 characters."
+                                },
+                                {
+                                    "key": "excerpt",
+                                    "value": "consequatur",
+                                    "type": "text",
+                                    "description": ""
+                                },
+                                {
+                                    "key": "content",
+                                    "value": "consequatur",
+                                    "type": "text",
+                                    "description": ""
+                                },
+                                {
+                                    "key": "blog_category_id",
+                                    "value": "17",
+                                    "type": "text",
+                                    "description": "The <code>id</code> of an existing record in the blog_categories table."
+                                },
+                                {
+                                    "key": "tags[0]",
+                                    "value": "mqeopfuudtdsufvyvddqa",
+                                    "type": "text",
+                                    "description": ""
+                                },
+                                {
+                                    "key": "visibility",
+                                    "value": "1",
+                                    "type": "text",
+                                    "description": ""
+                                },
+                                {
+                                    "key": "featured_image",
+                                    "src": [],
+                                    "type": "file"
+                                }
+                            ]
                         },
                         "description": ""
                     },
@@ -779,16 +883,16 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "3",
                                     "description": "The ID of the blog."
                                 }
                             ]
                         },
-                        "method": "PUT",
+                        "method": "POST",
                         "header": [
                             {
                                 "key": "Content-Type",
-                                "value": "application/json"
+                                "value": "multipart/form-data"
                             },
                             {
                                 "key": "Accept",
@@ -796,8 +900,55 @@
                             }
                         ],
                         "body": {
-                            "mode": "raw",
-                            "raw": "{\"title\":\"vmqeopfuudtdsufvyvddq\",\"excerpt\":\"consequatur\",\"content\":\"consequatur\",\"blog_category_id\":17,\"feature_image\":\"mqeopfuudtdsufvyvddqa\",\"tags\":[\"mniihfqcoynlazghdtqtq\"],\"visibility\":false}"
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "vmqeopfuudtdsufvyvddq",
+                                    "type": "text",
+                                    "description": "Must not be greater than 255 characters."
+                                },
+                                {
+                                    "key": "excerpt",
+                                    "value": "consequatur",
+                                    "type": "text",
+                                    "description": ""
+                                },
+                                {
+                                    "key": "content",
+                                    "value": "consequatur",
+                                    "type": "text",
+                                    "description": ""
+                                },
+                                {
+                                    "key": "blog_category_id",
+                                    "value": "17",
+                                    "type": "text",
+                                    "description": "The <code>id</code> of an existing record in the blog_categories table."
+                                },
+                                {
+                                    "key": "tags[0]",
+                                    "value": "mqeopfuudtdsufvyvddqa",
+                                    "type": "text",
+                                    "description": ""
+                                },
+                                {
+                                    "key": "visibility",
+                                    "value": "1",
+                                    "type": "text",
+                                    "description": ""
+                                },
+                                {
+                                    "key": "featured_image",
+                                    "src": [],
+                                    "type": "file"
+                                },
+                                {
+                                    "key": "_method",
+                                    "value": "PUT",
+                                    "type": "text"
+                                }
+                            ]
                         },
                         "description": ""
                     },
@@ -815,7 +966,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "3",
                                     "description": "The ID of the blog."
                                 }
                             ]
@@ -885,7 +1036,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "20"
+                                    "value": "43"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -897,7 +1048,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "[{\"id\":1,\"name\":\"Technology\",\"slug\":\"technology\",\"created_at\":\"2026-03-17T10:15:07.000000Z\",\"updated_at\":\"2026-03-17T10:15:07.000000Z\"}]",
+                            "body": "[{\"id\":2,\"name\":\"adsdsadsdasdsa\",\"slug\":\"adsdsadsdasdsa\",\"created_at\":\"2026-03-17T15:13:05.000000Z\",\"updated_at\":\"2026-03-17T15:13:05.000000Z\"},{\"id\":1,\"name\":\"Default\",\"slug\":\"default\",\"created_at\":\"2026-03-17T14:01:15.000000Z\",\"updated_at\":\"2026-03-17T14:01:15.000000Z\"}]",
                             "name": ""
                         }
                     ]
@@ -1035,6 +1186,142 @@
                         }
                     },
                     "response": []
+                },
+                {
+                    "name": "Render a resume as an inline PDF via a signed URL (no auth token required).",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/resumes/:id/preview/pdf/render",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/resumes/:id/preview/pdf/render",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "consequatur",
+                                    "description": "The ID of the resume."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Obtain the URL from the signed-url endpoint first.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "42"
+                                },
+                                {
+                                    "key": "x-robots-tag",
+                                    "value": "noindex, nofollow, noarchive, nosnippet"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 403,
+                            "body": "{\n    \"message\": \"Invalid signature.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Render a resume as inline HTML via a signed URL (no auth token required).",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/resumes/:id/preview/html/render",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/resumes/:id/preview/html/render",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "consequatur",
+                                    "description": "The ID of the resume."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Obtain the URL from the signed-url endpoint first.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "41"
+                                },
+                                {
+                                    "key": "x-robots-tag",
+                                    "value": "noindex, nofollow, noarchive, nosnippet"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 403,
+                            "body": "{\n    \"message\": \"Invalid signature.\"\n}",
+                            "name": ""
+                        }
+                    ]
                 }
             ]
         },
@@ -1085,7 +1372,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "36"
+                                    "value": "59"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -1238,7 +1525,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "31"
+                                    "value": "54"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -1701,7 +1988,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"order_id\":1,\"due_date\":\"2026-03-17T10:38:01\",\"notes\":\"Net 30\",\"status\":\"draft\"}"
+                            "raw": "{\"order_id\":1,\"due_date\":\"2026-03-19T22:06:19\",\"notes\":\"Net 30\",\"status\":\"draft\"}"
                         },
                         "description": "Creates a new invoice for the given order and automatically generates invoice items from the order's line items.",
                         "auth": {
@@ -1753,7 +2040,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"status\":\"issued\",\"customer_first_name\":\"Jussi\",\"customer_last_name\":\"Palanen\",\"customer_email\":\"jussi@example.com\",\"customer_phone\":\"+358401234567\",\"billing_address\":[],\"subtotal\":153.47,\"total\":153.47,\"due_date\":\"2026-03-17T10:38:01\",\"notes\":\"Net 30\",\"items\":[{\"id\":1,\"type\":\"product\",\"description\":\"Wireless Headphones\",\"quantity\":2,\"unit_price\":79.99,\"tax_rate\":0.24,\"total\":159.98}]}"
+                            "raw": "{\"status\":\"issued\",\"customer_first_name\":\"Jussi\",\"customer_last_name\":\"Palanen\",\"customer_email\":\"jussi@example.com\",\"customer_phone\":\"+358401234567\",\"billing_address\":[],\"subtotal\":153.47,\"total\":153.47,\"due_date\":\"2026-03-19T22:06:19\",\"notes\":\"Net 30\",\"items\":[{\"id\":1,\"type\":\"product\",\"description\":\"Wireless Headphones\",\"quantity\":2,\"unit_price\":79.99,\"tax_rate\":0.24,\"total\":159.98}]}"
                         },
                         "description": "Updates an existing invoice. Automatically sets `issued_at` when status changes to `issued`, and `paid_at` when status changes to `paid`."
                     },
@@ -1922,7 +2209,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "33"
+                                    "value": "56"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -2021,7 +2308,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "32"
+                                    "value": "55"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -2032,8 +2319,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 404,
-                            "body": "{\"message\":\"Order not found\"}",
+                            "code": 200,
+                            "body": "{\"id\":1,\"user_id\":1,\"customer_first_name\":\"Jussi\",\"customer_last_name\":\"Palanen\",\"customer_email\":\"jussi@example.com\",\"customer_phone\":\"+358401234567\",\"order_number\":\"ORD-2026-00001\",\"status\":\"completed\",\"total_amount\":\"89.97\",\"shipping_address\":{\"city\":\"Helsinki\",\"street\":\"Mannerheimintie 1\",\"country\":\"FI\",\"postal_code\":\"00100\"},\"billing_address\":{\"city\":\"Helsinki\",\"street\":\"Mannerheimintie 1\",\"country\":\"FI\",\"postal_code\":\"00100\"},\"notes\":null,\"lang\":\"en\",\"created_at\":\"2026-03-17T14:01:15.000000Z\",\"updated_at\":\"2026-03-17T14:01:15.000000Z\",\"user\":{\"id\":1,\"first_name\":\"Super\",\"last_name\":\"Admin\",\"username\":\"superadmin\",\"name\":\"superadmin\",\"email\":\"juzapala+superadmin@gmail.com\",\"google_id\":null,\"avatar\":null,\"email_verified_at\":\"2026-03-17T14:01:15.000000Z\",\"created_at\":\"2026-03-17T14:01:15.000000Z\",\"updated_at\":\"2026-03-19T17:41:28.000000Z\"},\"items\":[{\"id\":1,\"order_id\":1,\"product_id\":13,\"product_title\":\"Wireless Headphones\",\"quantity\":1,\"unit_price\":\"79.99\",\"sale_price\":null,\"subtotal\":\"79.99\",\"created_at\":\"2026-03-17T14:01:15.000000Z\",\"updated_at\":\"2026-03-17T14:01:15.000000Z\",\"featured_image\":null,\"images\":[],\"featured_image_url\":null,\"images_urls\":[],\"product\":{\"id\":13,\"title\":\"Wireless Headphones\",\"description\":\"Example product for seeding\",\"price\":\"79.99\",\"sale_price\":null,\"tax_code\":null,\"tax_rate\":null,\"quantity\":0,\"featured_image\":null,\"featured_image_sizes\":null,\"images\":null,\"images_sizes\":null,\"visibility\":true,\"created_at\":\"2026-03-17T14:01:15.000000Z\",\"updated_at\":\"2026-03-17T14:01:15.000000Z\",\"featured_image_url\":null,\"featured_image_sizes_urls\":[],\"images_urls\":[],\"images_sizes_urls\":[]}},{\"id\":2,\"order_id\":1,\"product_id\":14,\"product_title\":\"USB-C Cable\",\"quantity\":2,\"unit_price\":\"4.99\",\"sale_price\":null,\"subtotal\":\"9.98\",\"created_at\":\"2026-03-17T14:01:15.000000Z\",\"updated_at\":\"2026-03-17T14:01:15.000000Z\",\"featured_image\":null,\"images\":[],\"featured_image_url\":null,\"images_urls\":[],\"product\":{\"id\":14,\"title\":\"USB-C Cable\",\"description\":\"Example product for seeding\",\"price\":\"4.99\",\"sale_price\":null,\"tax_code\":null,\"tax_rate\":null,\"quantity\":0,\"featured_image\":null,\"featured_image_sizes\":null,\"images\":null,\"images_sizes\":null,\"visibility\":true,\"created_at\":\"2026-03-17T14:01:15.000000Z\",\"updated_at\":\"2026-03-17T14:01:15.000000Z\",\"featured_image_url\":null,\"featured_image_sizes_urls\":[],\"images_urls\":[],\"images_sizes_urls\":[]}}]}",
                             "name": ""
                         }
                     ]
@@ -2279,7 +2566,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "35"
+                                    "value": "58"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -2454,7 +2741,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "34"
+                                    "value": "57"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -2465,8 +2752,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 404,
-                            "body": "{\"message\":\"Product not found\"}",
+                            "code": 200,
+                            "body": "{\"id\":1,\"title\":\"sapiente quia fugit\",\"description\":\"Nemo aut natus consectetur quam magni omnis aut. Ea culpa rerum veritatis praesentium voluptatem. Dolores distinctio aperiam ea earum iusto. Voluptas pariatur eveniet veniam minus est quod voluptatem placeat.\\n\\nIncidunt pariatur delectus voluptatem est voluptas consequuntur et occaecati. Eos nulla eligendi ducimus consectetur soluta numquam inventore qui. Voluptas consequatur deserunt possimus optio dicta. Ut et et modi aut.\\n\\nSed voluptas magnam impedit. Perspiciatis excepturi ipsam ut sed voluptatum repudiandae molestiae et. Fugit dolore maxime aut voluptatem magnam sed.\",\"price\":\"330.00\",\"sale_price\":null,\"tax_code\":\"FI\",\"tax_rate\":\"0.2550\",\"quantity\":78,\"featured_image\":null,\"featured_image_sizes\":null,\"images\":[],\"images_sizes\":null,\"visibility\":true,\"created_at\":\"2026-03-17T14:01:15.000000Z\",\"updated_at\":\"2026-03-17T14:01:15.000000Z\",\"featured_image_url\":null,\"featured_image_sizes_urls\":[],\"images_urls\":[],\"images_sizes_urls\":[]}",
                             "name": ""
                         }
                     ]
@@ -2886,7 +3173,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "19"
+                                    "value": "40"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -2898,7 +3185,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "{\"themes\":[{\"value\":\"green\",\"label\":\"Green\"},{\"value\":\"blue\",\"label\":\"Blue\"},{\"value\":\"red\",\"label\":\"Red\"},{\"value\":\"yellow\",\"label\":\"Yellow\"},{\"value\":\"cyan\",\"label\":\"Cyan\"},{\"value\":\"orange\",\"label\":\"Orange\"},{\"value\":\"violet\",\"label\":\"Violet\"},{\"value\":\"black\",\"label\":\"Black\"},{\"value\":\"white\",\"label\":\"White\"},{\"value\":\"grey\",\"label\":\"Grey\"}],\"templates\":[{\"value\":\"default\",\"label\":\"Default\"}],\"languages\":[{\"value\":\"en\",\"label\":\"English\"},{\"value\":\"fi\",\"label\":\"Finnish\"}],\"skill_categories\":[{\"value\":\"programming_languages\",\"label\":\"Programming Languages\"},{\"value\":\"scripting_languages\",\"label\":\"Scripting Languages\"},{\"value\":\"markup_languages\",\"label\":\"Markup Languages\"},{\"value\":\"query_languages\",\"label\":\"Query Languages\"},{\"value\":\"frontend_technologies\",\"label\":\"Frontend Technologies\"},{\"value\":\"backend_technologies\",\"label\":\"Backend Technologies\"},{\"value\":\"full_stack_development\",\"label\":\"Full Stack Development\"},{\"value\":\"frameworks\",\"label\":\"Frameworks\"},{\"value\":\"libraries\",\"label\":\"Libraries\"},{\"value\":\"ui_ux_design\",\"label\":\"UI\\/UX Design\"},{\"value\":\"responsive_design\",\"label\":\"Responsive Design\"},{\"value\":\"mobile_development\",\"label\":\"Mobile Development\"},{\"value\":\"desktop_development\",\"label\":\"Desktop Development\"},{\"value\":\"game_development\",\"label\":\"Game Development\"},{\"value\":\"embedded_systems\",\"label\":\"Embedded Systems\"},{\"value\":\"databases\",\"label\":\"Databases\"},{\"value\":\"database_design\",\"label\":\"Database Design\"},{\"value\":\"database_administration\",\"label\":\"Database Administration\"},{\"value\":\"orm_data_access\",\"label\":\"ORM & Data Access\"},{\"value\":\"api_development\",\"label\":\"API Development\"},{\"value\":\"web_services\",\"label\":\"Web Services\"},{\"value\":\"graphql\",\"label\":\"GraphQL\"},{\"value\":\"microservices\",\"label\":\"Microservices\"},{\"value\":\"event_driven_architecture\",\"label\":\"Event-Driven Architecture\"},{\"value\":\"devops\",\"label\":\"DevOps\"},{\"value\":\"cloud_platforms\",\"label\":\"Cloud Platforms\"},{\"value\":\"serverless\",\"label\":\"Serverless\"},{\"value\":\"containerization\",\"label\":\"Containerization\"},{\"value\":\"ci_cd\",\"label\":\"CI\\/CD\"},{\"value\":\"infrastructure_as_code\",\"label\":\"Infrastructure as Code\"},{\"value\":\"configuration_management\",\"label\":\"Configuration Management\"},{\"value\":\"version_control\",\"label\":\"Version Control\"},{\"value\":\"testing_qa\",\"label\":\"Testing & QA\"},{\"value\":\"test_automation\",\"label\":\"Test Automation\"},{\"value\":\"security\",\"label\":\"Security\"},{\"value\":\"authentication_authorization\",\"label\":\"Authentication & Authorization\"},{\"value\":\"networking\",\"label\":\"Networking\"},{\"value\":\"performance_optimization\",\"label\":\"Performance Optimization\"},{\"value\":\"architecture_design_patterns\",\"label\":\"Architecture & Design Patterns\"},{\"value\":\"system_design\",\"label\":\"System Design\"},{\"value\":\"distributed_systems\",\"label\":\"Distributed Systems\"},{\"value\":\"data_engineering\",\"label\":\"Data Engineering\"},{\"value\":\"big_data\",\"label\":\"Big Data\"},{\"value\":\"machine_learning_ai\",\"label\":\"Machine Learning & AI\"},{\"value\":\"monitoring_logging\",\"label\":\"Monitoring & Logging\"},{\"value\":\"development_tools\",\"label\":\"Development Tools\"},{\"value\":\"operating_systems\",\"label\":\"Operating Systems\"},{\"value\":\"project_management\",\"label\":\"Project Management\"},{\"value\":\"agile_methodologies\",\"label\":\"Agile & Methodologies\"},{\"value\":\"soft_skills\",\"label\":\"Soft Skills\"},{\"value\":\"other\",\"label\":\"Other\"}],\"skill_proficiencies\":[{\"value\":\"beginner\",\"label\":\"Beginner\"},{\"value\":\"basic\",\"label\":\"Basic\"},{\"value\":\"intermediate\",\"label\":\"Intermediate\"},{\"value\":\"advanced\",\"label\":\"Advanced\"},{\"value\":\"expert\",\"label\":\"Expert\"}],\"language_proficiencies\":[{\"value\":\"native_bilingual\",\"label\":\"Native or Bilingual Proficiency\"},{\"value\":\"full_professional\",\"label\":\"Full Professional Proficiency\"},{\"value\":\"professional_working\",\"label\":\"Professional Working Proficiency\"},{\"value\":\"limited_working\",\"label\":\"Limited Working Proficiency\"},{\"value\":\"elementary\",\"label\":\"Elementary Proficiency\"}],\"spoken_languages\":[{\"value\":\"af\",\"label\":\"Afrikaans\"},{\"value\":\"sq\",\"label\":\"Albanian\"},{\"value\":\"ar\",\"label\":\"Arabic\"},{\"value\":\"hy\",\"label\":\"Armenian\"},{\"value\":\"az\",\"label\":\"Azerbaijani\"},{\"value\":\"be\",\"label\":\"Belarusian\"},{\"value\":\"bn\",\"label\":\"Bengali\"},{\"value\":\"bs\",\"label\":\"Bosnian\"},{\"value\":\"bg\",\"label\":\"Bulgarian\"},{\"value\":\"ca\",\"label\":\"Catalan\"},{\"value\":\"zh\",\"label\":\"Chinese\"},{\"value\":\"hr\",\"label\":\"Croatian\"},{\"value\":\"cs\",\"label\":\"Czech\"},{\"value\":\"da\",\"label\":\"Danish\"},{\"value\":\"nl\",\"label\":\"Dutch\"},{\"value\":\"en\",\"label\":\"English\"},{\"value\":\"et\",\"label\":\"Estonian\"},{\"value\":\"fi\",\"label\":\"Finnish\"},{\"value\":\"fr\",\"label\":\"French\"},{\"value\":\"ka\",\"label\":\"Georgian\"},{\"value\":\"de\",\"label\":\"German\"},{\"value\":\"el\",\"label\":\"Greek\"},{\"value\":\"he\",\"label\":\"Hebrew\"},{\"value\":\"hi\",\"label\":\"Hindi\"},{\"value\":\"hu\",\"label\":\"Hungarian\"},{\"value\":\"is\",\"label\":\"Icelandic\"},{\"value\":\"id\",\"label\":\"Indonesian\"},{\"value\":\"it\",\"label\":\"Italian\"},{\"value\":\"ja\",\"label\":\"Japanese\"},{\"value\":\"kk\",\"label\":\"Kazakh\"},{\"value\":\"ko\",\"label\":\"Korean\"},{\"value\":\"lv\",\"label\":\"Latvian\"},{\"value\":\"lt\",\"label\":\"Lithuanian\"},{\"value\":\"mk\",\"label\":\"Macedonian\"},{\"value\":\"ms\",\"label\":\"Malay\"},{\"value\":\"mt\",\"label\":\"Maltese\"},{\"value\":\"no\",\"label\":\"Norwegian\"},{\"value\":\"fa\",\"label\":\"Persian\"},{\"value\":\"pl\",\"label\":\"Polish\"},{\"value\":\"pt\",\"label\":\"Portuguese\"},{\"value\":\"ro\",\"label\":\"Romanian\"},{\"value\":\"ru\",\"label\":\"Russian\"},{\"value\":\"sr\",\"label\":\"Serbian\"},{\"value\":\"sk\",\"label\":\"Slovak\"},{\"value\":\"sl\",\"label\":\"Slovenian\"},{\"value\":\"es\",\"label\":\"Spanish\"},{\"value\":\"sv\",\"label\":\"Swedish\"},{\"value\":\"th\",\"label\":\"Thai\"},{\"value\":\"tr\",\"label\":\"Turkish\"},{\"value\":\"uk\",\"label\":\"Ukrainian\"},{\"value\":\"ur\",\"label\":\"Urdu\"},{\"value\":\"vi\",\"label\":\"Vietnamese\"},{\"value\":\"cy\",\"label\":\"Welsh\"},{\"value\":\"other\",\"label\":\"Other\"}]}",
+                            "body": "{\"themes\":[{\"value\":\"green\",\"label\":\"Green\"},{\"value\":\"blue\",\"label\":\"Blue\"},{\"value\":\"red\",\"label\":\"Red\"},{\"value\":\"yellow\",\"label\":\"Yellow\"},{\"value\":\"cyan\",\"label\":\"Cyan\"},{\"value\":\"orange\",\"label\":\"Orange\"},{\"value\":\"violet\",\"label\":\"Violet\"},{\"value\":\"black\",\"label\":\"Black\"},{\"value\":\"white\",\"label\":\"White\"},{\"value\":\"grey\",\"label\":\"Grey\"},{\"value\":\"midnight\",\"label\":\"Midnight\"},{\"value\":\"gold\",\"label\":\"Gold\"},{\"value\":\"aurora\",\"label\":\"Aurora\"},{\"value\":\"ember\",\"label\":\"Ember\"},{\"value\":\"amethyst\",\"label\":\"Amethyst\"}],\"templates\":[{\"value\":\"default\",\"label\":\"Classic\"},{\"value\":\"dark\",\"label\":\"Dark\"}],\"template_themes\":{\"default\":[{\"value\":\"green\",\"accent\":\"#14532d\",\"bg\":\"#ffffff\"},{\"value\":\"blue\",\"accent\":\"#1e3a5f\",\"bg\":\"#ffffff\"},{\"value\":\"red\",\"accent\":\"#7f1d1d\",\"bg\":\"#ffffff\"},{\"value\":\"yellow\",\"accent\":\"#78350f\",\"bg\":\"#ffffff\"},{\"value\":\"cyan\",\"accent\":\"#164e63\",\"bg\":\"#ffffff\"},{\"value\":\"orange\",\"accent\":\"#7c2d12\",\"bg\":\"#ffffff\"},{\"value\":\"violet\",\"accent\":\"#4c1d95\",\"bg\":\"#ffffff\"},{\"value\":\"black\",\"accent\":\"#111827\",\"bg\":\"#ffffff\"},{\"value\":\"white\",\"accent\":\"#0f172a\",\"bg\":\"#f1f5f9\"},{\"value\":\"grey\",\"accent\":\"#374151\",\"bg\":\"#ffffff\"}],\"dark\":[{\"value\":\"midnight\",\"accent\":\"#58a6ff\",\"bg\":\"#0d1117\"},{\"value\":\"gold\",\"accent\":\"#d4a843\",\"bg\":\"#0f0d08\"},{\"value\":\"aurora\",\"accent\":\"#2dd4bf\",\"bg\":\"#091518\"},{\"value\":\"ember\",\"accent\":\"#fb923c\",\"bg\":\"#100a07\"},{\"value\":\"amethyst\",\"accent\":\"#a78bfa\",\"bg\":\"#0d0b14\"}]},\"languages\":[{\"value\":\"en\",\"label\":\"English\"},{\"value\":\"fi\",\"label\":\"Finnish\"}],\"skill_categories\":[{\"value\":\"programming_languages\",\"label\":\"Programming Languages\"},{\"value\":\"scripting_languages\",\"label\":\"Scripting Languages\"},{\"value\":\"markup_languages\",\"label\":\"Markup Languages\"},{\"value\":\"query_languages\",\"label\":\"Query Languages\"},{\"value\":\"frontend_technologies\",\"label\":\"Frontend Technologies\"},{\"value\":\"backend_technologies\",\"label\":\"Backend Technologies\"},{\"value\":\"full_stack_development\",\"label\":\"Full Stack Development\"},{\"value\":\"frameworks\",\"label\":\"Frameworks\"},{\"value\":\"libraries\",\"label\":\"Libraries\"},{\"value\":\"ui_ux_design\",\"label\":\"UI\\/UX Design\"},{\"value\":\"responsive_design\",\"label\":\"Responsive Design\"},{\"value\":\"mobile_development\",\"label\":\"Mobile Development\"},{\"value\":\"desktop_development\",\"label\":\"Desktop Development\"},{\"value\":\"game_development\",\"label\":\"Game Development\"},{\"value\":\"embedded_systems\",\"label\":\"Embedded Systems\"},{\"value\":\"databases\",\"label\":\"Databases\"},{\"value\":\"database_design\",\"label\":\"Database Design\"},{\"value\":\"database_administration\",\"label\":\"Database Administration\"},{\"value\":\"orm_data_access\",\"label\":\"ORM & Data Access\"},{\"value\":\"api_development\",\"label\":\"API Development\"},{\"value\":\"web_services\",\"label\":\"Web Services\"},{\"value\":\"graphql\",\"label\":\"GraphQL\"},{\"value\":\"microservices\",\"label\":\"Microservices\"},{\"value\":\"event_driven_architecture\",\"label\":\"Event-Driven Architecture\"},{\"value\":\"devops\",\"label\":\"DevOps\"},{\"value\":\"cloud_platforms\",\"label\":\"Cloud Platforms\"},{\"value\":\"serverless\",\"label\":\"Serverless\"},{\"value\":\"containerization\",\"label\":\"Containerization\"},{\"value\":\"ci_cd\",\"label\":\"CI\\/CD\"},{\"value\":\"infrastructure_as_code\",\"label\":\"Infrastructure as Code\"},{\"value\":\"configuration_management\",\"label\":\"Configuration Management\"},{\"value\":\"version_control\",\"label\":\"Version Control\"},{\"value\":\"testing_qa\",\"label\":\"Testing & QA\"},{\"value\":\"test_automation\",\"label\":\"Test Automation\"},{\"value\":\"security\",\"label\":\"Security\"},{\"value\":\"authentication_authorization\",\"label\":\"Authentication & Authorization\"},{\"value\":\"networking\",\"label\":\"Networking\"},{\"value\":\"performance_optimization\",\"label\":\"Performance Optimization\"},{\"value\":\"architecture_design_patterns\",\"label\":\"Architecture & Design Patterns\"},{\"value\":\"system_design\",\"label\":\"System Design\"},{\"value\":\"distributed_systems\",\"label\":\"Distributed Systems\"},{\"value\":\"data_engineering\",\"label\":\"Data Engineering\"},{\"value\":\"big_data\",\"label\":\"Big Data\"},{\"value\":\"machine_learning_ai\",\"label\":\"Machine Learning & AI\"},{\"value\":\"monitoring_logging\",\"label\":\"Monitoring & Logging\"},{\"value\":\"development_tools\",\"label\":\"Development Tools\"},{\"value\":\"operating_systems\",\"label\":\"Operating Systems\"},{\"value\":\"project_management\",\"label\":\"Project Management\"},{\"value\":\"agile_methodologies\",\"label\":\"Agile & Methodologies\"},{\"value\":\"soft_skills\",\"label\":\"Soft Skills\"},{\"value\":\"other\",\"label\":\"Other\"}],\"skill_proficiencies\":[{\"value\":\"beginner\",\"label\":\"Beginner\"},{\"value\":\"basic\",\"label\":\"Basic\"},{\"value\":\"intermediate\",\"label\":\"Intermediate\"},{\"value\":\"advanced\",\"label\":\"Advanced\"},{\"value\":\"expert\",\"label\":\"Expert\"}],\"language_proficiencies\":[{\"value\":\"native_bilingual\",\"label\":\"Native or Bilingual Proficiency\"},{\"value\":\"full_professional\",\"label\":\"Full Professional Proficiency\"},{\"value\":\"professional_working\",\"label\":\"Professional Working Proficiency\"},{\"value\":\"limited_working\",\"label\":\"Limited Working Proficiency\"},{\"value\":\"elementary\",\"label\":\"Elementary Proficiency\"}],\"spoken_languages\":[{\"value\":\"af\",\"label\":\"Afrikaans\"},{\"value\":\"sq\",\"label\":\"Albanian\"},{\"value\":\"ar\",\"label\":\"Arabic\"},{\"value\":\"hy\",\"label\":\"Armenian\"},{\"value\":\"az\",\"label\":\"Azerbaijani\"},{\"value\":\"be\",\"label\":\"Belarusian\"},{\"value\":\"bn\",\"label\":\"Bengali\"},{\"value\":\"bs\",\"label\":\"Bosnian\"},{\"value\":\"bg\",\"label\":\"Bulgarian\"},{\"value\":\"ca\",\"label\":\"Catalan\"},{\"value\":\"zh\",\"label\":\"Chinese\"},{\"value\":\"hr\",\"label\":\"Croatian\"},{\"value\":\"cs\",\"label\":\"Czech\"},{\"value\":\"da\",\"label\":\"Danish\"},{\"value\":\"nl\",\"label\":\"Dutch\"},{\"value\":\"en\",\"label\":\"English\"},{\"value\":\"et\",\"label\":\"Estonian\"},{\"value\":\"fi\",\"label\":\"Finnish\"},{\"value\":\"fr\",\"label\":\"French\"},{\"value\":\"ka\",\"label\":\"Georgian\"},{\"value\":\"de\",\"label\":\"German\"},{\"value\":\"el\",\"label\":\"Greek\"},{\"value\":\"he\",\"label\":\"Hebrew\"},{\"value\":\"hi\",\"label\":\"Hindi\"},{\"value\":\"hu\",\"label\":\"Hungarian\"},{\"value\":\"is\",\"label\":\"Icelandic\"},{\"value\":\"id\",\"label\":\"Indonesian\"},{\"value\":\"it\",\"label\":\"Italian\"},{\"value\":\"ja\",\"label\":\"Japanese\"},{\"value\":\"kk\",\"label\":\"Kazakh\"},{\"value\":\"ko\",\"label\":\"Korean\"},{\"value\":\"lv\",\"label\":\"Latvian\"},{\"value\":\"lt\",\"label\":\"Lithuanian\"},{\"value\":\"mk\",\"label\":\"Macedonian\"},{\"value\":\"ms\",\"label\":\"Malay\"},{\"value\":\"mt\",\"label\":\"Maltese\"},{\"value\":\"no\",\"label\":\"Norwegian\"},{\"value\":\"fa\",\"label\":\"Persian\"},{\"value\":\"pl\",\"label\":\"Polish\"},{\"value\":\"pt\",\"label\":\"Portuguese\"},{\"value\":\"ro\",\"label\":\"Romanian\"},{\"value\":\"ru\",\"label\":\"Russian\"},{\"value\":\"sr\",\"label\":\"Serbian\"},{\"value\":\"sk\",\"label\":\"Slovak\"},{\"value\":\"sl\",\"label\":\"Slovenian\"},{\"value\":\"es\",\"label\":\"Spanish\"},{\"value\":\"sv\",\"label\":\"Swedish\"},{\"value\":\"th\",\"label\":\"Thai\"},{\"value\":\"tr\",\"label\":\"Turkish\"},{\"value\":\"uk\",\"label\":\"Ukrainian\"},{\"value\":\"ur\",\"label\":\"Urdu\"},{\"value\":\"vi\",\"label\":\"Vietnamese\"},{\"value\":\"cy\",\"label\":\"Welsh\"},{\"value\":\"other\",\"label\":\"Other\"}]}",
                             "name": ""
                         }
                     ]
@@ -2953,6 +3240,62 @@
                         ],
                         "body": null,
                         "description": "The photo can be supplied as a base64-encoded string in `photo`.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Preview a resume as an inline PDF from a JSON payload (no stored resume required).",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/resumes/preview/pdf",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/resumes/preview/pdf"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "The photo can be supplied as a base64-encoded string in `photo`.\nReturns the PDF inline (for iframe / browser preview), not as a download.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Preview a resume as inline HTML from a JSON payload (no stored resume required).",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/resumes/preview/html",
+                            "query": [],
+                            "raw": "{{BASE_URL}}/api/resumes/preview/html"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "The photo can be supplied as a base64-encoded string in `photo`.\nReturns HTML inline (for iframe / browser preview), not as a download.",
                         "auth": {
                             "type": "noauth"
                         }
@@ -3015,7 +3358,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "18"
+                                    "value": "39"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -3094,7 +3437,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "17"
+                                    "value": "38"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -3169,7 +3512,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "16"
+                                    "value": "37"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -3294,7 +3637,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "6",
                                     "description": "The ID of the resume."
                                 },
                                 {
@@ -3357,7 +3700,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "6",
                                     "description": "The ID of the resume."
                                 },
                                 {
@@ -3500,7 +3843,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "6",
                                     "description": "The ID of the resume."
                                 },
                                 {
@@ -3638,7 +3981,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "6",
                                     "description": "The ID of the resume."
                                 },
                                 {
@@ -3677,7 +4020,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "6",
                                     "description": "The ID of the resume."
                                 },
                                 {
@@ -3740,7 +4083,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "6",
                                     "description": "The ID of the resume."
                                 },
                                 {
@@ -3803,7 +4146,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "6",
                                     "description": "The ID of the resume."
                                 },
                                 {
@@ -3827,6 +4170,288 @@
                         ],
                         "body": null,
                         "description": "The photo is not included. All section items are exported without internal IDs."
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "x-robots-tag",
+                                    "value": "noindex, nofollow, noarchive, nosnippet"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Preview a resume as an inline PDF (opens in browser, no download).",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/resumes/:id/preview/pdf",
+                            "query": [
+                                {
+                                    "key": "theme",
+                                    "value": "blue",
+                                    "description": "Theme name.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "lang",
+                                    "value": "en",
+                                    "description": "Language code (en, fi).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "template",
+                                    "value": "default",
+                                    "description": "Template name.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "show_skill_levels",
+                                    "value": "1",
+                                    "description": "Show skill level bars.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "show_language_levels",
+                                    "value": "1",
+                                    "description": "Show language level dots.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{BASE_URL}}/api/resumes/:id/preview/pdf?theme=blue&lang=en&template=default&show_skill_levels=1&show_language_levels=1",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "6",
+                                    "description": "The ID of the resume."
+                                },
+                                {
+                                    "id": "resume",
+                                    "key": "resume",
+                                    "value": "1",
+                                    "description": "The resume ID."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "x-robots-tag",
+                                    "value": "noindex, nofollow, noarchive, nosnippet"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Preview a resume as inline HTML (renders in browser, no download).",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/resumes/:id/preview/html",
+                            "query": [
+                                {
+                                    "key": "theme",
+                                    "value": "blue",
+                                    "description": "Theme name.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "lang",
+                                    "value": "en",
+                                    "description": "Language code (en, fi).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "template",
+                                    "value": "default",
+                                    "description": "Template name.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "show_skill_levels",
+                                    "value": "1",
+                                    "description": "Show skill level bars.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "show_language_levels",
+                                    "value": "1",
+                                    "description": "Show language level dots.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{BASE_URL}}/api/resumes/:id/preview/html?theme=blue&lang=en&template=default&show_skill_levels=1&show_language_levels=1",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "6",
+                                    "description": "The ID of the resume."
+                                },
+                                {
+                                    "id": "resume",
+                                    "key": "resume",
+                                    "value": "1",
+                                    "description": "The resume ID."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "x-robots-tag",
+                                    "value": "noindex, nofollow, noarchive, nosnippet"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Generate short-lived signed preview URLs for PDF and HTML (no token needed to open them).",
+                    "request": {
+                        "url": {
+                            "host": "{{BASE_URL}}",
+                            "path": "api/resumes/:id/preview/signed-url",
+                            "query": [
+                                {
+                                    "key": "theme",
+                                    "value": "blue",
+                                    "description": "Theme name.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "lang",
+                                    "value": "en",
+                                    "description": "Language code (en, fi).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "template",
+                                    "value": "default",
+                                    "description": "Template name.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "show_skill_levels",
+                                    "value": "1",
+                                    "description": "Show skill level bars.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "show_language_levels",
+                                    "value": "1",
+                                    "description": "Show language level dots.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{BASE_URL}}/api/resumes/:id/preview/signed-url?theme=blue&lang=en&template=default&show_skill_levels=1&show_language_levels=1",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "6",
+                                    "description": "The ID of the resume."
+                                },
+                                {
+                                    "id": "resume",
+                                    "key": "resume",
+                                    "value": "1",
+                                    "description": "The resume ID."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
                     },
                     "response": [
                         {
@@ -3900,7 +4525,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "6",
                                     "description": "The ID of the resume."
                                 }
                             ]
@@ -3979,7 +4604,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "27"
+                                    "value": "50"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -4039,7 +4664,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "26"
+                                    "value": "49"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -4107,7 +4732,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "25"
+                                    "value": "48"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -4180,7 +4805,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "15"
+                                    "value": "36"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -4255,7 +4880,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "14"
+                                    "value": "35"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -4364,7 +4989,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "30"
+                                    "value": "53"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -4376,7 +5001,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "[{\"id\":59,\"key\":\"admin\",\"label\":\"Admin\"},{\"id\":58,\"key\":\"customer\",\"label\":\"Customer\"}]",
+                            "body": "[{\"id\":1,\"key\":\"admin\",\"label\":\"Admin\"},{\"id\":3,\"key\":\"customer\",\"label\":\"Customer\"},{\"id\":2,\"key\":\"vendor\",\"label\":\"Vendor\"}]",
                             "name": ""
                         }
                     ]
@@ -4424,7 +5049,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "29"
+                                    "value": "52"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -4436,7 +5061,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "[{\"id\":73,\"first_name\":\"Jussi\",\"last_name\":\"Alanen\",\"username\":\"juzapala\",\"name\":\"Jussi Alanen\",\"email\":\"juzapala@gmail.com\",\"roles\":[\"admin\"]},{\"id\":74,\"first_name\":\"Jussi\",\"last_name\":\"Palanen\",\"username\":\"jusspe\",\"name\":\"Jussi Palanen\",\"email\":\"juzapala+dotnettest@gmail.com\",\"roles\":[\"customer\"]},{\"id\":75,\"first_name\":\"Jussi\",\"last_name\":\"Palanen\",\"username\":\"jusspeala\",\"name\":\"Jussi Palanen\",\"email\":\"juzapala+asdf@gmail.com\",\"roles\":[\"customer\"]},{\"id\":76,\"first_name\":\"saddsaasd\",\"last_name\":\"adsdssd\",\"username\":\"lollero\",\"name\":\"saddsaasd adsdssd\",\"email\":\"juzapala+lollero@gmail.com\",\"roles\":[\"customer\"]}]",
+                            "body": "[{\"id\":1,\"first_name\":\"Super\",\"last_name\":\"Admin\",\"username\":\"superadmin\",\"name\":\"superadmin\",\"email\":\"juzapala+superadmin@gmail.com\",\"roles\":[\"admin\"]},{\"id\":2,\"first_name\":\"Jussi\",\"last_name\":\"Alanen\",\"username\":\"juzapala\",\"name\":\"Jussi Alanen\",\"email\":\"juzapala@gmail.com\",\"roles\":[\"customer\"]}]",
                             "name": ""
                         }
                     ]
@@ -4484,7 +5109,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "73",
+                                    "value": "1",
                                     "description": "The ID of the user."
                                 }
                             ]
@@ -4523,7 +5148,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "28"
+                                    "value": "51"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -4535,7 +5160,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "{\"id\":73,\"first_name\":\"Jussi\",\"last_name\":\"Alanen\",\"username\":\"juzapala\",\"name\":\"Jussi Alanen\",\"email\":\"juzapala@gmail.com\",\"roles\":[\"admin\"]}",
+                            "body": "{\"id\":1,\"first_name\":\"Super\",\"last_name\":\"Admin\",\"username\":\"superadmin\",\"name\":\"superadmin\",\"email\":\"juzapala+superadmin@gmail.com\",\"roles\":[\"admin\"]}",
                             "name": ""
                         }
                     ]
@@ -4689,7 +5314,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "24"
+                                    "value": "47"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -4701,7 +5326,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "{\"visitors\":0}",
+                            "body": "{\"visitors\":1}",
                             "name": ""
                         }
                     ]
@@ -4746,7 +5371,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "23"
+                                    "value": "46"
                                 },
                                 {
                                     "key": "x-robots-tag",
@@ -4758,7 +5383,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "{\"visitors\":0}",
+                            "body": "{\"visitors\":1}",
                             "name": ""
                         }
                     ]
