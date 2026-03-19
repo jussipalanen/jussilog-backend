@@ -39,11 +39,22 @@ Commands:
                      Pass --yaml or --json for alternative formats
   migrate-cloud      Run pending migrations against Cloud SQL production DB
                      Uses cloud-sql-proxy; requires PHP + Laravel deps on host
+
+Terraform commands (infrastructure as code in terraform/):
+  tf-init            Initialize Terraform and download providers
+  tf-plan            Preview infrastructure changes (reads DB_PASSWORD from .env.production)
+  tf-apply           Apply infrastructure changes
+  tf-import          Import all existing GCP resources into Terraform state
+                     Run this once on an existing project before the first tf-apply
+  tf-output          Show Terraform outputs (URLs, connection names, etc.)
+
   help               Show this help
 
 Notes:
   - Uses docker compose when available, with docker-compose fallback.
   - The init command will start containers if they are not running.
+  - Terraform commands read DB_PASSWORD from .env.production, or from the
+    TF_VAR_db_password environment variable if set.
 EOF
 }
 
@@ -132,6 +143,10 @@ run_npm() {
   exec_app npm "$@"
 }
 
+# ── Terraform config ──────────────────────────────────────────────────────────
+TF_DIR="$(dirname "$0")/terraform"
+# ─────────────────────────────────────────────────────────────────────────────
+
 # ── Cloud SQL config ─────────────────────────────────────────────────────────
 CLOUD_SQL_INSTANCE="client-jussimatic:europe-north1:jussilog-db"
 CLOUD_SQL_PROXY_PORT="3308"
@@ -182,6 +197,126 @@ _stop_cloud_proxy() {
     kill $PROXY_PID 2>/dev/null || true
     PROXY_PID=
   fi
+}
+
+_tf_db_password() {
+  # Prefer explicit env var so CI/CD can inject it without a .env.production file
+  if [ -n "${TF_VAR_db_password:-}" ]; then
+    printf '%s' "$TF_VAR_db_password"
+    return
+  fi
+  if [ -f .env.production ]; then
+    pw="$(_read_env_var DB_PASSWORD .env.production)"
+    if [ -n "$pw" ]; then
+      printf '%s' "$pw"
+      return
+    fi
+  fi
+  echo "Error: DB_PASSWORD not found. Add it to .env.production or set TF_VAR_db_password." >&2
+  exit 1
+}
+
+_tf_import_one() {
+  addr="$1"
+  id="$2"
+  printf '  importing %s ... ' "$addr"
+  if terraform -chdir="$TF_DIR" import "$addr" "$id" >/dev/null 2>&1; then
+    echo "ok"
+  else
+    echo "skipped (already in state or does not exist)"
+  fi
+}
+
+run_tf_init() {
+  if ! command -v terraform >/dev/null 2>&1; then
+    echo "Error: terraform not found. Install from https://developer.hashicorp.com/terraform/install" >&2
+    exit 1
+  fi
+  terraform -chdir="$TF_DIR" init "$@"
+}
+
+run_tf_plan() {
+  TF_VAR_db_password="$(_tf_db_password)"
+  export TF_VAR_db_password
+  terraform -chdir="$TF_DIR" plan "$@"
+}
+
+run_tf_apply() {
+  TF_VAR_db_password="$(_tf_db_password)"
+  export TF_VAR_db_password
+  terraform -chdir="$TF_DIR" apply "$@"
+}
+
+run_tf_output() {
+  terraform -chdir="$TF_DIR" output "$@"
+}
+
+run_tf_import() {
+  PROJECT="client-jussimatic"
+  REGION="europe-north1"
+
+  TF_VAR_db_password="$(_tf_db_password)"
+  export TF_VAR_db_password
+
+  echo "Importing GCP resources into Terraform state..."
+  echo ""
+
+  echo "==> GCP APIs"
+  for api in \
+    run.googleapis.com \
+    sqladmin.googleapis.com \
+    artifactregistry.googleapis.com \
+    cloudbuild.googleapis.com \
+    secretmanager.googleapis.com \
+    storage.googleapis.com \
+    iam.googleapis.com
+  do
+    _tf_import_one "google_project_service.apis[\"$api\"]" "$PROJECT/$api"
+  done
+
+  echo ""
+  echo "==> Artifact Registry"
+  _tf_import_one \
+    "google_artifact_registry_repository.jussilog_backend" \
+    "projects/$PROJECT/locations/$REGION/repositories/jussilog-backend"
+
+  echo ""
+  echo "==> Cloud SQL"
+  _tf_import_one "google_sql_database_instance.jussilog_db" "$PROJECT/jussilog-db"
+  _tf_import_one "google_sql_database.jussilog" "$PROJECT/jussilog-db/jussilog"
+  _tf_import_one "google_sql_user.jussilog" "$PROJECT/jussilog-db/jussilog"
+
+  echo ""
+  echo "==> Secret Manager"
+  for secret in \
+    LARAVEL_BACKEND_APP_KEY \
+    LARAVEL_BACKEND_DB_PASSWORD \
+    LARAVEL_BACKEND_GCS_ACCESS_KEY_ID \
+    LARAVEL_BACKEND_GCS_SECRET_ACCESS_KEY \
+    LARAVEL_BACKEND_MAIL_PASSWORD \
+    LARAVEL_BACKEND_MAIL_USERNAME \
+    LARAVEL_BACKEND_MAIL_FROM_ADDRESS \
+    LARAVEL_BACKEND_GOOGLE_CLIENT_ID \
+    LARAVEL_BACKEND_UPDATE_USER_ROLE_SECRET \
+    LARAVEL_BACKEND_ROLE_UPDATE_KEY
+  do
+    _tf_import_one \
+      "google_secret_manager_secret.laravel_backend[\"$secret\"]" \
+      "projects/$PROJECT/secrets/$secret"
+  done
+
+  echo ""
+  echo "==> GCS bucket"
+  _tf_import_one "google_storage_bucket.uploads" "jussilog-backend-uploads"
+
+  echo ""
+  echo "==> Cloud Run"
+  _tf_import_one \
+    "google_cloud_run_v2_service.jussilog_backend" \
+    "projects/$PROJECT/locations/$REGION/services/jussilog-backend-production"
+
+  echo ""
+  echo "All imports done. Run './dev tf-plan' to review any configuration drift."
 }
 
 run_db_export() {
@@ -481,6 +616,26 @@ case "$1" in
   init)
     shift
     run_init
+    ;;
+  tf-init)
+    shift
+    run_tf_init "$@"
+    ;;
+  tf-plan)
+    shift
+    run_tf_plan "$@"
+    ;;
+  tf-apply)
+    shift
+    run_tf_apply "$@"
+    ;;
+  tf-import)
+    shift
+    run_tf_import
+    ;;
+  tf-output)
+    shift
+    run_tf_output "$@"
     ;;
   help|--help|-h|"")
     print_help

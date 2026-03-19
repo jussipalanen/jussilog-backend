@@ -188,9 +188,16 @@ Route::middleware('auth:sanctum')->group(function () {
 // Resume routes
 $sectionPattern = 'work-experiences|educations|skills|projects|certifications|languages|awards|recommendations';
 
+Route::middleware('signed')->group(function () {
+    Route::get('/resumes/{id}/preview/pdf/render', [ResumeController::class, 'signedPreviewPdf'])->name('resume.preview.pdf');
+    Route::get('/resumes/{id}/preview/html/render', [ResumeController::class, 'signedPreviewHtml'])->name('resume.preview.html');
+});
+
 Route::get('/resumes/export/options', [ResumeController::class, 'exportOptions']);
 Route::post('/resumes/export/pdf', [ResumeController::class, 'exportPdfPublic']);
 Route::post('/resumes/export/html', [ResumeController::class, 'exportHtmlPublic']);
+Route::post('/resumes/preview/pdf', [ResumeController::class, 'previewPdfPublic']);
+Route::post('/resumes/preview/html', [ResumeController::class, 'previewHtmlPublic']);
 Route::get('/resumes/current', [ResumeController::class, 'current']);
 Route::get('/resumes/current/main', [ResumeController::class, 'currentMain']);
 Route::get('/resumes/{id}/public', [ResumeController::class, 'showPublic']);
@@ -211,6 +218,9 @@ Route::middleware('auth:sanctum')->group(function () use ($sectionPattern) {
     Route::get('/resumes/{id}/export/pdf', [ResumeController::class, 'exportPdf']);
     Route::get('/resumes/{id}/export/html', [ResumeController::class, 'exportHtml']);
     Route::get('/resumes/{id}/export/json', [ResumeController::class, 'exportJson']);
+    Route::get('/resumes/{id}/preview/pdf', [ResumeController::class, 'previewPdf']);
+    Route::get('/resumes/{id}/preview/html', [ResumeController::class, 'previewHtml']);
+    Route::get('/resumes/{id}/preview/signed-url', [ResumeController::class, 'signedPreviewUrl']);
     Route::post('/resumes/import/json', [ResumeController::class, 'importJson']);
     Route::post('/resumes/{id}/import/json', [ResumeController::class, 'importJson']);
 

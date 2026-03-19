@@ -24,8 +24,8 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
         html, body { margin: 0; padding: 0; }
 
         body {
-            font-family: Arial, 'Helvetica Neue', sans-serif;
-            font-size: 9pt;
+            font-family: 'DejaVu Sans', Arial, 'Helvetica Neue', sans-serif;
+            font-size: 10pt;
             color: #222;
             /* Sidebar color fills the entire left strip on EVERY page */
             background: linear-gradient(to right, {{ $c['sb_bg'] }} 190pt, #ffffff 190pt);
@@ -62,7 +62,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
            SIDEBAR – identity
         ───────────────────────────────────────────── */
         .sb-name {
-            font-size: 17pt;
+            font-size: 18pt;
             font-weight: bold;
             color: {{ $c['sb_name'] }};
             line-height: 1.2;
@@ -81,10 +81,10 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
         }
 
         .sb-role {
-            font-size: 7.5pt;
+            font-size: 9pt;
             color: {{ $c['sb_accent'] }};
             text-transform: uppercase;
-            letter-spacing: 1.3pt;
+            letter-spacing: 0.9pt;
             padding-bottom: 14pt;
             border-bottom: 0.5pt solid {{ $c['sb_border'] }};
         }
@@ -93,19 +93,19 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
            SIDEBAR – section wrapper
         ───────────────────────────────────────────── */
         .sb-section {
-            break-inside: avoid;
-            page-break-inside: avoid;
+            break-inside: auto;
+            page-break-inside: auto;
         }
 
         /* ─────────────────────────────────────────────
            SIDEBAR – section headings
         ───────────────────────────────────────────── */
         .sb-heading {
-            font-size: 7pt;
+            font-size: 9pt;
             font-weight: bold;
             color: {{ $c['sb_accent'] }};
             text-transform: uppercase;
-            letter-spacing: 1.2pt;
+            letter-spacing: 0.8pt;
             margin-top: 16pt;
             margin-bottom: 8pt;
             break-after: avoid;
@@ -121,17 +121,17 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
             page-break-inside: avoid;
         }
         .sb-item-label {
-            font-size: 6.5pt;
+            font-size: 8.5pt;
             color: {{ $c['sb_accent'] }};
             text-transform: uppercase;
-            letter-spacing: 0.6pt;
+            letter-spacing: 0.4pt;
             margin-bottom: 1pt;
         }
         .sb-item-value {
-            font-size: 8pt;
+            font-size: 9pt;
             color: {{ $c['sb_text'] }};
             word-break: break-all;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         /* ─────────────────────────────────────────────
@@ -143,16 +143,16 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
             page-break-inside: avoid;
         }
         .sb-skill-group-name {
-            font-size: 7pt;
+            font-size: 9pt;
             font-weight: bold;
             color: {{ $c['sb_group'] }};
             text-transform: uppercase;
-            letter-spacing: 0.5pt;
+            letter-spacing: 0.4pt;
             margin-bottom: 5pt;
         }
-        .sb-skill { margin-bottom: 5pt; }
+        .sb-skill { margin-bottom: 5pt; break-inside: avoid; page-break-inside: avoid; }
         .sb-skill-name {
-            font-size: 8pt;
+            font-size: 9pt;
             color: {{ $c['sb_text'] }};
             margin-bottom: 2pt;
         }
@@ -177,7 +177,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
             page-break-inside: avoid;
         }
         .sb-lang-name {
-            font-size: 8.5pt;
+            font-size: 9pt;
             color: {{ $c['sb_text'] }};
             font-weight: bold;
             margin-bottom: 3pt;
@@ -199,7 +199,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
         .section:last-child { margin-bottom: 0; }
 
         .section-title {
-            font-size: 8.5pt;
+            font-size: 9pt;
             font-weight: bold;
             color: {{ $c['main_accent'] }};
             text-transform: uppercase;
@@ -215,9 +215,9 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
            MAIN – summary
         ───────────────────────────────────────────── */
         .summary {
-            font-size: 9pt;
+            font-size: 10pt;
             color: #374151;
-            line-height: 1.65;
+            line-height: 1.7;
         }
 
         /* ─────────────────────────────────────────────
@@ -248,12 +248,12 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
         }
 
         .item-title {
-            font-size: 10pt;
+            font-size: 10.5pt;
             font-weight: bold;
             color: #111827;
         }
         .item-sub {
-            font-size: 8pt;
+            font-size: 9pt;
             color: #5a6a7a;
             margin-top: 1.5pt;
         }
@@ -262,7 +262,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
             display: inline-block;
             background: {{ $c['main_accent'] }};
             color: #ffffff;
-            font-size: 7.5pt;
+            font-size: 8.5pt;
             padding: 2pt 6pt;
             border-radius: 2pt;
             white-space: nowrap;
@@ -270,9 +270,9 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
 
         .item-body {
             margin-top: 5pt;
-            font-size: 8.5pt;
+            font-size: 9pt;
             color: #374151;
-            line-height: 1.6;
+            line-height: 1.65;
             white-space: pre-line;
         }
 
@@ -286,7 +286,7 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
             border: 0.5pt solid {{ $c['tag_border'] }};
             color: {{ $c['tag_color'] }};
             border-radius: 2pt;
-            font-size: 7.5pt;
+            font-size: 8.5pt;
             padding: 1.5pt 5pt;
             margin: 1pt 2pt 1pt 0;
         }
@@ -296,8 +296,11 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
         ───────────────────────────────────────────── */
         .proj-links {
             margin-top: 4pt;
-            font-size: 8pt;
+            font-size: 9pt;
             color: #2563eb;
+        }
+        .proj-link-sep {
+            color: #9ca3af;
         }
 
         /* ─────────────────────────────────────────────
@@ -313,33 +316,33 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
             break-inside: avoid;
         }
         .rec-name {
-            font-size: 9.5pt;
+            font-size: 10pt;
             font-weight: bold;
             color: {{ $c['tag_color'] }};
         }
         .rec-meta {
-            font-size: 8pt;
+            font-size: 9pt;
             color: #6b7280;
             margin-top: 1pt;
             margin-bottom: 5pt;
         }
         .rec-quote {
-            font-size: 8.5pt;
+            font-size: 9pt;
             color: #374151;
             font-style: italic;
-            line-height: 1.6;
+            line-height: 1.65;
         }
 
         /* ─────────────────────────────────────────────
            MAIN – certifications
         ───────────────────────────────────────────── */
         .cert-name {
-            font-size: 9.5pt;
+            font-size: 10pt;
             font-weight: bold;
             color: #111827;
         }
         .cert-meta {
-            font-size: 8pt;
+            font-size: 9pt;
             color: #6b7280;
             margin-top: 1pt;
         }
@@ -561,7 +564,8 @@ $c = $palettes[$theme ?? 'green'] ?? $palettes['green'];
             @endif
             @if($project->live_url || $project->github_url)
             <div class="proj-links">
-                @if($project->live_url)<span>{{ $project->live_url }}</span> @endif
+                @if($project->live_url)<span>{{ $project->live_url }}</span>@endif
+                @if($project->live_url && $project->github_url)<span class="proj-link-sep"> &middot; </span>@endif
                 @if($project->github_url)<span>{{ $project->github_url }}</span>@endif
             </div>
             @endif
