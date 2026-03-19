@@ -1,0 +1,18 @@
+# Local state — use GCS backend in production (see backend.tf)
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# .terraform.lock.hcl is intentionally committed — it pins provider versions
+# the same way package-lock.json does. It contains no sensitive data.
+
+# Sensitive variable files — never commit these
+*.tfvars.secret
+secrets.auto.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Crash log
+crash.log
