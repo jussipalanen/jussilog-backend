@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
                 ResumeSeeder::class,
                 InvoiceSeeder::class,
                 BlogSeeder::class,
+                SkillAndLanguageSeeder::class,
             ]);
     }
 }

@@ -133,8 +133,8 @@
                                                     <li class="tocify-item level-2" data-unique="blog-GETapi-blogs">
                                 <a href="#blog-GETapi-blogs">List published blog posts (public).</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="blog-GETapi-blogs--id-">
-                                <a href="#blog-GETapi-blogs--id-">Show a single published blog post (public).</a>
+                                                                                <li class="tocify-item level-2" data-unique="blog-GETapi-blogs--idOrSlug-">
+                                <a href="#blog-GETapi-blogs--idOrSlug-">Show a single published blog post (public).</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="blog-GETapi-admin-blogs">
                                 <a href="#blog-GETapi-admin-blogs">List all blog posts for admin (including hidden).</a>
@@ -176,6 +176,12 @@
                                     <ul id="tocify-subheader-endpoints" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="endpoints-PATCHapi-users-update-role">
                                 <a href="#endpoints-PATCHapi-users-update-role">Update a user's role by identifier (id, username or email).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-resumes--id--preview-pdf-render">
+                                <a href="#endpoints-GETapi-resumes--id--preview-pdf-render">Render a resume as an inline PDF via a signed URL (no auth token required).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-resumes--id--preview-html-render">
+                                <a href="#endpoints-GETapi-resumes--id--preview-html-render">Render a resume as inline HTML via a signed URL (no auth token required).</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -232,6 +238,25 @@
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="invoices-DELETEapi-invoices--id-">
                                 <a href="#invoices-DELETEapi-invoices--id-">Delete an invoice.</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-languages" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="languages">
+                    <a href="#languages">Languages</a>
+                </li>
+                                    <ul id="tocify-subheader-languages" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="languages-GETapi-languages">
+                                <a href="#languages-GETapi-languages">List all languages, optionally filtered by search query.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="languages-POSTapi-languages">
+                                <a href="#languages-POSTapi-languages">Create a language.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="languages-PUTapi-languages--id-">
+                                <a href="#languages-PUTapi-languages--id-">Update a language.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="languages-DELETEapi-languages--id-">
+                                <a href="#languages-DELETEapi-languages--id-">Delete a language.</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -315,6 +340,12 @@
                                                                                 <li class="tocify-item level-2" data-unique="resumes-POSTapi-resumes-export-html">
                                 <a href="#resumes-POSTapi-resumes-export-html">Export a resume as an HTML file from a JSON payload (no stored resume required).</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="resumes-POSTapi-resumes-preview-pdf">
+                                <a href="#resumes-POSTapi-resumes-preview-pdf">Preview a resume as an inline PDF from a JSON payload (no stored resume required).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="resumes-POSTapi-resumes-preview-html">
+                                <a href="#resumes-POSTapi-resumes-preview-html">Preview a resume as inline HTML from a JSON payload (no stored resume required).</a>
+                            </li>
                                                                                 <li class="tocify-item level-2" data-unique="resumes-GETapi-resumes-current">
                                 <a href="#resumes-GETapi-resumes-current">Get the primary resume.</a>
                             </li>
@@ -351,6 +382,15 @@
                                                                                 <li class="tocify-item level-2" data-unique="resumes-GETapi-resumes--id--export-json">
                                 <a href="#resumes-GETapi-resumes--id--export-json">Export a resume as a downloadable JSON backup file.</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="resumes-GETapi-resumes--id--preview-pdf">
+                                <a href="#resumes-GETapi-resumes--id--preview-pdf">Preview a resume as an inline PDF (opens in browser, no download).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="resumes-GETapi-resumes--id--preview-html">
+                                <a href="#resumes-GETapi-resumes--id--preview-html">Preview a resume as inline HTML (renders in browser, no download).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="resumes-GETapi-resumes--id--preview-signed-url">
+                                <a href="#resumes-GETapi-resumes--id--preview-signed-url">Generate short-lived signed preview URLs for PDF and HTML (no token needed to open them).</a>
+                            </li>
                                                                                 <li class="tocify-item level-2" data-unique="resumes-POSTapi-resumes-import-json">
                                 <a href="#resumes-POSTapi-resumes-import-json">Import a resume from a previously exported JSON backup file.</a>
                             </li>
@@ -372,6 +412,56 @@
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="settings-GETapi-settings-countries--code-">
                                 <a href="#settings-GETapi-settings-countries--code-">Return a single country by its ISO 3166-1 alpha-2 code.</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-skill-categories" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="skill-categories">
+                    <a href="#skill-categories">Skill Categories</a>
+                </li>
+                                    <ul id="tocify-subheader-skill-categories" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="skill-categories-GETapi-skill-categories">
+                                <a href="#skill-categories-GETapi-skill-categories">List all skill categories with their skills.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="skill-categories-GETapi-skill-categories--id--skills">
+                                <a href="#skill-categories-GETapi-skill-categories--id--skills">List skills for a specific category.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="skill-categories-POSTapi-skill-categories">
+                                <a href="#skill-categories-POSTapi-skill-categories">Create a skill category.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="skill-categories-PUTapi-skill-categories--id-">
+                                <a href="#skill-categories-PUTapi-skill-categories--id-">Update a skill category.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="skill-categories-DELETEapi-skill-categories--id-">
+                                <a href="#skill-categories-DELETEapi-skill-categories--id-">Delete a skill category.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="skill-categories-POSTapi-skill-categories--id--skills">
+                                <a href="#skill-categories-POSTapi-skill-categories--id--skills">Add a skill to a category.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="skill-categories-PUTapi-skill-categories--id--skills--skillId-">
+                                <a href="#skill-categories-PUTapi-skill-categories--id--skills--skillId-">Update a skill.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="skill-categories-DELETEapi-skill-categories--id--skills--skillId-">
+                                <a href="#skill-categories-DELETEapi-skill-categories--id--skills--skillId-">Delete a skill.</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-skills" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="skills">
+                    <a href="#skills">Skills</a>
+                </li>
+                                    <ul id="tocify-subheader-skills" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="skills-GETapi-skills">
+                                <a href="#skills-GETapi-skills">List all skills, optionally filtered by category or search query.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="skills-POSTapi-skills">
+                                <a href="#skills-POSTapi-skills">Create a skill.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="skills-PUTapi-skills--id-">
+                                <a href="#skills-PUTapi-skills--id-">Update a skill.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="skills-DELETEapi-skills--id-">
+                                <a href="#skills-DELETEapi-skills--id-">Delete a skill.</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -448,7 +538,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 17, 2026</li>
+        <li>Last updated: March 19, 2026</li>
     </ul>
 </div>
 
@@ -2702,16 +2792,75 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 22
+x-ratelimit-remaining: 41
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;current_page&quot;: 1,
-    &quot;data&quot;: [],
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 4,
+            &quot;user_id&quot;: 1,
+            &quot;blog_category_id&quot;: 1,
+            &quot;title&quot;: &quot;Welcome to the Blog&quot;,
+            &quot;slug&quot;: &quot;welcome-to-the-blog&quot;,
+            &quot;excerpt&quot;: &quot;This is the first blog post.&quot;,
+            &quot;content&quot;: &quot;&lt;p&gt;Welcome! This is an example blog post created by the seeder.&lt;/p&gt;&quot;,
+            &quot;featured_image&quot;: null,
+            &quot;featured_image_sizes&quot;: null,
+            &quot;tags&quot;: null,
+            &quot;visibility&quot;: true,
+            &quot;created_at&quot;: &quot;2026-03-19T11:56:10.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-03-19T11:56:10.000000Z&quot;,
+            &quot;author&quot;: {
+                &quot;id&quot;: 1,
+                &quot;first_name&quot;: &quot;Super&quot;,
+                &quot;last_name&quot;: &quot;Admin&quot;,
+                &quot;name&quot;: &quot;superadmin&quot;
+            },
+            &quot;category&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Default&quot;,
+                &quot;slug&quot;: &quot;default&quot;
+            }
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;user_id&quot;: 1,
+            &quot;blog_category_id&quot;: 1,
+            &quot;title&quot;: &quot;sdasdsadasdsa&quot;,
+            &quot;slug&quot;: &quot;sdasdsadasdsa&quot;,
+            &quot;excerpt&quot;: &quot;dasdasdas&quot;,
+            &quot;content&quot;: &quot;&lt;p&gt;Until recently, the prevailing view assumed &lt;em&gt;lorem ipsum&lt;/em&gt; was born as a nonsense text. &ldquo;It&rsquo;s not Latin, though it looks like it, and it actually says nothing,&rdquo; Before &amp;amp; After magazine &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://www.straightdope.com/columns/read/2290/what-does-the-filler-text-lorem-ipsum-mean/\&quot;&gt;answered a curious reader&lt;/a&gt;, &ldquo;Its &lsquo;words&rsquo; loosely approximate the frequency with which letters occur in English, which is why at a glance it looks pretty real.&rdquo;&lt;/p&gt;&lt;p&gt;As Cicero would put it, &ldquo;Um, not so fast.&rdquo;&lt;/p&gt;&lt;p&gt;The placeholder text, beginning with the line &ldquo;Lorem ipsum dolor sit amet, consectetur adipiscing elit&rdquo;, looks like Latin because in its youth, centuries ago, it was Latin.&lt;/p&gt;&lt;p&gt;Richard McClintock, a Latin scholar from Hampden-Sydney College, is &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://en.wikipedia.org/wiki/Lorem_ipsum\&quot;&gt;credited&lt;/a&gt; with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur&mdash;a genuine, albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a passage from De Finibus Bonorum et Malorum (&ldquo;On the Extremes of Good and Evil&rdquo;), a first-century B.C. text from the Roman philosopher Cicero.&lt;/p&gt;&lt;p&gt;In particular, the garbled words of &lt;em&gt;lorem ipsum&lt;/em&gt; bear an unmistakable resemblance to sections 1.10.32&ndash;33 of Cicero&rsquo;s work, with the most notable passage excerpted below:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&ldquo;Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.&rdquo;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;A 1914 English translation by &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://en.wikipedia.org/wiki/Lorem_ipsum#English_translation\&quot;&gt;Harris Rackham&lt;/a&gt; reads:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&ldquo;Nor is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure.&rdquo;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;McClintock&rsquo;s eye for detail certainly helped narrow the whereabouts of lorem ipsum&rsquo;s origin, however, the &ldquo;how and when&rdquo; still remain something of a mystery, with competing theories and timelines.&lt;/p&gt;&quot;,
+            &quot;featured_image&quot;: &quot;blogs/3/featured_image_1773787684.jpg&quot;,
+            &quot;featured_image_sizes&quot;: {
+                &quot;large&quot;: &quot;blogs/3/1773787684_large.jpg&quot;,
+                &quot;thumb&quot;: &quot;blogs/3/1773787684_thumb.jpg&quot;,
+                &quot;medium&quot;: &quot;blogs/3/1773787684_medium.jpg&quot;
+            },
+            &quot;tags&quot;: [
+                &quot;asd&quot;
+            ],
+            &quot;visibility&quot;: true,
+            &quot;created_at&quot;: &quot;2026-03-17T15:11:50.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-03-17T22:56:40.000000Z&quot;,
+            &quot;author&quot;: {
+                &quot;id&quot;: 1,
+                &quot;first_name&quot;: &quot;Super&quot;,
+                &quot;last_name&quot;: &quot;Admin&quot;,
+                &quot;name&quot;: &quot;superadmin&quot;
+            },
+            &quot;category&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Default&quot;,
+                &quot;slug&quot;: &quot;default&quot;
+            }
+        }
+    ],
     &quot;first_page_url&quot;: &quot;http://localhost:8000/api/blogs?page=1&quot;,
-    &quot;from&quot;: null,
+    &quot;from&quot;: 1,
     &quot;last_page&quot;: 1,
     &quot;last_page_url&quot;: &quot;http://localhost:8000/api/blogs?page=1&quot;,
     &quot;links&quot;: [
@@ -2735,8 +2884,8 @@ access-control-allow-origin: *
     &quot;path&quot;: &quot;http://localhost:8000/api/blogs&quot;,
     &quot;per_page&quot;: 15,
     &quot;prev_page_url&quot;: null,
-    &quot;to&quot;: null,
-    &quot;total&quot;: 0
+    &quot;to&quot;: 2,
+    &quot;total&quot;: 2
 }</code>
  </pre>
     </span>
@@ -2813,27 +2962,27 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="blog-GETapi-blogs--id-">Show a single published blog post (public).</h2>
+                    <h2 id="blog-GETapi-blogs--idOrSlug-">Show a single published blog post (public).</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-GETapi-blogs--id-">
+<span id="example-requests-GETapi-blogs--idOrSlug-">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/blogs/1" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/blogs/3" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1"
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/3"
 );
 
 const headers = {
@@ -2849,9 +2998,9 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-GETapi-blogs--id-">
+<span id="example-responses-GETapi-blogs--idOrSlug-">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -2860,53 +3009,82 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 21
+x-ratelimit-remaining: 40
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [App\\Models\\Blog] 1&quot;
+    &quot;id&quot;: 3,
+    &quot;user_id&quot;: 1,
+    &quot;blog_category_id&quot;: 1,
+    &quot;title&quot;: &quot;sdasdsadasdsa&quot;,
+    &quot;slug&quot;: &quot;sdasdsadasdsa&quot;,
+    &quot;excerpt&quot;: &quot;dasdasdas&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;Until recently, the prevailing view assumed &lt;em&gt;lorem ipsum&lt;/em&gt; was born as a nonsense text. &ldquo;It&rsquo;s not Latin, though it looks like it, and it actually says nothing,&rdquo; Before &amp;amp; After magazine &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://www.straightdope.com/columns/read/2290/what-does-the-filler-text-lorem-ipsum-mean/\&quot;&gt;answered a curious reader&lt;/a&gt;, &ldquo;Its &lsquo;words&rsquo; loosely approximate the frequency with which letters occur in English, which is why at a glance it looks pretty real.&rdquo;&lt;/p&gt;&lt;p&gt;As Cicero would put it, &ldquo;Um, not so fast.&rdquo;&lt;/p&gt;&lt;p&gt;The placeholder text, beginning with the line &ldquo;Lorem ipsum dolor sit amet, consectetur adipiscing elit&rdquo;, looks like Latin because in its youth, centuries ago, it was Latin.&lt;/p&gt;&lt;p&gt;Richard McClintock, a Latin scholar from Hampden-Sydney College, is &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://en.wikipedia.org/wiki/Lorem_ipsum\&quot;&gt;credited&lt;/a&gt; with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur&mdash;a genuine, albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a passage from De Finibus Bonorum et Malorum (&ldquo;On the Extremes of Good and Evil&rdquo;), a first-century B.C. text from the Roman philosopher Cicero.&lt;/p&gt;&lt;p&gt;In particular, the garbled words of &lt;em&gt;lorem ipsum&lt;/em&gt; bear an unmistakable resemblance to sections 1.10.32&ndash;33 of Cicero&rsquo;s work, with the most notable passage excerpted below:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&ldquo;Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.&rdquo;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;A 1914 English translation by &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://en.wikipedia.org/wiki/Lorem_ipsum#English_translation\&quot;&gt;Harris Rackham&lt;/a&gt; reads:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&ldquo;Nor is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure.&rdquo;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;McClintock&rsquo;s eye for detail certainly helped narrow the whereabouts of lorem ipsum&rsquo;s origin, however, the &ldquo;how and when&rdquo; still remain something of a mystery, with competing theories and timelines.&lt;/p&gt;&quot;,
+    &quot;featured_image&quot;: &quot;blogs/3/featured_image_1773787684.jpg&quot;,
+    &quot;featured_image_sizes&quot;: {
+        &quot;large&quot;: &quot;blogs/3/1773787684_large.jpg&quot;,
+        &quot;thumb&quot;: &quot;blogs/3/1773787684_thumb.jpg&quot;,
+        &quot;medium&quot;: &quot;blogs/3/1773787684_medium.jpg&quot;
+    },
+    &quot;tags&quot;: [
+        &quot;asd&quot;
+    ],
+    &quot;visibility&quot;: true,
+    &quot;created_at&quot;: &quot;2026-03-17T15:11:50.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2026-03-17T22:56:40.000000Z&quot;,
+    &quot;author&quot;: {
+        &quot;id&quot;: 1,
+        &quot;first_name&quot;: &quot;Super&quot;,
+        &quot;last_name&quot;: &quot;Admin&quot;,
+        &quot;name&quot;: &quot;superadmin&quot;
+    },
+    &quot;category&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Default&quot;,
+        &quot;slug&quot;: &quot;default&quot;
+    }
 }</code>
  </pre>
     </span>
-<span id="execution-results-GETapi-blogs--id-" hidden>
+<span id="execution-results-GETapi-blogs--idOrSlug-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-GETapi-blogs--id-"></span>:
+                id="execution-response-status-GETapi-blogs--idOrSlug-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-blogs--id-"
+    <pre class="json"><code id="execution-response-content-GETapi-blogs--idOrSlug-"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-GETapi-blogs--id-" hidden>
+<span id="execution-error-GETapi-blogs--idOrSlug-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-blogs--id-">
+    <pre><code id="execution-error-message-GETapi-blogs--idOrSlug-">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-GETapi-blogs--id-" data-method="GET"
-      data-path="api/blogs/{id}"
+<form id="form-GETapi-blogs--idOrSlug-" data-method="GET"
+      data-path="api/blogs/{idOrSlug}"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-blogs--id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-blogs--idOrSlug-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-blogs--id-"
-                    onclick="tryItOut('GETapi-blogs--id-');">Try it out ⚡
+                    id="btn-tryout-GETapi-blogs--idOrSlug-"
+                    onclick="tryItOut('GETapi-blogs--idOrSlug-');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-blogs--id-"
-                    onclick="cancelTryOut('GETapi-blogs--id-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-GETapi-blogs--idOrSlug-"
+                    onclick="cancelTryOut('GETapi-blogs--idOrSlug-');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-blogs--id-"
+                    id="btn-executetryout-GETapi-blogs--idOrSlug-"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -2914,7 +3092,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-green">GET</small>
-            <b><code>api/blogs/{id}</code></b>
+            <b><code>api/blogs/{idOrSlug}</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -2923,7 +3101,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-blogs--id-"
+                              name="Content-Type"                data-endpoint="GETapi-blogs--idOrSlug-"
                value="application/json"
                data-component="header">
     <br>
@@ -2935,7 +3113,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-blogs--id-"
+                              name="Accept"                data-endpoint="GETapi-blogs--idOrSlug-"
                value="application/json"
                data-component="header">
     <br>
@@ -2943,16 +3121,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+                <b style="line-height: 2;"><code>idOrSlug</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="id"                data-endpoint="GETapi-blogs--id-"
-               value="1"
+               step="any"               name="idOrSlug"                data-endpoint="GETapi-blogs--idOrSlug-"
+               value="3"
                data-component="url">
     <br>
-<p>The ID of the blog. Example: <code>1</code></p>
+<p>Example: <code>3</code></p>
             </div>
                     </form>
 
@@ -3115,20 +3293,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "https://backend-laravel.dev.jussialanen.com/api/blogs" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
-    --header "Content-Type: application/json" \
+    --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --data "{
-    \"title\": \"vmqeopfuudtdsufvyvddq\",
-    \"excerpt\": \"consequatur\",
-    \"content\": \"consequatur\",
-    \"blog_category_id\": 17,
-    \"feature_image\": \"mqeopfuudtdsufvyvddqa\",
-    \"tags\": [
-        \"mniihfqcoynlazghdtqtq\"
-    ],
-    \"visibility\": false
-}"
-</code></pre></div>
+    --form "title=vmqeopfuudtdsufvyvddq"\
+    --form "excerpt=consequatur"\
+    --form "content=consequatur"\
+    --form "blog_category_id=17"\
+    --form "tags[]=mqeopfuudtdsufvyvddqa"\
+    --form "visibility=1"\
+    --form "featured_image=@/tmp/phpHmfkjc" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -3138,26 +3311,23 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
     "Accept": "application/json",
 };
 
-let body = {
-    "title": "vmqeopfuudtdsufvyvddq",
-    "excerpt": "consequatur",
-    "content": "consequatur",
-    "blog_category_id": 17,
-    "feature_image": "mqeopfuudtdsufvyvddqa",
-    "tags": [
-        "mniihfqcoynlazghdtqtq"
-    ],
-    "visibility": false
-};
+const body = new FormData();
+body.append('title', 'vmqeopfuudtdsufvyvddq');
+body.append('excerpt', 'consequatur');
+body.append('content', 'consequatur');
+body.append('blog_category_id', '17');
+body.append('tags[]', 'mqeopfuudtdsufvyvddqa');
+body.append('visibility', '1');
+body.append('featured_image', document.querySelector('input[name="featured_image"]').files[0]);
 
 fetch(url, {
     method: "POST",
     headers,
-    body: JSON.stringify(body),
+    body,
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -3182,7 +3352,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <form id="form-POSTapi-blogs" data-method="POST"
       data-path="api/blogs"
       data-authed="1"
-      data-hasfiles="0"
+      data-hasfiles="1"
       data-isarraybody="0"
       autocomplete="off"
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-blogs', this);">
@@ -3230,10 +3400,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Content-Type"                data-endpoint="POSTapi-blogs"
-               value="application/json"
+               value="multipart/form-data"
                data-component="header">
     <br>
-<p>Example: <code>application/json</code></p>
+<p>Example: <code>multipart/form-data</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
@@ -3297,16 +3467,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>The <code>id</code> of an existing record in the blog_categories table. Example: <code>17</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>feature_image</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+            <b style="line-height: 2;"><code>featured_image</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
 <i>optional</i> &nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="feature_image"                data-endpoint="POSTapi-blogs"
-               value="mqeopfuudtdsufvyvddqa"
+                <input type="file" style="display: none"
+                              name="featured_image"                data-endpoint="POSTapi-blogs"
+               value=""
                data-component="body">
     <br>
-<p>Must not be greater than 2048 characters. Example: <code>mqeopfuudtdsufvyvddqa</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpHmfkjc</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>tags</code></b>&nbsp;&nbsp;
@@ -3342,7 +3512,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -3360,51 +3530,43 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/3" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
-    --header "Content-Type: application/json" \
+    --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --data "{
-    \"title\": \"vmqeopfuudtdsufvyvddq\",
-    \"excerpt\": \"consequatur\",
-    \"content\": \"consequatur\",
-    \"blog_category_id\": 17,
-    \"feature_image\": \"mqeopfuudtdsufvyvddqa\",
-    \"tags\": [
-        \"mniihfqcoynlazghdtqtq\"
-    ],
-    \"visibility\": false
-}"
-</code></pre></div>
+    --form "title=vmqeopfuudtdsufvyvddq"\
+    --form "excerpt=consequatur"\
+    --form "content=consequatur"\
+    --form "blog_category_id=17"\
+    --form "tags[]=mqeopfuudtdsufvyvddqa"\
+    --form "visibility=1"\
+    --form "featured_image=@/tmp/phpMMbDKd" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1"
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/3"
 );
 
 const headers = {
     "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
     "Accept": "application/json",
 };
 
-let body = {
-    "title": "vmqeopfuudtdsufvyvddq",
-    "excerpt": "consequatur",
-    "content": "consequatur",
-    "blog_category_id": 17,
-    "feature_image": "mqeopfuudtdsufvyvddqa",
-    "tags": [
-        "mniihfqcoynlazghdtqtq"
-    ],
-    "visibility": false
-};
+const body = new FormData();
+body.append('title', 'vmqeopfuudtdsufvyvddq');
+body.append('excerpt', 'consequatur');
+body.append('content', 'consequatur');
+body.append('blog_category_id', '17');
+body.append('tags[]', 'mqeopfuudtdsufvyvddqa');
+body.append('visibility', '1');
+body.append('featured_image', document.querySelector('input[name="featured_image"]').files[0]);
 
 fetch(url, {
     method: "PUT",
     headers,
-    body: JSON.stringify(body),
+    body,
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -3429,7 +3591,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <form id="form-PUTapi-blogs--id-" data-method="PUT"
       data-path="api/blogs/{id}"
       data-authed="1"
-      data-hasfiles="0"
+      data-hasfiles="1"
       data-isarraybody="0"
       autocomplete="off"
       onsubmit="event.preventDefault(); executeTryOut('PUTapi-blogs--id-', this);">
@@ -3477,10 +3639,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Content-Type"                data-endpoint="PUTapi-blogs--id-"
-               value="application/json"
+               value="multipart/form-data"
                data-component="header">
     <br>
-<p>Example: <code>application/json</code></p>
+<p>Example: <code>multipart/form-data</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
@@ -3502,10 +3664,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-blogs--id-"
-               value="1"
+               value="3"
                data-component="url">
     <br>
-<p>The ID of the blog. Example: <code>1</code></p>
+<p>The ID of the blog. Example: <code>3</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -3557,16 +3719,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>The <code>id</code> of an existing record in the blog_categories table. Example: <code>17</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>feature_image</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+            <b style="line-height: 2;"><code>featured_image</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
 <i>optional</i> &nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="feature_image"                data-endpoint="PUTapi-blogs--id-"
-               value="mqeopfuudtdsufvyvddqa"
+                <input type="file" style="display: none"
+                              name="featured_image"                data-endpoint="PUTapi-blogs--id-"
+               value=""
                data-component="body">
     <br>
-<p>Must not be greater than 2048 characters. Example: <code>mqeopfuudtdsufvyvddqa</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpMMbDKd</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>tags</code></b>&nbsp;&nbsp;
@@ -3602,7 +3764,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -3620,7 +3782,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/3" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3628,7 +3790,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1"
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/3"
 );
 
 const headers = {
@@ -3738,10 +3900,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-blogs--id-"
-               value="1"
+               value="3"
                data-component="url">
     <br>
-<p>The ID of the blog. Example: <code>1</code></p>
+<p>The ID of the blog. Example: <code>3</code></p>
             </div>
                     </form>
 
@@ -3796,18 +3958,25 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 20
+x-ratelimit-remaining: 39
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">[
     {
+        &quot;id&quot;: 2,
+        &quot;name&quot;: &quot;adsdsadsdasdsa&quot;,
+        &quot;slug&quot;: &quot;adsdsadsdasdsa&quot;,
+        &quot;created_at&quot;: &quot;2026-03-17T15:13:05.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-17T15:13:05.000000Z&quot;
+    },
+    {
         &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Technology&quot;,
-        &quot;slug&quot;: &quot;technology&quot;,
-        &quot;created_at&quot;: &quot;2026-03-17T10:15:07.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-03-17T10:15:07.000000Z&quot;
+        &quot;name&quot;: &quot;Default&quot;,
+        &quot;slug&quot;: &quot;default&quot;,
+        &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;
     }
 ]</code>
  </pre>
@@ -4460,6 +4629,292 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
+                    <h2 id="endpoints-GETapi-resumes--id--preview-pdf-render">Render a resume as an inline PDF via a signed URL (no auth token required).</h2>
+
+<p>
+</p>
+
+<p>Obtain the URL from the signed-url endpoint first.</p>
+
+<span id="example-requests-GETapi-resumes--id--preview-pdf-render">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/pdf/render" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/pdf/render"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-resumes--id--preview-pdf-render">
+            <blockquote>
+            <p>Example response (403):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 38
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Invalid signature.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-resumes--id--preview-pdf-render" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-resumes--id--preview-pdf-render"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-resumes--id--preview-pdf-render"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-resumes--id--preview-pdf-render" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-resumes--id--preview-pdf-render">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-resumes--id--preview-pdf-render" data-method="GET"
+      data-path="api/resumes/{id}/preview/pdf/render"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-resumes--id--preview-pdf-render', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-resumes--id--preview-pdf-render"
+                    onclick="tryItOut('GETapi-resumes--id--preview-pdf-render');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-resumes--id--preview-pdf-render"
+                    onclick="cancelTryOut('GETapi-resumes--id--preview-pdf-render');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-resumes--id--preview-pdf-render"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/resumes/{id}/preview/pdf/render</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-resumes--id--preview-pdf-render"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-resumes--id--preview-pdf-render"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="GETapi-resumes--id--preview-pdf-render"
+               value="consequatur"
+               data-component="url">
+    <br>
+<p>The ID of the resume. Example: <code>consequatur</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="endpoints-GETapi-resumes--id--preview-html-render">Render a resume as inline HTML via a signed URL (no auth token required).</h2>
+
+<p>
+</p>
+
+<p>Obtain the URL from the signed-url endpoint first.</p>
+
+<span id="example-requests-GETapi-resumes--id--preview-html-render">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/html/render" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/html/render"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-resumes--id--preview-html-render">
+            <blockquote>
+            <p>Example response (403):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 37
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Invalid signature.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-resumes--id--preview-html-render" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-resumes--id--preview-html-render"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-resumes--id--preview-html-render"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-resumes--id--preview-html-render" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-resumes--id--preview-html-render">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-resumes--id--preview-html-render" data-method="GET"
+      data-path="api/resumes/{id}/preview/html/render"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-resumes--id--preview-html-render', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-resumes--id--preview-html-render"
+                    onclick="tryItOut('GETapi-resumes--id--preview-html-render');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-resumes--id--preview-html-render"
+                    onclick="cancelTryOut('GETapi-resumes--id--preview-html-render');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-resumes--id--preview-html-render"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/resumes/{id}/preview/html/render</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-resumes--id--preview-html-render"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-resumes--id--preview-html-render"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="GETapi-resumes--id--preview-html-render"
+               value="consequatur"
+               data-component="url">
+    <br>
+<p>The ID of the resume. Example: <code>consequatur</code></p>
+            </div>
+                    </form>
+
                 <h1 id="health">Health</h1>
 
     
@@ -4511,7 +4966,7 @@ fetch(url, {
             <pre><code class="language-http">content-type: text/html; charset=UTF-8
 cache-control: no-cache, private
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 36
+x-ratelimit-remaining: 59
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -4863,7 +5318,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 31
+x-ratelimit-remaining: 54
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -7128,7 +7583,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"order_id\": 1,
-    \"due_date\": \"2026-03-17T10:38:01\",
+    \"due_date\": \"2026-03-19T12:01:18\",
     \"notes\": \"Net 30\",
     \"status\": \"draft\"
 }"
@@ -7147,7 +7602,7 @@ const headers = {
 
 let body = {
     "order_id": 1,
-    "due_date": "2026-03-17T10:38:01",
+    "due_date": "2026-03-19T12:01:18",
     "notes": "Net 30",
     "status": "draft"
 };
@@ -7310,10 +7765,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="due_date"                data-endpoint="POSTapi-invoices"
-               value="2026-03-17T10:38:01"
+               value="2026-03-19T12:01:18"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-03-17T10:38:01</code></p>
+<p>Must be a valid date. Example: <code>2026-03-19T12:01:18</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
@@ -7368,7 +7823,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"billing_address\": [],
     \"subtotal\": 153.47,
     \"total\": 153.47,
-    \"due_date\": \"2026-03-17T10:38:01\",
+    \"due_date\": \"2026-03-19T12:01:18\",
     \"notes\": \"Net 30\",
     \"items\": [
         {
@@ -7405,7 +7860,7 @@ let body = {
     "billing_address": [],
     "subtotal": 153.47,
     "total": 153.47,
-    "due_date": "2026-03-17T10:38:01",
+    "due_date": "2026-03-19T12:01:18",
     "notes": "Net 30",
     "items": [
         {
@@ -7684,10 +8139,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="due_date"                data-endpoint="PUTapi-invoices--id-"
-               value="2026-03-17T10:38:01"
+               value="2026-03-19T12:01:18"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-03-17T10:38:01</code></p>
+<p>Must be a valid date. Example: <code>2026-03-19T12:01:18</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
@@ -7965,6 +8420,1024 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                     </form>
 
+                <h1 id="languages">Languages</h1>
+
+    
+
+                                <h2 id="languages-GETapi-languages">List all languages, optionally filtered by search query.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-languages">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/languages" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/languages"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-languages">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 42
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;id&quot;: 1,
+        &quot;code&quot;: &quot;af&quot;,
+        &quot;name&quot;: &quot;Afrikaans&quot;
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;code&quot;: &quot;sq&quot;,
+        &quot;name&quot;: &quot;Albanian&quot;
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;code&quot;: &quot;am&quot;,
+        &quot;name&quot;: &quot;Amharic&quot;
+    },
+    {
+        &quot;id&quot;: 4,
+        &quot;code&quot;: &quot;ar&quot;,
+        &quot;name&quot;: &quot;Arabic&quot;
+    },
+    {
+        &quot;id&quot;: 5,
+        &quot;code&quot;: &quot;hy&quot;,
+        &quot;name&quot;: &quot;Armenian&quot;
+    },
+    {
+        &quot;id&quot;: 6,
+        &quot;code&quot;: &quot;az&quot;,
+        &quot;name&quot;: &quot;Azerbaijani&quot;
+    },
+    {
+        &quot;id&quot;: 7,
+        &quot;code&quot;: &quot;eu&quot;,
+        &quot;name&quot;: &quot;Basque&quot;
+    },
+    {
+        &quot;id&quot;: 8,
+        &quot;code&quot;: &quot;be&quot;,
+        &quot;name&quot;: &quot;Belarusian&quot;
+    },
+    {
+        &quot;id&quot;: 9,
+        &quot;code&quot;: &quot;bn&quot;,
+        &quot;name&quot;: &quot;Bengali&quot;
+    },
+    {
+        &quot;id&quot;: 10,
+        &quot;code&quot;: &quot;bs&quot;,
+        &quot;name&quot;: &quot;Bosnian&quot;
+    },
+    {
+        &quot;id&quot;: 11,
+        &quot;code&quot;: &quot;bg&quot;,
+        &quot;name&quot;: &quot;Bulgarian&quot;
+    },
+    {
+        &quot;id&quot;: 12,
+        &quot;code&quot;: &quot;ca&quot;,
+        &quot;name&quot;: &quot;Catalan&quot;
+    },
+    {
+        &quot;id&quot;: 13,
+        &quot;code&quot;: &quot;zh&quot;,
+        &quot;name&quot;: &quot;Chinese (Mandarin)&quot;
+    },
+    {
+        &quot;id&quot;: 14,
+        &quot;code&quot;: &quot;hr&quot;,
+        &quot;name&quot;: &quot;Croatian&quot;
+    },
+    {
+        &quot;id&quot;: 15,
+        &quot;code&quot;: &quot;cs&quot;,
+        &quot;name&quot;: &quot;Czech&quot;
+    },
+    {
+        &quot;id&quot;: 16,
+        &quot;code&quot;: &quot;da&quot;,
+        &quot;name&quot;: &quot;Danish&quot;
+    },
+    {
+        &quot;id&quot;: 17,
+        &quot;code&quot;: &quot;nl&quot;,
+        &quot;name&quot;: &quot;Dutch&quot;
+    },
+    {
+        &quot;id&quot;: 18,
+        &quot;code&quot;: &quot;en&quot;,
+        &quot;name&quot;: &quot;English&quot;
+    },
+    {
+        &quot;id&quot;: 19,
+        &quot;code&quot;: &quot;et&quot;,
+        &quot;name&quot;: &quot;Estonian&quot;
+    },
+    {
+        &quot;id&quot;: 20,
+        &quot;code&quot;: &quot;fi&quot;,
+        &quot;name&quot;: &quot;Finnish&quot;
+    },
+    {
+        &quot;id&quot;: 21,
+        &quot;code&quot;: &quot;fr&quot;,
+        &quot;name&quot;: &quot;French&quot;
+    },
+    {
+        &quot;id&quot;: 22,
+        &quot;code&quot;: &quot;gl&quot;,
+        &quot;name&quot;: &quot;Galician&quot;
+    },
+    {
+        &quot;id&quot;: 23,
+        &quot;code&quot;: &quot;ka&quot;,
+        &quot;name&quot;: &quot;Georgian&quot;
+    },
+    {
+        &quot;id&quot;: 24,
+        &quot;code&quot;: &quot;de&quot;,
+        &quot;name&quot;: &quot;German&quot;
+    },
+    {
+        &quot;id&quot;: 25,
+        &quot;code&quot;: &quot;el&quot;,
+        &quot;name&quot;: &quot;Greek&quot;
+    },
+    {
+        &quot;id&quot;: 26,
+        &quot;code&quot;: &quot;gu&quot;,
+        &quot;name&quot;: &quot;Gujarati&quot;
+    },
+    {
+        &quot;id&quot;: 27,
+        &quot;code&quot;: &quot;he&quot;,
+        &quot;name&quot;: &quot;Hebrew&quot;
+    },
+    {
+        &quot;id&quot;: 28,
+        &quot;code&quot;: &quot;hi&quot;,
+        &quot;name&quot;: &quot;Hindi&quot;
+    },
+    {
+        &quot;id&quot;: 29,
+        &quot;code&quot;: &quot;hu&quot;,
+        &quot;name&quot;: &quot;Hungarian&quot;
+    },
+    {
+        &quot;id&quot;: 30,
+        &quot;code&quot;: &quot;is&quot;,
+        &quot;name&quot;: &quot;Icelandic&quot;
+    },
+    {
+        &quot;id&quot;: 31,
+        &quot;code&quot;: &quot;id&quot;,
+        &quot;name&quot;: &quot;Indonesian&quot;
+    },
+    {
+        &quot;id&quot;: 32,
+        &quot;code&quot;: &quot;ga&quot;,
+        &quot;name&quot;: &quot;Irish&quot;
+    },
+    {
+        &quot;id&quot;: 33,
+        &quot;code&quot;: &quot;it&quot;,
+        &quot;name&quot;: &quot;Italian&quot;
+    },
+    {
+        &quot;id&quot;: 34,
+        &quot;code&quot;: &quot;ja&quot;,
+        &quot;name&quot;: &quot;Japanese&quot;
+    },
+    {
+        &quot;id&quot;: 35,
+        &quot;code&quot;: &quot;kn&quot;,
+        &quot;name&quot;: &quot;Kannada&quot;
+    },
+    {
+        &quot;id&quot;: 36,
+        &quot;code&quot;: &quot;kk&quot;,
+        &quot;name&quot;: &quot;Kazakh&quot;
+    },
+    {
+        &quot;id&quot;: 37,
+        &quot;code&quot;: &quot;km&quot;,
+        &quot;name&quot;: &quot;Khmer&quot;
+    },
+    {
+        &quot;id&quot;: 38,
+        &quot;code&quot;: &quot;ko&quot;,
+        &quot;name&quot;: &quot;Korean&quot;
+    },
+    {
+        &quot;id&quot;: 39,
+        &quot;code&quot;: &quot;ky&quot;,
+        &quot;name&quot;: &quot;Kyrgyz&quot;
+    },
+    {
+        &quot;id&quot;: 40,
+        &quot;code&quot;: &quot;lo&quot;,
+        &quot;name&quot;: &quot;Lao&quot;
+    },
+    {
+        &quot;id&quot;: 41,
+        &quot;code&quot;: &quot;lv&quot;,
+        &quot;name&quot;: &quot;Latvian&quot;
+    },
+    {
+        &quot;id&quot;: 42,
+        &quot;code&quot;: &quot;lt&quot;,
+        &quot;name&quot;: &quot;Lithuanian&quot;
+    },
+    {
+        &quot;id&quot;: 43,
+        &quot;code&quot;: &quot;lb&quot;,
+        &quot;name&quot;: &quot;Luxembourgish&quot;
+    },
+    {
+        &quot;id&quot;: 44,
+        &quot;code&quot;: &quot;mk&quot;,
+        &quot;name&quot;: &quot;Macedonian&quot;
+    },
+    {
+        &quot;id&quot;: 45,
+        &quot;code&quot;: &quot;ms&quot;,
+        &quot;name&quot;: &quot;Malay&quot;
+    },
+    {
+        &quot;id&quot;: 46,
+        &quot;code&quot;: &quot;ml&quot;,
+        &quot;name&quot;: &quot;Malayalam&quot;
+    },
+    {
+        &quot;id&quot;: 47,
+        &quot;code&quot;: &quot;mt&quot;,
+        &quot;name&quot;: &quot;Maltese&quot;
+    },
+    {
+        &quot;id&quot;: 48,
+        &quot;code&quot;: &quot;mr&quot;,
+        &quot;name&quot;: &quot;Marathi&quot;
+    },
+    {
+        &quot;id&quot;: 49,
+        &quot;code&quot;: &quot;mn&quot;,
+        &quot;name&quot;: &quot;Mongolian&quot;
+    },
+    {
+        &quot;id&quot;: 50,
+        &quot;code&quot;: &quot;ne&quot;,
+        &quot;name&quot;: &quot;Nepali&quot;
+    },
+    {
+        &quot;id&quot;: 51,
+        &quot;code&quot;: &quot;nb&quot;,
+        &quot;name&quot;: &quot;Norwegian (Bokm&aring;l)&quot;
+    },
+    {
+        &quot;id&quot;: 52,
+        &quot;code&quot;: &quot;or&quot;,
+        &quot;name&quot;: &quot;Odia&quot;
+    },
+    {
+        &quot;id&quot;: 53,
+        &quot;code&quot;: &quot;ps&quot;,
+        &quot;name&quot;: &quot;Pashto&quot;
+    },
+    {
+        &quot;id&quot;: 54,
+        &quot;code&quot;: &quot;fa&quot;,
+        &quot;name&quot;: &quot;Persian&quot;
+    },
+    {
+        &quot;id&quot;: 55,
+        &quot;code&quot;: &quot;pl&quot;,
+        &quot;name&quot;: &quot;Polish&quot;
+    },
+    {
+        &quot;id&quot;: 56,
+        &quot;code&quot;: &quot;pt&quot;,
+        &quot;name&quot;: &quot;Portuguese&quot;
+    },
+    {
+        &quot;id&quot;: 57,
+        &quot;code&quot;: &quot;pa&quot;,
+        &quot;name&quot;: &quot;Punjabi&quot;
+    },
+    {
+        &quot;id&quot;: 58,
+        &quot;code&quot;: &quot;ro&quot;,
+        &quot;name&quot;: &quot;Romanian&quot;
+    },
+    {
+        &quot;id&quot;: 59,
+        &quot;code&quot;: &quot;ru&quot;,
+        &quot;name&quot;: &quot;Russian&quot;
+    },
+    {
+        &quot;id&quot;: 60,
+        &quot;code&quot;: &quot;sr&quot;,
+        &quot;name&quot;: &quot;Serbian&quot;
+    },
+    {
+        &quot;id&quot;: 61,
+        &quot;code&quot;: &quot;si&quot;,
+        &quot;name&quot;: &quot;Sinhala&quot;
+    },
+    {
+        &quot;id&quot;: 62,
+        &quot;code&quot;: &quot;sk&quot;,
+        &quot;name&quot;: &quot;Slovak&quot;
+    },
+    {
+        &quot;id&quot;: 63,
+        &quot;code&quot;: &quot;sl&quot;,
+        &quot;name&quot;: &quot;Slovenian&quot;
+    },
+    {
+        &quot;id&quot;: 64,
+        &quot;code&quot;: &quot;so&quot;,
+        &quot;name&quot;: &quot;Somali&quot;
+    },
+    {
+        &quot;id&quot;: 65,
+        &quot;code&quot;: &quot;es&quot;,
+        &quot;name&quot;: &quot;Spanish&quot;
+    },
+    {
+        &quot;id&quot;: 66,
+        &quot;code&quot;: &quot;sw&quot;,
+        &quot;name&quot;: &quot;Swahili&quot;
+    },
+    {
+        &quot;id&quot;: 67,
+        &quot;code&quot;: &quot;sv&quot;,
+        &quot;name&quot;: &quot;Swedish&quot;
+    },
+    {
+        &quot;id&quot;: 68,
+        &quot;code&quot;: &quot;tl&quot;,
+        &quot;name&quot;: &quot;Tagalog&quot;
+    },
+    {
+        &quot;id&quot;: 69,
+        &quot;code&quot;: &quot;tg&quot;,
+        &quot;name&quot;: &quot;Tajik&quot;
+    },
+    {
+        &quot;id&quot;: 70,
+        &quot;code&quot;: &quot;ta&quot;,
+        &quot;name&quot;: &quot;Tamil&quot;
+    },
+    {
+        &quot;id&quot;: 71,
+        &quot;code&quot;: &quot;tt&quot;,
+        &quot;name&quot;: &quot;Tatar&quot;
+    },
+    {
+        &quot;id&quot;: 72,
+        &quot;code&quot;: &quot;te&quot;,
+        &quot;name&quot;: &quot;Telugu&quot;
+    },
+    {
+        &quot;id&quot;: 73,
+        &quot;code&quot;: &quot;th&quot;,
+        &quot;name&quot;: &quot;Thai&quot;
+    },
+    {
+        &quot;id&quot;: 74,
+        &quot;code&quot;: &quot;tr&quot;,
+        &quot;name&quot;: &quot;Turkish&quot;
+    },
+    {
+        &quot;id&quot;: 75,
+        &quot;code&quot;: &quot;tk&quot;,
+        &quot;name&quot;: &quot;Turkmen&quot;
+    },
+    {
+        &quot;id&quot;: 76,
+        &quot;code&quot;: &quot;uk&quot;,
+        &quot;name&quot;: &quot;Ukrainian&quot;
+    },
+    {
+        &quot;id&quot;: 77,
+        &quot;code&quot;: &quot;ur&quot;,
+        &quot;name&quot;: &quot;Urdu&quot;
+    },
+    {
+        &quot;id&quot;: 78,
+        &quot;code&quot;: &quot;uz&quot;,
+        &quot;name&quot;: &quot;Uzbek&quot;
+    },
+    {
+        &quot;id&quot;: 79,
+        &quot;code&quot;: &quot;vi&quot;,
+        &quot;name&quot;: &quot;Vietnamese&quot;
+    },
+    {
+        &quot;id&quot;: 80,
+        &quot;code&quot;: &quot;cy&quot;,
+        &quot;name&quot;: &quot;Welsh&quot;
+    },
+    {
+        &quot;id&quot;: 81,
+        &quot;code&quot;: &quot;xh&quot;,
+        &quot;name&quot;: &quot;Xhosa&quot;
+    },
+    {
+        &quot;id&quot;: 82,
+        &quot;code&quot;: &quot;yi&quot;,
+        &quot;name&quot;: &quot;Yiddish&quot;
+    },
+    {
+        &quot;id&quot;: 83,
+        &quot;code&quot;: &quot;yo&quot;,
+        &quot;name&quot;: &quot;Yoruba&quot;
+    },
+    {
+        &quot;id&quot;: 84,
+        &quot;code&quot;: &quot;zu&quot;,
+        &quot;name&quot;: &quot;Zulu&quot;
+    }
+]</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-languages" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-languages"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-languages"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-languages" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-languages">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-languages" data-method="GET"
+      data-path="api/languages"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-languages', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-languages"
+                    onclick="tryItOut('GETapi-languages');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-languages"
+                    onclick="cancelTryOut('GETapi-languages');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-languages"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/languages</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-languages"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-languages"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="languages-POSTapi-languages">Create a language.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-languages">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/languages" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"vmqeopfuudtdsufvyvddq\",
+    \"code\": \"amniihfqc\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/languages"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "vmqeopfuudtdsufvyvddq",
+    "code": "amniihfqc"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-languages">
+</span>
+<span id="execution-results-POSTapi-languages" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-languages"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-languages"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-languages" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-languages">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-languages" data-method="POST"
+      data-path="api/languages"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-languages', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-languages"
+                    onclick="tryItOut('POSTapi-languages');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-languages"
+                    onclick="cancelTryOut('POSTapi-languages');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-languages"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/languages</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-languages"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-languages"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-languages"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-languages"
+               value="vmqeopfuudtdsufvyvddq"
+               data-component="body">
+    <br>
+<p>Must not be greater than 100 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="code"                data-endpoint="POSTapi-languages"
+               value="amniihfqc"
+               data-component="body">
+    <br>
+<p>Must not be greater than 10 characters. Example: <code>amniihfqc</code></p>
+        </div>
+        </form>
+
+                    <h2 id="languages-PUTapi-languages--id-">Update a language.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-languages--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "https://backend-laravel.dev.jussialanen.com/api/languages/1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/languages/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "PUT",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-languages--id-">
+</span>
+<span id="execution-results-PUTapi-languages--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-languages--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-languages--id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-languages--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-languages--id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-languages--id-" data-method="PUT"
+      data-path="api/languages/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-languages--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-languages--id-"
+                    onclick="tryItOut('PUTapi-languages--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-languages--id-"
+                    onclick="cancelTryOut('PUTapi-languages--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-languages--id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/languages/{id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-languages--id-"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-languages--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-languages--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="PUTapi-languages--id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the language. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="PUTapi-languages--id-"
+               value=""
+               data-component="body">
+    <br>
+
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="code"                data-endpoint="PUTapi-languages--id-"
+               value=""
+               data-component="body">
+    <br>
+
+        </div>
+        </form>
+
+                    <h2 id="languages-DELETEapi-languages--id-">Delete a language.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-languages--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "https://backend-laravel.dev.jussialanen.com/api/languages/1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/languages/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-languages--id-">
+</span>
+<span id="execution-results-DELETEapi-languages--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-languages--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-languages--id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-languages--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-languages--id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-languages--id-" data-method="DELETE"
+      data-path="api/languages/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-languages--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-languages--id-"
+                    onclick="tryItOut('DELETEapi-languages--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-languages--id-"
+                    onclick="cancelTryOut('DELETEapi-languages--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-languages--id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/languages/{id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-languages--id-"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-languages--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-languages--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="DELETEapi-languages--id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the language. Example: <code>1</code></p>
+            </div>
+                    </form>
+
                 <h1 id="orders">Orders</h1>
 
     
@@ -8028,7 +9501,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 33
+x-ratelimit-remaining: 56
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -8584,7 +10057,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-orders--id-">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -8593,13 +10066,126 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 32
+x-ratelimit-remaining: 55
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Order not found&quot;
+    &quot;id&quot;: 1,
+    &quot;user_id&quot;: 1,
+    &quot;customer_first_name&quot;: &quot;Jussi&quot;,
+    &quot;customer_last_name&quot;: &quot;Palanen&quot;,
+    &quot;customer_email&quot;: &quot;jussi@example.com&quot;,
+    &quot;customer_phone&quot;: &quot;+358401234567&quot;,
+    &quot;order_number&quot;: &quot;ORD-2026-00001&quot;,
+    &quot;status&quot;: &quot;completed&quot;,
+    &quot;total_amount&quot;: &quot;89.97&quot;,
+    &quot;shipping_address&quot;: {
+        &quot;city&quot;: &quot;Helsinki&quot;,
+        &quot;street&quot;: &quot;Mannerheimintie 1&quot;,
+        &quot;country&quot;: &quot;FI&quot;,
+        &quot;postal_code&quot;: &quot;00100&quot;
+    },
+    &quot;billing_address&quot;: {
+        &quot;city&quot;: &quot;Helsinki&quot;,
+        &quot;street&quot;: &quot;Mannerheimintie 1&quot;,
+        &quot;country&quot;: &quot;FI&quot;,
+        &quot;postal_code&quot;: &quot;00100&quot;
+    },
+    &quot;notes&quot;: null,
+    &quot;lang&quot;: &quot;en&quot;,
+    &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+    &quot;user&quot;: {
+        &quot;id&quot;: 1,
+        &quot;first_name&quot;: &quot;Super&quot;,
+        &quot;last_name&quot;: &quot;Admin&quot;,
+        &quot;username&quot;: &quot;superadmin&quot;,
+        &quot;name&quot;: &quot;superadmin&quot;,
+        &quot;email&quot;: &quot;juzapala+superadmin@gmail.com&quot;,
+        &quot;google_id&quot;: null,
+        &quot;avatar&quot;: null,
+        &quot;email_verified_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-17T15:02:29.000000Z&quot;
+    },
+    &quot;items&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;order_id&quot;: 1,
+            &quot;product_id&quot;: 13,
+            &quot;product_title&quot;: &quot;Wireless Headphones&quot;,
+            &quot;quantity&quot;: 1,
+            &quot;unit_price&quot;: &quot;79.99&quot;,
+            &quot;sale_price&quot;: null,
+            &quot;subtotal&quot;: &quot;79.99&quot;,
+            &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+            &quot;featured_image&quot;: null,
+            &quot;images&quot;: [],
+            &quot;featured_image_url&quot;: null,
+            &quot;images_urls&quot;: [],
+            &quot;product&quot;: {
+                &quot;id&quot;: 13,
+                &quot;title&quot;: &quot;Wireless Headphones&quot;,
+                &quot;description&quot;: &quot;Example product for seeding&quot;,
+                &quot;price&quot;: &quot;79.99&quot;,
+                &quot;sale_price&quot;: null,
+                &quot;tax_code&quot;: null,
+                &quot;tax_rate&quot;: null,
+                &quot;quantity&quot;: 0,
+                &quot;featured_image&quot;: null,
+                &quot;featured_image_sizes&quot;: null,
+                &quot;images&quot;: null,
+                &quot;images_sizes&quot;: null,
+                &quot;visibility&quot;: true,
+                &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+                &quot;featured_image_url&quot;: null,
+                &quot;featured_image_sizes_urls&quot;: [],
+                &quot;images_urls&quot;: [],
+                &quot;images_sizes_urls&quot;: []
+            }
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;order_id&quot;: 1,
+            &quot;product_id&quot;: 14,
+            &quot;product_title&quot;: &quot;USB-C Cable&quot;,
+            &quot;quantity&quot;: 2,
+            &quot;unit_price&quot;: &quot;4.99&quot;,
+            &quot;sale_price&quot;: null,
+            &quot;subtotal&quot;: &quot;9.98&quot;,
+            &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+            &quot;featured_image&quot;: null,
+            &quot;images&quot;: [],
+            &quot;featured_image_url&quot;: null,
+            &quot;images_urls&quot;: [],
+            &quot;product&quot;: {
+                &quot;id&quot;: 14,
+                &quot;title&quot;: &quot;USB-C Cable&quot;,
+                &quot;description&quot;: &quot;Example product for seeding&quot;,
+                &quot;price&quot;: &quot;4.99&quot;,
+                &quot;sale_price&quot;: null,
+                &quot;tax_code&quot;: null,
+                &quot;tax_rate&quot;: null,
+                &quot;quantity&quot;: 0,
+                &quot;featured_image&quot;: null,
+                &quot;featured_image_sizes&quot;: null,
+                &quot;images&quot;: null,
+                &quot;images_sizes&quot;: null,
+                &quot;visibility&quot;: true,
+                &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+                &quot;featured_image_url&quot;: null,
+                &quot;featured_image_sizes_urls&quot;: [],
+                &quot;images_urls&quot;: [],
+                &quot;images_sizes_urls&quot;: []
+            }
+        }
+    ]
 }</code>
  </pre>
     </span>
@@ -9434,7 +11020,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 35
+x-ratelimit-remaining: 58
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -9644,9 +11230,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "tax_rate=1"\
     --form "quantity=50"\
     --form "visibility=1"\
-    --form "featured_image=@/tmp/phpPemLPa" \
-    --form "images[]=@/tmp/phpnbIFPa" \
-    --form "images[]=@/tmp/phpnfcOPa" </code></pre></div>
+    --form "featured_image=@/tmp/phpHhclEk" \
+    --form "images[]=@/tmp/phpKjIeEk" \
+    --form "images[]=@/tmp/phpdjnpEk" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -9876,7 +11462,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Featured image file. Example: <code>/tmp/phpPemLPa</code></p>
+<p>Featured image file. Example: <code>/tmp/phpHhclEk</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>visibility</code></b>&nbsp;&nbsp;
@@ -9924,7 +11510,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Additional image files. Example: <code>/tmp/phpnfcOPa</code></p>
+<p>Additional image files. Example: <code>/tmp/phpdjnpEk</code></p>
         </div>
         </form>
 
@@ -9966,7 +11552,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-products--id-">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -9975,13 +11561,31 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 34
+x-ratelimit-remaining: 57
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Product not found&quot;
+    &quot;id&quot;: 1,
+    &quot;title&quot;: &quot;sapiente quia fugit&quot;,
+    &quot;description&quot;: &quot;Nemo aut natus consectetur quam magni omnis aut. Ea culpa rerum veritatis praesentium voluptatem. Dolores distinctio aperiam ea earum iusto. Voluptas pariatur eveniet veniam minus est quod voluptatem placeat.\n\nIncidunt pariatur delectus voluptatem est voluptas consequuntur et occaecati. Eos nulla eligendi ducimus consectetur soluta numquam inventore qui. Voluptas consequatur deserunt possimus optio dicta. Ut et et modi aut.\n\nSed voluptas magnam impedit. Perspiciatis excepturi ipsam ut sed voluptatum repudiandae molestiae et. Fugit dolore maxime aut voluptatem magnam sed.&quot;,
+    &quot;price&quot;: &quot;330.00&quot;,
+    &quot;sale_price&quot;: null,
+    &quot;tax_code&quot;: &quot;FI&quot;,
+    &quot;tax_rate&quot;: &quot;0.2550&quot;,
+    &quot;quantity&quot;: 78,
+    &quot;featured_image&quot;: null,
+    &quot;featured_image_sizes&quot;: null,
+    &quot;images&quot;: [],
+    &quot;images_sizes&quot;: null,
+    &quot;visibility&quot;: true,
+    &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+    &quot;featured_image_url&quot;: null,
+    &quot;featured_image_sizes_urls&quot;: [],
+    &quot;images_urls&quot;: [],
+    &quot;images_sizes_urls&quot;: []
 }</code>
  </pre>
     </span>
@@ -10099,9 +11703,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "delete_images[]=consequatur"\
     --form "delete_featured_image="\
     --form "delete_images[]=products/1/image.png"\
-    --form "featured_image=@/tmp/phppCNpIb" \
-    --form "images[]=@/tmp/phpfNHjIb" \
-    --form "images[]=@/tmp/phpjpJCJb" </code></pre></div>
+    --form "featured_image=@/tmp/phpehfEBl" \
+    --form "images[]=@/tmp/phpIiDmAl" \
+    --form "images[]=@/tmp/phpBagHBl" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -10334,7 +11938,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Featured image file. Example: <code>/tmp/phppCNpIb</code></p>
+<p>Featured image file. Example: <code>/tmp/phpehfEBl</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>visibility</code></b>&nbsp;&nbsp;
@@ -10418,7 +12022,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Additional image files. Example: <code>/tmp/phpjpJCJb</code></p>
+<p>Additional image files. Example: <code>/tmp/phpBagHBl</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>delete_images[]</code></b>&nbsp;&nbsp;
@@ -11316,7 +12920,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 19
+x-ratelimit-remaining: 36
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -11362,14 +12966,119 @@ access-control-allow-origin: *
         {
             &quot;value&quot;: &quot;grey&quot;,
             &quot;label&quot;: &quot;Grey&quot;
+        },
+        {
+            &quot;value&quot;: &quot;midnight&quot;,
+            &quot;label&quot;: &quot;Midnight&quot;
+        },
+        {
+            &quot;value&quot;: &quot;gold&quot;,
+            &quot;label&quot;: &quot;Gold&quot;
+        },
+        {
+            &quot;value&quot;: &quot;aurora&quot;,
+            &quot;label&quot;: &quot;Aurora&quot;
+        },
+        {
+            &quot;value&quot;: &quot;ember&quot;,
+            &quot;label&quot;: &quot;Ember&quot;
+        },
+        {
+            &quot;value&quot;: &quot;amethyst&quot;,
+            &quot;label&quot;: &quot;Amethyst&quot;
         }
     ],
     &quot;templates&quot;: [
         {
             &quot;value&quot;: &quot;default&quot;,
-            &quot;label&quot;: &quot;Default&quot;
+            &quot;label&quot;: &quot;Classic&quot;
+        },
+        {
+            &quot;value&quot;: &quot;dark&quot;,
+            &quot;label&quot;: &quot;Dark&quot;
         }
     ],
+    &quot;template_themes&quot;: {
+        &quot;default&quot;: [
+            {
+                &quot;value&quot;: &quot;green&quot;,
+                &quot;accent&quot;: &quot;#14532d&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;blue&quot;,
+                &quot;accent&quot;: &quot;#1e3a5f&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;red&quot;,
+                &quot;accent&quot;: &quot;#7f1d1d&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;yellow&quot;,
+                &quot;accent&quot;: &quot;#78350f&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;cyan&quot;,
+                &quot;accent&quot;: &quot;#164e63&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;orange&quot;,
+                &quot;accent&quot;: &quot;#7c2d12&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;violet&quot;,
+                &quot;accent&quot;: &quot;#4c1d95&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;black&quot;,
+                &quot;accent&quot;: &quot;#111827&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;white&quot;,
+                &quot;accent&quot;: &quot;#0f172a&quot;,
+                &quot;bg&quot;: &quot;#f1f5f9&quot;
+            },
+            {
+                &quot;value&quot;: &quot;grey&quot;,
+                &quot;accent&quot;: &quot;#374151&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            }
+        ],
+        &quot;dark&quot;: [
+            {
+                &quot;value&quot;: &quot;midnight&quot;,
+                &quot;accent&quot;: &quot;#58a6ff&quot;,
+                &quot;bg&quot;: &quot;#0d1117&quot;
+            },
+            {
+                &quot;value&quot;: &quot;gold&quot;,
+                &quot;accent&quot;: &quot;#d4a843&quot;,
+                &quot;bg&quot;: &quot;#0f0d08&quot;
+            },
+            {
+                &quot;value&quot;: &quot;aurora&quot;,
+                &quot;accent&quot;: &quot;#2dd4bf&quot;,
+                &quot;bg&quot;: &quot;#091518&quot;
+            },
+            {
+                &quot;value&quot;: &quot;ember&quot;,
+                &quot;accent&quot;: &quot;#fb923c&quot;,
+                &quot;bg&quot;: &quot;#100a07&quot;
+            },
+            {
+                &quot;value&quot;: &quot;amethyst&quot;,
+                &quot;accent&quot;: &quot;#a78bfa&quot;,
+                &quot;bg&quot;: &quot;#0d0b14&quot;
+            }
+        ]
+    },
     &quot;languages&quot;: [
         {
             &quot;value&quot;: &quot;en&quot;,
@@ -12147,6 +13856,230 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
+                    <h2 id="resumes-POSTapi-resumes-preview-pdf">Preview a resume as an inline PDF from a JSON payload (no stored resume required).</h2>
+
+<p>
+</p>
+
+<p>The photo can be supplied as a base64-encoded string in <code>photo</code>.
+Returns the PDF inline (for iframe / browser preview), not as a download.</p>
+
+<span id="example-requests-POSTapi-resumes-preview-pdf">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/preview/pdf" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/preview/pdf"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-resumes-preview-pdf">
+</span>
+<span id="execution-results-POSTapi-resumes-preview-pdf" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-resumes-preview-pdf"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-resumes-preview-pdf"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-resumes-preview-pdf" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-resumes-preview-pdf">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-resumes-preview-pdf" data-method="POST"
+      data-path="api/resumes/preview/pdf"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-resumes-preview-pdf', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-resumes-preview-pdf"
+                    onclick="tryItOut('POSTapi-resumes-preview-pdf');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-resumes-preview-pdf"
+                    onclick="cancelTryOut('POSTapi-resumes-preview-pdf');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-resumes-preview-pdf"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/resumes/preview/pdf</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-resumes-preview-pdf"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-resumes-preview-pdf"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="resumes-POSTapi-resumes-preview-html">Preview a resume as inline HTML from a JSON payload (no stored resume required).</h2>
+
+<p>
+</p>
+
+<p>The photo can be supplied as a base64-encoded string in <code>photo</code>.
+Returns HTML inline (for iframe / browser preview), not as a download.</p>
+
+<span id="example-requests-POSTapi-resumes-preview-html">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/preview/html" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/preview/html"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-resumes-preview-html">
+</span>
+<span id="execution-results-POSTapi-resumes-preview-html" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-resumes-preview-html"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-resumes-preview-html"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-resumes-preview-html" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-resumes-preview-html">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-resumes-preview-html" data-method="POST"
+      data-path="api/resumes/preview/html"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-resumes-preview-html', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-resumes-preview-html"
+                    onclick="tryItOut('POSTapi-resumes-preview-html');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-resumes-preview-html"
+                    onclick="cancelTryOut('POSTapi-resumes-preview-html');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-resumes-preview-html"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/resumes/preview/html</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-resumes-preview-html"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-resumes-preview-html"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
                     <h2 id="resumes-GETapi-resumes-current">Get the primary resume.</h2>
 
 <p>
@@ -12203,7 +14136,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 18
+x-ratelimit-remaining: 35
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -12372,7 +14305,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 17
+x-ratelimit-remaining: 34
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -12546,7 +14479,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 16
+x-ratelimit-remaining: 33
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -13440,7 +15373,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -13448,7 +15381,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6"
 );
 
 const headers = {
@@ -13575,10 +15508,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id-"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -13608,7 +15541,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -13627,12 +15560,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "code=opfuudtdsufvyvddqamni"\
     --form "show_skill_levels=1"\
     --form "show_language_levels="\
-    --form "photo=@/tmp/phpMncbBH" </code></pre></div>
+    --form "photo=@/tmp/phplaAfim" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6"
 );
 
 const headers = {
@@ -13760,10 +15693,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-resumes--id-"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -13884,7 +15817,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpMncbBH</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phplaAfim</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>summary</code></b>&nbsp;&nbsp;
@@ -14100,7 +16033,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -14119,12 +16052,12 @@ Must be one of:
     --form "code=opfuudtdsufvyvddqamni"\
     --form "show_skill_levels=1"\
     --form "show_language_levels="\
-    --form "photo=@/tmp/phpilhjOH" </code></pre></div>
+    --form "photo=@/tmp/phpiGagHn" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6"
 );
 
 const headers = {
@@ -14252,10 +16185,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="POSTapi-resumes--id-"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -14376,7 +16309,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpilhjOH</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpiGagHn</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>summary</code></b>&nbsp;&nbsp;
@@ -14592,7 +16525,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -14600,7 +16533,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6"
 );
 
 const headers = {
@@ -14710,10 +16643,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-resumes--id-"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -14743,7 +16676,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/pdf" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/pdf" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -14751,7 +16684,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/pdf"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/pdf"
 );
 
 const headers = {
@@ -14878,10 +16811,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--export-pdf"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -14911,7 +16844,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/html" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/html" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -14919,7 +16852,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/html"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/html"
 );
 
 const headers = {
@@ -15046,10 +16979,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--export-html"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -15079,7 +17012,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/json" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/json" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -15087,7 +17020,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/json"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/json"
 );
 
 const headers = {
@@ -15214,10 +17147,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--export-json"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -15232,6 +17165,783 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>The resume ID. Example: <code>1</code></p>
             </div>
                     </form>
+
+                    <h2 id="resumes-GETapi-resumes--id--preview-pdf">Preview a resume as an inline PDF (opens in browser, no download).</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-resumes--id--preview-pdf">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/pdf?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/pdf"
+);
+
+const params = {
+    "theme": "blue",
+    "lang": "en",
+    "template": "default",
+    "show_skill_levels": "1",
+    "show_language_levels": "1",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-resumes--id--preview-pdf">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-resumes--id--preview-pdf" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-resumes--id--preview-pdf"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-resumes--id--preview-pdf"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-resumes--id--preview-pdf" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-resumes--id--preview-pdf">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-resumes--id--preview-pdf" data-method="GET"
+      data-path="api/resumes/{id}/preview/pdf"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-resumes--id--preview-pdf', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-resumes--id--preview-pdf"
+                    onclick="tryItOut('GETapi-resumes--id--preview-pdf');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-resumes--id--preview-pdf"
+                    onclick="cancelTryOut('GETapi-resumes--id--preview-pdf');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-resumes--id--preview-pdf"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/resumes/{id}/preview/pdf</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="6"
+               data-component="url">
+    <br>
+<p>The ID of the resume. Example: <code>6</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="resume"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="1"
+               data-component="url">
+    <br>
+<p>The resume ID. Example: <code>1</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>theme</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="theme"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="blue"
+               data-component="query">
+    <br>
+<p>Theme name. Example: <code>blue</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>lang</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="lang"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="en"
+               data-component="query">
+    <br>
+<p>Language code (en, fi). Example: <code>en</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>template</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="template"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="default"
+               data-component="query">
+    <br>
+<p>Template name. Example: <code>default</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_skill_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-pdf" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-pdf"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-pdf" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-pdf"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show skill level bars. Example: <code>true</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_language_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-pdf" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-pdf"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-pdf" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-pdf"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show language level dots. Example: <code>true</code></p>
+            </div>
+                </form>
+
+                    <h2 id="resumes-GETapi-resumes--id--preview-html">Preview a resume as inline HTML (renders in browser, no download).</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-resumes--id--preview-html">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/html?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/html"
+);
+
+const params = {
+    "theme": "blue",
+    "lang": "en",
+    "template": "default",
+    "show_skill_levels": "1",
+    "show_language_levels": "1",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-resumes--id--preview-html">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-resumes--id--preview-html" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-resumes--id--preview-html"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-resumes--id--preview-html"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-resumes--id--preview-html" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-resumes--id--preview-html">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-resumes--id--preview-html" data-method="GET"
+      data-path="api/resumes/{id}/preview/html"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-resumes--id--preview-html', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-resumes--id--preview-html"
+                    onclick="tryItOut('GETapi-resumes--id--preview-html');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-resumes--id--preview-html"
+                    onclick="cancelTryOut('GETapi-resumes--id--preview-html');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-resumes--id--preview-html"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/resumes/{id}/preview/html</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-resumes--id--preview-html"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="6"
+               data-component="url">
+    <br>
+<p>The ID of the resume. Example: <code>6</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="resume"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="1"
+               data-component="url">
+    <br>
+<p>The resume ID. Example: <code>1</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>theme</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="theme"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="blue"
+               data-component="query">
+    <br>
+<p>Theme name. Example: <code>blue</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>lang</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="lang"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="en"
+               data-component="query">
+    <br>
+<p>Language code (en, fi). Example: <code>en</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>template</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="template"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="default"
+               data-component="query">
+    <br>
+<p>Template name. Example: <code>default</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_skill_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-html" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-html"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-html" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-html"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show skill level bars. Example: <code>true</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_language_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-html" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-html"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-html" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-html"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show language level dots. Example: <code>true</code></p>
+            </div>
+                </form>
+
+                    <h2 id="resumes-GETapi-resumes--id--preview-signed-url">Generate short-lived signed preview URLs for PDF and HTML (no token needed to open them).</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-resumes--id--preview-signed-url">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/signed-url?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/signed-url"
+);
+
+const params = {
+    "theme": "blue",
+    "lang": "en",
+    "template": "default",
+    "show_skill_levels": "1",
+    "show_language_levels": "1",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-resumes--id--preview-signed-url">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-resumes--id--preview-signed-url" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-resumes--id--preview-signed-url"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-resumes--id--preview-signed-url"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-resumes--id--preview-signed-url" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-resumes--id--preview-signed-url">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-resumes--id--preview-signed-url" data-method="GET"
+      data-path="api/resumes/{id}/preview/signed-url"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-resumes--id--preview-signed-url', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-resumes--id--preview-signed-url"
+                    onclick="tryItOut('GETapi-resumes--id--preview-signed-url');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-resumes--id--preview-signed-url"
+                    onclick="cancelTryOut('GETapi-resumes--id--preview-signed-url');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-resumes--id--preview-signed-url"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/resumes/{id}/preview/signed-url</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="6"
+               data-component="url">
+    <br>
+<p>The ID of the resume. Example: <code>6</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="resume"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="1"
+               data-component="url">
+    <br>
+<p>The resume ID. Example: <code>1</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>theme</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="theme"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="blue"
+               data-component="query">
+    <br>
+<p>Theme name. Example: <code>blue</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>lang</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="lang"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="en"
+               data-component="query">
+    <br>
+<p>Language code (en, fi). Example: <code>en</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>template</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="template"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="default"
+               data-component="query">
+    <br>
+<p>Template name. Example: <code>default</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_skill_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-signed-url" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-signed-url"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-signed-url" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-signed-url"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show skill level bars. Example: <code>true</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_language_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-signed-url" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-signed-url"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-signed-url" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-signed-url"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show language level dots. Example: <code>true</code></p>
+            </div>
+                </form>
 
                     <h2 id="resumes-POSTapi-resumes-import-json">Import a resume from a previously exported JSON backup file.</h2>
 
@@ -15251,7 +17961,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpaPEplI" </code></pre></div>
+    --form "file=@/tmp/phpjPKEop" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -15372,7 +18082,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phpaPEplI</code></p>
+<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phpjPKEop</code></p>
         </div>
         </form>
 
@@ -15390,16 +18100,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/import/json" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/import/json" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpoHhbDJ" </code></pre></div>
+    --form "file=@/tmp/phphnkKGA" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/import/json"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/import/json"
 );
 
 const headers = {
@@ -15512,10 +18222,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="POSTapi-resumes--id--import-json"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -15528,7 +18238,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phpoHhbDJ</code></p>
+<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phphnkKGA</code></p>
         </div>
         </form>
 
@@ -15583,7 +18293,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 27
+x-ratelimit-remaining: 50
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -15720,7 +18430,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 26
+x-ratelimit-remaining: 49
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -16633,7 +19343,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 25
+x-ratelimit-remaining: 48
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -16730,6 +19440,10142 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                     </form>
 
+                <h1 id="skill-categories">Skill Categories</h1>
+
+    
+
+                                <h2 id="skill-categories-GETapi-skill-categories">List all skill categories with their skills.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-skill-categories">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/skill-categories" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-skill-categories">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 45
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Programming Languages&quot;,
+        &quot;slug&quot;: &quot;programming_languages&quot;,
+        &quot;sort_order&quot;: 0,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;PHP&quot;
+            },
+            {
+                &quot;id&quot;: 2,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;JavaScript&quot;
+            },
+            {
+                &quot;id&quot;: 3,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;TypeScript&quot;
+            },
+            {
+                &quot;id&quot;: 4,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Python&quot;
+            },
+            {
+                &quot;id&quot;: 5,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Java&quot;
+            },
+            {
+                &quot;id&quot;: 6,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;C&quot;
+            },
+            {
+                &quot;id&quot;: 7,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;C++&quot;
+            },
+            {
+                &quot;id&quot;: 8,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;C#&quot;
+            },
+            {
+                &quot;id&quot;: 9,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Go&quot;
+            },
+            {
+                &quot;id&quot;: 10,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Rust&quot;
+            },
+            {
+                &quot;id&quot;: 11,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Kotlin&quot;
+            },
+            {
+                &quot;id&quot;: 12,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Swift&quot;
+            },
+            {
+                &quot;id&quot;: 13,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Ruby&quot;
+            },
+            {
+                &quot;id&quot;: 14,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Scala&quot;
+            },
+            {
+                &quot;id&quot;: 15,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Dart&quot;
+            },
+            {
+                &quot;id&quot;: 16,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Elixir&quot;
+            },
+            {
+                &quot;id&quot;: 17,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Haskell&quot;
+            },
+            {
+                &quot;id&quot;: 18,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Perl&quot;
+            },
+            {
+                &quot;id&quot;: 19,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Lua&quot;
+            },
+            {
+                &quot;id&quot;: 20,
+                &quot;skill_category_id&quot;: 1,
+                &quot;name&quot;: &quot;Julia&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;name&quot;: &quot;Scripting Languages&quot;,
+        &quot;slug&quot;: &quot;scripting_languages&quot;,
+        &quot;sort_order&quot;: 1,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 21,
+                &quot;skill_category_id&quot;: 2,
+                &quot;name&quot;: &quot;Bash&quot;
+            },
+            {
+                &quot;id&quot;: 22,
+                &quot;skill_category_id&quot;: 2,
+                &quot;name&quot;: &quot;PowerShell&quot;
+            },
+            {
+                &quot;id&quot;: 23,
+                &quot;skill_category_id&quot;: 2,
+                &quot;name&quot;: &quot;Python&quot;
+            },
+            {
+                &quot;id&quot;: 24,
+                &quot;skill_category_id&quot;: 2,
+                &quot;name&quot;: &quot;Ruby&quot;
+            },
+            {
+                &quot;id&quot;: 25,
+                &quot;skill_category_id&quot;: 2,
+                &quot;name&quot;: &quot;Perl&quot;
+            },
+            {
+                &quot;id&quot;: 26,
+                &quot;skill_category_id&quot;: 2,
+                &quot;name&quot;: &quot;Groovy&quot;
+            },
+            {
+                &quot;id&quot;: 27,
+                &quot;skill_category_id&quot;: 2,
+                &quot;name&quot;: &quot;Tcl&quot;
+            },
+            {
+                &quot;id&quot;: 28,
+                &quot;skill_category_id&quot;: 2,
+                &quot;name&quot;: &quot;Zsh&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;name&quot;: &quot;Markup Languages&quot;,
+        &quot;slug&quot;: &quot;markup_languages&quot;,
+        &quot;sort_order&quot;: 2,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 29,
+                &quot;skill_category_id&quot;: 3,
+                &quot;name&quot;: &quot;HTML&quot;
+            },
+            {
+                &quot;id&quot;: 30,
+                &quot;skill_category_id&quot;: 3,
+                &quot;name&quot;: &quot;XML&quot;
+            },
+            {
+                &quot;id&quot;: 31,
+                &quot;skill_category_id&quot;: 3,
+                &quot;name&quot;: &quot;YAML&quot;
+            },
+            {
+                &quot;id&quot;: 32,
+                &quot;skill_category_id&quot;: 3,
+                &quot;name&quot;: &quot;Markdown&quot;
+            },
+            {
+                &quot;id&quot;: 33,
+                &quot;skill_category_id&quot;: 3,
+                &quot;name&quot;: &quot;LaTeX&quot;
+            },
+            {
+                &quot;id&quot;: 34,
+                &quot;skill_category_id&quot;: 3,
+                &quot;name&quot;: &quot;Pug&quot;
+            },
+            {
+                &quot;id&quot;: 35,
+                &quot;skill_category_id&quot;: 3,
+                &quot;name&quot;: &quot;Haml&quot;
+            },
+            {
+                &quot;id&quot;: 36,
+                &quot;skill_category_id&quot;: 3,
+                &quot;name&quot;: &quot;Jinja2&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 4,
+        &quot;name&quot;: &quot;Query Languages&quot;,
+        &quot;slug&quot;: &quot;query_languages&quot;,
+        &quot;sort_order&quot;: 3,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 37,
+                &quot;skill_category_id&quot;: 4,
+                &quot;name&quot;: &quot;SQL&quot;
+            },
+            {
+                &quot;id&quot;: 38,
+                &quot;skill_category_id&quot;: 4,
+                &quot;name&quot;: &quot;GraphQL&quot;
+            },
+            {
+                &quot;id&quot;: 39,
+                &quot;skill_category_id&quot;: 4,
+                &quot;name&quot;: &quot;HQL&quot;
+            },
+            {
+                &quot;id&quot;: 40,
+                &quot;skill_category_id&quot;: 4,
+                &quot;name&quot;: &quot;JPQL&quot;
+            },
+            {
+                &quot;id&quot;: 41,
+                &quot;skill_category_id&quot;: 4,
+                &quot;name&quot;: &quot;XQuery&quot;
+            },
+            {
+                &quot;id&quot;: 42,
+                &quot;skill_category_id&quot;: 4,
+                &quot;name&quot;: &quot;Cypher&quot;
+            },
+            {
+                &quot;id&quot;: 43,
+                &quot;skill_category_id&quot;: 4,
+                &quot;name&quot;: &quot;SPARQL&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 5,
+        &quot;name&quot;: &quot;Frontend Technologies&quot;,
+        &quot;slug&quot;: &quot;frontend_technologies&quot;,
+        &quot;sort_order&quot;: 4,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 44,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Vue.js&quot;
+            },
+            {
+                &quot;id&quot;: 45,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;React&quot;
+            },
+            {
+                &quot;id&quot;: 46,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Angular&quot;
+            },
+            {
+                &quot;id&quot;: 47,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Svelte&quot;
+            },
+            {
+                &quot;id&quot;: 48,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Next.js&quot;
+            },
+            {
+                &quot;id&quot;: 49,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Nuxt.js&quot;
+            },
+            {
+                &quot;id&quot;: 50,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Astro&quot;
+            },
+            {
+                &quot;id&quot;: 51,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;SolidJS&quot;
+            },
+            {
+                &quot;id&quot;: 52,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Alpine.js&quot;
+            },
+            {
+                &quot;id&quot;: 53,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;jQuery&quot;
+            },
+            {
+                &quot;id&quot;: 54,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Vite&quot;
+            },
+            {
+                &quot;id&quot;: 55,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Webpack&quot;
+            },
+            {
+                &quot;id&quot;: 56,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Tailwind CSS&quot;
+            },
+            {
+                &quot;id&quot;: 57,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Bootstrap&quot;
+            },
+            {
+                &quot;id&quot;: 58,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Sass&quot;
+            },
+            {
+                &quot;id&quot;: 59,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;CSS&quot;
+            },
+            {
+                &quot;id&quot;: 60,
+                &quot;skill_category_id&quot;: 5,
+                &quot;name&quot;: &quot;Web Components&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 6,
+        &quot;name&quot;: &quot;Backend Technologies&quot;,
+        &quot;slug&quot;: &quot;backend_technologies&quot;,
+        &quot;sort_order&quot;: 5,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 61,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;Laravel&quot;
+            },
+            {
+                &quot;id&quot;: 62,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;Symfony&quot;
+            },
+            {
+                &quot;id&quot;: 63,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;Django&quot;
+            },
+            {
+                &quot;id&quot;: 64,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;FastAPI&quot;
+            },
+            {
+                &quot;id&quot;: 65,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;Flask&quot;
+            },
+            {
+                &quot;id&quot;: 66,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;Express.js&quot;
+            },
+            {
+                &quot;id&quot;: 67,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;NestJS&quot;
+            },
+            {
+                &quot;id&quot;: 68,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;Spring Boot&quot;
+            },
+            {
+                &quot;id&quot;: 69,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;ASP.NET Core&quot;
+            },
+            {
+                &quot;id&quot;: 70,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;Ruby on Rails&quot;
+            },
+            {
+                &quot;id&quot;: 71,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;Phoenix&quot;
+            },
+            {
+                &quot;id&quot;: 72,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;Hono&quot;
+            },
+            {
+                &quot;id&quot;: 73,
+                &quot;skill_category_id&quot;: 6,
+                &quot;name&quot;: &quot;Actix&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 7,
+        &quot;name&quot;: &quot;Full-Stack Development&quot;,
+        &quot;slug&quot;: &quot;full_stack_development&quot;,
+        &quot;sort_order&quot;: 6,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 74,
+                &quot;skill_category_id&quot;: 7,
+                &quot;name&quot;: &quot;Next.js&quot;
+            },
+            {
+                &quot;id&quot;: 75,
+                &quot;skill_category_id&quot;: 7,
+                &quot;name&quot;: &quot;Nuxt.js&quot;
+            },
+            {
+                &quot;id&quot;: 76,
+                &quot;skill_category_id&quot;: 7,
+                &quot;name&quot;: &quot;SvelteKit&quot;
+            },
+            {
+                &quot;id&quot;: 77,
+                &quot;skill_category_id&quot;: 7,
+                &quot;name&quot;: &quot;Remix&quot;
+            },
+            {
+                &quot;id&quot;: 78,
+                &quot;skill_category_id&quot;: 7,
+                &quot;name&quot;: &quot;Inertia.js&quot;
+            },
+            {
+                &quot;id&quot;: 79,
+                &quot;skill_category_id&quot;: 7,
+                &quot;name&quot;: &quot;Livewire&quot;
+            },
+            {
+                &quot;id&quot;: 80,
+                &quot;skill_category_id&quot;: 7,
+                &quot;name&quot;: &quot;Meteor&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 8,
+        &quot;name&quot;: &quot;Frameworks&quot;,
+        &quot;slug&quot;: &quot;frameworks&quot;,
+        &quot;sort_order&quot;: 7,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 81,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;Laravel&quot;
+            },
+            {
+                &quot;id&quot;: 82,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;Symfony&quot;
+            },
+            {
+                &quot;id&quot;: 83,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;Vue.js&quot;
+            },
+            {
+                &quot;id&quot;: 84,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;React&quot;
+            },
+            {
+                &quot;id&quot;: 85,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;Angular&quot;
+            },
+            {
+                &quot;id&quot;: 86,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;Django&quot;
+            },
+            {
+                &quot;id&quot;: 87,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;Spring Boot&quot;
+            },
+            {
+                &quot;id&quot;: 88,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;ASP.NET Core&quot;
+            },
+            {
+                &quot;id&quot;: 89,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;NestJS&quot;
+            },
+            {
+                &quot;id&quot;: 90,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;Express.js&quot;
+            },
+            {
+                &quot;id&quot;: 91,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;Tailwind CSS&quot;
+            },
+            {
+                &quot;id&quot;: 92,
+                &quot;skill_category_id&quot;: 8,
+                &quot;name&quot;: &quot;Bootstrap&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 9,
+        &quot;name&quot;: &quot;Libraries&quot;,
+        &quot;slug&quot;: &quot;libraries&quot;,
+        &quot;sort_order&quot;: 8,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 93,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;Lodash&quot;
+            },
+            {
+                &quot;id&quot;: 94,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;Axios&quot;
+            },
+            {
+                &quot;id&quot;: 95,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;Moment.js&quot;
+            },
+            {
+                &quot;id&quot;: 96,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;Day.js&quot;
+            },
+            {
+                &quot;id&quot;: 97,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;Zod&quot;
+            },
+            {
+                &quot;id&quot;: 98,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;Pinia&quot;
+            },
+            {
+                &quot;id&quot;: 99,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;Zustand&quot;
+            },
+            {
+                &quot;id&quot;: 100,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;Redux&quot;
+            },
+            {
+                &quot;id&quot;: 101,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;React Query&quot;
+            },
+            {
+                &quot;id&quot;: 102,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;SWR&quot;
+            },
+            {
+                &quot;id&quot;: 103,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;Chart.js&quot;
+            },
+            {
+                &quot;id&quot;: 104,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;D3.js&quot;
+            },
+            {
+                &quot;id&quot;: 105,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;Three.js&quot;
+            },
+            {
+                &quot;id&quot;: 106,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;GSAP&quot;
+            },
+            {
+                &quot;id&quot;: 107,
+                &quot;skill_category_id&quot;: 9,
+                &quot;name&quot;: &quot;Framer Motion&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 10,
+        &quot;name&quot;: &quot;UI/UX Design&quot;,
+        &quot;slug&quot;: &quot;ui_ux_design&quot;,
+        &quot;sort_order&quot;: 9,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 108,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;Figma&quot;
+            },
+            {
+                &quot;id&quot;: 109,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;Adobe XD&quot;
+            },
+            {
+                &quot;id&quot;: 110,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;Sketch&quot;
+            },
+            {
+                &quot;id&quot;: 111,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;InVision&quot;
+            },
+            {
+                &quot;id&quot;: 112,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;Zeplin&quot;
+            },
+            {
+                &quot;id&quot;: 113,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;Storybook&quot;
+            },
+            {
+                &quot;id&quot;: 114,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;Framer&quot;
+            },
+            {
+                &quot;id&quot;: 115,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;Balsamiq&quot;
+            },
+            {
+                &quot;id&quot;: 116,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;Wireframing&quot;
+            },
+            {
+                &quot;id&quot;: 117,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;Prototyping&quot;
+            },
+            {
+                &quot;id&quot;: 118,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;User Research&quot;
+            },
+            {
+                &quot;id&quot;: 119,
+                &quot;skill_category_id&quot;: 10,
+                &quot;name&quot;: &quot;Accessibility (WCAG)&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 11,
+        &quot;name&quot;: &quot;Responsive Design&quot;,
+        &quot;slug&quot;: &quot;responsive_design&quot;,
+        &quot;sort_order&quot;: 10,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 120,
+                &quot;skill_category_id&quot;: 11,
+                &quot;name&quot;: &quot;CSS Grid&quot;
+            },
+            {
+                &quot;id&quot;: 121,
+                &quot;skill_category_id&quot;: 11,
+                &quot;name&quot;: &quot;Flexbox&quot;
+            },
+            {
+                &quot;id&quot;: 122,
+                &quot;skill_category_id&quot;: 11,
+                &quot;name&quot;: &quot;Tailwind CSS&quot;
+            },
+            {
+                &quot;id&quot;: 123,
+                &quot;skill_category_id&quot;: 11,
+                &quot;name&quot;: &quot;Bootstrap&quot;
+            },
+            {
+                &quot;id&quot;: 124,
+                &quot;skill_category_id&quot;: 11,
+                &quot;name&quot;: &quot;Media Queries&quot;
+            },
+            {
+                &quot;id&quot;: 125,
+                &quot;skill_category_id&quot;: 11,
+                &quot;name&quot;: &quot;Mobile-First Design&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 12,
+        &quot;name&quot;: &quot;Mobile Development&quot;,
+        &quot;slug&quot;: &quot;mobile_development&quot;,
+        &quot;sort_order&quot;: 11,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 126,
+                &quot;skill_category_id&quot;: 12,
+                &quot;name&quot;: &quot;React Native&quot;
+            },
+            {
+                &quot;id&quot;: 127,
+                &quot;skill_category_id&quot;: 12,
+                &quot;name&quot;: &quot;Flutter&quot;
+            },
+            {
+                &quot;id&quot;: 128,
+                &quot;skill_category_id&quot;: 12,
+                &quot;name&quot;: &quot;Swift&quot;
+            },
+            {
+                &quot;id&quot;: 129,
+                &quot;skill_category_id&quot;: 12,
+                &quot;name&quot;: &quot;SwiftUI&quot;
+            },
+            {
+                &quot;id&quot;: 130,
+                &quot;skill_category_id&quot;: 12,
+                &quot;name&quot;: &quot;Kotlin&quot;
+            },
+            {
+                &quot;id&quot;: 131,
+                &quot;skill_category_id&quot;: 12,
+                &quot;name&quot;: &quot;Jetpack Compose&quot;
+            },
+            {
+                &quot;id&quot;: 132,
+                &quot;skill_category_id&quot;: 12,
+                &quot;name&quot;: &quot;Ionic&quot;
+            },
+            {
+                &quot;id&quot;: 133,
+                &quot;skill_category_id&quot;: 12,
+                &quot;name&quot;: &quot;Expo&quot;
+            },
+            {
+                &quot;id&quot;: 134,
+                &quot;skill_category_id&quot;: 12,
+                &quot;name&quot;: &quot;Capacitor&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 13,
+        &quot;name&quot;: &quot;Desktop Development&quot;,
+        &quot;slug&quot;: &quot;desktop_development&quot;,
+        &quot;sort_order&quot;: 12,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 135,
+                &quot;skill_category_id&quot;: 13,
+                &quot;name&quot;: &quot;Electron&quot;
+            },
+            {
+                &quot;id&quot;: 136,
+                &quot;skill_category_id&quot;: 13,
+                &quot;name&quot;: &quot;Tauri&quot;
+            },
+            {
+                &quot;id&quot;: 137,
+                &quot;skill_category_id&quot;: 13,
+                &quot;name&quot;: &quot;Qt&quot;
+            },
+            {
+                &quot;id&quot;: 138,
+                &quot;skill_category_id&quot;: 13,
+                &quot;name&quot;: &quot;WPF&quot;
+            },
+            {
+                &quot;id&quot;: 139,
+                &quot;skill_category_id&quot;: 13,
+                &quot;name&quot;: &quot;WinForms&quot;
+            },
+            {
+                &quot;id&quot;: 140,
+                &quot;skill_category_id&quot;: 13,
+                &quot;name&quot;: &quot;JavaFX&quot;
+            },
+            {
+                &quot;id&quot;: 141,
+                &quot;skill_category_id&quot;: 13,
+                &quot;name&quot;: &quot;GTK&quot;
+            },
+            {
+                &quot;id&quot;: 142,
+                &quot;skill_category_id&quot;: 13,
+                &quot;name&quot;: &quot;.NET MAUI&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 14,
+        &quot;name&quot;: &quot;Game Development&quot;,
+        &quot;slug&quot;: &quot;game_development&quot;,
+        &quot;sort_order&quot;: 13,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 143,
+                &quot;skill_category_id&quot;: 14,
+                &quot;name&quot;: &quot;Unity&quot;
+            },
+            {
+                &quot;id&quot;: 144,
+                &quot;skill_category_id&quot;: 14,
+                &quot;name&quot;: &quot;Unreal Engine&quot;
+            },
+            {
+                &quot;id&quot;: 145,
+                &quot;skill_category_id&quot;: 14,
+                &quot;name&quot;: &quot;Godot&quot;
+            },
+            {
+                &quot;id&quot;: 146,
+                &quot;skill_category_id&quot;: 14,
+                &quot;name&quot;: &quot;Pygame&quot;
+            },
+            {
+                &quot;id&quot;: 147,
+                &quot;skill_category_id&quot;: 14,
+                &quot;name&quot;: &quot;Phaser&quot;
+            },
+            {
+                &quot;id&quot;: 148,
+                &quot;skill_category_id&quot;: 14,
+                &quot;name&quot;: &quot;MonoGame&quot;
+            },
+            {
+                &quot;id&quot;: 149,
+                &quot;skill_category_id&quot;: 14,
+                &quot;name&quot;: &quot;Bevy&quot;
+            },
+            {
+                &quot;id&quot;: 150,
+                &quot;skill_category_id&quot;: 14,
+                &quot;name&quot;: &quot;Three.js&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 15,
+        &quot;name&quot;: &quot;Embedded Systems&quot;,
+        &quot;slug&quot;: &quot;embedded_systems&quot;,
+        &quot;sort_order&quot;: 14,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 151,
+                &quot;skill_category_id&quot;: 15,
+                &quot;name&quot;: &quot;C&quot;
+            },
+            {
+                &quot;id&quot;: 152,
+                &quot;skill_category_id&quot;: 15,
+                &quot;name&quot;: &quot;C++&quot;
+            },
+            {
+                &quot;id&quot;: 153,
+                &quot;skill_category_id&quot;: 15,
+                &quot;name&quot;: &quot;Rust&quot;
+            },
+            {
+                &quot;id&quot;: 154,
+                &quot;skill_category_id&quot;: 15,
+                &quot;name&quot;: &quot;Arduino&quot;
+            },
+            {
+                &quot;id&quot;: 155,
+                &quot;skill_category_id&quot;: 15,
+                &quot;name&quot;: &quot;Raspberry Pi&quot;
+            },
+            {
+                &quot;id&quot;: 156,
+                &quot;skill_category_id&quot;: 15,
+                &quot;name&quot;: &quot;FreeRTOS&quot;
+            },
+            {
+                &quot;id&quot;: 157,
+                &quot;skill_category_id&quot;: 15,
+                &quot;name&quot;: &quot;Zephyr&quot;
+            },
+            {
+                &quot;id&quot;: 158,
+                &quot;skill_category_id&quot;: 15,
+                &quot;name&quot;: &quot;MQTT&quot;
+            },
+            {
+                &quot;id&quot;: 159,
+                &quot;skill_category_id&quot;: 15,
+                &quot;name&quot;: &quot;RTOS&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 16,
+        &quot;name&quot;: &quot;Databases&quot;,
+        &quot;slug&quot;: &quot;databases&quot;,
+        &quot;sort_order&quot;: 15,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 160,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;MySQL&quot;
+            },
+            {
+                &quot;id&quot;: 161,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;PostgreSQL&quot;
+            },
+            {
+                &quot;id&quot;: 162,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;SQLite&quot;
+            },
+            {
+                &quot;id&quot;: 163,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;Microsoft SQL Server&quot;
+            },
+            {
+                &quot;id&quot;: 164,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;MongoDB&quot;
+            },
+            {
+                &quot;id&quot;: 165,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;Redis&quot;
+            },
+            {
+                &quot;id&quot;: 166,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;Elasticsearch&quot;
+            },
+            {
+                &quot;id&quot;: 167,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;CassandraDB&quot;
+            },
+            {
+                &quot;id&quot;: 168,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;DynamoDB&quot;
+            },
+            {
+                &quot;id&quot;: 169,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;Firestore&quot;
+            },
+            {
+                &quot;id&quot;: 170,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;ClickHouse&quot;
+            },
+            {
+                &quot;id&quot;: 171,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;MariaDB&quot;
+            },
+            {
+                &quot;id&quot;: 172,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;CockroachDB&quot;
+            },
+            {
+                &quot;id&quot;: 173,
+                &quot;skill_category_id&quot;: 16,
+                &quot;name&quot;: &quot;Supabase&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 17,
+        &quot;name&quot;: &quot;Database Design&quot;,
+        &quot;slug&quot;: &quot;database_design&quot;,
+        &quot;sort_order&quot;: 16,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 174,
+                &quot;skill_category_id&quot;: 17,
+                &quot;name&quot;: &quot;Entity-Relationship Modelling&quot;
+            },
+            {
+                &quot;id&quot;: 175,
+                &quot;skill_category_id&quot;: 17,
+                &quot;name&quot;: &quot;Normalization&quot;
+            },
+            {
+                &quot;id&quot;: 176,
+                &quot;skill_category_id&quot;: 17,
+                &quot;name&quot;: &quot;Schema Design&quot;
+            },
+            {
+                &quot;id&quot;: 177,
+                &quot;skill_category_id&quot;: 17,
+                &quot;name&quot;: &quot;Data Modelling&quot;
+            },
+            {
+                &quot;id&quot;: 178,
+                &quot;skill_category_id&quot;: 17,
+                &quot;name&quot;: &quot;Indexing Strategy&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 18,
+        &quot;name&quot;: &quot;Database Administration&quot;,
+        &quot;slug&quot;: &quot;database_administration&quot;,
+        &quot;sort_order&quot;: 17,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 179,
+                &quot;skill_category_id&quot;: 18,
+                &quot;name&quot;: &quot;Backups &amp; Recovery&quot;
+            },
+            {
+                &quot;id&quot;: 180,
+                &quot;skill_category_id&quot;: 18,
+                &quot;name&quot;: &quot;Replication&quot;
+            },
+            {
+                &quot;id&quot;: 181,
+                &quot;skill_category_id&quot;: 18,
+                &quot;name&quot;: &quot;Sharding&quot;
+            },
+            {
+                &quot;id&quot;: 182,
+                &quot;skill_category_id&quot;: 18,
+                &quot;name&quot;: &quot;Query Optimization&quot;
+            },
+            {
+                &quot;id&quot;: 183,
+                &quot;skill_category_id&quot;: 18,
+                &quot;name&quot;: &quot;Migrations&quot;
+            },
+            {
+                &quot;id&quot;: 184,
+                &quot;skill_category_id&quot;: 18,
+                &quot;name&quot;: &quot;Performance Tuning&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 19,
+        &quot;name&quot;: &quot;ORM &amp; Data Access&quot;,
+        &quot;slug&quot;: &quot;orm_data_access&quot;,
+        &quot;sort_order&quot;: 18,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 185,
+                &quot;skill_category_id&quot;: 19,
+                &quot;name&quot;: &quot;Eloquent ORM&quot;
+            },
+            {
+                &quot;id&quot;: 186,
+                &quot;skill_category_id&quot;: 19,
+                &quot;name&quot;: &quot;Doctrine ORM&quot;
+            },
+            {
+                &quot;id&quot;: 187,
+                &quot;skill_category_id&quot;: 19,
+                &quot;name&quot;: &quot;Hibernate&quot;
+            },
+            {
+                &quot;id&quot;: 188,
+                &quot;skill_category_id&quot;: 19,
+                &quot;name&quot;: &quot;Prisma&quot;
+            },
+            {
+                &quot;id&quot;: 189,
+                &quot;skill_category_id&quot;: 19,
+                &quot;name&quot;: &quot;TypeORM&quot;
+            },
+            {
+                &quot;id&quot;: 190,
+                &quot;skill_category_id&quot;: 19,
+                &quot;name&quot;: &quot;SQLAlchemy&quot;
+            },
+            {
+                &quot;id&quot;: 191,
+                &quot;skill_category_id&quot;: 19,
+                &quot;name&quot;: &quot;ActiveRecord&quot;
+            },
+            {
+                &quot;id&quot;: 192,
+                &quot;skill_category_id&quot;: 19,
+                &quot;name&quot;: &quot;Drizzle&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 20,
+        &quot;name&quot;: &quot;API Development&quot;,
+        &quot;slug&quot;: &quot;api_development&quot;,
+        &quot;sort_order&quot;: 19,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 193,
+                &quot;skill_category_id&quot;: 20,
+                &quot;name&quot;: &quot;REST API&quot;
+            },
+            {
+                &quot;id&quot;: 194,
+                &quot;skill_category_id&quot;: 20,
+                &quot;name&quot;: &quot;GraphQL&quot;
+            },
+            {
+                &quot;id&quot;: 195,
+                &quot;skill_category_id&quot;: 20,
+                &quot;name&quot;: &quot;gRPC&quot;
+            },
+            {
+                &quot;id&quot;: 196,
+                &quot;skill_category_id&quot;: 20,
+                &quot;name&quot;: &quot;JSON:API&quot;
+            },
+            {
+                &quot;id&quot;: 197,
+                &quot;skill_category_id&quot;: 20,
+                &quot;name&quot;: &quot;OpenAPI / Swagger&quot;
+            },
+            {
+                &quot;id&quot;: 198,
+                &quot;skill_category_id&quot;: 20,
+                &quot;name&quot;: &quot;Postman&quot;
+            },
+            {
+                &quot;id&quot;: 199,
+                &quot;skill_category_id&quot;: 20,
+                &quot;name&quot;: &quot;API Gateway&quot;
+            },
+            {
+                &quot;id&quot;: 200,
+                &quot;skill_category_id&quot;: 20,
+                &quot;name&quot;: &quot;Webhooks&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 21,
+        &quot;name&quot;: &quot;Web Services&quot;,
+        &quot;slug&quot;: &quot;web_services&quot;,
+        &quot;sort_order&quot;: 20,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 201,
+                &quot;skill_category_id&quot;: 21,
+                &quot;name&quot;: &quot;SOAP&quot;
+            },
+            {
+                &quot;id&quot;: 202,
+                &quot;skill_category_id&quot;: 21,
+                &quot;name&quot;: &quot;REST&quot;
+            },
+            {
+                &quot;id&quot;: 203,
+                &quot;skill_category_id&quot;: 21,
+                &quot;name&quot;: &quot;XML-RPC&quot;
+            },
+            {
+                &quot;id&quot;: 204,
+                &quot;skill_category_id&quot;: 21,
+                &quot;name&quot;: &quot;WSDL&quot;
+            },
+            {
+                &quot;id&quot;: 205,
+                &quot;skill_category_id&quot;: 21,
+                &quot;name&quot;: &quot;Webhooks&quot;
+            },
+            {
+                &quot;id&quot;: 206,
+                &quot;skill_category_id&quot;: 21,
+                &quot;name&quot;: &quot;SSE&quot;
+            },
+            {
+                &quot;id&quot;: 207,
+                &quot;skill_category_id&quot;: 21,
+                &quot;name&quot;: &quot;WebSockets&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 22,
+        &quot;name&quot;: &quot;GraphQL&quot;,
+        &quot;slug&quot;: &quot;graphql&quot;,
+        &quot;sort_order&quot;: 21,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 208,
+                &quot;skill_category_id&quot;: 22,
+                &quot;name&quot;: &quot;Apollo Server&quot;
+            },
+            {
+                &quot;id&quot;: 209,
+                &quot;skill_category_id&quot;: 22,
+                &quot;name&quot;: &quot;Apollo Client&quot;
+            },
+            {
+                &quot;id&quot;: 210,
+                &quot;skill_category_id&quot;: 22,
+                &quot;name&quot;: &quot;Hasura&quot;
+            },
+            {
+                &quot;id&quot;: 211,
+                &quot;skill_category_id&quot;: 22,
+                &quot;name&quot;: &quot;GraphQL Yoga&quot;
+            },
+            {
+                &quot;id&quot;: 212,
+                &quot;skill_category_id&quot;: 22,
+                &quot;name&quot;: &quot;Strawberry&quot;
+            },
+            {
+                &quot;id&quot;: 213,
+                &quot;skill_category_id&quot;: 22,
+                &quot;name&quot;: &quot;Lighthouse (Laravel)&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 23,
+        &quot;name&quot;: &quot;Microservices&quot;,
+        &quot;slug&quot;: &quot;microservices&quot;,
+        &quot;sort_order&quot;: 22,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 214,
+                &quot;skill_category_id&quot;: 23,
+                &quot;name&quot;: &quot;Service Mesh&quot;
+            },
+            {
+                &quot;id&quot;: 215,
+                &quot;skill_category_id&quot;: 23,
+                &quot;name&quot;: &quot;API Gateway&quot;
+            },
+            {
+                &quot;id&quot;: 216,
+                &quot;skill_category_id&quot;: 23,
+                &quot;name&quot;: &quot;gRPC&quot;
+            },
+            {
+                &quot;id&quot;: 217,
+                &quot;skill_category_id&quot;: 23,
+                &quot;name&quot;: &quot;RabbitMQ&quot;
+            },
+            {
+                &quot;id&quot;: 218,
+                &quot;skill_category_id&quot;: 23,
+                &quot;name&quot;: &quot;Apache Kafka&quot;
+            },
+            {
+                &quot;id&quot;: 219,
+                &quot;skill_category_id&quot;: 23,
+                &quot;name&quot;: &quot;NATS&quot;
+            },
+            {
+                &quot;id&quot;: 220,
+                &quot;skill_category_id&quot;: 23,
+                &quot;name&quot;: &quot;Consul&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 24,
+        &quot;name&quot;: &quot;Event-Driven Architecture&quot;,
+        &quot;slug&quot;: &quot;event_driven_architecture&quot;,
+        &quot;sort_order&quot;: 23,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 221,
+                &quot;skill_category_id&quot;: 24,
+                &quot;name&quot;: &quot;Apache Kafka&quot;
+            },
+            {
+                &quot;id&quot;: 222,
+                &quot;skill_category_id&quot;: 24,
+                &quot;name&quot;: &quot;RabbitMQ&quot;
+            },
+            {
+                &quot;id&quot;: 223,
+                &quot;skill_category_id&quot;: 24,
+                &quot;name&quot;: &quot;AWS SQS&quot;
+            },
+            {
+                &quot;id&quot;: 224,
+                &quot;skill_category_id&quot;: 24,
+                &quot;name&quot;: &quot;Google Pub/Sub&quot;
+            },
+            {
+                &quot;id&quot;: 225,
+                &quot;skill_category_id&quot;: 24,
+                &quot;name&quot;: &quot;NATS&quot;
+            },
+            {
+                &quot;id&quot;: 226,
+                &quot;skill_category_id&quot;: 24,
+                &quot;name&quot;: &quot;EventBridge&quot;
+            },
+            {
+                &quot;id&quot;: 227,
+                &quot;skill_category_id&quot;: 24,
+                &quot;name&quot;: &quot;Laravel Queues&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 25,
+        &quot;name&quot;: &quot;DevOps&quot;,
+        &quot;slug&quot;: &quot;devops&quot;,
+        &quot;sort_order&quot;: 24,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 228,
+                &quot;skill_category_id&quot;: 25,
+                &quot;name&quot;: &quot;Docker&quot;
+            },
+            {
+                &quot;id&quot;: 229,
+                &quot;skill_category_id&quot;: 25,
+                &quot;name&quot;: &quot;Kubernetes&quot;
+            },
+            {
+                &quot;id&quot;: 230,
+                &quot;skill_category_id&quot;: 25,
+                &quot;name&quot;: &quot;Helm&quot;
+            },
+            {
+                &quot;id&quot;: 231,
+                &quot;skill_category_id&quot;: 25,
+                &quot;name&quot;: &quot;Terraform&quot;
+            },
+            {
+                &quot;id&quot;: 232,
+                &quot;skill_category_id&quot;: 25,
+                &quot;name&quot;: &quot;Ansible&quot;
+            },
+            {
+                &quot;id&quot;: 233,
+                &quot;skill_category_id&quot;: 25,
+                &quot;name&quot;: &quot;GitHub Actions&quot;
+            },
+            {
+                &quot;id&quot;: 234,
+                &quot;skill_category_id&quot;: 25,
+                &quot;name&quot;: &quot;GitLab CI&quot;
+            },
+            {
+                &quot;id&quot;: 235,
+                &quot;skill_category_id&quot;: 25,
+                &quot;name&quot;: &quot;Jenkins&quot;
+            },
+            {
+                &quot;id&quot;: 236,
+                &quot;skill_category_id&quot;: 25,
+                &quot;name&quot;: &quot;ArgoCD&quot;
+            },
+            {
+                &quot;id&quot;: 237,
+                &quot;skill_category_id&quot;: 25,
+                &quot;name&quot;: &quot;Prometheus&quot;
+            },
+            {
+                &quot;id&quot;: 238,
+                &quot;skill_category_id&quot;: 25,
+                &quot;name&quot;: &quot;Grafana&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 26,
+        &quot;name&quot;: &quot;Cloud Platforms&quot;,
+        &quot;slug&quot;: &quot;cloud_platforms&quot;,
+        &quot;sort_order&quot;: 25,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 239,
+                &quot;skill_category_id&quot;: 26,
+                &quot;name&quot;: &quot;Google Cloud Platform (GCP)&quot;
+            },
+            {
+                &quot;id&quot;: 240,
+                &quot;skill_category_id&quot;: 26,
+                &quot;name&quot;: &quot;Amazon Web Services (AWS)&quot;
+            },
+            {
+                &quot;id&quot;: 241,
+                &quot;skill_category_id&quot;: 26,
+                &quot;name&quot;: &quot;Microsoft Azure&quot;
+            },
+            {
+                &quot;id&quot;: 242,
+                &quot;skill_category_id&quot;: 26,
+                &quot;name&quot;: &quot;DigitalOcean&quot;
+            },
+            {
+                &quot;id&quot;: 243,
+                &quot;skill_category_id&quot;: 26,
+                &quot;name&quot;: &quot;Hetzner&quot;
+            },
+            {
+                &quot;id&quot;: 244,
+                &quot;skill_category_id&quot;: 26,
+                &quot;name&quot;: &quot;Cloudflare&quot;
+            },
+            {
+                &quot;id&quot;: 245,
+                &quot;skill_category_id&quot;: 26,
+                &quot;name&quot;: &quot;Vercel&quot;
+            },
+            {
+                &quot;id&quot;: 246,
+                &quot;skill_category_id&quot;: 26,
+                &quot;name&quot;: &quot;Render&quot;
+            },
+            {
+                &quot;id&quot;: 247,
+                &quot;skill_category_id&quot;: 26,
+                &quot;name&quot;: &quot;Fly.io&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 27,
+        &quot;name&quot;: &quot;Serverless&quot;,
+        &quot;slug&quot;: &quot;serverless&quot;,
+        &quot;sort_order&quot;: 26,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 248,
+                &quot;skill_category_id&quot;: 27,
+                &quot;name&quot;: &quot;AWS Lambda&quot;
+            },
+            {
+                &quot;id&quot;: 249,
+                &quot;skill_category_id&quot;: 27,
+                &quot;name&quot;: &quot;Google Cloud Functions&quot;
+            },
+            {
+                &quot;id&quot;: 250,
+                &quot;skill_category_id&quot;: 27,
+                &quot;name&quot;: &quot;Azure Functions&quot;
+            },
+            {
+                &quot;id&quot;: 251,
+                &quot;skill_category_id&quot;: 27,
+                &quot;name&quot;: &quot;Cloudflare Workers&quot;
+            },
+            {
+                &quot;id&quot;: 252,
+                &quot;skill_category_id&quot;: 27,
+                &quot;name&quot;: &quot;Vercel Edge Functions&quot;
+            },
+            {
+                &quot;id&quot;: 253,
+                &quot;skill_category_id&quot;: 27,
+                &quot;name&quot;: &quot;Deno Deploy&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 28,
+        &quot;name&quot;: &quot;Containerization&quot;,
+        &quot;slug&quot;: &quot;containerization&quot;,
+        &quot;sort_order&quot;: 27,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 254,
+                &quot;skill_category_id&quot;: 28,
+                &quot;name&quot;: &quot;Docker&quot;
+            },
+            {
+                &quot;id&quot;: 255,
+                &quot;skill_category_id&quot;: 28,
+                &quot;name&quot;: &quot;Docker Compose&quot;
+            },
+            {
+                &quot;id&quot;: 256,
+                &quot;skill_category_id&quot;: 28,
+                &quot;name&quot;: &quot;Kubernetes&quot;
+            },
+            {
+                &quot;id&quot;: 257,
+                &quot;skill_category_id&quot;: 28,
+                &quot;name&quot;: &quot;Podman&quot;
+            },
+            {
+                &quot;id&quot;: 258,
+                &quot;skill_category_id&quot;: 28,
+                &quot;name&quot;: &quot;containerd&quot;
+            },
+            {
+                &quot;id&quot;: 259,
+                &quot;skill_category_id&quot;: 28,
+                &quot;name&quot;: &quot;Helm&quot;
+            },
+            {
+                &quot;id&quot;: 260,
+                &quot;skill_category_id&quot;: 28,
+                &quot;name&quot;: &quot;K3s&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 29,
+        &quot;name&quot;: &quot;CI/CD&quot;,
+        &quot;slug&quot;: &quot;ci_cd&quot;,
+        &quot;sort_order&quot;: 28,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 261,
+                &quot;skill_category_id&quot;: 29,
+                &quot;name&quot;: &quot;GitHub Actions&quot;
+            },
+            {
+                &quot;id&quot;: 262,
+                &quot;skill_category_id&quot;: 29,
+                &quot;name&quot;: &quot;GitLab CI&quot;
+            },
+            {
+                &quot;id&quot;: 263,
+                &quot;skill_category_id&quot;: 29,
+                &quot;name&quot;: &quot;CircleCI&quot;
+            },
+            {
+                &quot;id&quot;: 264,
+                &quot;skill_category_id&quot;: 29,
+                &quot;name&quot;: &quot;Jenkins&quot;
+            },
+            {
+                &quot;id&quot;: 265,
+                &quot;skill_category_id&quot;: 29,
+                &quot;name&quot;: &quot;Bitbucket Pipelines&quot;
+            },
+            {
+                &quot;id&quot;: 266,
+                &quot;skill_category_id&quot;: 29,
+                &quot;name&quot;: &quot;ArgoCD&quot;
+            },
+            {
+                &quot;id&quot;: 267,
+                &quot;skill_category_id&quot;: 29,
+                &quot;name&quot;: &quot;Flux CD&quot;
+            },
+            {
+                &quot;id&quot;: 268,
+                &quot;skill_category_id&quot;: 29,
+                &quot;name&quot;: &quot;Travis CI&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 30,
+        &quot;name&quot;: &quot;Infrastructure as Code&quot;,
+        &quot;slug&quot;: &quot;infrastructure_as_code&quot;,
+        &quot;sort_order&quot;: 29,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 269,
+                &quot;skill_category_id&quot;: 30,
+                &quot;name&quot;: &quot;Terraform&quot;
+            },
+            {
+                &quot;id&quot;: 270,
+                &quot;skill_category_id&quot;: 30,
+                &quot;name&quot;: &quot;Pulumi&quot;
+            },
+            {
+                &quot;id&quot;: 271,
+                &quot;skill_category_id&quot;: 30,
+                &quot;name&quot;: &quot;AWS CloudFormation&quot;
+            },
+            {
+                &quot;id&quot;: 272,
+                &quot;skill_category_id&quot;: 30,
+                &quot;name&quot;: &quot;Ansible&quot;
+            },
+            {
+                &quot;id&quot;: 273,
+                &quot;skill_category_id&quot;: 30,
+                &quot;name&quot;: &quot;Chef&quot;
+            },
+            {
+                &quot;id&quot;: 274,
+                &quot;skill_category_id&quot;: 30,
+                &quot;name&quot;: &quot;Puppet&quot;
+            },
+            {
+                &quot;id&quot;: 275,
+                &quot;skill_category_id&quot;: 30,
+                &quot;name&quot;: &quot;Bicep&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 31,
+        &quot;name&quot;: &quot;Configuration Management&quot;,
+        &quot;slug&quot;: &quot;configuration_management&quot;,
+        &quot;sort_order&quot;: 30,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 276,
+                &quot;skill_category_id&quot;: 31,
+                &quot;name&quot;: &quot;Ansible&quot;
+            },
+            {
+                &quot;id&quot;: 277,
+                &quot;skill_category_id&quot;: 31,
+                &quot;name&quot;: &quot;Chef&quot;
+            },
+            {
+                &quot;id&quot;: 278,
+                &quot;skill_category_id&quot;: 31,
+                &quot;name&quot;: &quot;Puppet&quot;
+            },
+            {
+                &quot;id&quot;: 279,
+                &quot;skill_category_id&quot;: 31,
+                &quot;name&quot;: &quot;SaltStack&quot;
+            },
+            {
+                &quot;id&quot;: 280,
+                &quot;skill_category_id&quot;: 31,
+                &quot;name&quot;: &quot;.env Management&quot;
+            },
+            {
+                &quot;id&quot;: 281,
+                &quot;skill_category_id&quot;: 31,
+                &quot;name&quot;: &quot;Consul&quot;
+            },
+            {
+                &quot;id&quot;: 282,
+                &quot;skill_category_id&quot;: 31,
+                &quot;name&quot;: &quot;Vault&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 32,
+        &quot;name&quot;: &quot;Version Control&quot;,
+        &quot;slug&quot;: &quot;version_control&quot;,
+        &quot;sort_order&quot;: 31,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 283,
+                &quot;skill_category_id&quot;: 32,
+                &quot;name&quot;: &quot;Git&quot;
+            },
+            {
+                &quot;id&quot;: 284,
+                &quot;skill_category_id&quot;: 32,
+                &quot;name&quot;: &quot;GitHub&quot;
+            },
+            {
+                &quot;id&quot;: 285,
+                &quot;skill_category_id&quot;: 32,
+                &quot;name&quot;: &quot;GitLab&quot;
+            },
+            {
+                &quot;id&quot;: 286,
+                &quot;skill_category_id&quot;: 32,
+                &quot;name&quot;: &quot;Bitbucket&quot;
+            },
+            {
+                &quot;id&quot;: 287,
+                &quot;skill_category_id&quot;: 32,
+                &quot;name&quot;: &quot;SVN&quot;
+            },
+            {
+                &quot;id&quot;: 288,
+                &quot;skill_category_id&quot;: 32,
+                &quot;name&quot;: &quot;Mercurial&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 33,
+        &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+        &quot;slug&quot;: &quot;testing_qa&quot;,
+        &quot;sort_order&quot;: 32,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 289,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;PHPUnit&quot;
+            },
+            {
+                &quot;id&quot;: 290,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;Pest&quot;
+            },
+            {
+                &quot;id&quot;: 291,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;Jest&quot;
+            },
+            {
+                &quot;id&quot;: 292,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;Vitest&quot;
+            },
+            {
+                &quot;id&quot;: 293,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;Playwright&quot;
+            },
+            {
+                &quot;id&quot;: 294,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;Cypress&quot;
+            },
+            {
+                &quot;id&quot;: 295,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;Selenium&quot;
+            },
+            {
+                &quot;id&quot;: 296,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;Pytest&quot;
+            },
+            {
+                &quot;id&quot;: 297,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;JUnit&quot;
+            },
+            {
+                &quot;id&quot;: 298,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;RSpec&quot;
+            },
+            {
+                &quot;id&quot;: 299,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;Mocha&quot;
+            },
+            {
+                &quot;id&quot;: 300,
+                &quot;skill_category_id&quot;: 33,
+                &quot;name&quot;: &quot;Testing Library&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 34,
+        &quot;name&quot;: &quot;Test Automation&quot;,
+        &quot;slug&quot;: &quot;test_automation&quot;,
+        &quot;sort_order&quot;: 33,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 301,
+                &quot;skill_category_id&quot;: 34,
+                &quot;name&quot;: &quot;Playwright&quot;
+            },
+            {
+                &quot;id&quot;: 302,
+                &quot;skill_category_id&quot;: 34,
+                &quot;name&quot;: &quot;Cypress&quot;
+            },
+            {
+                &quot;id&quot;: 303,
+                &quot;skill_category_id&quot;: 34,
+                &quot;name&quot;: &quot;Selenium&quot;
+            },
+            {
+                &quot;id&quot;: 304,
+                &quot;skill_category_id&quot;: 34,
+                &quot;name&quot;: &quot;Puppeteer&quot;
+            },
+            {
+                &quot;id&quot;: 305,
+                &quot;skill_category_id&quot;: 34,
+                &quot;name&quot;: &quot;Appium&quot;
+            },
+            {
+                &quot;id&quot;: 306,
+                &quot;skill_category_id&quot;: 34,
+                &quot;name&quot;: &quot;Robot Framework&quot;
+            },
+            {
+                &quot;id&quot;: 307,
+                &quot;skill_category_id&quot;: 34,
+                &quot;name&quot;: &quot;k6&quot;
+            },
+            {
+                &quot;id&quot;: 308,
+                &quot;skill_category_id&quot;: 34,
+                &quot;name&quot;: &quot;Locust&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 35,
+        &quot;name&quot;: &quot;Security&quot;,
+        &quot;slug&quot;: &quot;security&quot;,
+        &quot;sort_order&quot;: 34,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 309,
+                &quot;skill_category_id&quot;: 35,
+                &quot;name&quot;: &quot;OWASP Top 10&quot;
+            },
+            {
+                &quot;id&quot;: 310,
+                &quot;skill_category_id&quot;: 35,
+                &quot;name&quot;: &quot;Penetration Testing&quot;
+            },
+            {
+                &quot;id&quot;: 311,
+                &quot;skill_category_id&quot;: 35,
+                &quot;name&quot;: &quot;SAST / DAST&quot;
+            },
+            {
+                &quot;id&quot;: 312,
+                &quot;skill_category_id&quot;: 35,
+                &quot;name&quot;: &quot;TLS / SSL&quot;
+            },
+            {
+                &quot;id&quot;: 313,
+                &quot;skill_category_id&quot;: 35,
+                &quot;name&quot;: &quot;Firewall Configuration&quot;
+            },
+            {
+                &quot;id&quot;: 314,
+                &quot;skill_category_id&quot;: 35,
+                &quot;name&quot;: &quot;Secrets Management&quot;
+            },
+            {
+                &quot;id&quot;: 315,
+                &quot;skill_category_id&quot;: 35,
+                &quot;name&quot;: &quot;Zero Trust&quot;
+            },
+            {
+                &quot;id&quot;: 316,
+                &quot;skill_category_id&quot;: 35,
+                &quot;name&quot;: &quot;SOC 2&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 36,
+        &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+        &quot;slug&quot;: &quot;authentication_authorization&quot;,
+        &quot;sort_order&quot;: 35,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 317,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;OAuth 2.0&quot;
+            },
+            {
+                &quot;id&quot;: 318,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;OpenID Connect&quot;
+            },
+            {
+                &quot;id&quot;: 319,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;JWT&quot;
+            },
+            {
+                &quot;id&quot;: 320,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;SAML&quot;
+            },
+            {
+                &quot;id&quot;: 321,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;Laravel Sanctum&quot;
+            },
+            {
+                &quot;id&quot;: 322,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;Laravel Passport&quot;
+            },
+            {
+                &quot;id&quot;: 323,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;Keycloak&quot;
+            },
+            {
+                &quot;id&quot;: 324,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;Auth0&quot;
+            },
+            {
+                &quot;id&quot;: 325,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;Firebase Auth&quot;
+            },
+            {
+                &quot;id&quot;: 326,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;Supabase Auth&quot;
+            },
+            {
+                &quot;id&quot;: 327,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;RBAC&quot;
+            },
+            {
+                &quot;id&quot;: 328,
+                &quot;skill_category_id&quot;: 36,
+                &quot;name&quot;: &quot;ABAC&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 37,
+        &quot;name&quot;: &quot;Networking&quot;,
+        &quot;slug&quot;: &quot;networking&quot;,
+        &quot;sort_order&quot;: 36,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 329,
+                &quot;skill_category_id&quot;: 37,
+                &quot;name&quot;: &quot;TCP/IP&quot;
+            },
+            {
+                &quot;id&quot;: 330,
+                &quot;skill_category_id&quot;: 37,
+                &quot;name&quot;: &quot;DNS&quot;
+            },
+            {
+                &quot;id&quot;: 331,
+                &quot;skill_category_id&quot;: 37,
+                &quot;name&quot;: &quot;HTTP/HTTPS&quot;
+            },
+            {
+                &quot;id&quot;: 332,
+                &quot;skill_category_id&quot;: 37,
+                &quot;name&quot;: &quot;WebSockets&quot;
+            },
+            {
+                &quot;id&quot;: 333,
+                &quot;skill_category_id&quot;: 37,
+                &quot;name&quot;: &quot;gRPC&quot;
+            },
+            {
+                &quot;id&quot;: 334,
+                &quot;skill_category_id&quot;: 37,
+                &quot;name&quot;: &quot;VPN&quot;
+            },
+            {
+                &quot;id&quot;: 335,
+                &quot;skill_category_id&quot;: 37,
+                &quot;name&quot;: &quot;Load Balancing&quot;
+            },
+            {
+                &quot;id&quot;: 336,
+                &quot;skill_category_id&quot;: 37,
+                &quot;name&quot;: &quot;CDN&quot;
+            },
+            {
+                &quot;id&quot;: 337,
+                &quot;skill_category_id&quot;: 37,
+                &quot;name&quot;: &quot;Nginx&quot;
+            },
+            {
+                &quot;id&quot;: 338,
+                &quot;skill_category_id&quot;: 37,
+                &quot;name&quot;: &quot;HAProxy&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 38,
+        &quot;name&quot;: &quot;Performance Optimization&quot;,
+        &quot;slug&quot;: &quot;performance_optimization&quot;,
+        &quot;sort_order&quot;: 37,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 339,
+                &quot;skill_category_id&quot;: 38,
+                &quot;name&quot;: &quot;Caching&quot;
+            },
+            {
+                &quot;id&quot;: 340,
+                &quot;skill_category_id&quot;: 38,
+                &quot;name&quot;: &quot;Redis&quot;
+            },
+            {
+                &quot;id&quot;: 341,
+                &quot;skill_category_id&quot;: 38,
+                &quot;name&quot;: &quot;CDN&quot;
+            },
+            {
+                &quot;id&quot;: 342,
+                &quot;skill_category_id&quot;: 38,
+                &quot;name&quot;: &quot;Lazy Loading&quot;
+            },
+            {
+                &quot;id&quot;: 343,
+                &quot;skill_category_id&quot;: 38,
+                &quot;name&quot;: &quot;Database Indexing&quot;
+            },
+            {
+                &quot;id&quot;: 344,
+                &quot;skill_category_id&quot;: 38,
+                &quot;name&quot;: &quot;Query Optimization&quot;
+            },
+            {
+                &quot;id&quot;: 345,
+                &quot;skill_category_id&quot;: 38,
+                &quot;name&quot;: &quot;Profiling&quot;
+            },
+            {
+                &quot;id&quot;: 346,
+                &quot;skill_category_id&quot;: 38,
+                &quot;name&quot;: &quot;Web Vitals&quot;
+            },
+            {
+                &quot;id&quot;: 347,
+                &quot;skill_category_id&quot;: 38,
+                &quot;name&quot;: &quot;Lighthouse&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 39,
+        &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+        &quot;slug&quot;: &quot;architecture_design_patterns&quot;,
+        &quot;sort_order&quot;: 38,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 348,
+                &quot;skill_category_id&quot;: 39,
+                &quot;name&quot;: &quot;MVC&quot;
+            },
+            {
+                &quot;id&quot;: 349,
+                &quot;skill_category_id&quot;: 39,
+                &quot;name&quot;: &quot;MVVM&quot;
+            },
+            {
+                &quot;id&quot;: 350,
+                &quot;skill_category_id&quot;: 39,
+                &quot;name&quot;: &quot;Repository Pattern&quot;
+            },
+            {
+                &quot;id&quot;: 351,
+                &quot;skill_category_id&quot;: 39,
+                &quot;name&quot;: &quot;CQRS&quot;
+            },
+            {
+                &quot;id&quot;: 352,
+                &quot;skill_category_id&quot;: 39,
+                &quot;name&quot;: &quot;Event Sourcing&quot;
+            },
+            {
+                &quot;id&quot;: 353,
+                &quot;skill_category_id&quot;: 39,
+                &quot;name&quot;: &quot;Domain-Driven Design (DDD)&quot;
+            },
+            {
+                &quot;id&quot;: 354,
+                &quot;skill_category_id&quot;: 39,
+                &quot;name&quot;: &quot;Hexagonal Architecture&quot;
+            },
+            {
+                &quot;id&quot;: 355,
+                &quot;skill_category_id&quot;: 39,
+                &quot;name&quot;: &quot;SOLID Principles&quot;
+            },
+            {
+                &quot;id&quot;: 356,
+                &quot;skill_category_id&quot;: 39,
+                &quot;name&quot;: &quot;Factory&quot;
+            },
+            {
+                &quot;id&quot;: 357,
+                &quot;skill_category_id&quot;: 39,
+                &quot;name&quot;: &quot;Observer&quot;
+            },
+            {
+                &quot;id&quot;: 358,
+                &quot;skill_category_id&quot;: 39,
+                &quot;name&quot;: &quot;Singleton&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 40,
+        &quot;name&quot;: &quot;System Design&quot;,
+        &quot;slug&quot;: &quot;system_design&quot;,
+        &quot;sort_order&quot;: 39,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 359,
+                &quot;skill_category_id&quot;: 40,
+                &quot;name&quot;: &quot;High Availability&quot;
+            },
+            {
+                &quot;id&quot;: 360,
+                &quot;skill_category_id&quot;: 40,
+                &quot;name&quot;: &quot;Load Balancing&quot;
+            },
+            {
+                &quot;id&quot;: 361,
+                &quot;skill_category_id&quot;: 40,
+                &quot;name&quot;: &quot;Horizontal Scaling&quot;
+            },
+            {
+                &quot;id&quot;: 362,
+                &quot;skill_category_id&quot;: 40,
+                &quot;name&quot;: &quot;Caching Strategies&quot;
+            },
+            {
+                &quot;id&quot;: 363,
+                &quot;skill_category_id&quot;: 40,
+                &quot;name&quot;: &quot;Message Queues&quot;
+            },
+            {
+                &quot;id&quot;: 364,
+                &quot;skill_category_id&quot;: 40,
+                &quot;name&quot;: &quot;CAP Theorem&quot;
+            },
+            {
+                &quot;id&quot;: 365,
+                &quot;skill_category_id&quot;: 40,
+                &quot;name&quot;: &quot;Rate Limiting&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 41,
+        &quot;name&quot;: &quot;Distributed Systems&quot;,
+        &quot;slug&quot;: &quot;distributed_systems&quot;,
+        &quot;sort_order&quot;: 40,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 366,
+                &quot;skill_category_id&quot;: 41,
+                &quot;name&quot;: &quot;Apache Kafka&quot;
+            },
+            {
+                &quot;id&quot;: 367,
+                &quot;skill_category_id&quot;: 41,
+                &quot;name&quot;: &quot;Apache Zookeeper&quot;
+            },
+            {
+                &quot;id&quot;: 368,
+                &quot;skill_category_id&quot;: 41,
+                &quot;name&quot;: &quot;Consul&quot;
+            },
+            {
+                &quot;id&quot;: 369,
+                &quot;skill_category_id&quot;: 41,
+                &quot;name&quot;: &quot;etcd&quot;
+            },
+            {
+                &quot;id&quot;: 370,
+                &quot;skill_category_id&quot;: 41,
+                &quot;name&quot;: &quot;Raft Consensus&quot;
+            },
+            {
+                &quot;id&quot;: 371,
+                &quot;skill_category_id&quot;: 41,
+                &quot;name&quot;: &quot;CRDTs&quot;
+            },
+            {
+                &quot;id&quot;: 372,
+                &quot;skill_category_id&quot;: 41,
+                &quot;name&quot;: &quot;Two-Phase Commit&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 42,
+        &quot;name&quot;: &quot;Data Engineering&quot;,
+        &quot;slug&quot;: &quot;data_engineering&quot;,
+        &quot;sort_order&quot;: 41,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 373,
+                &quot;skill_category_id&quot;: 42,
+                &quot;name&quot;: &quot;Apache Spark&quot;
+            },
+            {
+                &quot;id&quot;: 374,
+                &quot;skill_category_id&quot;: 42,
+                &quot;name&quot;: &quot;Apache Airflow&quot;
+            },
+            {
+                &quot;id&quot;: 375,
+                &quot;skill_category_id&quot;: 42,
+                &quot;name&quot;: &quot;dbt&quot;
+            },
+            {
+                &quot;id&quot;: 376,
+                &quot;skill_category_id&quot;: 42,
+                &quot;name&quot;: &quot;ETL Pipelines&quot;
+            },
+            {
+                &quot;id&quot;: 377,
+                &quot;skill_category_id&quot;: 42,
+                &quot;name&quot;: &quot;Apache Kafka&quot;
+            },
+            {
+                &quot;id&quot;: 378,
+                &quot;skill_category_id&quot;: 42,
+                &quot;name&quot;: &quot;Flink&quot;
+            },
+            {
+                &quot;id&quot;: 379,
+                &quot;skill_category_id&quot;: 42,
+                &quot;name&quot;: &quot;BigQuery&quot;
+            },
+            {
+                &quot;id&quot;: 380,
+                &quot;skill_category_id&quot;: 42,
+                &quot;name&quot;: &quot;Redshift&quot;
+            },
+            {
+                &quot;id&quot;: 381,
+                &quot;skill_category_id&quot;: 42,
+                &quot;name&quot;: &quot;Snowflake&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 43,
+        &quot;name&quot;: &quot;Big Data&quot;,
+        &quot;slug&quot;: &quot;big_data&quot;,
+        &quot;sort_order&quot;: 42,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 382,
+                &quot;skill_category_id&quot;: 43,
+                &quot;name&quot;: &quot;Apache Hadoop&quot;
+            },
+            {
+                &quot;id&quot;: 383,
+                &quot;skill_category_id&quot;: 43,
+                &quot;name&quot;: &quot;Apache Spark&quot;
+            },
+            {
+                &quot;id&quot;: 384,
+                &quot;skill_category_id&quot;: 43,
+                &quot;name&quot;: &quot;Hive&quot;
+            },
+            {
+                &quot;id&quot;: 385,
+                &quot;skill_category_id&quot;: 43,
+                &quot;name&quot;: &quot;HBase&quot;
+            },
+            {
+                &quot;id&quot;: 386,
+                &quot;skill_category_id&quot;: 43,
+                &quot;name&quot;: &quot;Presto&quot;
+            },
+            {
+                &quot;id&quot;: 387,
+                &quot;skill_category_id&quot;: 43,
+                &quot;name&quot;: &quot;Google BigQuery&quot;
+            },
+            {
+                &quot;id&quot;: 388,
+                &quot;skill_category_id&quot;: 43,
+                &quot;name&quot;: &quot;Amazon Redshift&quot;
+            },
+            {
+                &quot;id&quot;: 389,
+                &quot;skill_category_id&quot;: 43,
+                &quot;name&quot;: &quot;Snowflake&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 44,
+        &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+        &quot;slug&quot;: &quot;machine_learning_ai&quot;,
+        &quot;sort_order&quot;: 43,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 390,
+                &quot;skill_category_id&quot;: 44,
+                &quot;name&quot;: &quot;TensorFlow&quot;
+            },
+            {
+                &quot;id&quot;: 391,
+                &quot;skill_category_id&quot;: 44,
+                &quot;name&quot;: &quot;PyTorch&quot;
+            },
+            {
+                &quot;id&quot;: 392,
+                &quot;skill_category_id&quot;: 44,
+                &quot;name&quot;: &quot;scikit-learn&quot;
+            },
+            {
+                &quot;id&quot;: 393,
+                &quot;skill_category_id&quot;: 44,
+                &quot;name&quot;: &quot;Keras&quot;
+            },
+            {
+                &quot;id&quot;: 394,
+                &quot;skill_category_id&quot;: 44,
+                &quot;name&quot;: &quot;Hugging Face&quot;
+            },
+            {
+                &quot;id&quot;: 395,
+                &quot;skill_category_id&quot;: 44,
+                &quot;name&quot;: &quot;LangChain&quot;
+            },
+            {
+                &quot;id&quot;: 396,
+                &quot;skill_category_id&quot;: 44,
+                &quot;name&quot;: &quot;OpenAI API&quot;
+            },
+            {
+                &quot;id&quot;: 397,
+                &quot;skill_category_id&quot;: 44,
+                &quot;name&quot;: &quot;Pandas&quot;
+            },
+            {
+                &quot;id&quot;: 398,
+                &quot;skill_category_id&quot;: 44,
+                &quot;name&quot;: &quot;NumPy&quot;
+            },
+            {
+                &quot;id&quot;: 399,
+                &quot;skill_category_id&quot;: 44,
+                &quot;name&quot;: &quot;Jupyter&quot;
+            },
+            {
+                &quot;id&quot;: 400,
+                &quot;skill_category_id&quot;: 44,
+                &quot;name&quot;: &quot;MLflow&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 45,
+        &quot;name&quot;: &quot;Monitoring &amp; Logging&quot;,
+        &quot;slug&quot;: &quot;monitoring_logging&quot;,
+        &quot;sort_order&quot;: 44,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 401,
+                &quot;skill_category_id&quot;: 45,
+                &quot;name&quot;: &quot;Prometheus&quot;
+            },
+            {
+                &quot;id&quot;: 402,
+                &quot;skill_category_id&quot;: 45,
+                &quot;name&quot;: &quot;Grafana&quot;
+            },
+            {
+                &quot;id&quot;: 403,
+                &quot;skill_category_id&quot;: 45,
+                &quot;name&quot;: &quot;Datadog&quot;
+            },
+            {
+                &quot;id&quot;: 404,
+                &quot;skill_category_id&quot;: 45,
+                &quot;name&quot;: &quot;New Relic&quot;
+            },
+            {
+                &quot;id&quot;: 405,
+                &quot;skill_category_id&quot;: 45,
+                &quot;name&quot;: &quot;Sentry&quot;
+            },
+            {
+                &quot;id&quot;: 406,
+                &quot;skill_category_id&quot;: 45,
+                &quot;name&quot;: &quot;ELK Stack&quot;
+            },
+            {
+                &quot;id&quot;: 407,
+                &quot;skill_category_id&quot;: 45,
+                &quot;name&quot;: &quot;Loki&quot;
+            },
+            {
+                &quot;id&quot;: 408,
+                &quot;skill_category_id&quot;: 45,
+                &quot;name&quot;: &quot;OpenTelemetry&quot;
+            },
+            {
+                &quot;id&quot;: 409,
+                &quot;skill_category_id&quot;: 45,
+                &quot;name&quot;: &quot;PagerDuty&quot;
+            },
+            {
+                &quot;id&quot;: 410,
+                &quot;skill_category_id&quot;: 45,
+                &quot;name&quot;: &quot;Uptime Kuma&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 46,
+        &quot;name&quot;: &quot;Development Tools&quot;,
+        &quot;slug&quot;: &quot;development_tools&quot;,
+        &quot;sort_order&quot;: 45,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 411,
+                &quot;skill_category_id&quot;: 46,
+                &quot;name&quot;: &quot;Visual Studio Code&quot;
+            },
+            {
+                &quot;id&quot;: 412,
+                &quot;skill_category_id&quot;: 46,
+                &quot;name&quot;: &quot;PhpStorm&quot;
+            },
+            {
+                &quot;id&quot;: 413,
+                &quot;skill_category_id&quot;: 46,
+                &quot;name&quot;: &quot;JetBrains IDEs&quot;
+            },
+            {
+                &quot;id&quot;: 414,
+                &quot;skill_category_id&quot;: 46,
+                &quot;name&quot;: &quot;Postman&quot;
+            },
+            {
+                &quot;id&quot;: 415,
+                &quot;skill_category_id&quot;: 46,
+                &quot;name&quot;: &quot;Insomnia&quot;
+            },
+            {
+                &quot;id&quot;: 416,
+                &quot;skill_category_id&quot;: 46,
+                &quot;name&quot;: &quot;TablePlus&quot;
+            },
+            {
+                &quot;id&quot;: 417,
+                &quot;skill_category_id&quot;: 46,
+                &quot;name&quot;: &quot;DBeaver&quot;
+            },
+            {
+                &quot;id&quot;: 418,
+                &quot;skill_category_id&quot;: 46,
+                &quot;name&quot;: &quot;Xdebug&quot;
+            },
+            {
+                &quot;id&quot;: 419,
+                &quot;skill_category_id&quot;: 46,
+                &quot;name&quot;: &quot;Laravel Telescope&quot;
+            },
+            {
+                &quot;id&quot;: 420,
+                &quot;skill_category_id&quot;: 46,
+                &quot;name&quot;: &quot;Makefile&quot;
+            },
+            {
+                &quot;id&quot;: 421,
+                &quot;skill_category_id&quot;: 46,
+                &quot;name&quot;: &quot;direnv&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 47,
+        &quot;name&quot;: &quot;Operating Systems&quot;,
+        &quot;slug&quot;: &quot;operating_systems&quot;,
+        &quot;sort_order&quot;: 46,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 422,
+                &quot;skill_category_id&quot;: 47,
+                &quot;name&quot;: &quot;Linux (Ubuntu)&quot;
+            },
+            {
+                &quot;id&quot;: 423,
+                &quot;skill_category_id&quot;: 47,
+                &quot;name&quot;: &quot;Linux (Debian)&quot;
+            },
+            {
+                &quot;id&quot;: 424,
+                &quot;skill_category_id&quot;: 47,
+                &quot;name&quot;: &quot;Linux (Alpine)&quot;
+            },
+            {
+                &quot;id&quot;: 425,
+                &quot;skill_category_id&quot;: 47,
+                &quot;name&quot;: &quot;macOS&quot;
+            },
+            {
+                &quot;id&quot;: 426,
+                &quot;skill_category_id&quot;: 47,
+                &quot;name&quot;: &quot;Windows&quot;
+            },
+            {
+                &quot;id&quot;: 427,
+                &quot;skill_category_id&quot;: 47,
+                &quot;name&quot;: &quot;Windows Server&quot;
+            },
+            {
+                &quot;id&quot;: 428,
+                &quot;skill_category_id&quot;: 47,
+                &quot;name&quot;: &quot;CoreOS&quot;
+            },
+            {
+                &quot;id&quot;: 429,
+                &quot;skill_category_id&quot;: 47,
+                &quot;name&quot;: &quot;NixOS&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 48,
+        &quot;name&quot;: &quot;Project Management&quot;,
+        &quot;slug&quot;: &quot;project_management&quot;,
+        &quot;sort_order&quot;: 47,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 430,
+                &quot;skill_category_id&quot;: 48,
+                &quot;name&quot;: &quot;Jira&quot;
+            },
+            {
+                &quot;id&quot;: 431,
+                &quot;skill_category_id&quot;: 48,
+                &quot;name&quot;: &quot;Linear&quot;
+            },
+            {
+                &quot;id&quot;: 432,
+                &quot;skill_category_id&quot;: 48,
+                &quot;name&quot;: &quot;Trello&quot;
+            },
+            {
+                &quot;id&quot;: 433,
+                &quot;skill_category_id&quot;: 48,
+                &quot;name&quot;: &quot;Notion&quot;
+            },
+            {
+                &quot;id&quot;: 434,
+                &quot;skill_category_id&quot;: 48,
+                &quot;name&quot;: &quot;Asana&quot;
+            },
+            {
+                &quot;id&quot;: 435,
+                &quot;skill_category_id&quot;: 48,
+                &quot;name&quot;: &quot;GitHub Projects&quot;
+            },
+            {
+                &quot;id&quot;: 436,
+                &quot;skill_category_id&quot;: 48,
+                &quot;name&quot;: &quot;Confluence&quot;
+            },
+            {
+                &quot;id&quot;: 437,
+                &quot;skill_category_id&quot;: 48,
+                &quot;name&quot;: &quot;Basecamp&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 49,
+        &quot;name&quot;: &quot;Agile Methodologies&quot;,
+        &quot;slug&quot;: &quot;agile_methodologies&quot;,
+        &quot;sort_order&quot;: 48,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 438,
+                &quot;skill_category_id&quot;: 49,
+                &quot;name&quot;: &quot;Scrum&quot;
+            },
+            {
+                &quot;id&quot;: 439,
+                &quot;skill_category_id&quot;: 49,
+                &quot;name&quot;: &quot;Kanban&quot;
+            },
+            {
+                &quot;id&quot;: 440,
+                &quot;skill_category_id&quot;: 49,
+                &quot;name&quot;: &quot;SAFe&quot;
+            },
+            {
+                &quot;id&quot;: 441,
+                &quot;skill_category_id&quot;: 49,
+                &quot;name&quot;: &quot;Extreme Programming (XP)&quot;
+            },
+            {
+                &quot;id&quot;: 442,
+                &quot;skill_category_id&quot;: 49,
+                &quot;name&quot;: &quot;Lean&quot;
+            },
+            {
+                &quot;id&quot;: 443,
+                &quot;skill_category_id&quot;: 49,
+                &quot;name&quot;: &quot;Shape Up&quot;
+            },
+            {
+                &quot;id&quot;: 444,
+                &quot;skill_category_id&quot;: 49,
+                &quot;name&quot;: &quot;OKRs&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 50,
+        &quot;name&quot;: &quot;Soft Skills&quot;,
+        &quot;slug&quot;: &quot;soft_skills&quot;,
+        &quot;sort_order&quot;: 49,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: [
+            {
+                &quot;id&quot;: 445,
+                &quot;skill_category_id&quot;: 50,
+                &quot;name&quot;: &quot;Communication&quot;
+            },
+            {
+                &quot;id&quot;: 446,
+                &quot;skill_category_id&quot;: 50,
+                &quot;name&quot;: &quot;Teamwork&quot;
+            },
+            {
+                &quot;id&quot;: 447,
+                &quot;skill_category_id&quot;: 50,
+                &quot;name&quot;: &quot;Problem Solving&quot;
+            },
+            {
+                &quot;id&quot;: 448,
+                &quot;skill_category_id&quot;: 50,
+                &quot;name&quot;: &quot;Time Management&quot;
+            },
+            {
+                &quot;id&quot;: 449,
+                &quot;skill_category_id&quot;: 50,
+                &quot;name&quot;: &quot;Mentoring&quot;
+            },
+            {
+                &quot;id&quot;: 450,
+                &quot;skill_category_id&quot;: 50,
+                &quot;name&quot;: &quot;Technical Writing&quot;
+            },
+            {
+                &quot;id&quot;: 451,
+                &quot;skill_category_id&quot;: 50,
+                &quot;name&quot;: &quot;Code Review&quot;
+            },
+            {
+                &quot;id&quot;: 452,
+                &quot;skill_category_id&quot;: 50,
+                &quot;name&quot;: &quot;Leadership&quot;
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 51,
+        &quot;name&quot;: &quot;Other&quot;,
+        &quot;slug&quot;: &quot;other&quot;,
+        &quot;sort_order&quot;: 50,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;skills&quot;: []
+    }
+]</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-skill-categories" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-skill-categories"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-skill-categories"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-skill-categories" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-skill-categories">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-skill-categories" data-method="GET"
+      data-path="api/skill-categories"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-skill-categories', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-skill-categories"
+                    onclick="tryItOut('GETapi-skill-categories');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-skill-categories"
+                    onclick="cancelTryOut('GETapi-skill-categories');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-skill-categories"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/skill-categories</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-skill-categories"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-skill-categories"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="skill-categories-GETapi-skill-categories--id--skills">List skills for a specific category.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-skill-categories--id--skills">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1/skills" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1/skills"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-skill-categories--id--skills">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 44
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;id&quot;: 6,
+        &quot;name&quot;: &quot;C&quot;
+    },
+    {
+        &quot;id&quot;: 8,
+        &quot;name&quot;: &quot;C#&quot;
+    },
+    {
+        &quot;id&quot;: 7,
+        &quot;name&quot;: &quot;C++&quot;
+    },
+    {
+        &quot;id&quot;: 15,
+        &quot;name&quot;: &quot;Dart&quot;
+    },
+    {
+        &quot;id&quot;: 16,
+        &quot;name&quot;: &quot;Elixir&quot;
+    },
+    {
+        &quot;id&quot;: 9,
+        &quot;name&quot;: &quot;Go&quot;
+    },
+    {
+        &quot;id&quot;: 17,
+        &quot;name&quot;: &quot;Haskell&quot;
+    },
+    {
+        &quot;id&quot;: 5,
+        &quot;name&quot;: &quot;Java&quot;
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;name&quot;: &quot;JavaScript&quot;
+    },
+    {
+        &quot;id&quot;: 20,
+        &quot;name&quot;: &quot;Julia&quot;
+    },
+    {
+        &quot;id&quot;: 11,
+        &quot;name&quot;: &quot;Kotlin&quot;
+    },
+    {
+        &quot;id&quot;: 19,
+        &quot;name&quot;: &quot;Lua&quot;
+    },
+    {
+        &quot;id&quot;: 18,
+        &quot;name&quot;: &quot;Perl&quot;
+    },
+    {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;PHP&quot;
+    },
+    {
+        &quot;id&quot;: 4,
+        &quot;name&quot;: &quot;Python&quot;
+    },
+    {
+        &quot;id&quot;: 13,
+        &quot;name&quot;: &quot;Ruby&quot;
+    },
+    {
+        &quot;id&quot;: 10,
+        &quot;name&quot;: &quot;Rust&quot;
+    },
+    {
+        &quot;id&quot;: 14,
+        &quot;name&quot;: &quot;Scala&quot;
+    },
+    {
+        &quot;id&quot;: 12,
+        &quot;name&quot;: &quot;Swift&quot;
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;name&quot;: &quot;TypeScript&quot;
+    }
+]</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-skill-categories--id--skills" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-skill-categories--id--skills"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-skill-categories--id--skills"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-skill-categories--id--skills" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-skill-categories--id--skills">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-skill-categories--id--skills" data-method="GET"
+      data-path="api/skill-categories/{id}/skills"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-skill-categories--id--skills', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-skill-categories--id--skills"
+                    onclick="tryItOut('GETapi-skill-categories--id--skills');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-skill-categories--id--skills"
+                    onclick="cancelTryOut('GETapi-skill-categories--id--skills');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-skill-categories--id--skills"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/skill-categories/{id}/skills</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-skill-categories--id--skills"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-skill-categories--id--skills"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-skill-categories--id--skills"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the skill category. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="skill-categories-POSTapi-skill-categories">Create a skill category.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-skill-categories">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"vmqeopfuudtdsufvyvddq\",
+    \"slug\": \"amniihfqcoynlazghdtqt\",
+    \"sort_order\": 56
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "vmqeopfuudtdsufvyvddq",
+    "slug": "amniihfqcoynlazghdtqt",
+    "sort_order": 56
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-skill-categories">
+</span>
+<span id="execution-results-POSTapi-skill-categories" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-skill-categories"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-skill-categories"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-skill-categories" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-skill-categories">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-skill-categories" data-method="POST"
+      data-path="api/skill-categories"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-skill-categories', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-skill-categories"
+                    onclick="tryItOut('POSTapi-skill-categories');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-skill-categories"
+                    onclick="cancelTryOut('POSTapi-skill-categories');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-skill-categories"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/skill-categories</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-skill-categories"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-skill-categories"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-skill-categories"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-skill-categories"
+               value="vmqeopfuudtdsufvyvddq"
+               data-component="body">
+    <br>
+<p>Must not be greater than 100 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>slug</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="slug"                data-endpoint="POSTapi-skill-categories"
+               value="amniihfqcoynlazghdtqt"
+               data-component="body">
+    <br>
+<p>Must not be greater than 100 characters. Example: <code>amniihfqcoynlazghdtqt</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>sort_order</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="sort_order"                data-endpoint="POSTapi-skill-categories"
+               value="56"
+               data-component="body">
+    <br>
+<p>Must be at least 0. Example: <code>56</code></p>
+        </div>
+        </form>
+
+                    <h2 id="skill-categories-PUTapi-skill-categories--id-">Update a skill category.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-skill-categories--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"sort_order\": 73
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "sort_order": 73
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-skill-categories--id-">
+</span>
+<span id="execution-results-PUTapi-skill-categories--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-skill-categories--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-skill-categories--id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-skill-categories--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-skill-categories--id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-skill-categories--id-" data-method="PUT"
+      data-path="api/skill-categories/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-skill-categories--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-skill-categories--id-"
+                    onclick="tryItOut('PUTapi-skill-categories--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-skill-categories--id-"
+                    onclick="cancelTryOut('PUTapi-skill-categories--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-skill-categories--id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/skill-categories/{id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-skill-categories--id-"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-skill-categories--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-skill-categories--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="PUTapi-skill-categories--id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the skill category. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="PUTapi-skill-categories--id-"
+               value=""
+               data-component="body">
+    <br>
+
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>slug</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="slug"                data-endpoint="PUTapi-skill-categories--id-"
+               value=""
+               data-component="body">
+    <br>
+
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>sort_order</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="sort_order"                data-endpoint="PUTapi-skill-categories--id-"
+               value="73"
+               data-component="body">
+    <br>
+<p>Must be at least 0. Example: <code>73</code></p>
+        </div>
+        </form>
+
+                    <h2 id="skill-categories-DELETEapi-skill-categories--id-">Delete a skill category.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-skill-categories--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-skill-categories--id-">
+</span>
+<span id="execution-results-DELETEapi-skill-categories--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-skill-categories--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-skill-categories--id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-skill-categories--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-skill-categories--id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-skill-categories--id-" data-method="DELETE"
+      data-path="api/skill-categories/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-skill-categories--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-skill-categories--id-"
+                    onclick="tryItOut('DELETEapi-skill-categories--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-skill-categories--id-"
+                    onclick="cancelTryOut('DELETEapi-skill-categories--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-skill-categories--id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/skill-categories/{id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-skill-categories--id-"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-skill-categories--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-skill-categories--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="DELETEapi-skill-categories--id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the skill category. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="skill-categories-POSTapi-skill-categories--id--skills">Add a skill to a category.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-skill-categories--id--skills">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1/skills" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"vmqeopfuudtdsufvyvddq\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1/skills"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "vmqeopfuudtdsufvyvddq"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-skill-categories--id--skills">
+</span>
+<span id="execution-results-POSTapi-skill-categories--id--skills" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-skill-categories--id--skills"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-skill-categories--id--skills"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-skill-categories--id--skills" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-skill-categories--id--skills">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-skill-categories--id--skills" data-method="POST"
+      data-path="api/skill-categories/{id}/skills"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-skill-categories--id--skills', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-skill-categories--id--skills"
+                    onclick="tryItOut('POSTapi-skill-categories--id--skills');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-skill-categories--id--skills"
+                    onclick="cancelTryOut('POSTapi-skill-categories--id--skills');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-skill-categories--id--skills"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/skill-categories/{id}/skills</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-skill-categories--id--skills"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-skill-categories--id--skills"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-skill-categories--id--skills"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="POSTapi-skill-categories--id--skills"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the skill category. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-skill-categories--id--skills"
+               value="vmqeopfuudtdsufvyvddq"
+               data-component="body">
+    <br>
+<p>Must not be greater than 100 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+        </div>
+        </form>
+
+                    <h2 id="skill-categories-PUTapi-skill-categories--id--skills--skillId-">Update a skill.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-skill-categories--id--skills--skillId-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1/skills/1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"vmqeopfuudtdsufvyvddq\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1/skills/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "vmqeopfuudtdsufvyvddq"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-skill-categories--id--skills--skillId-">
+</span>
+<span id="execution-results-PUTapi-skill-categories--id--skills--skillId-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-skill-categories--id--skills--skillId-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-skill-categories--id--skills--skillId-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-skill-categories--id--skills--skillId-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-skill-categories--id--skills--skillId-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-skill-categories--id--skills--skillId-" data-method="PUT"
+      data-path="api/skill-categories/{id}/skills/{skillId}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-skill-categories--id--skills--skillId-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-skill-categories--id--skills--skillId-"
+                    onclick="tryItOut('PUTapi-skill-categories--id--skills--skillId-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-skill-categories--id--skills--skillId-"
+                    onclick="cancelTryOut('PUTapi-skill-categories--id--skills--skillId-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-skill-categories--id--skills--skillId-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/skill-categories/{id}/skills/{skillId}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-skill-categories--id--skills--skillId-"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-skill-categories--id--skills--skillId-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-skill-categories--id--skills--skillId-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="PUTapi-skill-categories--id--skills--skillId-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the skill category. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>skillId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="skillId"                data-endpoint="PUTapi-skill-categories--id--skills--skillId-"
+               value="1"
+               data-component="url">
+    <br>
+<p>Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="PUTapi-skill-categories--id--skills--skillId-"
+               value="vmqeopfuudtdsufvyvddq"
+               data-component="body">
+    <br>
+<p>Must not be greater than 100 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+        </div>
+        </form>
+
+                    <h2 id="skill-categories-DELETEapi-skill-categories--id--skills--skillId-">Delete a skill.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-skill-categories--id--skills--skillId-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1/skills/1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skill-categories/1/skills/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-skill-categories--id--skills--skillId-">
+</span>
+<span id="execution-results-DELETEapi-skill-categories--id--skills--skillId-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-skill-categories--id--skills--skillId-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-skill-categories--id--skills--skillId-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-skill-categories--id--skills--skillId-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-skill-categories--id--skills--skillId-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-skill-categories--id--skills--skillId-" data-method="DELETE"
+      data-path="api/skill-categories/{id}/skills/{skillId}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-skill-categories--id--skills--skillId-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-skill-categories--id--skills--skillId-"
+                    onclick="tryItOut('DELETEapi-skill-categories--id--skills--skillId-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-skill-categories--id--skills--skillId-"
+                    onclick="cancelTryOut('DELETEapi-skill-categories--id--skills--skillId-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-skill-categories--id--skills--skillId-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/skill-categories/{id}/skills/{skillId}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-skill-categories--id--skills--skillId-"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-skill-categories--id--skills--skillId-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-skill-categories--id--skills--skillId-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="DELETEapi-skill-categories--id--skills--skillId-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the skill category. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>skillId</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="skillId"                data-endpoint="DELETEapi-skill-categories--id--skills--skillId-"
+               value="1"
+               data-component="url">
+    <br>
+<p>Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                <h1 id="skills">Skills</h1>
+
+    
+
+                                <h2 id="skills-GETapi-skills">List all skills, optionally filtered by category or search query.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-skills">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/skills" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skills"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-skills">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 43
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;id&quot;: 280,
+        &quot;skill_category_id&quot;: 31,
+        &quot;name&quot;: &quot;.env Management&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 31,
+            &quot;name&quot;: &quot;Configuration Management&quot;,
+            &quot;slug&quot;: &quot;configuration_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 142,
+        &quot;skill_category_id&quot;: 13,
+        &quot;name&quot;: &quot;.NET MAUI&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 13,
+            &quot;name&quot;: &quot;Desktop Development&quot;,
+            &quot;slug&quot;: &quot;desktop_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 328,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;ABAC&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 119,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;Accessibility (WCAG)&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 191,
+        &quot;skill_category_id&quot;: 19,
+        &quot;name&quot;: &quot;ActiveRecord&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 19,
+            &quot;name&quot;: &quot;ORM &amp; Data Access&quot;,
+            &quot;slug&quot;: &quot;orm_data_access&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 73,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;Actix&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 109,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;Adobe XD&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 52,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Alpine.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 388,
+        &quot;skill_category_id&quot;: 43,
+        &quot;name&quot;: &quot;Amazon Redshift&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 43,
+            &quot;name&quot;: &quot;Big Data&quot;,
+            &quot;slug&quot;: &quot;big_data&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 240,
+        &quot;skill_category_id&quot;: 26,
+        &quot;name&quot;: &quot;Amazon Web Services (AWS)&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 26,
+            &quot;name&quot;: &quot;Cloud Platforms&quot;,
+            &quot;slug&quot;: &quot;cloud_platforms&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 46,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Angular&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 85,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;Angular&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 232,
+        &quot;skill_category_id&quot;: 25,
+        &quot;name&quot;: &quot;Ansible&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;DevOps&quot;,
+            &quot;slug&quot;: &quot;devops&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 272,
+        &quot;skill_category_id&quot;: 30,
+        &quot;name&quot;: &quot;Ansible&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 30,
+            &quot;name&quot;: &quot;Infrastructure as Code&quot;,
+            &quot;slug&quot;: &quot;infrastructure_as_code&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 276,
+        &quot;skill_category_id&quot;: 31,
+        &quot;name&quot;: &quot;Ansible&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 31,
+            &quot;name&quot;: &quot;Configuration Management&quot;,
+            &quot;slug&quot;: &quot;configuration_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 374,
+        &quot;skill_category_id&quot;: 42,
+        &quot;name&quot;: &quot;Apache Airflow&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 42,
+            &quot;name&quot;: &quot;Data Engineering&quot;,
+            &quot;slug&quot;: &quot;data_engineering&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 382,
+        &quot;skill_category_id&quot;: 43,
+        &quot;name&quot;: &quot;Apache Hadoop&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 43,
+            &quot;name&quot;: &quot;Big Data&quot;,
+            &quot;slug&quot;: &quot;big_data&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 366,
+        &quot;skill_category_id&quot;: 41,
+        &quot;name&quot;: &quot;Apache Kafka&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 41,
+            &quot;name&quot;: &quot;Distributed Systems&quot;,
+            &quot;slug&quot;: &quot;distributed_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 377,
+        &quot;skill_category_id&quot;: 42,
+        &quot;name&quot;: &quot;Apache Kafka&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 42,
+            &quot;name&quot;: &quot;Data Engineering&quot;,
+            &quot;slug&quot;: &quot;data_engineering&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 218,
+        &quot;skill_category_id&quot;: 23,
+        &quot;name&quot;: &quot;Apache Kafka&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 23,
+            &quot;name&quot;: &quot;Microservices&quot;,
+            &quot;slug&quot;: &quot;microservices&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 221,
+        &quot;skill_category_id&quot;: 24,
+        &quot;name&quot;: &quot;Apache Kafka&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 24,
+            &quot;name&quot;: &quot;Event-Driven Architecture&quot;,
+            &quot;slug&quot;: &quot;event_driven_architecture&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 373,
+        &quot;skill_category_id&quot;: 42,
+        &quot;name&quot;: &quot;Apache Spark&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 42,
+            &quot;name&quot;: &quot;Data Engineering&quot;,
+            &quot;slug&quot;: &quot;data_engineering&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 383,
+        &quot;skill_category_id&quot;: 43,
+        &quot;name&quot;: &quot;Apache Spark&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 43,
+            &quot;name&quot;: &quot;Big Data&quot;,
+            &quot;slug&quot;: &quot;big_data&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 367,
+        &quot;skill_category_id&quot;: 41,
+        &quot;name&quot;: &quot;Apache Zookeeper&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 41,
+            &quot;name&quot;: &quot;Distributed Systems&quot;,
+            &quot;slug&quot;: &quot;distributed_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 199,
+        &quot;skill_category_id&quot;: 20,
+        &quot;name&quot;: &quot;API Gateway&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 20,
+            &quot;name&quot;: &quot;API Development&quot;,
+            &quot;slug&quot;: &quot;api_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 215,
+        &quot;skill_category_id&quot;: 23,
+        &quot;name&quot;: &quot;API Gateway&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 23,
+            &quot;name&quot;: &quot;Microservices&quot;,
+            &quot;slug&quot;: &quot;microservices&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 209,
+        &quot;skill_category_id&quot;: 22,
+        &quot;name&quot;: &quot;Apollo Client&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 22,
+            &quot;name&quot;: &quot;GraphQL&quot;,
+            &quot;slug&quot;: &quot;graphql&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 208,
+        &quot;skill_category_id&quot;: 22,
+        &quot;name&quot;: &quot;Apollo Server&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 22,
+            &quot;name&quot;: &quot;GraphQL&quot;,
+            &quot;slug&quot;: &quot;graphql&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 305,
+        &quot;skill_category_id&quot;: 34,
+        &quot;name&quot;: &quot;Appium&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 34,
+            &quot;name&quot;: &quot;Test Automation&quot;,
+            &quot;slug&quot;: &quot;test_automation&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 154,
+        &quot;skill_category_id&quot;: 15,
+        &quot;name&quot;: &quot;Arduino&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 15,
+            &quot;name&quot;: &quot;Embedded Systems&quot;,
+            &quot;slug&quot;: &quot;embedded_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 236,
+        &quot;skill_category_id&quot;: 25,
+        &quot;name&quot;: &quot;ArgoCD&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;DevOps&quot;,
+            &quot;slug&quot;: &quot;devops&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 266,
+        &quot;skill_category_id&quot;: 29,
+        &quot;name&quot;: &quot;ArgoCD&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 29,
+            &quot;name&quot;: &quot;CI/CD&quot;,
+            &quot;slug&quot;: &quot;ci_cd&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 434,
+        &quot;skill_category_id&quot;: 48,
+        &quot;name&quot;: &quot;Asana&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 48,
+            &quot;name&quot;: &quot;Project Management&quot;,
+            &quot;slug&quot;: &quot;project_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 69,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;ASP.NET Core&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 88,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;ASP.NET Core&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 50,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Astro&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 324,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;Auth0&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 271,
+        &quot;skill_category_id&quot;: 30,
+        &quot;name&quot;: &quot;AWS CloudFormation&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 30,
+            &quot;name&quot;: &quot;Infrastructure as Code&quot;,
+            &quot;slug&quot;: &quot;infrastructure_as_code&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 248,
+        &quot;skill_category_id&quot;: 27,
+        &quot;name&quot;: &quot;AWS Lambda&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 27,
+            &quot;name&quot;: &quot;Serverless&quot;,
+            &quot;slug&quot;: &quot;serverless&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 223,
+        &quot;skill_category_id&quot;: 24,
+        &quot;name&quot;: &quot;AWS SQS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 24,
+            &quot;name&quot;: &quot;Event-Driven Architecture&quot;,
+            &quot;slug&quot;: &quot;event_driven_architecture&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 94,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;Axios&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 250,
+        &quot;skill_category_id&quot;: 27,
+        &quot;name&quot;: &quot;Azure Functions&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 27,
+            &quot;name&quot;: &quot;Serverless&quot;,
+            &quot;slug&quot;: &quot;serverless&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 179,
+        &quot;skill_category_id&quot;: 18,
+        &quot;name&quot;: &quot;Backups &amp; Recovery&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 18,
+            &quot;name&quot;: &quot;Database Administration&quot;,
+            &quot;slug&quot;: &quot;database_administration&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 115,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;Balsamiq&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 437,
+        &quot;skill_category_id&quot;: 48,
+        &quot;name&quot;: &quot;Basecamp&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 48,
+            &quot;name&quot;: &quot;Project Management&quot;,
+            &quot;slug&quot;: &quot;project_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 21,
+        &quot;skill_category_id&quot;: 2,
+        &quot;name&quot;: &quot;Bash&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Scripting Languages&quot;,
+            &quot;slug&quot;: &quot;scripting_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 149,
+        &quot;skill_category_id&quot;: 14,
+        &quot;name&quot;: &quot;Bevy&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 14,
+            &quot;name&quot;: &quot;Game Development&quot;,
+            &quot;slug&quot;: &quot;game_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 275,
+        &quot;skill_category_id&quot;: 30,
+        &quot;name&quot;: &quot;Bicep&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 30,
+            &quot;name&quot;: &quot;Infrastructure as Code&quot;,
+            &quot;slug&quot;: &quot;infrastructure_as_code&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 379,
+        &quot;skill_category_id&quot;: 42,
+        &quot;name&quot;: &quot;BigQuery&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 42,
+            &quot;name&quot;: &quot;Data Engineering&quot;,
+            &quot;slug&quot;: &quot;data_engineering&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 286,
+        &quot;skill_category_id&quot;: 32,
+        &quot;name&quot;: &quot;Bitbucket&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 32,
+            &quot;name&quot;: &quot;Version Control&quot;,
+            &quot;slug&quot;: &quot;version_control&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 265,
+        &quot;skill_category_id&quot;: 29,
+        &quot;name&quot;: &quot;Bitbucket Pipelines&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 29,
+            &quot;name&quot;: &quot;CI/CD&quot;,
+            &quot;slug&quot;: &quot;ci_cd&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 57,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Bootstrap&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 92,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;Bootstrap&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 123,
+        &quot;skill_category_id&quot;: 11,
+        &quot;name&quot;: &quot;Bootstrap&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 11,
+            &quot;name&quot;: &quot;Responsive Design&quot;,
+            &quot;slug&quot;: &quot;responsive_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 6,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;C&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 151,
+        &quot;skill_category_id&quot;: 15,
+        &quot;name&quot;: &quot;C&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 15,
+            &quot;name&quot;: &quot;Embedded Systems&quot;,
+            &quot;slug&quot;: &quot;embedded_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 8,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;C#&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 7,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;C++&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 152,
+        &quot;skill_category_id&quot;: 15,
+        &quot;name&quot;: &quot;C++&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 15,
+            &quot;name&quot;: &quot;Embedded Systems&quot;,
+            &quot;slug&quot;: &quot;embedded_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 339,
+        &quot;skill_category_id&quot;: 38,
+        &quot;name&quot;: &quot;Caching&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 38,
+            &quot;name&quot;: &quot;Performance Optimization&quot;,
+            &quot;slug&quot;: &quot;performance_optimization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 362,
+        &quot;skill_category_id&quot;: 40,
+        &quot;name&quot;: &quot;Caching Strategies&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 40,
+            &quot;name&quot;: &quot;System Design&quot;,
+            &quot;slug&quot;: &quot;system_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 364,
+        &quot;skill_category_id&quot;: 40,
+        &quot;name&quot;: &quot;CAP Theorem&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 40,
+            &quot;name&quot;: &quot;System Design&quot;,
+            &quot;slug&quot;: &quot;system_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 134,
+        &quot;skill_category_id&quot;: 12,
+        &quot;name&quot;: &quot;Capacitor&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 12,
+            &quot;name&quot;: &quot;Mobile Development&quot;,
+            &quot;slug&quot;: &quot;mobile_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 167,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;CassandraDB&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 336,
+        &quot;skill_category_id&quot;: 37,
+        &quot;name&quot;: &quot;CDN&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 37,
+            &quot;name&quot;: &quot;Networking&quot;,
+            &quot;slug&quot;: &quot;networking&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 341,
+        &quot;skill_category_id&quot;: 38,
+        &quot;name&quot;: &quot;CDN&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 38,
+            &quot;name&quot;: &quot;Performance Optimization&quot;,
+            &quot;slug&quot;: &quot;performance_optimization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 103,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;Chart.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 273,
+        &quot;skill_category_id&quot;: 30,
+        &quot;name&quot;: &quot;Chef&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 30,
+            &quot;name&quot;: &quot;Infrastructure as Code&quot;,
+            &quot;slug&quot;: &quot;infrastructure_as_code&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 277,
+        &quot;skill_category_id&quot;: 31,
+        &quot;name&quot;: &quot;Chef&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 31,
+            &quot;name&quot;: &quot;Configuration Management&quot;,
+            &quot;slug&quot;: &quot;configuration_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 263,
+        &quot;skill_category_id&quot;: 29,
+        &quot;name&quot;: &quot;CircleCI&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 29,
+            &quot;name&quot;: &quot;CI/CD&quot;,
+            &quot;slug&quot;: &quot;ci_cd&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 170,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;ClickHouse&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 244,
+        &quot;skill_category_id&quot;: 26,
+        &quot;name&quot;: &quot;Cloudflare&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 26,
+            &quot;name&quot;: &quot;Cloud Platforms&quot;,
+            &quot;slug&quot;: &quot;cloud_platforms&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 251,
+        &quot;skill_category_id&quot;: 27,
+        &quot;name&quot;: &quot;Cloudflare Workers&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 27,
+            &quot;name&quot;: &quot;Serverless&quot;,
+            &quot;slug&quot;: &quot;serverless&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 172,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;CockroachDB&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 451,
+        &quot;skill_category_id&quot;: 50,
+        &quot;name&quot;: &quot;Code Review&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 50,
+            &quot;name&quot;: &quot;Soft Skills&quot;,
+            &quot;slug&quot;: &quot;soft_skills&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 445,
+        &quot;skill_category_id&quot;: 50,
+        &quot;name&quot;: &quot;Communication&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 50,
+            &quot;name&quot;: &quot;Soft Skills&quot;,
+            &quot;slug&quot;: &quot;soft_skills&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 436,
+        &quot;skill_category_id&quot;: 48,
+        &quot;name&quot;: &quot;Confluence&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 48,
+            &quot;name&quot;: &quot;Project Management&quot;,
+            &quot;slug&quot;: &quot;project_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 281,
+        &quot;skill_category_id&quot;: 31,
+        &quot;name&quot;: &quot;Consul&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 31,
+            &quot;name&quot;: &quot;Configuration Management&quot;,
+            &quot;slug&quot;: &quot;configuration_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 368,
+        &quot;skill_category_id&quot;: 41,
+        &quot;name&quot;: &quot;Consul&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 41,
+            &quot;name&quot;: &quot;Distributed Systems&quot;,
+            &quot;slug&quot;: &quot;distributed_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 220,
+        &quot;skill_category_id&quot;: 23,
+        &quot;name&quot;: &quot;Consul&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 23,
+            &quot;name&quot;: &quot;Microservices&quot;,
+            &quot;slug&quot;: &quot;microservices&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 258,
+        &quot;skill_category_id&quot;: 28,
+        &quot;name&quot;: &quot;containerd&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 28,
+            &quot;name&quot;: &quot;Containerization&quot;,
+            &quot;slug&quot;: &quot;containerization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 428,
+        &quot;skill_category_id&quot;: 47,
+        &quot;name&quot;: &quot;CoreOS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 47,
+            &quot;name&quot;: &quot;Operating Systems&quot;,
+            &quot;slug&quot;: &quot;operating_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 351,
+        &quot;skill_category_id&quot;: 39,
+        &quot;name&quot;: &quot;CQRS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+            &quot;slug&quot;: &quot;architecture_design_patterns&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 371,
+        &quot;skill_category_id&quot;: 41,
+        &quot;name&quot;: &quot;CRDTs&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 41,
+            &quot;name&quot;: &quot;Distributed Systems&quot;,
+            &quot;slug&quot;: &quot;distributed_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 59,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;CSS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 120,
+        &quot;skill_category_id&quot;: 11,
+        &quot;name&quot;: &quot;CSS Grid&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 11,
+            &quot;name&quot;: &quot;Responsive Design&quot;,
+            &quot;slug&quot;: &quot;responsive_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 42,
+        &quot;skill_category_id&quot;: 4,
+        &quot;name&quot;: &quot;Cypher&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Query Languages&quot;,
+            &quot;slug&quot;: &quot;query_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 294,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;Cypress&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 302,
+        &quot;skill_category_id&quot;: 34,
+        &quot;name&quot;: &quot;Cypress&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 34,
+            &quot;name&quot;: &quot;Test Automation&quot;,
+            &quot;slug&quot;: &quot;test_automation&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 104,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;D3.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 15,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Dart&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 177,
+        &quot;skill_category_id&quot;: 17,
+        &quot;name&quot;: &quot;Data Modelling&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 17,
+            &quot;name&quot;: &quot;Database Design&quot;,
+            &quot;slug&quot;: &quot;database_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 343,
+        &quot;skill_category_id&quot;: 38,
+        &quot;name&quot;: &quot;Database Indexing&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 38,
+            &quot;name&quot;: &quot;Performance Optimization&quot;,
+            &quot;slug&quot;: &quot;performance_optimization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 403,
+        &quot;skill_category_id&quot;: 45,
+        &quot;name&quot;: &quot;Datadog&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 45,
+            &quot;name&quot;: &quot;Monitoring &amp; Logging&quot;,
+            &quot;slug&quot;: &quot;monitoring_logging&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 96,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;Day.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 417,
+        &quot;skill_category_id&quot;: 46,
+        &quot;name&quot;: &quot;DBeaver&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Development Tools&quot;,
+            &quot;slug&quot;: &quot;development_tools&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 375,
+        &quot;skill_category_id&quot;: 42,
+        &quot;name&quot;: &quot;dbt&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 42,
+            &quot;name&quot;: &quot;Data Engineering&quot;,
+            &quot;slug&quot;: &quot;data_engineering&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 253,
+        &quot;skill_category_id&quot;: 27,
+        &quot;name&quot;: &quot;Deno Deploy&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 27,
+            &quot;name&quot;: &quot;Serverless&quot;,
+            &quot;slug&quot;: &quot;serverless&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 242,
+        &quot;skill_category_id&quot;: 26,
+        &quot;name&quot;: &quot;DigitalOcean&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 26,
+            &quot;name&quot;: &quot;Cloud Platforms&quot;,
+            &quot;slug&quot;: &quot;cloud_platforms&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 421,
+        &quot;skill_category_id&quot;: 46,
+        &quot;name&quot;: &quot;direnv&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Development Tools&quot;,
+            &quot;slug&quot;: &quot;development_tools&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 63,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;Django&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 86,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;Django&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 330,
+        &quot;skill_category_id&quot;: 37,
+        &quot;name&quot;: &quot;DNS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 37,
+            &quot;name&quot;: &quot;Networking&quot;,
+            &quot;slug&quot;: &quot;networking&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 254,
+        &quot;skill_category_id&quot;: 28,
+        &quot;name&quot;: &quot;Docker&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 28,
+            &quot;name&quot;: &quot;Containerization&quot;,
+            &quot;slug&quot;: &quot;containerization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 228,
+        &quot;skill_category_id&quot;: 25,
+        &quot;name&quot;: &quot;Docker&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;DevOps&quot;,
+            &quot;slug&quot;: &quot;devops&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 255,
+        &quot;skill_category_id&quot;: 28,
+        &quot;name&quot;: &quot;Docker Compose&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 28,
+            &quot;name&quot;: &quot;Containerization&quot;,
+            &quot;slug&quot;: &quot;containerization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 186,
+        &quot;skill_category_id&quot;: 19,
+        &quot;name&quot;: &quot;Doctrine ORM&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 19,
+            &quot;name&quot;: &quot;ORM &amp; Data Access&quot;,
+            &quot;slug&quot;: &quot;orm_data_access&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 353,
+        &quot;skill_category_id&quot;: 39,
+        &quot;name&quot;: &quot;Domain-Driven Design (DDD)&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+            &quot;slug&quot;: &quot;architecture_design_patterns&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 192,
+        &quot;skill_category_id&quot;: 19,
+        &quot;name&quot;: &quot;Drizzle&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 19,
+            &quot;name&quot;: &quot;ORM &amp; Data Access&quot;,
+            &quot;slug&quot;: &quot;orm_data_access&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 168,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;DynamoDB&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 166,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;Elasticsearch&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 135,
+        &quot;skill_category_id&quot;: 13,
+        &quot;name&quot;: &quot;Electron&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 13,
+            &quot;name&quot;: &quot;Desktop Development&quot;,
+            &quot;slug&quot;: &quot;desktop_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 16,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Elixir&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 406,
+        &quot;skill_category_id&quot;: 45,
+        &quot;name&quot;: &quot;ELK Stack&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 45,
+            &quot;name&quot;: &quot;Monitoring &amp; Logging&quot;,
+            &quot;slug&quot;: &quot;monitoring_logging&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 185,
+        &quot;skill_category_id&quot;: 19,
+        &quot;name&quot;: &quot;Eloquent ORM&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 19,
+            &quot;name&quot;: &quot;ORM &amp; Data Access&quot;,
+            &quot;slug&quot;: &quot;orm_data_access&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 174,
+        &quot;skill_category_id&quot;: 17,
+        &quot;name&quot;: &quot;Entity-Relationship Modelling&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 17,
+            &quot;name&quot;: &quot;Database Design&quot;,
+            &quot;slug&quot;: &quot;database_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 369,
+        &quot;skill_category_id&quot;: 41,
+        &quot;name&quot;: &quot;etcd&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 41,
+            &quot;name&quot;: &quot;Distributed Systems&quot;,
+            &quot;slug&quot;: &quot;distributed_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 376,
+        &quot;skill_category_id&quot;: 42,
+        &quot;name&quot;: &quot;ETL Pipelines&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 42,
+            &quot;name&quot;: &quot;Data Engineering&quot;,
+            &quot;slug&quot;: &quot;data_engineering&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 352,
+        &quot;skill_category_id&quot;: 39,
+        &quot;name&quot;: &quot;Event Sourcing&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+            &quot;slug&quot;: &quot;architecture_design_patterns&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 226,
+        &quot;skill_category_id&quot;: 24,
+        &quot;name&quot;: &quot;EventBridge&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 24,
+            &quot;name&quot;: &quot;Event-Driven Architecture&quot;,
+            &quot;slug&quot;: &quot;event_driven_architecture&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 133,
+        &quot;skill_category_id&quot;: 12,
+        &quot;name&quot;: &quot;Expo&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 12,
+            &quot;name&quot;: &quot;Mobile Development&quot;,
+            &quot;slug&quot;: &quot;mobile_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 66,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;Express.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 90,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;Express.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 441,
+        &quot;skill_category_id&quot;: 49,
+        &quot;name&quot;: &quot;Extreme Programming (XP)&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 49,
+            &quot;name&quot;: &quot;Agile Methodologies&quot;,
+            &quot;slug&quot;: &quot;agile_methodologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 356,
+        &quot;skill_category_id&quot;: 39,
+        &quot;name&quot;: &quot;Factory&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+            &quot;slug&quot;: &quot;architecture_design_patterns&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 64,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;FastAPI&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 108,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;Figma&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 325,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;Firebase Auth&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 169,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;Firestore&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 313,
+        &quot;skill_category_id&quot;: 35,
+        &quot;name&quot;: &quot;Firewall Configuration&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 35,
+            &quot;name&quot;: &quot;Security&quot;,
+            &quot;slug&quot;: &quot;security&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 65,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;Flask&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 121,
+        &quot;skill_category_id&quot;: 11,
+        &quot;name&quot;: &quot;Flexbox&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 11,
+            &quot;name&quot;: &quot;Responsive Design&quot;,
+            &quot;slug&quot;: &quot;responsive_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 378,
+        &quot;skill_category_id&quot;: 42,
+        &quot;name&quot;: &quot;Flink&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 42,
+            &quot;name&quot;: &quot;Data Engineering&quot;,
+            &quot;slug&quot;: &quot;data_engineering&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 127,
+        &quot;skill_category_id&quot;: 12,
+        &quot;name&quot;: &quot;Flutter&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 12,
+            &quot;name&quot;: &quot;Mobile Development&quot;,
+            &quot;slug&quot;: &quot;mobile_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 267,
+        &quot;skill_category_id&quot;: 29,
+        &quot;name&quot;: &quot;Flux CD&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 29,
+            &quot;name&quot;: &quot;CI/CD&quot;,
+            &quot;slug&quot;: &quot;ci_cd&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 247,
+        &quot;skill_category_id&quot;: 26,
+        &quot;name&quot;: &quot;Fly.io&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 26,
+            &quot;name&quot;: &quot;Cloud Platforms&quot;,
+            &quot;slug&quot;: &quot;cloud_platforms&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 114,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;Framer&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 107,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;Framer Motion&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 156,
+        &quot;skill_category_id&quot;: 15,
+        &quot;name&quot;: &quot;FreeRTOS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 15,
+            &quot;name&quot;: &quot;Embedded Systems&quot;,
+            &quot;slug&quot;: &quot;embedded_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 283,
+        &quot;skill_category_id&quot;: 32,
+        &quot;name&quot;: &quot;Git&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 32,
+            &quot;name&quot;: &quot;Version Control&quot;,
+            &quot;slug&quot;: &quot;version_control&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 284,
+        &quot;skill_category_id&quot;: 32,
+        &quot;name&quot;: &quot;GitHub&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 32,
+            &quot;name&quot;: &quot;Version Control&quot;,
+            &quot;slug&quot;: &quot;version_control&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 261,
+        &quot;skill_category_id&quot;: 29,
+        &quot;name&quot;: &quot;GitHub Actions&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 29,
+            &quot;name&quot;: &quot;CI/CD&quot;,
+            &quot;slug&quot;: &quot;ci_cd&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 233,
+        &quot;skill_category_id&quot;: 25,
+        &quot;name&quot;: &quot;GitHub Actions&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;DevOps&quot;,
+            &quot;slug&quot;: &quot;devops&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 435,
+        &quot;skill_category_id&quot;: 48,
+        &quot;name&quot;: &quot;GitHub Projects&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 48,
+            &quot;name&quot;: &quot;Project Management&quot;,
+            &quot;slug&quot;: &quot;project_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 285,
+        &quot;skill_category_id&quot;: 32,
+        &quot;name&quot;: &quot;GitLab&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 32,
+            &quot;name&quot;: &quot;Version Control&quot;,
+            &quot;slug&quot;: &quot;version_control&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 262,
+        &quot;skill_category_id&quot;: 29,
+        &quot;name&quot;: &quot;GitLab CI&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 29,
+            &quot;name&quot;: &quot;CI/CD&quot;,
+            &quot;slug&quot;: &quot;ci_cd&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 234,
+        &quot;skill_category_id&quot;: 25,
+        &quot;name&quot;: &quot;GitLab CI&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;DevOps&quot;,
+            &quot;slug&quot;: &quot;devops&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 9,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Go&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 145,
+        &quot;skill_category_id&quot;: 14,
+        &quot;name&quot;: &quot;Godot&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 14,
+            &quot;name&quot;: &quot;Game Development&quot;,
+            &quot;slug&quot;: &quot;game_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 387,
+        &quot;skill_category_id&quot;: 43,
+        &quot;name&quot;: &quot;Google BigQuery&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 43,
+            &quot;name&quot;: &quot;Big Data&quot;,
+            &quot;slug&quot;: &quot;big_data&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 249,
+        &quot;skill_category_id&quot;: 27,
+        &quot;name&quot;: &quot;Google Cloud Functions&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 27,
+            &quot;name&quot;: &quot;Serverless&quot;,
+            &quot;slug&quot;: &quot;serverless&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 239,
+        &quot;skill_category_id&quot;: 26,
+        &quot;name&quot;: &quot;Google Cloud Platform (GCP)&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 26,
+            &quot;name&quot;: &quot;Cloud Platforms&quot;,
+            &quot;slug&quot;: &quot;cloud_platforms&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 224,
+        &quot;skill_category_id&quot;: 24,
+        &quot;name&quot;: &quot;Google Pub/Sub&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 24,
+            &quot;name&quot;: &quot;Event-Driven Architecture&quot;,
+            &quot;slug&quot;: &quot;event_driven_architecture&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 238,
+        &quot;skill_category_id&quot;: 25,
+        &quot;name&quot;: &quot;Grafana&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;DevOps&quot;,
+            &quot;slug&quot;: &quot;devops&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 402,
+        &quot;skill_category_id&quot;: 45,
+        &quot;name&quot;: &quot;Grafana&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 45,
+            &quot;name&quot;: &quot;Monitoring &amp; Logging&quot;,
+            &quot;slug&quot;: &quot;monitoring_logging&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 38,
+        &quot;skill_category_id&quot;: 4,
+        &quot;name&quot;: &quot;GraphQL&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Query Languages&quot;,
+            &quot;slug&quot;: &quot;query_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 194,
+        &quot;skill_category_id&quot;: 20,
+        &quot;name&quot;: &quot;GraphQL&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 20,
+            &quot;name&quot;: &quot;API Development&quot;,
+            &quot;slug&quot;: &quot;api_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 211,
+        &quot;skill_category_id&quot;: 22,
+        &quot;name&quot;: &quot;GraphQL Yoga&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 22,
+            &quot;name&quot;: &quot;GraphQL&quot;,
+            &quot;slug&quot;: &quot;graphql&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 26,
+        &quot;skill_category_id&quot;: 2,
+        &quot;name&quot;: &quot;Groovy&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Scripting Languages&quot;,
+            &quot;slug&quot;: &quot;scripting_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 195,
+        &quot;skill_category_id&quot;: 20,
+        &quot;name&quot;: &quot;gRPC&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 20,
+            &quot;name&quot;: &quot;API Development&quot;,
+            &quot;slug&quot;: &quot;api_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 216,
+        &quot;skill_category_id&quot;: 23,
+        &quot;name&quot;: &quot;gRPC&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 23,
+            &quot;name&quot;: &quot;Microservices&quot;,
+            &quot;slug&quot;: &quot;microservices&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 333,
+        &quot;skill_category_id&quot;: 37,
+        &quot;name&quot;: &quot;gRPC&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 37,
+            &quot;name&quot;: &quot;Networking&quot;,
+            &quot;slug&quot;: &quot;networking&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 106,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;GSAP&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 141,
+        &quot;skill_category_id&quot;: 13,
+        &quot;name&quot;: &quot;GTK&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 13,
+            &quot;name&quot;: &quot;Desktop Development&quot;,
+            &quot;slug&quot;: &quot;desktop_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 35,
+        &quot;skill_category_id&quot;: 3,
+        &quot;name&quot;: &quot;Haml&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Markup Languages&quot;,
+            &quot;slug&quot;: &quot;markup_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 338,
+        &quot;skill_category_id&quot;: 37,
+        &quot;name&quot;: &quot;HAProxy&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 37,
+            &quot;name&quot;: &quot;Networking&quot;,
+            &quot;slug&quot;: &quot;networking&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 17,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Haskell&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 210,
+        &quot;skill_category_id&quot;: 22,
+        &quot;name&quot;: &quot;Hasura&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 22,
+            &quot;name&quot;: &quot;GraphQL&quot;,
+            &quot;slug&quot;: &quot;graphql&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 385,
+        &quot;skill_category_id&quot;: 43,
+        &quot;name&quot;: &quot;HBase&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 43,
+            &quot;name&quot;: &quot;Big Data&quot;,
+            &quot;slug&quot;: &quot;big_data&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 259,
+        &quot;skill_category_id&quot;: 28,
+        &quot;name&quot;: &quot;Helm&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 28,
+            &quot;name&quot;: &quot;Containerization&quot;,
+            &quot;slug&quot;: &quot;containerization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 230,
+        &quot;skill_category_id&quot;: 25,
+        &quot;name&quot;: &quot;Helm&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;DevOps&quot;,
+            &quot;slug&quot;: &quot;devops&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 243,
+        &quot;skill_category_id&quot;: 26,
+        &quot;name&quot;: &quot;Hetzner&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 26,
+            &quot;name&quot;: &quot;Cloud Platforms&quot;,
+            &quot;slug&quot;: &quot;cloud_platforms&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 354,
+        &quot;skill_category_id&quot;: 39,
+        &quot;name&quot;: &quot;Hexagonal Architecture&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+            &quot;slug&quot;: &quot;architecture_design_patterns&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 187,
+        &quot;skill_category_id&quot;: 19,
+        &quot;name&quot;: &quot;Hibernate&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 19,
+            &quot;name&quot;: &quot;ORM &amp; Data Access&quot;,
+            &quot;slug&quot;: &quot;orm_data_access&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 359,
+        &quot;skill_category_id&quot;: 40,
+        &quot;name&quot;: &quot;High Availability&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 40,
+            &quot;name&quot;: &quot;System Design&quot;,
+            &quot;slug&quot;: &quot;system_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 384,
+        &quot;skill_category_id&quot;: 43,
+        &quot;name&quot;: &quot;Hive&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 43,
+            &quot;name&quot;: &quot;Big Data&quot;,
+            &quot;slug&quot;: &quot;big_data&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 72,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;Hono&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 361,
+        &quot;skill_category_id&quot;: 40,
+        &quot;name&quot;: &quot;Horizontal Scaling&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 40,
+            &quot;name&quot;: &quot;System Design&quot;,
+            &quot;slug&quot;: &quot;system_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 39,
+        &quot;skill_category_id&quot;: 4,
+        &quot;name&quot;: &quot;HQL&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Query Languages&quot;,
+            &quot;slug&quot;: &quot;query_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 29,
+        &quot;skill_category_id&quot;: 3,
+        &quot;name&quot;: &quot;HTML&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Markup Languages&quot;,
+            &quot;slug&quot;: &quot;markup_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 331,
+        &quot;skill_category_id&quot;: 37,
+        &quot;name&quot;: &quot;HTTP/HTTPS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 37,
+            &quot;name&quot;: &quot;Networking&quot;,
+            &quot;slug&quot;: &quot;networking&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 394,
+        &quot;skill_category_id&quot;: 44,
+        &quot;name&quot;: &quot;Hugging Face&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+            &quot;slug&quot;: &quot;machine_learning_ai&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 178,
+        &quot;skill_category_id&quot;: 17,
+        &quot;name&quot;: &quot;Indexing Strategy&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 17,
+            &quot;name&quot;: &quot;Database Design&quot;,
+            &quot;slug&quot;: &quot;database_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 78,
+        &quot;skill_category_id&quot;: 7,
+        &quot;name&quot;: &quot;Inertia.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 7,
+            &quot;name&quot;: &quot;Full-Stack Development&quot;,
+            &quot;slug&quot;: &quot;full_stack_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 415,
+        &quot;skill_category_id&quot;: 46,
+        &quot;name&quot;: &quot;Insomnia&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Development Tools&quot;,
+            &quot;slug&quot;: &quot;development_tools&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 111,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;InVision&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 132,
+        &quot;skill_category_id&quot;: 12,
+        &quot;name&quot;: &quot;Ionic&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 12,
+            &quot;name&quot;: &quot;Mobile Development&quot;,
+            &quot;slug&quot;: &quot;mobile_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 5,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Java&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 140,
+        &quot;skill_category_id&quot;: 13,
+        &quot;name&quot;: &quot;JavaFX&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 13,
+            &quot;name&quot;: &quot;Desktop Development&quot;,
+            &quot;slug&quot;: &quot;desktop_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;JavaScript&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 235,
+        &quot;skill_category_id&quot;: 25,
+        &quot;name&quot;: &quot;Jenkins&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;DevOps&quot;,
+            &quot;slug&quot;: &quot;devops&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 264,
+        &quot;skill_category_id&quot;: 29,
+        &quot;name&quot;: &quot;Jenkins&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 29,
+            &quot;name&quot;: &quot;CI/CD&quot;,
+            &quot;slug&quot;: &quot;ci_cd&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 291,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;Jest&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 413,
+        &quot;skill_category_id&quot;: 46,
+        &quot;name&quot;: &quot;JetBrains IDEs&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Development Tools&quot;,
+            &quot;slug&quot;: &quot;development_tools&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 131,
+        &quot;skill_category_id&quot;: 12,
+        &quot;name&quot;: &quot;Jetpack Compose&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 12,
+            &quot;name&quot;: &quot;Mobile Development&quot;,
+            &quot;slug&quot;: &quot;mobile_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 36,
+        &quot;skill_category_id&quot;: 3,
+        &quot;name&quot;: &quot;Jinja2&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Markup Languages&quot;,
+            &quot;slug&quot;: &quot;markup_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 430,
+        &quot;skill_category_id&quot;: 48,
+        &quot;name&quot;: &quot;Jira&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 48,
+            &quot;name&quot;: &quot;Project Management&quot;,
+            &quot;slug&quot;: &quot;project_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 40,
+        &quot;skill_category_id&quot;: 4,
+        &quot;name&quot;: &quot;JPQL&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Query Languages&quot;,
+            &quot;slug&quot;: &quot;query_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 53,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;jQuery&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 196,
+        &quot;skill_category_id&quot;: 20,
+        &quot;name&quot;: &quot;JSON:API&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 20,
+            &quot;name&quot;: &quot;API Development&quot;,
+            &quot;slug&quot;: &quot;api_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 20,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Julia&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 297,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;JUnit&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 399,
+        &quot;skill_category_id&quot;: 44,
+        &quot;name&quot;: &quot;Jupyter&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+            &quot;slug&quot;: &quot;machine_learning_ai&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 319,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;JWT&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 260,
+        &quot;skill_category_id&quot;: 28,
+        &quot;name&quot;: &quot;K3s&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 28,
+            &quot;name&quot;: &quot;Containerization&quot;,
+            &quot;slug&quot;: &quot;containerization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 307,
+        &quot;skill_category_id&quot;: 34,
+        &quot;name&quot;: &quot;k6&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 34,
+            &quot;name&quot;: &quot;Test Automation&quot;,
+            &quot;slug&quot;: &quot;test_automation&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 439,
+        &quot;skill_category_id&quot;: 49,
+        &quot;name&quot;: &quot;Kanban&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 49,
+            &quot;name&quot;: &quot;Agile Methodologies&quot;,
+            &quot;slug&quot;: &quot;agile_methodologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 393,
+        &quot;skill_category_id&quot;: 44,
+        &quot;name&quot;: &quot;Keras&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+            &quot;slug&quot;: &quot;machine_learning_ai&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 323,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;Keycloak&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 11,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Kotlin&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 130,
+        &quot;skill_category_id&quot;: 12,
+        &quot;name&quot;: &quot;Kotlin&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 12,
+            &quot;name&quot;: &quot;Mobile Development&quot;,
+            &quot;slug&quot;: &quot;mobile_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 229,
+        &quot;skill_category_id&quot;: 25,
+        &quot;name&quot;: &quot;Kubernetes&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;DevOps&quot;,
+            &quot;slug&quot;: &quot;devops&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 256,
+        &quot;skill_category_id&quot;: 28,
+        &quot;name&quot;: &quot;Kubernetes&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 28,
+            &quot;name&quot;: &quot;Containerization&quot;,
+            &quot;slug&quot;: &quot;containerization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 395,
+        &quot;skill_category_id&quot;: 44,
+        &quot;name&quot;: &quot;LangChain&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+            &quot;slug&quot;: &quot;machine_learning_ai&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 61,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;Laravel&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 81,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;Laravel&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 322,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;Laravel Passport&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 227,
+        &quot;skill_category_id&quot;: 24,
+        &quot;name&quot;: &quot;Laravel Queues&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 24,
+            &quot;name&quot;: &quot;Event-Driven Architecture&quot;,
+            &quot;slug&quot;: &quot;event_driven_architecture&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 321,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;Laravel Sanctum&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 419,
+        &quot;skill_category_id&quot;: 46,
+        &quot;name&quot;: &quot;Laravel Telescope&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Development Tools&quot;,
+            &quot;slug&quot;: &quot;development_tools&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 33,
+        &quot;skill_category_id&quot;: 3,
+        &quot;name&quot;: &quot;LaTeX&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Markup Languages&quot;,
+            &quot;slug&quot;: &quot;markup_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 342,
+        &quot;skill_category_id&quot;: 38,
+        &quot;name&quot;: &quot;Lazy Loading&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 38,
+            &quot;name&quot;: &quot;Performance Optimization&quot;,
+            &quot;slug&quot;: &quot;performance_optimization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 452,
+        &quot;skill_category_id&quot;: 50,
+        &quot;name&quot;: &quot;Leadership&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 50,
+            &quot;name&quot;: &quot;Soft Skills&quot;,
+            &quot;slug&quot;: &quot;soft_skills&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 442,
+        &quot;skill_category_id&quot;: 49,
+        &quot;name&quot;: &quot;Lean&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 49,
+            &quot;name&quot;: &quot;Agile Methodologies&quot;,
+            &quot;slug&quot;: &quot;agile_methodologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 347,
+        &quot;skill_category_id&quot;: 38,
+        &quot;name&quot;: &quot;Lighthouse&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 38,
+            &quot;name&quot;: &quot;Performance Optimization&quot;,
+            &quot;slug&quot;: &quot;performance_optimization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 213,
+        &quot;skill_category_id&quot;: 22,
+        &quot;name&quot;: &quot;Lighthouse (Laravel)&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 22,
+            &quot;name&quot;: &quot;GraphQL&quot;,
+            &quot;slug&quot;: &quot;graphql&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 431,
+        &quot;skill_category_id&quot;: 48,
+        &quot;name&quot;: &quot;Linear&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 48,
+            &quot;name&quot;: &quot;Project Management&quot;,
+            &quot;slug&quot;: &quot;project_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 424,
+        &quot;skill_category_id&quot;: 47,
+        &quot;name&quot;: &quot;Linux (Alpine)&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 47,
+            &quot;name&quot;: &quot;Operating Systems&quot;,
+            &quot;slug&quot;: &quot;operating_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 423,
+        &quot;skill_category_id&quot;: 47,
+        &quot;name&quot;: &quot;Linux (Debian)&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 47,
+            &quot;name&quot;: &quot;Operating Systems&quot;,
+            &quot;slug&quot;: &quot;operating_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 422,
+        &quot;skill_category_id&quot;: 47,
+        &quot;name&quot;: &quot;Linux (Ubuntu)&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 47,
+            &quot;name&quot;: &quot;Operating Systems&quot;,
+            &quot;slug&quot;: &quot;operating_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 79,
+        &quot;skill_category_id&quot;: 7,
+        &quot;name&quot;: &quot;Livewire&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 7,
+            &quot;name&quot;: &quot;Full-Stack Development&quot;,
+            &quot;slug&quot;: &quot;full_stack_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 335,
+        &quot;skill_category_id&quot;: 37,
+        &quot;name&quot;: &quot;Load Balancing&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 37,
+            &quot;name&quot;: &quot;Networking&quot;,
+            &quot;slug&quot;: &quot;networking&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 360,
+        &quot;skill_category_id&quot;: 40,
+        &quot;name&quot;: &quot;Load Balancing&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 40,
+            &quot;name&quot;: &quot;System Design&quot;,
+            &quot;slug&quot;: &quot;system_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 308,
+        &quot;skill_category_id&quot;: 34,
+        &quot;name&quot;: &quot;Locust&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 34,
+            &quot;name&quot;: &quot;Test Automation&quot;,
+            &quot;slug&quot;: &quot;test_automation&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 93,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;Lodash&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 407,
+        &quot;skill_category_id&quot;: 45,
+        &quot;name&quot;: &quot;Loki&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 45,
+            &quot;name&quot;: &quot;Monitoring &amp; Logging&quot;,
+            &quot;slug&quot;: &quot;monitoring_logging&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 19,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Lua&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 425,
+        &quot;skill_category_id&quot;: 47,
+        &quot;name&quot;: &quot;macOS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 47,
+            &quot;name&quot;: &quot;Operating Systems&quot;,
+            &quot;slug&quot;: &quot;operating_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 420,
+        &quot;skill_category_id&quot;: 46,
+        &quot;name&quot;: &quot;Makefile&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Development Tools&quot;,
+            &quot;slug&quot;: &quot;development_tools&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 171,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;MariaDB&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 32,
+        &quot;skill_category_id&quot;: 3,
+        &quot;name&quot;: &quot;Markdown&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Markup Languages&quot;,
+            &quot;slug&quot;: &quot;markup_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 124,
+        &quot;skill_category_id&quot;: 11,
+        &quot;name&quot;: &quot;Media Queries&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 11,
+            &quot;name&quot;: &quot;Responsive Design&quot;,
+            &quot;slug&quot;: &quot;responsive_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 449,
+        &quot;skill_category_id&quot;: 50,
+        &quot;name&quot;: &quot;Mentoring&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 50,
+            &quot;name&quot;: &quot;Soft Skills&quot;,
+            &quot;slug&quot;: &quot;soft_skills&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 288,
+        &quot;skill_category_id&quot;: 32,
+        &quot;name&quot;: &quot;Mercurial&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 32,
+            &quot;name&quot;: &quot;Version Control&quot;,
+            &quot;slug&quot;: &quot;version_control&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 363,
+        &quot;skill_category_id&quot;: 40,
+        &quot;name&quot;: &quot;Message Queues&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 40,
+            &quot;name&quot;: &quot;System Design&quot;,
+            &quot;slug&quot;: &quot;system_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 80,
+        &quot;skill_category_id&quot;: 7,
+        &quot;name&quot;: &quot;Meteor&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 7,
+            &quot;name&quot;: &quot;Full-Stack Development&quot;,
+            &quot;slug&quot;: &quot;full_stack_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 241,
+        &quot;skill_category_id&quot;: 26,
+        &quot;name&quot;: &quot;Microsoft Azure&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 26,
+            &quot;name&quot;: &quot;Cloud Platforms&quot;,
+            &quot;slug&quot;: &quot;cloud_platforms&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 163,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;Microsoft SQL Server&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 183,
+        &quot;skill_category_id&quot;: 18,
+        &quot;name&quot;: &quot;Migrations&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 18,
+            &quot;name&quot;: &quot;Database Administration&quot;,
+            &quot;slug&quot;: &quot;database_administration&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 400,
+        &quot;skill_category_id&quot;: 44,
+        &quot;name&quot;: &quot;MLflow&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+            &quot;slug&quot;: &quot;machine_learning_ai&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 125,
+        &quot;skill_category_id&quot;: 11,
+        &quot;name&quot;: &quot;Mobile-First Design&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 11,
+            &quot;name&quot;: &quot;Responsive Design&quot;,
+            &quot;slug&quot;: &quot;responsive_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 299,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;Mocha&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 95,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;Moment.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 164,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;MongoDB&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 148,
+        &quot;skill_category_id&quot;: 14,
+        &quot;name&quot;: &quot;MonoGame&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 14,
+            &quot;name&quot;: &quot;Game Development&quot;,
+            &quot;slug&quot;: &quot;game_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 158,
+        &quot;skill_category_id&quot;: 15,
+        &quot;name&quot;: &quot;MQTT&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 15,
+            &quot;name&quot;: &quot;Embedded Systems&quot;,
+            &quot;slug&quot;: &quot;embedded_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 348,
+        &quot;skill_category_id&quot;: 39,
+        &quot;name&quot;: &quot;MVC&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+            &quot;slug&quot;: &quot;architecture_design_patterns&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 349,
+        &quot;skill_category_id&quot;: 39,
+        &quot;name&quot;: &quot;MVVM&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+            &quot;slug&quot;: &quot;architecture_design_patterns&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 160,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;MySQL&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 219,
+        &quot;skill_category_id&quot;: 23,
+        &quot;name&quot;: &quot;NATS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 23,
+            &quot;name&quot;: &quot;Microservices&quot;,
+            &quot;slug&quot;: &quot;microservices&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 225,
+        &quot;skill_category_id&quot;: 24,
+        &quot;name&quot;: &quot;NATS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 24,
+            &quot;name&quot;: &quot;Event-Driven Architecture&quot;,
+            &quot;slug&quot;: &quot;event_driven_architecture&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 67,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;NestJS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 89,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;NestJS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 404,
+        &quot;skill_category_id&quot;: 45,
+        &quot;name&quot;: &quot;New Relic&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 45,
+            &quot;name&quot;: &quot;Monitoring &amp; Logging&quot;,
+            &quot;slug&quot;: &quot;monitoring_logging&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 48,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Next.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 74,
+        &quot;skill_category_id&quot;: 7,
+        &quot;name&quot;: &quot;Next.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 7,
+            &quot;name&quot;: &quot;Full-Stack Development&quot;,
+            &quot;slug&quot;: &quot;full_stack_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 337,
+        &quot;skill_category_id&quot;: 37,
+        &quot;name&quot;: &quot;Nginx&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 37,
+            &quot;name&quot;: &quot;Networking&quot;,
+            &quot;slug&quot;: &quot;networking&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 429,
+        &quot;skill_category_id&quot;: 47,
+        &quot;name&quot;: &quot;NixOS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 47,
+            &quot;name&quot;: &quot;Operating Systems&quot;,
+            &quot;slug&quot;: &quot;operating_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 175,
+        &quot;skill_category_id&quot;: 17,
+        &quot;name&quot;: &quot;Normalization&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 17,
+            &quot;name&quot;: &quot;Database Design&quot;,
+            &quot;slug&quot;: &quot;database_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 433,
+        &quot;skill_category_id&quot;: 48,
+        &quot;name&quot;: &quot;Notion&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 48,
+            &quot;name&quot;: &quot;Project Management&quot;,
+            &quot;slug&quot;: &quot;project_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 398,
+        &quot;skill_category_id&quot;: 44,
+        &quot;name&quot;: &quot;NumPy&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+            &quot;slug&quot;: &quot;machine_learning_ai&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 49,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Nuxt.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 75,
+        &quot;skill_category_id&quot;: 7,
+        &quot;name&quot;: &quot;Nuxt.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 7,
+            &quot;name&quot;: &quot;Full-Stack Development&quot;,
+            &quot;slug&quot;: &quot;full_stack_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 317,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;OAuth 2.0&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 357,
+        &quot;skill_category_id&quot;: 39,
+        &quot;name&quot;: &quot;Observer&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+            &quot;slug&quot;: &quot;architecture_design_patterns&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 444,
+        &quot;skill_category_id&quot;: 49,
+        &quot;name&quot;: &quot;OKRs&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 49,
+            &quot;name&quot;: &quot;Agile Methodologies&quot;,
+            &quot;slug&quot;: &quot;agile_methodologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 396,
+        &quot;skill_category_id&quot;: 44,
+        &quot;name&quot;: &quot;OpenAI API&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+            &quot;slug&quot;: &quot;machine_learning_ai&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 197,
+        &quot;skill_category_id&quot;: 20,
+        &quot;name&quot;: &quot;OpenAPI / Swagger&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 20,
+            &quot;name&quot;: &quot;API Development&quot;,
+            &quot;slug&quot;: &quot;api_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 318,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;OpenID Connect&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 408,
+        &quot;skill_category_id&quot;: 45,
+        &quot;name&quot;: &quot;OpenTelemetry&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 45,
+            &quot;name&quot;: &quot;Monitoring &amp; Logging&quot;,
+            &quot;slug&quot;: &quot;monitoring_logging&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 309,
+        &quot;skill_category_id&quot;: 35,
+        &quot;name&quot;: &quot;OWASP Top 10&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 35,
+            &quot;name&quot;: &quot;Security&quot;,
+            &quot;slug&quot;: &quot;security&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 409,
+        &quot;skill_category_id&quot;: 45,
+        &quot;name&quot;: &quot;PagerDuty&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 45,
+            &quot;name&quot;: &quot;Monitoring &amp; Logging&quot;,
+            &quot;slug&quot;: &quot;monitoring_logging&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 397,
+        &quot;skill_category_id&quot;: 44,
+        &quot;name&quot;: &quot;Pandas&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+            &quot;slug&quot;: &quot;machine_learning_ai&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 310,
+        &quot;skill_category_id&quot;: 35,
+        &quot;name&quot;: &quot;Penetration Testing&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 35,
+            &quot;name&quot;: &quot;Security&quot;,
+            &quot;slug&quot;: &quot;security&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 184,
+        &quot;skill_category_id&quot;: 18,
+        &quot;name&quot;: &quot;Performance Tuning&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 18,
+            &quot;name&quot;: &quot;Database Administration&quot;,
+            &quot;slug&quot;: &quot;database_administration&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 18,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Perl&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 25,
+        &quot;skill_category_id&quot;: 2,
+        &quot;name&quot;: &quot;Perl&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Scripting Languages&quot;,
+            &quot;slug&quot;: &quot;scripting_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 290,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;Pest&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 147,
+        &quot;skill_category_id&quot;: 14,
+        &quot;name&quot;: &quot;Phaser&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 14,
+            &quot;name&quot;: &quot;Game Development&quot;,
+            &quot;slug&quot;: &quot;game_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 71,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;Phoenix&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 1,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;PHP&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 412,
+        &quot;skill_category_id&quot;: 46,
+        &quot;name&quot;: &quot;PhpStorm&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Development Tools&quot;,
+            &quot;slug&quot;: &quot;development_tools&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 289,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;PHPUnit&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 98,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;Pinia&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 293,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;Playwright&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 301,
+        &quot;skill_category_id&quot;: 34,
+        &quot;name&quot;: &quot;Playwright&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 34,
+            &quot;name&quot;: &quot;Test Automation&quot;,
+            &quot;slug&quot;: &quot;test_automation&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 257,
+        &quot;skill_category_id&quot;: 28,
+        &quot;name&quot;: &quot;Podman&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 28,
+            &quot;name&quot;: &quot;Containerization&quot;,
+            &quot;slug&quot;: &quot;containerization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 161,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;PostgreSQL&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 198,
+        &quot;skill_category_id&quot;: 20,
+        &quot;name&quot;: &quot;Postman&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 20,
+            &quot;name&quot;: &quot;API Development&quot;,
+            &quot;slug&quot;: &quot;api_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 414,
+        &quot;skill_category_id&quot;: 46,
+        &quot;name&quot;: &quot;Postman&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Development Tools&quot;,
+            &quot;slug&quot;: &quot;development_tools&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 22,
+        &quot;skill_category_id&quot;: 2,
+        &quot;name&quot;: &quot;PowerShell&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Scripting Languages&quot;,
+            &quot;slug&quot;: &quot;scripting_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 386,
+        &quot;skill_category_id&quot;: 43,
+        &quot;name&quot;: &quot;Presto&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 43,
+            &quot;name&quot;: &quot;Big Data&quot;,
+            &quot;slug&quot;: &quot;big_data&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 188,
+        &quot;skill_category_id&quot;: 19,
+        &quot;name&quot;: &quot;Prisma&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 19,
+            &quot;name&quot;: &quot;ORM &amp; Data Access&quot;,
+            &quot;slug&quot;: &quot;orm_data_access&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 447,
+        &quot;skill_category_id&quot;: 50,
+        &quot;name&quot;: &quot;Problem Solving&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 50,
+            &quot;name&quot;: &quot;Soft Skills&quot;,
+            &quot;slug&quot;: &quot;soft_skills&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 345,
+        &quot;skill_category_id&quot;: 38,
+        &quot;name&quot;: &quot;Profiling&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 38,
+            &quot;name&quot;: &quot;Performance Optimization&quot;,
+            &quot;slug&quot;: &quot;performance_optimization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 401,
+        &quot;skill_category_id&quot;: 45,
+        &quot;name&quot;: &quot;Prometheus&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 45,
+            &quot;name&quot;: &quot;Monitoring &amp; Logging&quot;,
+            &quot;slug&quot;: &quot;monitoring_logging&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 237,
+        &quot;skill_category_id&quot;: 25,
+        &quot;name&quot;: &quot;Prometheus&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;DevOps&quot;,
+            &quot;slug&quot;: &quot;devops&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 117,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;Prototyping&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 34,
+        &quot;skill_category_id&quot;: 3,
+        &quot;name&quot;: &quot;Pug&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Markup Languages&quot;,
+            &quot;slug&quot;: &quot;markup_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 270,
+        &quot;skill_category_id&quot;: 30,
+        &quot;name&quot;: &quot;Pulumi&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 30,
+            &quot;name&quot;: &quot;Infrastructure as Code&quot;,
+            &quot;slug&quot;: &quot;infrastructure_as_code&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 274,
+        &quot;skill_category_id&quot;: 30,
+        &quot;name&quot;: &quot;Puppet&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 30,
+            &quot;name&quot;: &quot;Infrastructure as Code&quot;,
+            &quot;slug&quot;: &quot;infrastructure_as_code&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 278,
+        &quot;skill_category_id&quot;: 31,
+        &quot;name&quot;: &quot;Puppet&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 31,
+            &quot;name&quot;: &quot;Configuration Management&quot;,
+            &quot;slug&quot;: &quot;configuration_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 304,
+        &quot;skill_category_id&quot;: 34,
+        &quot;name&quot;: &quot;Puppeteer&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 34,
+            &quot;name&quot;: &quot;Test Automation&quot;,
+            &quot;slug&quot;: &quot;test_automation&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 146,
+        &quot;skill_category_id&quot;: 14,
+        &quot;name&quot;: &quot;Pygame&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 14,
+            &quot;name&quot;: &quot;Game Development&quot;,
+            &quot;slug&quot;: &quot;game_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 296,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;Pytest&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 4,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Python&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 23,
+        &quot;skill_category_id&quot;: 2,
+        &quot;name&quot;: &quot;Python&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Scripting Languages&quot;,
+            &quot;slug&quot;: &quot;scripting_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 391,
+        &quot;skill_category_id&quot;: 44,
+        &quot;name&quot;: &quot;PyTorch&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+            &quot;slug&quot;: &quot;machine_learning_ai&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 137,
+        &quot;skill_category_id&quot;: 13,
+        &quot;name&quot;: &quot;Qt&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 13,
+            &quot;name&quot;: &quot;Desktop Development&quot;,
+            &quot;slug&quot;: &quot;desktop_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 182,
+        &quot;skill_category_id&quot;: 18,
+        &quot;name&quot;: &quot;Query Optimization&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 18,
+            &quot;name&quot;: &quot;Database Administration&quot;,
+            &quot;slug&quot;: &quot;database_administration&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 344,
+        &quot;skill_category_id&quot;: 38,
+        &quot;name&quot;: &quot;Query Optimization&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 38,
+            &quot;name&quot;: &quot;Performance Optimization&quot;,
+            &quot;slug&quot;: &quot;performance_optimization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 217,
+        &quot;skill_category_id&quot;: 23,
+        &quot;name&quot;: &quot;RabbitMQ&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 23,
+            &quot;name&quot;: &quot;Microservices&quot;,
+            &quot;slug&quot;: &quot;microservices&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 222,
+        &quot;skill_category_id&quot;: 24,
+        &quot;name&quot;: &quot;RabbitMQ&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 24,
+            &quot;name&quot;: &quot;Event-Driven Architecture&quot;,
+            &quot;slug&quot;: &quot;event_driven_architecture&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 370,
+        &quot;skill_category_id&quot;: 41,
+        &quot;name&quot;: &quot;Raft Consensus&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 41,
+            &quot;name&quot;: &quot;Distributed Systems&quot;,
+            &quot;slug&quot;: &quot;distributed_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 155,
+        &quot;skill_category_id&quot;: 15,
+        &quot;name&quot;: &quot;Raspberry Pi&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 15,
+            &quot;name&quot;: &quot;Embedded Systems&quot;,
+            &quot;slug&quot;: &quot;embedded_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 365,
+        &quot;skill_category_id&quot;: 40,
+        &quot;name&quot;: &quot;Rate Limiting&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 40,
+            &quot;name&quot;: &quot;System Design&quot;,
+            &quot;slug&quot;: &quot;system_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 327,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;RBAC&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 45,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;React&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 84,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;React&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 126,
+        &quot;skill_category_id&quot;: 12,
+        &quot;name&quot;: &quot;React Native&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 12,
+            &quot;name&quot;: &quot;Mobile Development&quot;,
+            &quot;slug&quot;: &quot;mobile_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 101,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;React Query&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 165,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;Redis&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 340,
+        &quot;skill_category_id&quot;: 38,
+        &quot;name&quot;: &quot;Redis&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 38,
+            &quot;name&quot;: &quot;Performance Optimization&quot;,
+            &quot;slug&quot;: &quot;performance_optimization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 380,
+        &quot;skill_category_id&quot;: 42,
+        &quot;name&quot;: &quot;Redshift&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 42,
+            &quot;name&quot;: &quot;Data Engineering&quot;,
+            &quot;slug&quot;: &quot;data_engineering&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 100,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;Redux&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 77,
+        &quot;skill_category_id&quot;: 7,
+        &quot;name&quot;: &quot;Remix&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 7,
+            &quot;name&quot;: &quot;Full-Stack Development&quot;,
+            &quot;slug&quot;: &quot;full_stack_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 246,
+        &quot;skill_category_id&quot;: 26,
+        &quot;name&quot;: &quot;Render&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 26,
+            &quot;name&quot;: &quot;Cloud Platforms&quot;,
+            &quot;slug&quot;: &quot;cloud_platforms&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 180,
+        &quot;skill_category_id&quot;: 18,
+        &quot;name&quot;: &quot;Replication&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 18,
+            &quot;name&quot;: &quot;Database Administration&quot;,
+            &quot;slug&quot;: &quot;database_administration&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 350,
+        &quot;skill_category_id&quot;: 39,
+        &quot;name&quot;: &quot;Repository Pattern&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+            &quot;slug&quot;: &quot;architecture_design_patterns&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 202,
+        &quot;skill_category_id&quot;: 21,
+        &quot;name&quot;: &quot;REST&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 21,
+            &quot;name&quot;: &quot;Web Services&quot;,
+            &quot;slug&quot;: &quot;web_services&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 193,
+        &quot;skill_category_id&quot;: 20,
+        &quot;name&quot;: &quot;REST API&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 20,
+            &quot;name&quot;: &quot;API Development&quot;,
+            &quot;slug&quot;: &quot;api_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 306,
+        &quot;skill_category_id&quot;: 34,
+        &quot;name&quot;: &quot;Robot Framework&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 34,
+            &quot;name&quot;: &quot;Test Automation&quot;,
+            &quot;slug&quot;: &quot;test_automation&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 298,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;RSpec&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 159,
+        &quot;skill_category_id&quot;: 15,
+        &quot;name&quot;: &quot;RTOS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 15,
+            &quot;name&quot;: &quot;Embedded Systems&quot;,
+            &quot;slug&quot;: &quot;embedded_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 13,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Ruby&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 24,
+        &quot;skill_category_id&quot;: 2,
+        &quot;name&quot;: &quot;Ruby&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Scripting Languages&quot;,
+            &quot;slug&quot;: &quot;scripting_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 70,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;Ruby on Rails&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 10,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Rust&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 153,
+        &quot;skill_category_id&quot;: 15,
+        &quot;name&quot;: &quot;Rust&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 15,
+            &quot;name&quot;: &quot;Embedded Systems&quot;,
+            &quot;slug&quot;: &quot;embedded_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 440,
+        &quot;skill_category_id&quot;: 49,
+        &quot;name&quot;: &quot;SAFe&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 49,
+            &quot;name&quot;: &quot;Agile Methodologies&quot;,
+            &quot;slug&quot;: &quot;agile_methodologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 279,
+        &quot;skill_category_id&quot;: 31,
+        &quot;name&quot;: &quot;SaltStack&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 31,
+            &quot;name&quot;: &quot;Configuration Management&quot;,
+            &quot;slug&quot;: &quot;configuration_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 320,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;SAML&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 58,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Sass&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 311,
+        &quot;skill_category_id&quot;: 35,
+        &quot;name&quot;: &quot;SAST / DAST&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 35,
+            &quot;name&quot;: &quot;Security&quot;,
+            &quot;slug&quot;: &quot;security&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 14,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Scala&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 176,
+        &quot;skill_category_id&quot;: 17,
+        &quot;name&quot;: &quot;Schema Design&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 17,
+            &quot;name&quot;: &quot;Database Design&quot;,
+            &quot;slug&quot;: &quot;database_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 392,
+        &quot;skill_category_id&quot;: 44,
+        &quot;name&quot;: &quot;scikit-learn&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+            &quot;slug&quot;: &quot;machine_learning_ai&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 438,
+        &quot;skill_category_id&quot;: 49,
+        &quot;name&quot;: &quot;Scrum&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 49,
+            &quot;name&quot;: &quot;Agile Methodologies&quot;,
+            &quot;slug&quot;: &quot;agile_methodologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 314,
+        &quot;skill_category_id&quot;: 35,
+        &quot;name&quot;: &quot;Secrets Management&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 35,
+            &quot;name&quot;: &quot;Security&quot;,
+            &quot;slug&quot;: &quot;security&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 295,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;Selenium&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 303,
+        &quot;skill_category_id&quot;: 34,
+        &quot;name&quot;: &quot;Selenium&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 34,
+            &quot;name&quot;: &quot;Test Automation&quot;,
+            &quot;slug&quot;: &quot;test_automation&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 405,
+        &quot;skill_category_id&quot;: 45,
+        &quot;name&quot;: &quot;Sentry&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 45,
+            &quot;name&quot;: &quot;Monitoring &amp; Logging&quot;,
+            &quot;slug&quot;: &quot;monitoring_logging&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 214,
+        &quot;skill_category_id&quot;: 23,
+        &quot;name&quot;: &quot;Service Mesh&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 23,
+            &quot;name&quot;: &quot;Microservices&quot;,
+            &quot;slug&quot;: &quot;microservices&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 443,
+        &quot;skill_category_id&quot;: 49,
+        &quot;name&quot;: &quot;Shape Up&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 49,
+            &quot;name&quot;: &quot;Agile Methodologies&quot;,
+            &quot;slug&quot;: &quot;agile_methodologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 181,
+        &quot;skill_category_id&quot;: 18,
+        &quot;name&quot;: &quot;Sharding&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 18,
+            &quot;name&quot;: &quot;Database Administration&quot;,
+            &quot;slug&quot;: &quot;database_administration&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 358,
+        &quot;skill_category_id&quot;: 39,
+        &quot;name&quot;: &quot;Singleton&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+            &quot;slug&quot;: &quot;architecture_design_patterns&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 110,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;Sketch&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 381,
+        &quot;skill_category_id&quot;: 42,
+        &quot;name&quot;: &quot;Snowflake&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 42,
+            &quot;name&quot;: &quot;Data Engineering&quot;,
+            &quot;slug&quot;: &quot;data_engineering&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 389,
+        &quot;skill_category_id&quot;: 43,
+        &quot;name&quot;: &quot;Snowflake&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 43,
+            &quot;name&quot;: &quot;Big Data&quot;,
+            &quot;slug&quot;: &quot;big_data&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 201,
+        &quot;skill_category_id&quot;: 21,
+        &quot;name&quot;: &quot;SOAP&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 21,
+            &quot;name&quot;: &quot;Web Services&quot;,
+            &quot;slug&quot;: &quot;web_services&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 316,
+        &quot;skill_category_id&quot;: 35,
+        &quot;name&quot;: &quot;SOC 2&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 35,
+            &quot;name&quot;: &quot;Security&quot;,
+            &quot;slug&quot;: &quot;security&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 355,
+        &quot;skill_category_id&quot;: 39,
+        &quot;name&quot;: &quot;SOLID Principles&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Architecture &amp; Design Patterns&quot;,
+            &quot;slug&quot;: &quot;architecture_design_patterns&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 51,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;SolidJS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 43,
+        &quot;skill_category_id&quot;: 4,
+        &quot;name&quot;: &quot;SPARQL&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Query Languages&quot;,
+            &quot;slug&quot;: &quot;query_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 68,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;Spring Boot&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 87,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;Spring Boot&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 37,
+        &quot;skill_category_id&quot;: 4,
+        &quot;name&quot;: &quot;SQL&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Query Languages&quot;,
+            &quot;slug&quot;: &quot;query_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 190,
+        &quot;skill_category_id&quot;: 19,
+        &quot;name&quot;: &quot;SQLAlchemy&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 19,
+            &quot;name&quot;: &quot;ORM &amp; Data Access&quot;,
+            &quot;slug&quot;: &quot;orm_data_access&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 162,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;SQLite&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 206,
+        &quot;skill_category_id&quot;: 21,
+        &quot;name&quot;: &quot;SSE&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 21,
+            &quot;name&quot;: &quot;Web Services&quot;,
+            &quot;slug&quot;: &quot;web_services&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 113,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;Storybook&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 212,
+        &quot;skill_category_id&quot;: 22,
+        &quot;name&quot;: &quot;Strawberry&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 22,
+            &quot;name&quot;: &quot;GraphQL&quot;,
+            &quot;slug&quot;: &quot;graphql&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 173,
+        &quot;skill_category_id&quot;: 16,
+        &quot;name&quot;: &quot;Supabase&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Databases&quot;,
+            &quot;slug&quot;: &quot;databases&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 326,
+        &quot;skill_category_id&quot;: 36,
+        &quot;name&quot;: &quot;Supabase Auth&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Authentication &amp; Authorization&quot;,
+            &quot;slug&quot;: &quot;authentication_authorization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 47,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Svelte&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 76,
+        &quot;skill_category_id&quot;: 7,
+        &quot;name&quot;: &quot;SvelteKit&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 7,
+            &quot;name&quot;: &quot;Full-Stack Development&quot;,
+            &quot;slug&quot;: &quot;full_stack_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 287,
+        &quot;skill_category_id&quot;: 32,
+        &quot;name&quot;: &quot;SVN&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 32,
+            &quot;name&quot;: &quot;Version Control&quot;,
+            &quot;slug&quot;: &quot;version_control&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 12,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;Swift&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 128,
+        &quot;skill_category_id&quot;: 12,
+        &quot;name&quot;: &quot;Swift&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 12,
+            &quot;name&quot;: &quot;Mobile Development&quot;,
+            &quot;slug&quot;: &quot;mobile_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 129,
+        &quot;skill_category_id&quot;: 12,
+        &quot;name&quot;: &quot;SwiftUI&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 12,
+            &quot;name&quot;: &quot;Mobile Development&quot;,
+            &quot;slug&quot;: &quot;mobile_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 102,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;SWR&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 62,
+        &quot;skill_category_id&quot;: 6,
+        &quot;name&quot;: &quot;Symfony&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Backend Technologies&quot;,
+            &quot;slug&quot;: &quot;backend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 82,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;Symfony&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 416,
+        &quot;skill_category_id&quot;: 46,
+        &quot;name&quot;: &quot;TablePlus&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Development Tools&quot;,
+            &quot;slug&quot;: &quot;development_tools&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 56,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Tailwind CSS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 91,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;Tailwind CSS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 122,
+        &quot;skill_category_id&quot;: 11,
+        &quot;name&quot;: &quot;Tailwind CSS&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 11,
+            &quot;name&quot;: &quot;Responsive Design&quot;,
+            &quot;slug&quot;: &quot;responsive_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 136,
+        &quot;skill_category_id&quot;: 13,
+        &quot;name&quot;: &quot;Tauri&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 13,
+            &quot;name&quot;: &quot;Desktop Development&quot;,
+            &quot;slug&quot;: &quot;desktop_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 27,
+        &quot;skill_category_id&quot;: 2,
+        &quot;name&quot;: &quot;Tcl&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Scripting Languages&quot;,
+            &quot;slug&quot;: &quot;scripting_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 329,
+        &quot;skill_category_id&quot;: 37,
+        &quot;name&quot;: &quot;TCP/IP&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 37,
+            &quot;name&quot;: &quot;Networking&quot;,
+            &quot;slug&quot;: &quot;networking&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 446,
+        &quot;skill_category_id&quot;: 50,
+        &quot;name&quot;: &quot;Teamwork&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 50,
+            &quot;name&quot;: &quot;Soft Skills&quot;,
+            &quot;slug&quot;: &quot;soft_skills&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 450,
+        &quot;skill_category_id&quot;: 50,
+        &quot;name&quot;: &quot;Technical Writing&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 50,
+            &quot;name&quot;: &quot;Soft Skills&quot;,
+            &quot;slug&quot;: &quot;soft_skills&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 390,
+        &quot;skill_category_id&quot;: 44,
+        &quot;name&quot;: &quot;TensorFlow&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Machine Learning &amp; AI&quot;,
+            &quot;slug&quot;: &quot;machine_learning_ai&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 269,
+        &quot;skill_category_id&quot;: 30,
+        &quot;name&quot;: &quot;Terraform&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 30,
+            &quot;name&quot;: &quot;Infrastructure as Code&quot;,
+            &quot;slug&quot;: &quot;infrastructure_as_code&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 231,
+        &quot;skill_category_id&quot;: 25,
+        &quot;name&quot;: &quot;Terraform&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;DevOps&quot;,
+            &quot;slug&quot;: &quot;devops&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 300,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;Testing Library&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 105,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;Three.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 150,
+        &quot;skill_category_id&quot;: 14,
+        &quot;name&quot;: &quot;Three.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 14,
+            &quot;name&quot;: &quot;Game Development&quot;,
+            &quot;slug&quot;: &quot;game_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 448,
+        &quot;skill_category_id&quot;: 50,
+        &quot;name&quot;: &quot;Time Management&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 50,
+            &quot;name&quot;: &quot;Soft Skills&quot;,
+            &quot;slug&quot;: &quot;soft_skills&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 312,
+        &quot;skill_category_id&quot;: 35,
+        &quot;name&quot;: &quot;TLS / SSL&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 35,
+            &quot;name&quot;: &quot;Security&quot;,
+            &quot;slug&quot;: &quot;security&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 268,
+        &quot;skill_category_id&quot;: 29,
+        &quot;name&quot;: &quot;Travis CI&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 29,
+            &quot;name&quot;: &quot;CI/CD&quot;,
+            &quot;slug&quot;: &quot;ci_cd&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 432,
+        &quot;skill_category_id&quot;: 48,
+        &quot;name&quot;: &quot;Trello&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 48,
+            &quot;name&quot;: &quot;Project Management&quot;,
+            &quot;slug&quot;: &quot;project_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 372,
+        &quot;skill_category_id&quot;: 41,
+        &quot;name&quot;: &quot;Two-Phase Commit&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 41,
+            &quot;name&quot;: &quot;Distributed Systems&quot;,
+            &quot;slug&quot;: &quot;distributed_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 189,
+        &quot;skill_category_id&quot;: 19,
+        &quot;name&quot;: &quot;TypeORM&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 19,
+            &quot;name&quot;: &quot;ORM &amp; Data Access&quot;,
+            &quot;slug&quot;: &quot;orm_data_access&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;skill_category_id&quot;: 1,
+        &quot;name&quot;: &quot;TypeScript&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:53.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Programming Languages&quot;,
+            &quot;slug&quot;: &quot;programming_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 143,
+        &quot;skill_category_id&quot;: 14,
+        &quot;name&quot;: &quot;Unity&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 14,
+            &quot;name&quot;: &quot;Game Development&quot;,
+            &quot;slug&quot;: &quot;game_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 144,
+        &quot;skill_category_id&quot;: 14,
+        &quot;name&quot;: &quot;Unreal Engine&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 14,
+            &quot;name&quot;: &quot;Game Development&quot;,
+            &quot;slug&quot;: &quot;game_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 410,
+        &quot;skill_category_id&quot;: 45,
+        &quot;name&quot;: &quot;Uptime Kuma&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 45,
+            &quot;name&quot;: &quot;Monitoring &amp; Logging&quot;,
+            &quot;slug&quot;: &quot;monitoring_logging&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 118,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;User Research&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 282,
+        &quot;skill_category_id&quot;: 31,
+        &quot;name&quot;: &quot;Vault&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 31,
+            &quot;name&quot;: &quot;Configuration Management&quot;,
+            &quot;slug&quot;: &quot;configuration_management&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 245,
+        &quot;skill_category_id&quot;: 26,
+        &quot;name&quot;: &quot;Vercel&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 26,
+            &quot;name&quot;: &quot;Cloud Platforms&quot;,
+            &quot;slug&quot;: &quot;cloud_platforms&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 252,
+        &quot;skill_category_id&quot;: 27,
+        &quot;name&quot;: &quot;Vercel Edge Functions&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 27,
+            &quot;name&quot;: &quot;Serverless&quot;,
+            &quot;slug&quot;: &quot;serverless&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 411,
+        &quot;skill_category_id&quot;: 46,
+        &quot;name&quot;: &quot;Visual Studio Code&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Development Tools&quot;,
+            &quot;slug&quot;: &quot;development_tools&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 54,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Vite&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 292,
+        &quot;skill_category_id&quot;: 33,
+        &quot;name&quot;: &quot;Vitest&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Testing &amp; QA&quot;,
+            &quot;slug&quot;: &quot;testing_qa&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 334,
+        &quot;skill_category_id&quot;: 37,
+        &quot;name&quot;: &quot;VPN&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 37,
+            &quot;name&quot;: &quot;Networking&quot;,
+            &quot;slug&quot;: &quot;networking&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 44,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Vue.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 83,
+        &quot;skill_category_id&quot;: 8,
+        &quot;name&quot;: &quot;Vue.js&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Frameworks&quot;,
+            &quot;slug&quot;: &quot;frameworks&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 60,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Web Components&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 346,
+        &quot;skill_category_id&quot;: 38,
+        &quot;name&quot;: &quot;Web Vitals&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 38,
+            &quot;name&quot;: &quot;Performance Optimization&quot;,
+            &quot;slug&quot;: &quot;performance_optimization&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 200,
+        &quot;skill_category_id&quot;: 20,
+        &quot;name&quot;: &quot;Webhooks&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 20,
+            &quot;name&quot;: &quot;API Development&quot;,
+            &quot;slug&quot;: &quot;api_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 205,
+        &quot;skill_category_id&quot;: 21,
+        &quot;name&quot;: &quot;Webhooks&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 21,
+            &quot;name&quot;: &quot;Web Services&quot;,
+            &quot;slug&quot;: &quot;web_services&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 55,
+        &quot;skill_category_id&quot;: 5,
+        &quot;name&quot;: &quot;Webpack&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Frontend Technologies&quot;,
+            &quot;slug&quot;: &quot;frontend_technologies&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 207,
+        &quot;skill_category_id&quot;: 21,
+        &quot;name&quot;: &quot;WebSockets&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 21,
+            &quot;name&quot;: &quot;Web Services&quot;,
+            &quot;slug&quot;: &quot;web_services&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 332,
+        &quot;skill_category_id&quot;: 37,
+        &quot;name&quot;: &quot;WebSockets&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 37,
+            &quot;name&quot;: &quot;Networking&quot;,
+            &quot;slug&quot;: &quot;networking&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 426,
+        &quot;skill_category_id&quot;: 47,
+        &quot;name&quot;: &quot;Windows&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 47,
+            &quot;name&quot;: &quot;Operating Systems&quot;,
+            &quot;slug&quot;: &quot;operating_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 427,
+        &quot;skill_category_id&quot;: 47,
+        &quot;name&quot;: &quot;Windows Server&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 47,
+            &quot;name&quot;: &quot;Operating Systems&quot;,
+            &quot;slug&quot;: &quot;operating_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 139,
+        &quot;skill_category_id&quot;: 13,
+        &quot;name&quot;: &quot;WinForms&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 13,
+            &quot;name&quot;: &quot;Desktop Development&quot;,
+            &quot;slug&quot;: &quot;desktop_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 116,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;Wireframing&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 138,
+        &quot;skill_category_id&quot;: 13,
+        &quot;name&quot;: &quot;WPF&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 13,
+            &quot;name&quot;: &quot;Desktop Development&quot;,
+            &quot;slug&quot;: &quot;desktop_development&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 204,
+        &quot;skill_category_id&quot;: 21,
+        &quot;name&quot;: &quot;WSDL&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 21,
+            &quot;name&quot;: &quot;Web Services&quot;,
+            &quot;slug&quot;: &quot;web_services&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 418,
+        &quot;skill_category_id&quot;: 46,
+        &quot;name&quot;: &quot;Xdebug&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:56.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Development Tools&quot;,
+            &quot;slug&quot;: &quot;development_tools&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 30,
+        &quot;skill_category_id&quot;: 3,
+        &quot;name&quot;: &quot;XML&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Markup Languages&quot;,
+            &quot;slug&quot;: &quot;markup_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 203,
+        &quot;skill_category_id&quot;: 21,
+        &quot;name&quot;: &quot;XML-RPC&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 21,
+            &quot;name&quot;: &quot;Web Services&quot;,
+            &quot;slug&quot;: &quot;web_services&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 41,
+        &quot;skill_category_id&quot;: 4,
+        &quot;name&quot;: &quot;XQuery&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Query Languages&quot;,
+            &quot;slug&quot;: &quot;query_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 31,
+        &quot;skill_category_id&quot;: 3,
+        &quot;name&quot;: &quot;YAML&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Markup Languages&quot;,
+            &quot;slug&quot;: &quot;markup_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 157,
+        &quot;skill_category_id&quot;: 15,
+        &quot;name&quot;: &quot;Zephyr&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 15,
+            &quot;name&quot;: &quot;Embedded Systems&quot;,
+            &quot;slug&quot;: &quot;embedded_systems&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 112,
+        &quot;skill_category_id&quot;: 10,
+        &quot;name&quot;: &quot;Zeplin&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;UI/UX Design&quot;,
+            &quot;slug&quot;: &quot;ui_ux_design&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 315,
+        &quot;skill_category_id&quot;: 35,
+        &quot;name&quot;: &quot;Zero Trust&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:55.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 35,
+            &quot;name&quot;: &quot;Security&quot;,
+            &quot;slug&quot;: &quot;security&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 97,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;Zod&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 28,
+        &quot;skill_category_id&quot;: 2,
+        &quot;name&quot;: &quot;Zsh&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Scripting Languages&quot;,
+            &quot;slug&quot;: &quot;scripting_languages&quot;
+        }
+    },
+    {
+        &quot;id&quot;: 99,
+        &quot;skill_category_id&quot;: 9,
+        &quot;name&quot;: &quot;Zustand&quot;,
+        &quot;created_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T11:50:54.000000Z&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Libraries&quot;,
+            &quot;slug&quot;: &quot;libraries&quot;
+        }
+    }
+]</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-skills" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-skills"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-skills"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-skills" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-skills">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-skills" data-method="GET"
+      data-path="api/skills"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-skills', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-skills"
+                    onclick="tryItOut('GETapi-skills');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-skills"
+                    onclick="cancelTryOut('GETapi-skills');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-skills"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/skills</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-skills"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-skills"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="skills-POSTapi-skills">Create a skill.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-skills">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/skills" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"vmqeopfuudtdsufvyvddq\",
+    \"skill_category_id\": 17
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skills"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "vmqeopfuudtdsufvyvddq",
+    "skill_category_id": 17
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-skills">
+</span>
+<span id="execution-results-POSTapi-skills" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-skills"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-skills"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-skills" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-skills">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-skills" data-method="POST"
+      data-path="api/skills"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-skills', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-skills"
+                    onclick="tryItOut('POSTapi-skills');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-skills"
+                    onclick="cancelTryOut('POSTapi-skills');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-skills"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/skills</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-skills"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-skills"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-skills"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-skills"
+               value="vmqeopfuudtdsufvyvddq"
+               data-component="body">
+    <br>
+<p>Must not be greater than 100 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>skill_category_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="skill_category_id"                data-endpoint="POSTapi-skills"
+               value="17"
+               data-component="body">
+    <br>
+<p>The <code>id</code> of an existing record in the skill_categories table. Example: <code>17</code></p>
+        </div>
+        </form>
+
+                    <h2 id="skills-PUTapi-skills--id-">Update a skill.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-skills--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "https://backend-laravel.dev.jussialanen.com/api/skills/1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"vmqeopfuudtdsufvyvddq\",
+    \"skill_category_id\": 17
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skills/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "vmqeopfuudtdsufvyvddq",
+    "skill_category_id": 17
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-skills--id-">
+</span>
+<span id="execution-results-PUTapi-skills--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-skills--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-skills--id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-skills--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-skills--id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-skills--id-" data-method="PUT"
+      data-path="api/skills/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-skills--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-skills--id-"
+                    onclick="tryItOut('PUTapi-skills--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-skills--id-"
+                    onclick="cancelTryOut('PUTapi-skills--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-skills--id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/skills/{id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-skills--id-"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-skills--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-skills--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="PUTapi-skills--id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the skill. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="PUTapi-skills--id-"
+               value="vmqeopfuudtdsufvyvddq"
+               data-component="body">
+    <br>
+<p>Must not be greater than 100 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>skill_category_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="skill_category_id"                data-endpoint="PUTapi-skills--id-"
+               value="17"
+               data-component="body">
+    <br>
+<p>The <code>id</code> of an existing record in the skill_categories table. Example: <code>17</code></p>
+        </div>
+        </form>
+
+                    <h2 id="skills-DELETEapi-skills--id-">Delete a skill.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-skills--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "https://backend-laravel.dev.jussialanen.com/api/skills/1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/skills/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-skills--id-">
+</span>
+<span id="execution-results-DELETEapi-skills--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-skills--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-skills--id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-skills--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-skills--id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-skills--id-" data-method="DELETE"
+      data-path="api/skills/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-skills--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-skills--id-"
+                    onclick="tryItOut('DELETEapi-skills--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-skills--id-"
+                    onclick="cancelTryOut('DELETEapi-skills--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-skills--id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/skills/{id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-skills--id-"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-skills--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-skills--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="DELETEapi-skills--id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the skill. Example: <code>1</code></p>
+            </div>
+                    </form>
+
                 <h1 id="tax-rates">Tax Rates</h1>
 
     
@@ -16787,7 +29633,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 15
+x-ratelimit-remaining: 32
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -17200,7 +30046,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 14
+x-ratelimit-remaining: 31
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -17331,7 +30177,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "https://backend-laravel.dev.jussialanen.com/api/upload-test" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpljoCOP" </code></pre></div>
+    --form "file=@/tmp/phpcakLDj" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -17439,7 +30285,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Image file to upload. Example: <code>/tmp/phpljoCOP</code></p>
+<p>Image file to upload. Example: <code>/tmp/phpcakLDj</code></p>
         </div>
         </form>
 
@@ -17494,21 +30340,26 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 30
+x-ratelimit-remaining: 53
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">[
     {
-        &quot;id&quot;: 59,
+        &quot;id&quot;: 1,
         &quot;key&quot;: &quot;admin&quot;,
         &quot;label&quot;: &quot;Admin&quot;
     },
     {
-        &quot;id&quot;: 58,
+        &quot;id&quot;: 3,
         &quot;key&quot;: &quot;customer&quot;,
         &quot;label&quot;: &quot;Customer&quot;
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;key&quot;: &quot;vendor&quot;,
+        &quot;label&quot;: &quot;Vendor&quot;
     }
 ]</code>
  </pre>
@@ -17633,52 +30484,30 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 29
+x-ratelimit-remaining: 52
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">[
     {
-        &quot;id&quot;: 73,
-        &quot;first_name&quot;: &quot;Jussi&quot;,
-        &quot;last_name&quot;: &quot;Alanen&quot;,
-        &quot;username&quot;: &quot;juzapala&quot;,
-        &quot;name&quot;: &quot;Jussi Alanen&quot;,
-        &quot;email&quot;: &quot;juzapala@gmail.com&quot;,
+        &quot;id&quot;: 1,
+        &quot;first_name&quot;: &quot;Super&quot;,
+        &quot;last_name&quot;: &quot;Admin&quot;,
+        &quot;username&quot;: &quot;superadmin&quot;,
+        &quot;name&quot;: &quot;superadmin&quot;,
+        &quot;email&quot;: &quot;juzapala+superadmin@gmail.com&quot;,
         &quot;roles&quot;: [
             &quot;admin&quot;
         ]
     },
     {
-        &quot;id&quot;: 74,
+        &quot;id&quot;: 2,
         &quot;first_name&quot;: &quot;Jussi&quot;,
-        &quot;last_name&quot;: &quot;Palanen&quot;,
-        &quot;username&quot;: &quot;jusspe&quot;,
-        &quot;name&quot;: &quot;Jussi Palanen&quot;,
-        &quot;email&quot;: &quot;juzapala+dotnettest@gmail.com&quot;,
-        &quot;roles&quot;: [
-            &quot;customer&quot;
-        ]
-    },
-    {
-        &quot;id&quot;: 75,
-        &quot;first_name&quot;: &quot;Jussi&quot;,
-        &quot;last_name&quot;: &quot;Palanen&quot;,
-        &quot;username&quot;: &quot;jusspeala&quot;,
-        &quot;name&quot;: &quot;Jussi Palanen&quot;,
-        &quot;email&quot;: &quot;juzapala+asdf@gmail.com&quot;,
-        &quot;roles&quot;: [
-            &quot;customer&quot;
-        ]
-    },
-    {
-        &quot;id&quot;: 76,
-        &quot;first_name&quot;: &quot;saddsaasd&quot;,
-        &quot;last_name&quot;: &quot;adsdssd&quot;,
-        &quot;username&quot;: &quot;lollero&quot;,
-        &quot;name&quot;: &quot;saddsaasd adsdssd&quot;,
-        &quot;email&quot;: &quot;juzapala+lollero@gmail.com&quot;,
+        &quot;last_name&quot;: &quot;Alanen&quot;,
+        &quot;username&quot;: &quot;juzapala&quot;,
+        &quot;name&quot;: &quot;Jussi Alanen&quot;,
+        &quot;email&quot;: &quot;juzapala@gmail.com&quot;,
         &quot;roles&quot;: [
             &quot;customer&quot;
         ]
@@ -17982,14 +30811,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/users/73" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/users/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/users/73"
+    "https://backend-laravel.dev.jussialanen.com/api/users/1"
 );
 
 const headers = {
@@ -18016,18 +30845,18 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 28
+x-ratelimit-remaining: 51
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 73,
-    &quot;first_name&quot;: &quot;Jussi&quot;,
-    &quot;last_name&quot;: &quot;Alanen&quot;,
-    &quot;username&quot;: &quot;juzapala&quot;,
-    &quot;name&quot;: &quot;Jussi Alanen&quot;,
-    &quot;email&quot;: &quot;juzapala@gmail.com&quot;,
+    &quot;id&quot;: 1,
+    &quot;first_name&quot;: &quot;Super&quot;,
+    &quot;last_name&quot;: &quot;Admin&quot;,
+    &quot;username&quot;: &quot;superadmin&quot;,
+    &quot;name&quot;: &quot;superadmin&quot;,
+    &quot;email&quot;: &quot;juzapala+superadmin@gmail.com&quot;,
     &quot;roles&quot;: [
         &quot;admin&quot;
     ]
@@ -18113,10 +30942,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-users--id-"
-               value="73"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the user. Example: <code>73</code></p>
+<p>The ID of the user. Example: <code>1</code></p>
             </div>
                     </form>
 
@@ -18683,13 +31512,13 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 24
+x-ratelimit-remaining: 47
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;visitors&quot;: 0
+    &quot;visitors&quot;: 1
 }</code>
  </pre>
     </span>
@@ -18828,13 +31657,13 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 23
+x-ratelimit-remaining: 46
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;visitors&quot;: 0
+    &quot;visitors&quot;: 1
 }</code>
  </pre>
     </span>

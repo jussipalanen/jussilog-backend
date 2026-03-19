@@ -4,6 +4,9 @@ use App\Http\Controllers\AdminThumbnailController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\SkillCategoryController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -167,6 +170,31 @@ Route::get('/settings/countries/{code}', [SettingsController::class, 'country'])
 Route::post('/visitors/track', [VisitorController::class, 'track']);
 Route::get('/visitors/today', [VisitorController::class, 'today']);
 Route::get('/visitors/total', [VisitorController::class, 'total']);
+
+// Skill category, skill & language lookup routes — public, read-only
+Route::get('/skill-categories', [SkillCategoryController::class, 'index']);
+Route::get('/skill-categories/{id}/skills', [SkillCategoryController::class, 'skills']);
+Route::get('/skills', [SkillController::class, 'index']);
+Route::get('/languages', [LanguageController::class, 'index']);
+
+// Skill category, skill & language management — admin only
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::post('/skill-categories', [SkillCategoryController::class, 'store']);
+    Route::put('/skill-categories/{id}', [SkillCategoryController::class, 'update']);
+    Route::delete('/skill-categories/{id}', [SkillCategoryController::class, 'destroy']);
+
+    Route::post('/skill-categories/{id}/skills', [SkillCategoryController::class, 'storeSkill']);
+    Route::put('/skill-categories/{id}/skills/{skillId}', [SkillCategoryController::class, 'updateSkill']);
+    Route::delete('/skill-categories/{id}/skills/{skillId}', [SkillCategoryController::class, 'destroySkill']);
+
+    Route::post('/skills', [SkillController::class, 'store']);
+    Route::put('/skills/{id}', [SkillController::class, 'update']);
+    Route::delete('/skills/{id}', [SkillController::class, 'destroy']);
+
+    Route::post('/languages', [LanguageController::class, 'store']);
+    Route::put('/languages/{id}', [LanguageController::class, 'update']);
+    Route::delete('/languages/{id}', [LanguageController::class, 'destroy']);
+});
 
 // Blog routes — public read, admin write
 Route::get('/blogs', [BlogController::class, 'index']);
