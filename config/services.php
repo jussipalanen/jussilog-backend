@@ -35,4 +35,12 @@ return [
         'client_id' => env('GOOGLE_CLIENT_ID'),
     ],
 
+    'vertex_ai' => [
+        'project_id'   => env('VERTEX_AI_PROJECT_ID'),
+        'location'     => env('VERTEX_AI_LOCATION', 'europe-north1'),
+        'model'        => env('VERTEX_AI_MODEL', 'gemini-2.5-pro'),
+        'key_file'     => env('VERTEX_AI_KEY_FILE', ''),
+        'access_token' => env('VERTEX_AI_ACCESS_TOKEN', ''),
+    ],
+
 ];

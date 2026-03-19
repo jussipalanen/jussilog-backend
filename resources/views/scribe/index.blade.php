@@ -66,6 +66,16 @@
                     <a href="#authenticating-requests">Authenticating requests</a>
                 </li>
                             </ul>
+                    <ul id="tocify-header-ai-agent" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="ai-agent">
+                    <a href="#ai-agent">AI Agent</a>
+                </li>
+                                    <ul id="tocify-subheader-ai-agent" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="ai-agent-POSTapi-agent-resume-ask">
+                                <a href="#ai-agent-POSTapi-agent-resume-ask">Ask a question about the authenticated user's primary resume.</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-admin-thumbnails" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="admin-thumbnails">
                     <a href="#admin-thumbnails">Admin – Thumbnails</a>
@@ -133,8 +143,8 @@
                                                     <li class="tocify-item level-2" data-unique="blog-GETapi-blogs">
                                 <a href="#blog-GETapi-blogs">List published blog posts (public).</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="blog-GETapi-blogs--id-">
-                                <a href="#blog-GETapi-blogs--id-">Show a single published blog post (public).</a>
+                                                                                <li class="tocify-item level-2" data-unique="blog-GETapi-blogs--idOrSlug-">
+                                <a href="#blog-GETapi-blogs--idOrSlug-">Show a single published blog post (public).</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="blog-GETapi-admin-blogs">
                                 <a href="#blog-GETapi-admin-blogs">List all blog posts for admin (including hidden).</a>
@@ -176,6 +186,12 @@
                                     <ul id="tocify-subheader-endpoints" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="endpoints-PATCHapi-users-update-role">
                                 <a href="#endpoints-PATCHapi-users-update-role">Update a user's role by identifier (id, username or email).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-resumes--id--preview-pdf-render">
+                                <a href="#endpoints-GETapi-resumes--id--preview-pdf-render">Render a resume as an inline PDF via a signed URL (no auth token required).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-resumes--id--preview-html-render">
+                                <a href="#endpoints-GETapi-resumes--id--preview-html-render">Render a resume as inline HTML via a signed URL (no auth token required).</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -315,6 +331,12 @@
                                                                                 <li class="tocify-item level-2" data-unique="resumes-POSTapi-resumes-export-html">
                                 <a href="#resumes-POSTapi-resumes-export-html">Export a resume as an HTML file from a JSON payload (no stored resume required).</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="resumes-POSTapi-resumes-preview-pdf">
+                                <a href="#resumes-POSTapi-resumes-preview-pdf">Preview a resume as an inline PDF from a JSON payload (no stored resume required).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="resumes-POSTapi-resumes-preview-html">
+                                <a href="#resumes-POSTapi-resumes-preview-html">Preview a resume as inline HTML from a JSON payload (no stored resume required).</a>
+                            </li>
                                                                                 <li class="tocify-item level-2" data-unique="resumes-GETapi-resumes-current">
                                 <a href="#resumes-GETapi-resumes-current">Get the primary resume.</a>
                             </li>
@@ -350,6 +372,15 @@
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="resumes-GETapi-resumes--id--export-json">
                                 <a href="#resumes-GETapi-resumes--id--export-json">Export a resume as a downloadable JSON backup file.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="resumes-GETapi-resumes--id--preview-pdf">
+                                <a href="#resumes-GETapi-resumes--id--preview-pdf">Preview a resume as an inline PDF (opens in browser, no download).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="resumes-GETapi-resumes--id--preview-html">
+                                <a href="#resumes-GETapi-resumes--id--preview-html">Preview a resume as inline HTML (renders in browser, no download).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="resumes-GETapi-resumes--id--preview-signed-url">
+                                <a href="#resumes-GETapi-resumes--id--preview-signed-url">Generate short-lived signed preview URLs for PDF and HTML (no token needed to open them).</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="resumes-POSTapi-resumes-import-json">
                                 <a href="#resumes-POSTapi-resumes-import-json">Import a resume from a previously exported JSON backup file.</a>
@@ -448,7 +479,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 17, 2026</li>
+        <li>Last updated: March 19, 2026</li>
     </ul>
 </div>
 
@@ -470,7 +501,193 @@ You can switch the language used with the tabs at the top right (or from the nav
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>Authenticate with a Sanctum bearer token via the Authorization header, for example: <code>Authorization: Bearer {token}</code>.</p>
 
-        <h1 id="admin-thumbnails">Admin – Thumbnails</h1>
+        <h1 id="ai-agent">AI Agent</h1>
+
+    
+
+                                <h2 id="ai-agent-POSTapi-agent-resume-ask">Ask a question about the authenticated user&#039;s primary resume.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-agent-resume-ask">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/agent/resume/ask" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"question\": \"What are the main skills on this resume?\",
+    \"language\": \"fi\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/agent/resume/ask"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "question": "What are the main skills on this resume?",
+    "language": "fi"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-agent-resume-ask">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;answer&quot;: &quot;The main skills listed on this resume are...&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;No primary resume found for this user.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;The question field is required.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (502):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;AI agent error: ...&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-agent-resume-ask" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-agent-resume-ask"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-agent-resume-ask"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-agent-resume-ask" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-agent-resume-ask">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-agent-resume-ask" data-method="POST"
+      data-path="api/agent/resume/ask"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-agent-resume-ask', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-agent-resume-ask"
+                    onclick="tryItOut('POSTapi-agent-resume-ask');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-agent-resume-ask"
+                    onclick="cancelTryOut('POSTapi-agent-resume-ask');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-agent-resume-ask"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/agent/resume/ask</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-agent-resume-ask"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-agent-resume-ask"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>question</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="question"                data-endpoint="POSTapi-agent-resume-ask"
+               value="What are the main skills on this resume?"
+               data-component="body">
+    <br>
+<p>The question to ask about the resume. Example: <code>What are the main skills on this resume?</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>language</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="language"                data-endpoint="POSTapi-agent-resume-ask"
+               value="fi"
+               data-component="body">
+    <br>
+<p>optional Response language: <code>en</code> for English, <code>fi</code> for Finnish. Omit to auto-detect from the question. Example: <code>fi</code></p>
+        </div>
+        </form>
+
+                <h1 id="admin-thumbnails">Admin – Thumbnails</h1>
 
     
 
@@ -2702,16 +2919,75 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 22
+x-ratelimit-remaining: 45
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;current_page&quot;: 1,
-    &quot;data&quot;: [],
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 4,
+            &quot;user_id&quot;: 1,
+            &quot;blog_category_id&quot;: 1,
+            &quot;title&quot;: &quot;Welcome to the Blog&quot;,
+            &quot;slug&quot;: &quot;welcome-to-the-blog&quot;,
+            &quot;excerpt&quot;: &quot;This is the first blog post.&quot;,
+            &quot;content&quot;: &quot;&lt;p&gt;Welcome! This is an example blog post created by the seeder.&lt;/p&gt;&quot;,
+            &quot;featured_image&quot;: null,
+            &quot;featured_image_sizes&quot;: null,
+            &quot;tags&quot;: null,
+            &quot;visibility&quot;: true,
+            &quot;created_at&quot;: &quot;2026-03-19T11:56:10.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-03-19T11:56:10.000000Z&quot;,
+            &quot;author&quot;: {
+                &quot;id&quot;: 1,
+                &quot;first_name&quot;: &quot;Super&quot;,
+                &quot;last_name&quot;: &quot;Admin&quot;,
+                &quot;name&quot;: &quot;superadmin&quot;
+            },
+            &quot;category&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Default&quot;,
+                &quot;slug&quot;: &quot;default&quot;
+            }
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;user_id&quot;: 1,
+            &quot;blog_category_id&quot;: 1,
+            &quot;title&quot;: &quot;sdasdsadasdsa&quot;,
+            &quot;slug&quot;: &quot;sdasdsadasdsa&quot;,
+            &quot;excerpt&quot;: &quot;dasdasdas&quot;,
+            &quot;content&quot;: &quot;&lt;p&gt;Until recently, the prevailing view assumed &lt;em&gt;lorem ipsum&lt;/em&gt; was born as a nonsense text. &ldquo;It&rsquo;s not Latin, though it looks like it, and it actually says nothing,&rdquo; Before &amp;amp; After magazine &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://www.straightdope.com/columns/read/2290/what-does-the-filler-text-lorem-ipsum-mean/\&quot;&gt;answered a curious reader&lt;/a&gt;, &ldquo;Its &lsquo;words&rsquo; loosely approximate the frequency with which letters occur in English, which is why at a glance it looks pretty real.&rdquo;&lt;/p&gt;&lt;p&gt;As Cicero would put it, &ldquo;Um, not so fast.&rdquo;&lt;/p&gt;&lt;p&gt;The placeholder text, beginning with the line &ldquo;Lorem ipsum dolor sit amet, consectetur adipiscing elit&rdquo;, looks like Latin because in its youth, centuries ago, it was Latin.&lt;/p&gt;&lt;p&gt;Richard McClintock, a Latin scholar from Hampden-Sydney College, is &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://en.wikipedia.org/wiki/Lorem_ipsum\&quot;&gt;credited&lt;/a&gt; with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur&mdash;a genuine, albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a passage from De Finibus Bonorum et Malorum (&ldquo;On the Extremes of Good and Evil&rdquo;), a first-century B.C. text from the Roman philosopher Cicero.&lt;/p&gt;&lt;p&gt;In particular, the garbled words of &lt;em&gt;lorem ipsum&lt;/em&gt; bear an unmistakable resemblance to sections 1.10.32&ndash;33 of Cicero&rsquo;s work, with the most notable passage excerpted below:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&ldquo;Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.&rdquo;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;A 1914 English translation by &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://en.wikipedia.org/wiki/Lorem_ipsum#English_translation\&quot;&gt;Harris Rackham&lt;/a&gt; reads:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&ldquo;Nor is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure.&rdquo;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;McClintock&rsquo;s eye for detail certainly helped narrow the whereabouts of lorem ipsum&rsquo;s origin, however, the &ldquo;how and when&rdquo; still remain something of a mystery, with competing theories and timelines.&lt;/p&gt;&quot;,
+            &quot;featured_image&quot;: &quot;blogs/3/featured_image_1773787684.jpg&quot;,
+            &quot;featured_image_sizes&quot;: {
+                &quot;large&quot;: &quot;blogs/3/1773787684_large.jpg&quot;,
+                &quot;thumb&quot;: &quot;blogs/3/1773787684_thumb.jpg&quot;,
+                &quot;medium&quot;: &quot;blogs/3/1773787684_medium.jpg&quot;
+            },
+            &quot;tags&quot;: [
+                &quot;asd&quot;
+            ],
+            &quot;visibility&quot;: true,
+            &quot;created_at&quot;: &quot;2026-03-17T15:11:50.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-03-17T22:56:40.000000Z&quot;,
+            &quot;author&quot;: {
+                &quot;id&quot;: 1,
+                &quot;first_name&quot;: &quot;Super&quot;,
+                &quot;last_name&quot;: &quot;Admin&quot;,
+                &quot;name&quot;: &quot;superadmin&quot;
+            },
+            &quot;category&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Default&quot;,
+                &quot;slug&quot;: &quot;default&quot;
+            }
+        }
+    ],
     &quot;first_page_url&quot;: &quot;http://localhost:8000/api/blogs?page=1&quot;,
-    &quot;from&quot;: null,
+    &quot;from&quot;: 1,
     &quot;last_page&quot;: 1,
     &quot;last_page_url&quot;: &quot;http://localhost:8000/api/blogs?page=1&quot;,
     &quot;links&quot;: [
@@ -2735,8 +3011,8 @@ access-control-allow-origin: *
     &quot;path&quot;: &quot;http://localhost:8000/api/blogs&quot;,
     &quot;per_page&quot;: 15,
     &quot;prev_page_url&quot;: null,
-    &quot;to&quot;: null,
-    &quot;total&quot;: 0
+    &quot;to&quot;: 2,
+    &quot;total&quot;: 2
 }</code>
  </pre>
     </span>
@@ -2813,27 +3089,27 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="blog-GETapi-blogs--id-">Show a single published blog post (public).</h2>
+                    <h2 id="blog-GETapi-blogs--idOrSlug-">Show a single published blog post (public).</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-GETapi-blogs--id-">
+<span id="example-requests-GETapi-blogs--idOrSlug-">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/blogs/1" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/blogs/3" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1"
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/3"
 );
 
 const headers = {
@@ -2849,9 +3125,9 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-GETapi-blogs--id-">
+<span id="example-responses-GETapi-blogs--idOrSlug-">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -2860,53 +3136,82 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 21
+x-ratelimit-remaining: 44
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [App\\Models\\Blog] 1&quot;
+    &quot;id&quot;: 3,
+    &quot;user_id&quot;: 1,
+    &quot;blog_category_id&quot;: 1,
+    &quot;title&quot;: &quot;sdasdsadasdsa&quot;,
+    &quot;slug&quot;: &quot;sdasdsadasdsa&quot;,
+    &quot;excerpt&quot;: &quot;dasdasdas&quot;,
+    &quot;content&quot;: &quot;&lt;p&gt;Until recently, the prevailing view assumed &lt;em&gt;lorem ipsum&lt;/em&gt; was born as a nonsense text. &ldquo;It&rsquo;s not Latin, though it looks like it, and it actually says nothing,&rdquo; Before &amp;amp; After magazine &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://www.straightdope.com/columns/read/2290/what-does-the-filler-text-lorem-ipsum-mean/\&quot;&gt;answered a curious reader&lt;/a&gt;, &ldquo;Its &lsquo;words&rsquo; loosely approximate the frequency with which letters occur in English, which is why at a glance it looks pretty real.&rdquo;&lt;/p&gt;&lt;p&gt;As Cicero would put it, &ldquo;Um, not so fast.&rdquo;&lt;/p&gt;&lt;p&gt;The placeholder text, beginning with the line &ldquo;Lorem ipsum dolor sit amet, consectetur adipiscing elit&rdquo;, looks like Latin because in its youth, centuries ago, it was Latin.&lt;/p&gt;&lt;p&gt;Richard McClintock, a Latin scholar from Hampden-Sydney College, is &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://en.wikipedia.org/wiki/Lorem_ipsum\&quot;&gt;credited&lt;/a&gt; with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur&mdash;a genuine, albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a passage from De Finibus Bonorum et Malorum (&ldquo;On the Extremes of Good and Evil&rdquo;), a first-century B.C. text from the Roman philosopher Cicero.&lt;/p&gt;&lt;p&gt;In particular, the garbled words of &lt;em&gt;lorem ipsum&lt;/em&gt; bear an unmistakable resemblance to sections 1.10.32&ndash;33 of Cicero&rsquo;s work, with the most notable passage excerpted below:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&ldquo;Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.&rdquo;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;A 1914 English translation by &lt;a target=\&quot;_blank\&quot; rel=\&quot;noopener noreferrer nofollow\&quot; class=\&quot;underline hover:text-accent\&quot; href=\&quot;https://en.wikipedia.org/wiki/Lorem_ipsum#English_translation\&quot;&gt;Harris Rackham&lt;/a&gt; reads:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&ldquo;Nor is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure.&rdquo;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;McClintock&rsquo;s eye for detail certainly helped narrow the whereabouts of lorem ipsum&rsquo;s origin, however, the &ldquo;how and when&rdquo; still remain something of a mystery, with competing theories and timelines.&lt;/p&gt;&quot;,
+    &quot;featured_image&quot;: &quot;blogs/3/featured_image_1773787684.jpg&quot;,
+    &quot;featured_image_sizes&quot;: {
+        &quot;large&quot;: &quot;blogs/3/1773787684_large.jpg&quot;,
+        &quot;thumb&quot;: &quot;blogs/3/1773787684_thumb.jpg&quot;,
+        &quot;medium&quot;: &quot;blogs/3/1773787684_medium.jpg&quot;
+    },
+    &quot;tags&quot;: [
+        &quot;asd&quot;
+    ],
+    &quot;visibility&quot;: true,
+    &quot;created_at&quot;: &quot;2026-03-17T15:11:50.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2026-03-17T22:56:40.000000Z&quot;,
+    &quot;author&quot;: {
+        &quot;id&quot;: 1,
+        &quot;first_name&quot;: &quot;Super&quot;,
+        &quot;last_name&quot;: &quot;Admin&quot;,
+        &quot;name&quot;: &quot;superadmin&quot;
+    },
+    &quot;category&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Default&quot;,
+        &quot;slug&quot;: &quot;default&quot;
+    }
 }</code>
  </pre>
     </span>
-<span id="execution-results-GETapi-blogs--id-" hidden>
+<span id="execution-results-GETapi-blogs--idOrSlug-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-GETapi-blogs--id-"></span>:
+                id="execution-response-status-GETapi-blogs--idOrSlug-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-blogs--id-"
+    <pre class="json"><code id="execution-response-content-GETapi-blogs--idOrSlug-"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-GETapi-blogs--id-" hidden>
+<span id="execution-error-GETapi-blogs--idOrSlug-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-blogs--id-">
+    <pre><code id="execution-error-message-GETapi-blogs--idOrSlug-">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-GETapi-blogs--id-" data-method="GET"
-      data-path="api/blogs/{id}"
+<form id="form-GETapi-blogs--idOrSlug-" data-method="GET"
+      data-path="api/blogs/{idOrSlug}"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-blogs--id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-blogs--idOrSlug-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-blogs--id-"
-                    onclick="tryItOut('GETapi-blogs--id-');">Try it out ⚡
+                    id="btn-tryout-GETapi-blogs--idOrSlug-"
+                    onclick="tryItOut('GETapi-blogs--idOrSlug-');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-blogs--id-"
-                    onclick="cancelTryOut('GETapi-blogs--id-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-GETapi-blogs--idOrSlug-"
+                    onclick="cancelTryOut('GETapi-blogs--idOrSlug-');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-blogs--id-"
+                    id="btn-executetryout-GETapi-blogs--idOrSlug-"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -2914,7 +3219,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-green">GET</small>
-            <b><code>api/blogs/{id}</code></b>
+            <b><code>api/blogs/{idOrSlug}</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -2923,7 +3228,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-blogs--id-"
+                              name="Content-Type"                data-endpoint="GETapi-blogs--idOrSlug-"
                value="application/json"
                data-component="header">
     <br>
@@ -2935,7 +3240,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-blogs--id-"
+                              name="Accept"                data-endpoint="GETapi-blogs--idOrSlug-"
                value="application/json"
                data-component="header">
     <br>
@@ -2943,16 +3248,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+                <b style="line-height: 2;"><code>idOrSlug</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="id"                data-endpoint="GETapi-blogs--id-"
-               value="1"
+               step="any"               name="idOrSlug"                data-endpoint="GETapi-blogs--idOrSlug-"
+               value="3"
                data-component="url">
     <br>
-<p>The ID of the blog. Example: <code>1</code></p>
+<p>Example: <code>3</code></p>
             </div>
                     </form>
 
@@ -3115,20 +3420,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "https://backend-laravel.dev.jussialanen.com/api/blogs" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
-    --header "Content-Type: application/json" \
+    --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --data "{
-    \"title\": \"vmqeopfuudtdsufvyvddq\",
-    \"excerpt\": \"consequatur\",
-    \"content\": \"consequatur\",
-    \"blog_category_id\": 17,
-    \"feature_image\": \"mqeopfuudtdsufvyvddqa\",
-    \"tags\": [
-        \"mniihfqcoynlazghdtqtq\"
-    ],
-    \"visibility\": false
-}"
-</code></pre></div>
+    --form "title=vmqeopfuudtdsufvyvddq"\
+    --form "excerpt=consequatur"\
+    --form "content=consequatur"\
+    --form "blog_category_id=17"\
+    --form "tags[]=mqeopfuudtdsufvyvddqa"\
+    --form "visibility=1"\
+    --form "featured_image=@/tmp/phpcIKfpf" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -3138,26 +3438,23 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
     "Accept": "application/json",
 };
 
-let body = {
-    "title": "vmqeopfuudtdsufvyvddq",
-    "excerpt": "consequatur",
-    "content": "consequatur",
-    "blog_category_id": 17,
-    "feature_image": "mqeopfuudtdsufvyvddqa",
-    "tags": [
-        "mniihfqcoynlazghdtqtq"
-    ],
-    "visibility": false
-};
+const body = new FormData();
+body.append('title', 'vmqeopfuudtdsufvyvddq');
+body.append('excerpt', 'consequatur');
+body.append('content', 'consequatur');
+body.append('blog_category_id', '17');
+body.append('tags[]', 'mqeopfuudtdsufvyvddqa');
+body.append('visibility', '1');
+body.append('featured_image', document.querySelector('input[name="featured_image"]').files[0]);
 
 fetch(url, {
     method: "POST",
     headers,
-    body: JSON.stringify(body),
+    body,
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -3182,7 +3479,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <form id="form-POSTapi-blogs" data-method="POST"
       data-path="api/blogs"
       data-authed="1"
-      data-hasfiles="0"
+      data-hasfiles="1"
       data-isarraybody="0"
       autocomplete="off"
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-blogs', this);">
@@ -3230,10 +3527,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Content-Type"                data-endpoint="POSTapi-blogs"
-               value="application/json"
+               value="multipart/form-data"
                data-component="header">
     <br>
-<p>Example: <code>application/json</code></p>
+<p>Example: <code>multipart/form-data</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
@@ -3297,16 +3594,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>The <code>id</code> of an existing record in the blog_categories table. Example: <code>17</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>feature_image</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+            <b style="line-height: 2;"><code>featured_image</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
 <i>optional</i> &nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="feature_image"                data-endpoint="POSTapi-blogs"
-               value="mqeopfuudtdsufvyvddqa"
+                <input type="file" style="display: none"
+                              name="featured_image"                data-endpoint="POSTapi-blogs"
+               value=""
                data-component="body">
     <br>
-<p>Must not be greater than 2048 characters. Example: <code>mqeopfuudtdsufvyvddqa</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpcIKfpf</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>tags</code></b>&nbsp;&nbsp;
@@ -3342,7 +3639,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -3360,51 +3657,43 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/3" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
-    --header "Content-Type: application/json" \
+    --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --data "{
-    \"title\": \"vmqeopfuudtdsufvyvddq\",
-    \"excerpt\": \"consequatur\",
-    \"content\": \"consequatur\",
-    \"blog_category_id\": 17,
-    \"feature_image\": \"mqeopfuudtdsufvyvddqa\",
-    \"tags\": [
-        \"mniihfqcoynlazghdtqtq\"
-    ],
-    \"visibility\": false
-}"
-</code></pre></div>
+    --form "title=vmqeopfuudtdsufvyvddq"\
+    --form "excerpt=consequatur"\
+    --form "content=consequatur"\
+    --form "blog_category_id=17"\
+    --form "tags[]=mqeopfuudtdsufvyvddqa"\
+    --form "visibility=1"\
+    --form "featured_image=@/tmp/phpAmhhNg" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1"
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/3"
 );
 
 const headers = {
     "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
     "Accept": "application/json",
 };
 
-let body = {
-    "title": "vmqeopfuudtdsufvyvddq",
-    "excerpt": "consequatur",
-    "content": "consequatur",
-    "blog_category_id": 17,
-    "feature_image": "mqeopfuudtdsufvyvddqa",
-    "tags": [
-        "mniihfqcoynlazghdtqtq"
-    ],
-    "visibility": false
-};
+const body = new FormData();
+body.append('title', 'vmqeopfuudtdsufvyvddq');
+body.append('excerpt', 'consequatur');
+body.append('content', 'consequatur');
+body.append('blog_category_id', '17');
+body.append('tags[]', 'mqeopfuudtdsufvyvddqa');
+body.append('visibility', '1');
+body.append('featured_image', document.querySelector('input[name="featured_image"]').files[0]);
 
 fetch(url, {
     method: "PUT",
     headers,
-    body: JSON.stringify(body),
+    body,
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -3429,7 +3718,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <form id="form-PUTapi-blogs--id-" data-method="PUT"
       data-path="api/blogs/{id}"
       data-authed="1"
-      data-hasfiles="0"
+      data-hasfiles="1"
       data-isarraybody="0"
       autocomplete="off"
       onsubmit="event.preventDefault(); executeTryOut('PUTapi-blogs--id-', this);">
@@ -3477,10 +3766,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Content-Type"                data-endpoint="PUTapi-blogs--id-"
-               value="application/json"
+               value="multipart/form-data"
                data-component="header">
     <br>
-<p>Example: <code>application/json</code></p>
+<p>Example: <code>multipart/form-data</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
@@ -3502,10 +3791,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-blogs--id-"
-               value="1"
+               value="3"
                data-component="url">
     <br>
-<p>The ID of the blog. Example: <code>1</code></p>
+<p>The ID of the blog. Example: <code>3</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -3557,16 +3846,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>The <code>id</code> of an existing record in the blog_categories table. Example: <code>17</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>feature_image</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+            <b style="line-height: 2;"><code>featured_image</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
 <i>optional</i> &nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="feature_image"                data-endpoint="PUTapi-blogs--id-"
-               value="mqeopfuudtdsufvyvddqa"
+                <input type="file" style="display: none"
+                              name="featured_image"                data-endpoint="PUTapi-blogs--id-"
+               value=""
                data-component="body">
     <br>
-<p>Must not be greater than 2048 characters. Example: <code>mqeopfuudtdsufvyvddqa</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpAmhhNg</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>tags</code></b>&nbsp;&nbsp;
@@ -3602,7 +3891,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -3620,7 +3909,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/3" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3628,7 +3917,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1"
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/3"
 );
 
 const headers = {
@@ -3738,10 +4027,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-blogs--id-"
-               value="1"
+               value="3"
                data-component="url">
     <br>
-<p>The ID of the blog. Example: <code>1</code></p>
+<p>The ID of the blog. Example: <code>3</code></p>
             </div>
                     </form>
 
@@ -3796,18 +4085,25 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 20
+x-ratelimit-remaining: 43
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">[
     {
+        &quot;id&quot;: 2,
+        &quot;name&quot;: &quot;adsdsadsdasdsa&quot;,
+        &quot;slug&quot;: &quot;adsdsadsdasdsa&quot;,
+        &quot;created_at&quot;: &quot;2026-03-17T15:13:05.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-17T15:13:05.000000Z&quot;
+    },
+    {
         &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Technology&quot;,
-        &quot;slug&quot;: &quot;technology&quot;,
-        &quot;created_at&quot;: &quot;2026-03-17T10:15:07.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-03-17T10:15:07.000000Z&quot;
+        &quot;name&quot;: &quot;Default&quot;,
+        &quot;slug&quot;: &quot;default&quot;,
+        &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;
     }
 ]</code>
  </pre>
@@ -4460,6 +4756,292 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
+                    <h2 id="endpoints-GETapi-resumes--id--preview-pdf-render">Render a resume as an inline PDF via a signed URL (no auth token required).</h2>
+
+<p>
+</p>
+
+<p>Obtain the URL from the signed-url endpoint first.</p>
+
+<span id="example-requests-GETapi-resumes--id--preview-pdf-render">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/pdf/render" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/pdf/render"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-resumes--id--preview-pdf-render">
+            <blockquote>
+            <p>Example response (403):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 42
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Invalid signature.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-resumes--id--preview-pdf-render" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-resumes--id--preview-pdf-render"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-resumes--id--preview-pdf-render"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-resumes--id--preview-pdf-render" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-resumes--id--preview-pdf-render">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-resumes--id--preview-pdf-render" data-method="GET"
+      data-path="api/resumes/{id}/preview/pdf/render"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-resumes--id--preview-pdf-render', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-resumes--id--preview-pdf-render"
+                    onclick="tryItOut('GETapi-resumes--id--preview-pdf-render');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-resumes--id--preview-pdf-render"
+                    onclick="cancelTryOut('GETapi-resumes--id--preview-pdf-render');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-resumes--id--preview-pdf-render"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/resumes/{id}/preview/pdf/render</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-resumes--id--preview-pdf-render"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-resumes--id--preview-pdf-render"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="GETapi-resumes--id--preview-pdf-render"
+               value="consequatur"
+               data-component="url">
+    <br>
+<p>The ID of the resume. Example: <code>consequatur</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="endpoints-GETapi-resumes--id--preview-html-render">Render a resume as inline HTML via a signed URL (no auth token required).</h2>
+
+<p>
+</p>
+
+<p>Obtain the URL from the signed-url endpoint first.</p>
+
+<span id="example-requests-GETapi-resumes--id--preview-html-render">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/html/render" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/html/render"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-resumes--id--preview-html-render">
+            <blockquote>
+            <p>Example response (403):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 41
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Invalid signature.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-resumes--id--preview-html-render" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-resumes--id--preview-html-render"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-resumes--id--preview-html-render"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-resumes--id--preview-html-render" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-resumes--id--preview-html-render">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-resumes--id--preview-html-render" data-method="GET"
+      data-path="api/resumes/{id}/preview/html/render"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-resumes--id--preview-html-render', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-resumes--id--preview-html-render"
+                    onclick="tryItOut('GETapi-resumes--id--preview-html-render');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-resumes--id--preview-html-render"
+                    onclick="cancelTryOut('GETapi-resumes--id--preview-html-render');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-resumes--id--preview-html-render"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/resumes/{id}/preview/html/render</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-resumes--id--preview-html-render"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-resumes--id--preview-html-render"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="GETapi-resumes--id--preview-html-render"
+               value="consequatur"
+               data-component="url">
+    <br>
+<p>The ID of the resume. Example: <code>consequatur</code></p>
+            </div>
+                    </form>
+
                 <h1 id="health">Health</h1>
 
     
@@ -4511,7 +5093,7 @@ fetch(url, {
             <pre><code class="language-http">content-type: text/html; charset=UTF-8
 cache-control: no-cache, private
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 36
+x-ratelimit-remaining: 59
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -4863,7 +5445,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 31
+x-ratelimit-remaining: 54
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -7128,7 +7710,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"order_id\": 1,
-    \"due_date\": \"2026-03-17T10:38:01\",
+    \"due_date\": \"2026-03-19T22:06:19\",
     \"notes\": \"Net 30\",
     \"status\": \"draft\"
 }"
@@ -7147,7 +7729,7 @@ const headers = {
 
 let body = {
     "order_id": 1,
-    "due_date": "2026-03-17T10:38:01",
+    "due_date": "2026-03-19T22:06:19",
     "notes": "Net 30",
     "status": "draft"
 };
@@ -7310,10 +7892,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="due_date"                data-endpoint="POSTapi-invoices"
-               value="2026-03-17T10:38:01"
+               value="2026-03-19T22:06:19"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-03-17T10:38:01</code></p>
+<p>Must be a valid date. Example: <code>2026-03-19T22:06:19</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
@@ -7368,7 +7950,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"billing_address\": [],
     \"subtotal\": 153.47,
     \"total\": 153.47,
-    \"due_date\": \"2026-03-17T10:38:01\",
+    \"due_date\": \"2026-03-19T22:06:19\",
     \"notes\": \"Net 30\",
     \"items\": [
         {
@@ -7405,7 +7987,7 @@ let body = {
     "billing_address": [],
     "subtotal": 153.47,
     "total": 153.47,
-    "due_date": "2026-03-17T10:38:01",
+    "due_date": "2026-03-19T22:06:19",
     "notes": "Net 30",
     "items": [
         {
@@ -7684,10 +8266,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="due_date"                data-endpoint="PUTapi-invoices--id-"
-               value="2026-03-17T10:38:01"
+               value="2026-03-19T22:06:19"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-03-17T10:38:01</code></p>
+<p>Must be a valid date. Example: <code>2026-03-19T22:06:19</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
@@ -8028,7 +8610,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 33
+x-ratelimit-remaining: 56
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -8584,7 +9166,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-orders--id-">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -8593,13 +9175,126 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 32
+x-ratelimit-remaining: 55
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Order not found&quot;
+    &quot;id&quot;: 1,
+    &quot;user_id&quot;: 1,
+    &quot;customer_first_name&quot;: &quot;Jussi&quot;,
+    &quot;customer_last_name&quot;: &quot;Palanen&quot;,
+    &quot;customer_email&quot;: &quot;jussi@example.com&quot;,
+    &quot;customer_phone&quot;: &quot;+358401234567&quot;,
+    &quot;order_number&quot;: &quot;ORD-2026-00001&quot;,
+    &quot;status&quot;: &quot;completed&quot;,
+    &quot;total_amount&quot;: &quot;89.97&quot;,
+    &quot;shipping_address&quot;: {
+        &quot;city&quot;: &quot;Helsinki&quot;,
+        &quot;street&quot;: &quot;Mannerheimintie 1&quot;,
+        &quot;country&quot;: &quot;FI&quot;,
+        &quot;postal_code&quot;: &quot;00100&quot;
+    },
+    &quot;billing_address&quot;: {
+        &quot;city&quot;: &quot;Helsinki&quot;,
+        &quot;street&quot;: &quot;Mannerheimintie 1&quot;,
+        &quot;country&quot;: &quot;FI&quot;,
+        &quot;postal_code&quot;: &quot;00100&quot;
+    },
+    &quot;notes&quot;: null,
+    &quot;lang&quot;: &quot;en&quot;,
+    &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+    &quot;user&quot;: {
+        &quot;id&quot;: 1,
+        &quot;first_name&quot;: &quot;Super&quot;,
+        &quot;last_name&quot;: &quot;Admin&quot;,
+        &quot;username&quot;: &quot;superadmin&quot;,
+        &quot;name&quot;: &quot;superadmin&quot;,
+        &quot;email&quot;: &quot;juzapala+superadmin@gmail.com&quot;,
+        &quot;google_id&quot;: null,
+        &quot;avatar&quot;: null,
+        &quot;email_verified_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-03-19T17:41:28.000000Z&quot;
+    },
+    &quot;items&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;order_id&quot;: 1,
+            &quot;product_id&quot;: 13,
+            &quot;product_title&quot;: &quot;Wireless Headphones&quot;,
+            &quot;quantity&quot;: 1,
+            &quot;unit_price&quot;: &quot;79.99&quot;,
+            &quot;sale_price&quot;: null,
+            &quot;subtotal&quot;: &quot;79.99&quot;,
+            &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+            &quot;featured_image&quot;: null,
+            &quot;images&quot;: [],
+            &quot;featured_image_url&quot;: null,
+            &quot;images_urls&quot;: [],
+            &quot;product&quot;: {
+                &quot;id&quot;: 13,
+                &quot;title&quot;: &quot;Wireless Headphones&quot;,
+                &quot;description&quot;: &quot;Example product for seeding&quot;,
+                &quot;price&quot;: &quot;79.99&quot;,
+                &quot;sale_price&quot;: null,
+                &quot;tax_code&quot;: null,
+                &quot;tax_rate&quot;: null,
+                &quot;quantity&quot;: 0,
+                &quot;featured_image&quot;: null,
+                &quot;featured_image_sizes&quot;: null,
+                &quot;images&quot;: null,
+                &quot;images_sizes&quot;: null,
+                &quot;visibility&quot;: true,
+                &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+                &quot;featured_image_url&quot;: null,
+                &quot;featured_image_sizes_urls&quot;: [],
+                &quot;images_urls&quot;: [],
+                &quot;images_sizes_urls&quot;: []
+            }
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;order_id&quot;: 1,
+            &quot;product_id&quot;: 14,
+            &quot;product_title&quot;: &quot;USB-C Cable&quot;,
+            &quot;quantity&quot;: 2,
+            &quot;unit_price&quot;: &quot;4.99&quot;,
+            &quot;sale_price&quot;: null,
+            &quot;subtotal&quot;: &quot;9.98&quot;,
+            &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+            &quot;featured_image&quot;: null,
+            &quot;images&quot;: [],
+            &quot;featured_image_url&quot;: null,
+            &quot;images_urls&quot;: [],
+            &quot;product&quot;: {
+                &quot;id&quot;: 14,
+                &quot;title&quot;: &quot;USB-C Cable&quot;,
+                &quot;description&quot;: &quot;Example product for seeding&quot;,
+                &quot;price&quot;: &quot;4.99&quot;,
+                &quot;sale_price&quot;: null,
+                &quot;tax_code&quot;: null,
+                &quot;tax_rate&quot;: null,
+                &quot;quantity&quot;: 0,
+                &quot;featured_image&quot;: null,
+                &quot;featured_image_sizes&quot;: null,
+                &quot;images&quot;: null,
+                &quot;images_sizes&quot;: null,
+                &quot;visibility&quot;: true,
+                &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+                &quot;featured_image_url&quot;: null,
+                &quot;featured_image_sizes_urls&quot;: [],
+                &quot;images_urls&quot;: [],
+                &quot;images_sizes_urls&quot;: []
+            }
+        }
+    ]
 }</code>
  </pre>
     </span>
@@ -9434,7 +10129,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 35
+x-ratelimit-remaining: 58
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -9644,9 +10339,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "tax_rate=1"\
     --form "quantity=50"\
     --form "visibility=1"\
-    --form "featured_image=@/tmp/phpPemLPa" \
-    --form "images[]=@/tmp/phpnbIFPa" \
-    --form "images[]=@/tmp/phpnfcOPa" </code></pre></div>
+    --form "featured_image=@/tmp/phpoeOAfD" \
+    --form "images[]=@/tmp/phpnBgheD" \
+    --form "images[]=@/tmp/phpNGHEfD" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -9876,7 +10571,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Featured image file. Example: <code>/tmp/phpPemLPa</code></p>
+<p>Featured image file. Example: <code>/tmp/phpoeOAfD</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>visibility</code></b>&nbsp;&nbsp;
@@ -9924,7 +10619,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Additional image files. Example: <code>/tmp/phpnfcOPa</code></p>
+<p>Additional image files. Example: <code>/tmp/phpNGHEfD</code></p>
         </div>
         </form>
 
@@ -9966,7 +10661,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-products--id-">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -9975,13 +10670,31 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 34
+x-ratelimit-remaining: 57
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Product not found&quot;
+    &quot;id&quot;: 1,
+    &quot;title&quot;: &quot;sapiente quia fugit&quot;,
+    &quot;description&quot;: &quot;Nemo aut natus consectetur quam magni omnis aut. Ea culpa rerum veritatis praesentium voluptatem. Dolores distinctio aperiam ea earum iusto. Voluptas pariatur eveniet veniam minus est quod voluptatem placeat.\n\nIncidunt pariatur delectus voluptatem est voluptas consequuntur et occaecati. Eos nulla eligendi ducimus consectetur soluta numquam inventore qui. Voluptas consequatur deserunt possimus optio dicta. Ut et et modi aut.\n\nSed voluptas magnam impedit. Perspiciatis excepturi ipsam ut sed voluptatum repudiandae molestiae et. Fugit dolore maxime aut voluptatem magnam sed.&quot;,
+    &quot;price&quot;: &quot;330.00&quot;,
+    &quot;sale_price&quot;: null,
+    &quot;tax_code&quot;: &quot;FI&quot;,
+    &quot;tax_rate&quot;: &quot;0.2550&quot;,
+    &quot;quantity&quot;: 78,
+    &quot;featured_image&quot;: null,
+    &quot;featured_image_sizes&quot;: null,
+    &quot;images&quot;: [],
+    &quot;images_sizes&quot;: null,
+    &quot;visibility&quot;: true,
+    &quot;created_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2026-03-17T14:01:15.000000Z&quot;,
+    &quot;featured_image_url&quot;: null,
+    &quot;featured_image_sizes_urls&quot;: [],
+    &quot;images_urls&quot;: [],
+    &quot;images_sizes_urls&quot;: []
 }</code>
  </pre>
     </span>
@@ -10099,9 +10812,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "delete_images[]=consequatur"\
     --form "delete_featured_image="\
     --form "delete_images[]=products/1/image.png"\
-    --form "featured_image=@/tmp/phppCNpIb" \
-    --form "images[]=@/tmp/phpfNHjIb" \
-    --form "images[]=@/tmp/phpjpJCJb" </code></pre></div>
+    --form "featured_image=@/tmp/phpgEkCfE" \
+    --form "images[]=@/tmp/phpmgGjeE" \
+    --form "images[]=@/tmp/phpdcLHfE" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -10334,7 +11047,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Featured image file. Example: <code>/tmp/phppCNpIb</code></p>
+<p>Featured image file. Example: <code>/tmp/phpgEkCfE</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>visibility</code></b>&nbsp;&nbsp;
@@ -10418,7 +11131,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Additional image files. Example: <code>/tmp/phpjpJCJb</code></p>
+<p>Additional image files. Example: <code>/tmp/phpdcLHfE</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>delete_images[]</code></b>&nbsp;&nbsp;
@@ -11316,7 +12029,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 19
+x-ratelimit-remaining: 40
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -11362,14 +12075,119 @@ access-control-allow-origin: *
         {
             &quot;value&quot;: &quot;grey&quot;,
             &quot;label&quot;: &quot;Grey&quot;
+        },
+        {
+            &quot;value&quot;: &quot;midnight&quot;,
+            &quot;label&quot;: &quot;Midnight&quot;
+        },
+        {
+            &quot;value&quot;: &quot;gold&quot;,
+            &quot;label&quot;: &quot;Gold&quot;
+        },
+        {
+            &quot;value&quot;: &quot;aurora&quot;,
+            &quot;label&quot;: &quot;Aurora&quot;
+        },
+        {
+            &quot;value&quot;: &quot;ember&quot;,
+            &quot;label&quot;: &quot;Ember&quot;
+        },
+        {
+            &quot;value&quot;: &quot;amethyst&quot;,
+            &quot;label&quot;: &quot;Amethyst&quot;
         }
     ],
     &quot;templates&quot;: [
         {
             &quot;value&quot;: &quot;default&quot;,
-            &quot;label&quot;: &quot;Default&quot;
+            &quot;label&quot;: &quot;Classic&quot;
+        },
+        {
+            &quot;value&quot;: &quot;dark&quot;,
+            &quot;label&quot;: &quot;Dark&quot;
         }
     ],
+    &quot;template_themes&quot;: {
+        &quot;default&quot;: [
+            {
+                &quot;value&quot;: &quot;green&quot;,
+                &quot;accent&quot;: &quot;#14532d&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;blue&quot;,
+                &quot;accent&quot;: &quot;#1e3a5f&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;red&quot;,
+                &quot;accent&quot;: &quot;#7f1d1d&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;yellow&quot;,
+                &quot;accent&quot;: &quot;#78350f&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;cyan&quot;,
+                &quot;accent&quot;: &quot;#164e63&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;orange&quot;,
+                &quot;accent&quot;: &quot;#7c2d12&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;violet&quot;,
+                &quot;accent&quot;: &quot;#4c1d95&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;black&quot;,
+                &quot;accent&quot;: &quot;#111827&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            },
+            {
+                &quot;value&quot;: &quot;white&quot;,
+                &quot;accent&quot;: &quot;#0f172a&quot;,
+                &quot;bg&quot;: &quot;#f1f5f9&quot;
+            },
+            {
+                &quot;value&quot;: &quot;grey&quot;,
+                &quot;accent&quot;: &quot;#374151&quot;,
+                &quot;bg&quot;: &quot;#ffffff&quot;
+            }
+        ],
+        &quot;dark&quot;: [
+            {
+                &quot;value&quot;: &quot;midnight&quot;,
+                &quot;accent&quot;: &quot;#58a6ff&quot;,
+                &quot;bg&quot;: &quot;#0d1117&quot;
+            },
+            {
+                &quot;value&quot;: &quot;gold&quot;,
+                &quot;accent&quot;: &quot;#d4a843&quot;,
+                &quot;bg&quot;: &quot;#0f0d08&quot;
+            },
+            {
+                &quot;value&quot;: &quot;aurora&quot;,
+                &quot;accent&quot;: &quot;#2dd4bf&quot;,
+                &quot;bg&quot;: &quot;#091518&quot;
+            },
+            {
+                &quot;value&quot;: &quot;ember&quot;,
+                &quot;accent&quot;: &quot;#fb923c&quot;,
+                &quot;bg&quot;: &quot;#100a07&quot;
+            },
+            {
+                &quot;value&quot;: &quot;amethyst&quot;,
+                &quot;accent&quot;: &quot;#a78bfa&quot;,
+                &quot;bg&quot;: &quot;#0d0b14&quot;
+            }
+        ]
+    },
     &quot;languages&quot;: [
         {
             &quot;value&quot;: &quot;en&quot;,
@@ -12147,6 +12965,230 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
+                    <h2 id="resumes-POSTapi-resumes-preview-pdf">Preview a resume as an inline PDF from a JSON payload (no stored resume required).</h2>
+
+<p>
+</p>
+
+<p>The photo can be supplied as a base64-encoded string in <code>photo</code>.
+Returns the PDF inline (for iframe / browser preview), not as a download.</p>
+
+<span id="example-requests-POSTapi-resumes-preview-pdf">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/preview/pdf" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/preview/pdf"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-resumes-preview-pdf">
+</span>
+<span id="execution-results-POSTapi-resumes-preview-pdf" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-resumes-preview-pdf"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-resumes-preview-pdf"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-resumes-preview-pdf" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-resumes-preview-pdf">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-resumes-preview-pdf" data-method="POST"
+      data-path="api/resumes/preview/pdf"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-resumes-preview-pdf', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-resumes-preview-pdf"
+                    onclick="tryItOut('POSTapi-resumes-preview-pdf');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-resumes-preview-pdf"
+                    onclick="cancelTryOut('POSTapi-resumes-preview-pdf');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-resumes-preview-pdf"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/resumes/preview/pdf</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-resumes-preview-pdf"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-resumes-preview-pdf"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="resumes-POSTapi-resumes-preview-html">Preview a resume as inline HTML from a JSON payload (no stored resume required).</h2>
+
+<p>
+</p>
+
+<p>The photo can be supplied as a base64-encoded string in <code>photo</code>.
+Returns HTML inline (for iframe / browser preview), not as a download.</p>
+
+<span id="example-requests-POSTapi-resumes-preview-html">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/preview/html" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/preview/html"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-resumes-preview-html">
+</span>
+<span id="execution-results-POSTapi-resumes-preview-html" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-resumes-preview-html"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-resumes-preview-html"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-resumes-preview-html" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-resumes-preview-html">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-resumes-preview-html" data-method="POST"
+      data-path="api/resumes/preview/html"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-resumes-preview-html', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-resumes-preview-html"
+                    onclick="tryItOut('POSTapi-resumes-preview-html');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-resumes-preview-html"
+                    onclick="cancelTryOut('POSTapi-resumes-preview-html');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-resumes-preview-html"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/resumes/preview/html</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-resumes-preview-html"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-resumes-preview-html"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
                     <h2 id="resumes-GETapi-resumes-current">Get the primary resume.</h2>
 
 <p>
@@ -12203,7 +13245,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 18
+x-ratelimit-remaining: 39
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -12372,7 +13414,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 17
+x-ratelimit-remaining: 38
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -12546,7 +13588,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 16
+x-ratelimit-remaining: 37
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -13440,7 +14482,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -13448,7 +14490,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6"
 );
 
 const headers = {
@@ -13575,10 +14617,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id-"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -13608,7 +14650,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -13627,12 +14669,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "code=opfuudtdsufvyvddqamni"\
     --form "show_skill_levels=1"\
     --form "show_language_levels="\
-    --form "photo=@/tmp/phpMncbBH" </code></pre></div>
+    --form "photo=@/tmp/phpcAllCo" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6"
 );
 
 const headers = {
@@ -13760,10 +14802,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-resumes--id-"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -13884,7 +14926,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpMncbBH</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpcAllCo</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>summary</code></b>&nbsp;&nbsp;
@@ -14100,7 +15142,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -14119,12 +15161,12 @@ Must be one of:
     --form "code=opfuudtdsufvyvddqamni"\
     --form "show_skill_levels=1"\
     --form "show_language_levels="\
-    --form "photo=@/tmp/phpilhjOH" </code></pre></div>
+    --form "photo=@/tmp/phpKNLFPo" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6"
 );
 
 const headers = {
@@ -14252,10 +15294,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="POSTapi-resumes--id-"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -14376,7 +15418,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpilhjOH</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpKNLFPo</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>summary</code></b>&nbsp;&nbsp;
@@ -14592,7 +15634,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -14600,7 +15642,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6"
 );
 
 const headers = {
@@ -14710,10 +15752,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-resumes--id-"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -14743,7 +15785,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/pdf" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/pdf" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -14751,7 +15793,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/pdf"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/pdf"
 );
 
 const headers = {
@@ -14878,10 +15920,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--export-pdf"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -14911,7 +15953,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/html" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/html" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -14919,7 +15961,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/html"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/html"
 );
 
 const headers = {
@@ -15046,10 +16088,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--export-html"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -15079,7 +16121,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/json" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/json" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -15087,7 +16129,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/json"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/export/json"
 );
 
 const headers = {
@@ -15214,10 +16256,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--export-json"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -15232,6 +16274,783 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>The resume ID. Example: <code>1</code></p>
             </div>
                     </form>
+
+                    <h2 id="resumes-GETapi-resumes--id--preview-pdf">Preview a resume as an inline PDF (opens in browser, no download).</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-resumes--id--preview-pdf">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/pdf?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/pdf"
+);
+
+const params = {
+    "theme": "blue",
+    "lang": "en",
+    "template": "default",
+    "show_skill_levels": "1",
+    "show_language_levels": "1",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-resumes--id--preview-pdf">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-resumes--id--preview-pdf" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-resumes--id--preview-pdf"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-resumes--id--preview-pdf"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-resumes--id--preview-pdf" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-resumes--id--preview-pdf">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-resumes--id--preview-pdf" data-method="GET"
+      data-path="api/resumes/{id}/preview/pdf"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-resumes--id--preview-pdf', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-resumes--id--preview-pdf"
+                    onclick="tryItOut('GETapi-resumes--id--preview-pdf');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-resumes--id--preview-pdf"
+                    onclick="cancelTryOut('GETapi-resumes--id--preview-pdf');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-resumes--id--preview-pdf"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/resumes/{id}/preview/pdf</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="6"
+               data-component="url">
+    <br>
+<p>The ID of the resume. Example: <code>6</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="resume"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="1"
+               data-component="url">
+    <br>
+<p>The resume ID. Example: <code>1</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>theme</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="theme"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="blue"
+               data-component="query">
+    <br>
+<p>Theme name. Example: <code>blue</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>lang</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="lang"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="en"
+               data-component="query">
+    <br>
+<p>Language code (en, fi). Example: <code>en</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>template</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="template"                data-endpoint="GETapi-resumes--id--preview-pdf"
+               value="default"
+               data-component="query">
+    <br>
+<p>Template name. Example: <code>default</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_skill_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-pdf" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-pdf"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-pdf" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-pdf"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show skill level bars. Example: <code>true</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_language_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-pdf" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-pdf"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-pdf" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-pdf"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show language level dots. Example: <code>true</code></p>
+            </div>
+                </form>
+
+                    <h2 id="resumes-GETapi-resumes--id--preview-html">Preview a resume as inline HTML (renders in browser, no download).</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-resumes--id--preview-html">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/html?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/html"
+);
+
+const params = {
+    "theme": "blue",
+    "lang": "en",
+    "template": "default",
+    "show_skill_levels": "1",
+    "show_language_levels": "1",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-resumes--id--preview-html">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-resumes--id--preview-html" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-resumes--id--preview-html"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-resumes--id--preview-html"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-resumes--id--preview-html" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-resumes--id--preview-html">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-resumes--id--preview-html" data-method="GET"
+      data-path="api/resumes/{id}/preview/html"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-resumes--id--preview-html', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-resumes--id--preview-html"
+                    onclick="tryItOut('GETapi-resumes--id--preview-html');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-resumes--id--preview-html"
+                    onclick="cancelTryOut('GETapi-resumes--id--preview-html');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-resumes--id--preview-html"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/resumes/{id}/preview/html</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-resumes--id--preview-html"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="6"
+               data-component="url">
+    <br>
+<p>The ID of the resume. Example: <code>6</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="resume"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="1"
+               data-component="url">
+    <br>
+<p>The resume ID. Example: <code>1</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>theme</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="theme"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="blue"
+               data-component="query">
+    <br>
+<p>Theme name. Example: <code>blue</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>lang</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="lang"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="en"
+               data-component="query">
+    <br>
+<p>Language code (en, fi). Example: <code>en</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>template</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="template"                data-endpoint="GETapi-resumes--id--preview-html"
+               value="default"
+               data-component="query">
+    <br>
+<p>Template name. Example: <code>default</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_skill_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-html" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-html"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-html" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-html"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show skill level bars. Example: <code>true</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_language_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-html" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-html"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-html" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-html"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show language level dots. Example: <code>true</code></p>
+            </div>
+                </form>
+
+                    <h2 id="resumes-GETapi-resumes--id--preview-signed-url">Generate short-lived signed preview URLs for PDF and HTML (no token needed to open them).</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-resumes--id--preview-signed-url">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/signed-url?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/preview/signed-url"
+);
+
+const params = {
+    "theme": "blue",
+    "lang": "en",
+    "template": "default",
+    "show_skill_levels": "1",
+    "show_language_levels": "1",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-resumes--id--preview-signed-url">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-robots-tag: noindex, nofollow, noarchive, nosnippet
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-resumes--id--preview-signed-url" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-resumes--id--preview-signed-url"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-resumes--id--preview-signed-url"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-resumes--id--preview-signed-url" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-resumes--id--preview-signed-url">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-resumes--id--preview-signed-url" data-method="GET"
+      data-path="api/resumes/{id}/preview/signed-url"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-resumes--id--preview-signed-url', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-resumes--id--preview-signed-url"
+                    onclick="tryItOut('GETapi-resumes--id--preview-signed-url');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-resumes--id--preview-signed-url"
+                    onclick="cancelTryOut('GETapi-resumes--id--preview-signed-url');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-resumes--id--preview-signed-url"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/resumes/{id}/preview/signed-url</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="6"
+               data-component="url">
+    <br>
+<p>The ID of the resume. Example: <code>6</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="resume"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="1"
+               data-component="url">
+    <br>
+<p>The resume ID. Example: <code>1</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>theme</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="theme"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="blue"
+               data-component="query">
+    <br>
+<p>Theme name. Example: <code>blue</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>lang</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="lang"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="en"
+               data-component="query">
+    <br>
+<p>Language code (en, fi). Example: <code>en</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>template</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="template"                data-endpoint="GETapi-resumes--id--preview-signed-url"
+               value="default"
+               data-component="query">
+    <br>
+<p>Template name. Example: <code>default</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_skill_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-signed-url" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-signed-url"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-signed-url" style="display: none">
+            <input type="radio" name="show_skill_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-signed-url"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show skill level bars. Example: <code>true</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>show_language_levels</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-resumes--id--preview-signed-url" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="1"
+                   data-endpoint="GETapi-resumes--id--preview-signed-url"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-resumes--id--preview-signed-url" style="display: none">
+            <input type="radio" name="show_language_levels"
+                   value="0"
+                   data-endpoint="GETapi-resumes--id--preview-signed-url"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Show language level dots. Example: <code>true</code></p>
+            </div>
+                </form>
 
                     <h2 id="resumes-POSTapi-resumes-import-json">Import a resume from a previously exported JSON backup file.</h2>
 
@@ -15251,7 +17070,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpaPEplI" </code></pre></div>
+    --form "file=@/tmp/phppOENnA" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -15372,7 +17191,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phpaPEplI</code></p>
+<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phppOENnA</code></p>
         </div>
         </form>
 
@@ -15390,16 +17209,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/import/json" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/import/json" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpoHhbDJ" </code></pre></div>
+    --form "file=@/tmp/phpjmgdFB" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/import/json"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/6/import/json"
 );
 
 const headers = {
@@ -15512,10 +17331,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="POSTapi-resumes--id--import-json"
-               value="1"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>6</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -15528,7 +17347,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phpoHhbDJ</code></p>
+<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phpjmgdFB</code></p>
         </div>
         </form>
 
@@ -15583,7 +17402,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 27
+x-ratelimit-remaining: 50
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -15720,7 +17539,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 26
+x-ratelimit-remaining: 49
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -16633,7 +18452,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 25
+x-ratelimit-remaining: 48
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -16787,7 +18606,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 15
+x-ratelimit-remaining: 36
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -17200,7 +19019,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 14
+x-ratelimit-remaining: 35
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
@@ -17331,7 +19150,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "https://backend-laravel.dev.jussialanen.com/api/upload-test" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpljoCOP" </code></pre></div>
+    --form "file=@/tmp/phpenOobC" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -17439,7 +19258,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Image file to upload. Example: <code>/tmp/phpljoCOP</code></p>
+<p>Image file to upload. Example: <code>/tmp/phpenOobC</code></p>
         </div>
         </form>
 
@@ -17494,21 +19313,26 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 30
+x-ratelimit-remaining: 53
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">[
     {
-        &quot;id&quot;: 59,
+        &quot;id&quot;: 1,
         &quot;key&quot;: &quot;admin&quot;,
         &quot;label&quot;: &quot;Admin&quot;
     },
     {
-        &quot;id&quot;: 58,
+        &quot;id&quot;: 3,
         &quot;key&quot;: &quot;customer&quot;,
         &quot;label&quot;: &quot;Customer&quot;
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;key&quot;: &quot;vendor&quot;,
+        &quot;label&quot;: &quot;Vendor&quot;
     }
 ]</code>
  </pre>
@@ -17633,52 +19457,30 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 29
+x-ratelimit-remaining: 52
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">[
     {
-        &quot;id&quot;: 73,
-        &quot;first_name&quot;: &quot;Jussi&quot;,
-        &quot;last_name&quot;: &quot;Alanen&quot;,
-        &quot;username&quot;: &quot;juzapala&quot;,
-        &quot;name&quot;: &quot;Jussi Alanen&quot;,
-        &quot;email&quot;: &quot;juzapala@gmail.com&quot;,
+        &quot;id&quot;: 1,
+        &quot;first_name&quot;: &quot;Super&quot;,
+        &quot;last_name&quot;: &quot;Admin&quot;,
+        &quot;username&quot;: &quot;superadmin&quot;,
+        &quot;name&quot;: &quot;superadmin&quot;,
+        &quot;email&quot;: &quot;juzapala+superadmin@gmail.com&quot;,
         &quot;roles&quot;: [
             &quot;admin&quot;
         ]
     },
     {
-        &quot;id&quot;: 74,
+        &quot;id&quot;: 2,
         &quot;first_name&quot;: &quot;Jussi&quot;,
-        &quot;last_name&quot;: &quot;Palanen&quot;,
-        &quot;username&quot;: &quot;jusspe&quot;,
-        &quot;name&quot;: &quot;Jussi Palanen&quot;,
-        &quot;email&quot;: &quot;juzapala+dotnettest@gmail.com&quot;,
-        &quot;roles&quot;: [
-            &quot;customer&quot;
-        ]
-    },
-    {
-        &quot;id&quot;: 75,
-        &quot;first_name&quot;: &quot;Jussi&quot;,
-        &quot;last_name&quot;: &quot;Palanen&quot;,
-        &quot;username&quot;: &quot;jusspeala&quot;,
-        &quot;name&quot;: &quot;Jussi Palanen&quot;,
-        &quot;email&quot;: &quot;juzapala+asdf@gmail.com&quot;,
-        &quot;roles&quot;: [
-            &quot;customer&quot;
-        ]
-    },
-    {
-        &quot;id&quot;: 76,
-        &quot;first_name&quot;: &quot;saddsaasd&quot;,
-        &quot;last_name&quot;: &quot;adsdssd&quot;,
-        &quot;username&quot;: &quot;lollero&quot;,
-        &quot;name&quot;: &quot;saddsaasd adsdssd&quot;,
-        &quot;email&quot;: &quot;juzapala+lollero@gmail.com&quot;,
+        &quot;last_name&quot;: &quot;Alanen&quot;,
+        &quot;username&quot;: &quot;juzapala&quot;,
+        &quot;name&quot;: &quot;Jussi Alanen&quot;,
+        &quot;email&quot;: &quot;juzapala@gmail.com&quot;,
         &quot;roles&quot;: [
             &quot;customer&quot;
         ]
@@ -17982,14 +19784,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/users/73" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/users/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/users/73"
+    "https://backend-laravel.dev.jussialanen.com/api/users/1"
 );
 
 const headers = {
@@ -18016,18 +19818,18 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 28
+x-ratelimit-remaining: 51
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 73,
-    &quot;first_name&quot;: &quot;Jussi&quot;,
-    &quot;last_name&quot;: &quot;Alanen&quot;,
-    &quot;username&quot;: &quot;juzapala&quot;,
-    &quot;name&quot;: &quot;Jussi Alanen&quot;,
-    &quot;email&quot;: &quot;juzapala@gmail.com&quot;,
+    &quot;id&quot;: 1,
+    &quot;first_name&quot;: &quot;Super&quot;,
+    &quot;last_name&quot;: &quot;Admin&quot;,
+    &quot;username&quot;: &quot;superadmin&quot;,
+    &quot;name&quot;: &quot;superadmin&quot;,
+    &quot;email&quot;: &quot;juzapala+superadmin@gmail.com&quot;,
     &quot;roles&quot;: [
         &quot;admin&quot;
     ]
@@ -18113,10 +19915,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-users--id-"
-               value="73"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the user. Example: <code>73</code></p>
+<p>The ID of the user. Example: <code>1</code></p>
             </div>
                     </form>
 
@@ -18683,13 +20485,13 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 24
+x-ratelimit-remaining: 47
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;visitors&quot;: 0
+    &quot;visitors&quot;: 1
 }</code>
  </pre>
     </span>
@@ -18828,13 +20630,13 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 23
+x-ratelimit-remaining: 46
 x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;visitors&quot;: 0
+    &quot;visitors&quot;: 1
 }</code>
  </pre>
     </span>
