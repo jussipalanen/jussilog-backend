@@ -1,4 +1,4 @@
-# Jussilog — Laravel Backend
+# Jussilog - Laravel Backend Service
 
 **RESTful API backend powered by Laravel 10, deployed on Google Cloud Run.**
 
