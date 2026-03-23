@@ -9,41 +9,28 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use RuntimeException;
 
-
 /**
  * ResumeQaAgentService class provides a method to ask questions about a user's primary resume using Google Vertex AI's generative models.
  */
 class ResumeQaAgentService
-{   
-
+{
     /**
      * The HTTP client.
-     *
-     * @var Client
      */
     private Client $http;
 
-
     /**
      * The Google project id.
-     *
-     * @var string
      */
     private string $projectId;
 
-
     /**
      * The region for the AI agent.
-     *
-     * @var string
      */
     private string $location;
 
-
     /**
      * The model code name.
-     *
-     * @var string
      */
     private string $model;
 
@@ -143,7 +130,7 @@ class ResumeQaAgentService
         }
 
         if ($resume->photo) {
-            $lines[] = "Photo URL: " . $this->storageUrl($resume->photo);
+            $lines[] = 'Photo URL: '.$this->storageUrl($resume->photo);
         }
 
         if ($resume->summary) {
@@ -185,7 +172,7 @@ class ResumeQaAgentService
         if ($resume->languages->isNotEmpty()) {
             $lines[] = "\nLanguages:";
             foreach ($resume->languages as $lang) {
-                $lines[] = "  - {$lang->name} ({$lang->proficiency})";
+                $lines[] = "  - {$lang->language} ({$lang->proficiency})";
             }
         }
 
@@ -247,7 +234,7 @@ class ResumeQaAgentService
             throw new RuntimeException('Invalid service account key file: missing private_key or client_email.');
         }
 
-        $now    = time();
+        $now     = time();
         $header  = $this->base64UrlEncode(json_encode(['alg' => 'RS256', 'typ' => 'JWT']));
         $payload = $this->base64UrlEncode(json_encode([
             'iss'   => $key['client_email'],
@@ -265,7 +252,7 @@ class ResumeQaAgentService
         }
 
         openssl_sign($signingInput, $signature, $privateKey, OPENSSL_ALGO_SHA256);
-        $jwt = "{$signingInput}." . $this->base64UrlEncode($signature);
+        $jwt = "{$signingInput}.".$this->base64UrlEncode($signature);
 
         try {
             $response = $this->http->post('https://oauth2.googleapis.com/token', [
