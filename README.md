@@ -666,6 +666,16 @@ GCS_USE_PATH_STYLE_ENDPOINT=false
 
 The bucket and its CORS config are managed by Terraform (`terraform/storage.tf`). HMAC keys are created in GCP console under **Cloud Storage → Settings → Interoperability**.
 
+**Bucket access control** must be set to **Fine-grained** (not Uniform). This allows per-object ACLs so uploaded files are individually public while the bucket root remains access denied.
+
+To configure:
+1. GCS Console → your bucket → **Permissions** → set **Access control** to **Fine-grained**
+2. Do **not** grant `allUsers` any IAM role — public read is handled per-object via ACL on upload
+
+With this setup:
+- `https://storage.googleapis.com/{bucket}/` → 403 Denied (bucket listing blocked)
+- `https://storage.googleapis.com/{bucket}/products/1/image.jpg` → publicly readable
+
 Signed URLs are returned for product images. Default expiry: 1 hour. If the bucket is made public, signed URLs still work but are not required.
 
 </details>
