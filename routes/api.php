@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminThumbnailController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ResumeQaAgentController;
 use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\InvoiceController;
@@ -10,6 +9,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeItemController;
+use App\Http\Controllers\ResumeQaAgentController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TaxRateController;
 use App\Http\Controllers\UploadTestController;
