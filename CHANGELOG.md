@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [1.0.1] - 2026-03-23
+
+### Fixed
+- **GCS file uploads**: Switched GCS bucket from uniform to fine-grained access control so per-object ACLs work correctly with the S3-compatible driver. Files are now uploaded with `public-read` ACL, making them publicly accessible via direct URL while keeping the bucket root access denied.
+
 ## [1.0.0] - 2026-03-19
 
 ### Added
