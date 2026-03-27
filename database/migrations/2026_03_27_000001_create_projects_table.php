@@ -10,11 +10,10 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('short_description')->nullable();
-            $table->longText('long_description')->nullable();
-            $table->json('tags')->nullable();
+            $table->json('title');
+            $table->json('slug');
+            $table->json('short_description')->nullable();
+            $table->json('long_description')->nullable();
             $table->string('feature_image')->nullable();
             $table->json('images')->nullable();
             $table->enum('visibility', ['show', 'hide'])->default('hide');

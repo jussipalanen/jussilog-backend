@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminThumbnailController;
+use App\Http\Controllers\ProjectCategoryController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectTagController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogController;
@@ -168,6 +171,27 @@ Route::get('/settings/countries/{code}', [SettingsController::class, 'country'])
 Route::post('/visitors/track', [VisitorController::class, 'track']);
 Route::get('/visitors/today', [VisitorController::class, 'today']);
 Route::get('/visitors/total', [VisitorController::class, 'total']);
+
+// Project routes — public read, admin write
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::get('/projects/{idOrSlug}', [ProjectController::class, 'show']);
+Route::get('/project-categories', [ProjectCategoryController::class, 'index']);
+Route::get('/project-tags', [ProjectTagController::class, 'index']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/admin/projects', [ProjectController::class, 'adminIndex'])->middleware('role:admin');
+    Route::post('/projects', [ProjectController::class, 'store'])->middleware('role:admin');
+    Route::put('/projects/{id}', [ProjectController::class, 'update'])->middleware('role:admin');
+    Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->middleware('role:admin');
+
+    Route::post('/project-categories', [ProjectCategoryController::class, 'store'])->middleware('role:admin');
+    Route::put('/project-categories/{id}', [ProjectCategoryController::class, 'update'])->middleware('role:admin');
+    Route::delete('/project-categories/{id}', [ProjectCategoryController::class, 'destroy'])->middleware('role:admin');
+
+    Route::post('/project-tags', [ProjectTagController::class, 'store'])->middleware('role:admin');
+    Route::put('/project-tags/{id}', [ProjectTagController::class, 'update'])->middleware('role:admin');
+    Route::delete('/project-tags/{id}', [ProjectTagController::class, 'destroy'])->middleware('role:admin');
+});
 
 // Blog routes — public read, admin write
 Route::get('/blogs', [BlogController::class, 'index']);

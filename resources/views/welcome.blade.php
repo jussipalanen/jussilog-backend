@@ -30,9 +30,27 @@
                     Jussilog
                 </h1>
 
-                <p class="text-xl text-gray-600 dark:text-gray-400">
+                <p class="text-xl text-gray-600 dark:text-gray-400 mb-8">
                     Jussilog backend powered by the Laravel
                 </p>
+
+                <div class="flex justify-center" style="gap:1rem;flex-wrap:wrap;">
+                    <a href="/api/docs"
+                       style="display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.25rem;border-radius:.5rem;background:#FF2D20;color:#fff;font-weight:600;font-size:.95rem;text-decoration:none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        API Docs
+                    </a>
+                    <a href="/api/docs.postman"
+                       style="display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.25rem;border-radius:.5rem;background:#FF6C37;color:#fff;font-weight:600;font-size:.95rem;text-decoration:none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        Postman Collection
+                    </a>
+                    <a href="/api/docs.openapi"
+                       style="display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.25rem;border-radius:.5rem;background:#49cc90;color:#fff;font-weight:600;font-size:.95rem;text-decoration:none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        OpenAPI Spec
+                    </a>
+                </div>
             </div>
         </div>
     </body>
