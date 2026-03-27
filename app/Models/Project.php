@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ProjectVisibility;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -11,19 +12,18 @@ use Illuminate\Support\Str;
 /**
  * Represents a portfolio project entry.
  *
- * @property int                   $id
- * @property string                $title
- * @property string                $slug
- * @property string|null           $short_description
- * @property string|null           $long_description
- * @property array|null            $tags              Each tag: ['name' => string, 'color' => string]
- * @property string|null           $feature_image
- * @property array|null            $images
- * @property ProjectVisibility     $visibility
- * @property string|null           $live_url
- * @property string|null           $github_url
- * @property \Carbon\Carbon        $created_at
- * @property \Carbon\Carbon        $updated_at
+ * @property int $id
+ * @property array $title  Locale-keyed translations e.g. ['en' => '...', 'fi' => '...']
+ * @property array $slug   Locale-keyed slugs e.g. ['en' => 'my-project', 'fi' => 'minun-projektini']
+ * @property array|null $short_description  Locale-keyed translations
+ * @property array|null $long_description   Locale-keyed translations
+ * @property string|null $feature_image
+ * @property array|null $images
+ * @property ProjectVisibility $visibility
+ * @property string|null $live_url
+ * @property string|null $github_url
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Project extends Model
 {
@@ -39,7 +39,6 @@ class Project extends Model
         'slug',
         'short_description',
         'long_description',
-        'tags',
         'feature_image',
         'images',
         'visibility',
@@ -53,27 +52,36 @@ class Project extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'tags'       => 'array',
-        'images'     => 'array',
-        'visibility' => ProjectVisibility::class,
+        'title'             => 'array',
+        'slug'              => 'array',
+        'short_description' => 'array',
+        'long_description'  => 'array',
+        'images'            => 'array',
+        'visibility'        => ProjectVisibility::class,
     ];
 
     /**
      * Register model lifecycle hooks.
      *
      * Auto-generates a unique slug from the title on create and on title change.
-     *
-     * @return void
      */
     protected static function booted(): void
     {
         static::creating(function (Project $model) {
-            $model->slug = static::generateUniqueSlug($model->title);
+            $slugs = [];
+            foreach ($model->title as $locale => $localeTitle) {
+                $slugs[$locale] = static::generateUniqueSlug($localeTitle, $locale);
+            }
+            $model->slug = $slugs;
         });
 
         static::updating(function (Project $model) {
             if ($model->isDirty('title')) {
-                $model->slug = static::generateUniqueSlug($model->title, $model->id);
+                $slugs = $model->slug ?? [];
+                foreach ($model->title as $locale => $localeTitle) {
+                    $slugs[$locale] = static::generateUniqueSlug($localeTitle, $locale, $model->id);
+                }
+                $model->slug = $slugs;
             }
         });
     }
@@ -83,18 +91,18 @@ class Project extends Model
      *
      * Appends an incrementing counter suffix if the base slug is already taken.
      *
-     * @param  string   $title     The source title to slugify.
+     * @param  string   $title     The title string to slugify.
+     * @param  string   $locale    The locale key to check uniqueness against (e.g. 'en', 'fi').
      * @param  int|null $excludeId Row ID to exclude from uniqueness check (used on update).
-     * @return string
      */
-    public static function generateUniqueSlug(string $title, ?int $excludeId = null): string
+    public static function generateUniqueSlug(string $title, string $locale, ?int $excludeId = null): string
     {
         $base    = Str::slug($title);
         $slug    = $base;
         $counter = 1;
 
         while (
-            static::where('slug', $slug)
+            static::where("slug->{$locale}", $slug)
                 ->when($excludeId, fn ($q) => $q->where('id', '!=', $excludeId))
                 ->exists()
         ) {
@@ -112,5 +120,15 @@ class Project extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(ProjectCategory::class, 'project_project_category');
+    }
+
+    /**
+     * The tags that belong to this project.
+     *
+     * @return BelongsToMany<ProjectTag>
+     */
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(ProjectTag::class, 'project_project_tag');
     }
 }

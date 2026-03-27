@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
                 ResumeSeeder::class,
                 InvoiceSeeder::class,
                 BlogSeeder::class,
+                ProjectSeeder::class,
             ]);
     }
 }

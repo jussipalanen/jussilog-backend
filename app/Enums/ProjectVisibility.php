@@ -17,8 +17,6 @@ enum ProjectVisibility: string
 
     /**
      * Get the human-readable label for the visibility value.
-     *
-     * @return string
      */
     public function label(): string
     {

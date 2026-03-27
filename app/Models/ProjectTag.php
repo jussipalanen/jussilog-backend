@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 /**
- * Represents a project category used to classify portfolio projects.
+ * Represents a technology/stack tag that can be assigned to portfolio projects.
  *
- * @property int $id
- * @property string $title
- * @property string $slug
- * @property Carbon $created_at
- * @property Carbon $updated_at
+ * @property int            $id
+ * @property string         $title
+ * @property string         $slug
+ * @property string         $color  Hex or named colour for the badge, e.g. "#FF2D20"
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
  */
-class ProjectCategory extends Model
+class ProjectTag extends Model
 {
     use HasFactory;
 
@@ -29,20 +29,23 @@ class ProjectCategory extends Model
     protected $fillable = [
         'title',
         'slug',
+        'color',
     ];
 
     /**
      * Register model lifecycle hooks.
      *
      * Auto-generates a unique slug from the title on create and on title change.
+     *
+     * @return void
      */
     protected static function booted(): void
     {
-        static::creating(function (ProjectCategory $model) {
+        static::creating(function (ProjectTag $model) {
             $model->slug = static::generateUniqueSlug($model->title);
         });
 
-        static::updating(function (ProjectCategory $model) {
+        static::updating(function (ProjectTag $model) {
             if ($model->isDirty('title')) {
                 $model->slug = static::generateUniqueSlug($model->title, $model->id);
             }
@@ -54,8 +57,9 @@ class ProjectCategory extends Model
      *
      * Appends an incrementing counter suffix if the base slug is already taken.
      *
-     * @param  string  $title  The source title to slugify.
-     * @param  int|null  $excludeId  Row ID to exclude from uniqueness check (used on update).
+     * @param  string   $title     The source title to slugify.
+     * @param  int|null $excludeId Row ID to exclude from uniqueness check (used on update).
+     * @return string
      */
     public static function generateUniqueSlug(string $title, ?int $excludeId = null): string
     {
@@ -75,12 +79,12 @@ class ProjectCategory extends Model
     }
 
     /**
-     * The projects that belong to this category.
+     * The projects that have this tag.
      *
      * @return BelongsToMany<Project>
      */
     public function projects(): BelongsToMany
     {
-        return $this->belongsToMany(Project::class, 'project_project_category');
+        return $this->belongsToMany(Project::class, 'project_project_tag');
     }
 }

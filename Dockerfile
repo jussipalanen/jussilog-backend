@@ -1,5 +1,5 @@
 # Production PHP runtime for Laravel API backend (no frontend build stage)
-ARG PHP_VERSION=8.2
+ARG PHP_VERSION=8.4
 
 FROM php:${PHP_VERSION}-fpm-alpine
 
