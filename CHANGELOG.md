@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [1.0.2] - 2026-03-30
+
+### Security
+- **npm — picomatch ReDoS vulnerability**: Updated `picomatch` to a patched version via `npm audit fix`. Resolved two high-severity advisories (GHSA-3v7f-55p6-f55p, GHSA-c2c7-rcm5-vvqj) affecting glob matching via method injection and extglob quantifiers.
+
+### Changed
+- **GitHub Actions — Node.js 20 deprecation**: Updated `actions/checkout` from `v4` to `v5` across all workflows (`composer-audit.yml`, `phpunit.yml`, `larastan.yml`, `pint.yml`) and `actions/setup-node` from `v4` to `v5` in `composer-audit.yml` to avoid forced Node.js 24 migration on June 2, 2026.
+
+### Updated
+- **`aws/aws-sdk-php`**: `3.374.1` → `3.374.2` (patch).
+- **`spatie/laravel-ignition`**: `2.9.1` → `2.12.0` (minor).
+
 ## [1.0.1] - 2026-03-23
 
 ### Fixed
