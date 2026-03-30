@@ -18,7 +18,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_AUTH_TOKEN}'
-      Content-Type: application/json
+      Content-Type: multipart/form-data
       Accept: application/json
     urlParameters: []
     cleanUrlParameters: []
@@ -30,7 +30,7 @@ endpoints:
         name: title
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -41,7 +41,7 @@ endpoints:
         name: excerpt
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -52,7 +52,7 @@ endpoints:
         name: content
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -63,19 +63,19 @@ endpoints:
         name: blog_category_id
         description: 'The <code>id</code> of an existing record in the blog_categories table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
-      feature_image:
+      featured_image:
         custom: []
-        name: feature_image
-        description: 'Must not be greater than 2048 characters.'
+        name: featured_image
+        description: 'Must be a file. Must be an image. Must not be greater than 5120 kilobytes.'
         required: false
-        example: mqeopfuudtdsufvyvddqa
-        type: string
+        example: null
+        type: file
         enumValues: []
         exampleWasSpecified: false
         nullable: true
@@ -86,7 +86,7 @@ endpoints:
         description: 'Must not be greater than 100 characters.'
         required: false
         example:
-          - mniihfqcoynlazghdtqtq
+          - 'n'
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -97,28 +97,28 @@ endpoints:
         name: visibility
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: vmqeopfuudtdsufvyvddq
-      excerpt: consequatur
-      content: consequatur
-      blog_category_id: 17
-      feature_image: mqeopfuudtdsufvyvddqa
+      title: b
+      excerpt: architecto
+      content: architecto
+      blog_category_id: 16
       tags:
-        - mniihfqcoynlazghdtqtq
-      visibility: false
-    fileParameters: []
+        - 'n'
+      visibility: true
+    fileParameters:
+      featured_image: null
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
@@ -139,7 +139,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_AUTH_TOKEN}'
-      Content-Type: application/json
+      Content-Type: multipart/form-data
       Accept: application/json
     urlParameters:
       id:
@@ -147,14 +147,14 @@ endpoints:
         name: id
         description: 'The ID of the blog.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -163,7 +163,7 @@ endpoints:
         name: title
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -174,7 +174,7 @@ endpoints:
         name: excerpt
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -185,7 +185,7 @@ endpoints:
         name: content
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -196,19 +196,19 @@ endpoints:
         name: blog_category_id
         description: 'The <code>id</code> of an existing record in the blog_categories table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
-      feature_image:
+      featured_image:
         custom: []
-        name: feature_image
-        description: 'Must not be greater than 2048 characters.'
+        name: featured_image
+        description: 'Must be a file. Must be an image. Must not be greater than 5120 kilobytes.'
         required: false
-        example: mqeopfuudtdsufvyvddqa
-        type: string
+        example: null
+        type: file
         enumValues: []
         exampleWasSpecified: false
         nullable: true
@@ -219,7 +219,7 @@ endpoints:
         description: 'Must not be greater than 100 characters.'
         required: false
         example:
-          - mniihfqcoynlazghdtqtq
+          - 'n'
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -230,28 +230,28 @@ endpoints:
         name: visibility
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: vmqeopfuudtdsufvyvddq
-      excerpt: consequatur
-      content: consequatur
-      blog_category_id: 17
-      feature_image: mqeopfuudtdsufvyvddqa
+      title: b
+      excerpt: architecto
+      content: architecto
+      blog_category_id: 16
       tags:
-        - mniihfqcoynlazghdtqtq
-      visibility: false
-    fileParameters: []
+        - 'n'
+      visibility: true
+    fileParameters:
+      featured_image: null
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
@@ -280,14 +280,14 @@ endpoints:
         name: id
         description: 'The ID of the blog.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -298,7 +298,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
