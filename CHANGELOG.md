@@ -14,10 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **GitHub Actions — Node.js 20 deprecation**: Updated `actions/checkout` from `v4` to `v5` across all workflows (`composer-audit.yml`, `phpunit.yml`, `larastan.yml`, `pint.yml`) and `actions/setup-node` from `v4` to `v5` in `composer-audit.yml` to avoid forced Node.js 24 migration on June 2, 2026.
+- **Root page redesign**: Replaced the default Laravel welcome page with a dark-themed API landing page showing the app version, description, and links to the interactive API docs, OpenAPI spec, and Postman collection.
 
 ### Updated
 - **`aws/aws-sdk-php`**: `3.374.1` → `3.374.2` (patch).
 - **`spatie/laravel-ignition`**: `2.9.1` → `2.12.0` (minor).
+- **`vite`**: `7.3.1` → `8.0.3` (major).
+- **`laravel-vite-plugin`**: `2.1.0` → `3.0.0` (major).
+- **`axios`**: `1.13.6` → `1.14.0` (minor).
 
 ## [1.0.1] - 2026-03-23
 
