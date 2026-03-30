@@ -177,14 +177,14 @@ endpoints:
         name: id_token
         description: 'Google ID token from frontend Google Sign-In flow.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      id_token: consequatur
+      id_token: architecto
     fileParameters: []
     responses: []
     responseFields: []
@@ -274,7 +274,7 @@ endpoints:
         name: token
         description: 'Reset token'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -304,7 +304,7 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       email: jussi@example.com
-      token: consequatur
+      token: architecto
       password: newpassword
       password_confirmation: newpassword
     fileParameters: []
@@ -345,7 +345,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null

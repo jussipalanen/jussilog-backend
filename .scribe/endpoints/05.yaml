@@ -203,7 +203,7 @@ endpoints:
         name: current_password
         description: 'Required when updating your own password (non-admin).'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -228,7 +228,7 @@ endpoints:
       username: jussi
       email: jussi@example.com
       password: newpassword
-      current_password: consequatur
+      current_password: architecto
       roles:
         - admin
         - vendor
@@ -282,21 +282,21 @@ endpoints:
         name: password
         description: 'Current password (required when deleting own account and account has a password).'
         required: false
-        example: 'O[2UZ5ij-e/dl4m{o,'
+        example: '|]|{+-'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      password: 'O[2UZ5ij-e/dl4m{o,'
+      password: '|]|{+-'
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
