@@ -482,7 +482,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 27, 2026</li>
+        <li>Last updated: March 30, 2026</li>
     </ul>
 </div>
 
@@ -3378,7 +3378,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "blog_category_id=16"\
     --form "tags[]=n"\
     --form "visibility=1"\
-    --form "featured_image=@/tmp/phpi675ufgsrcoieBbdCFM" </code></pre></div>
+    --form "featured_image=@/tmp/phpqq0vbutnvo4v2nBjhcF" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -3553,7 +3553,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpi675ufgsrcoieBbdCFM</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpqq0vbutnvo4v2nBjhcF</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>tags</code></b>&nbsp;&nbsp;
@@ -3617,7 +3617,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "blog_category_id=16"\
     --form "tags[]=n"\
     --form "visibility=1"\
-    --form "featured_image=@/tmp/phpkemu0than5ra0GgIHKN" </code></pre></div>
+    --form "featured_image=@/tmp/phpj1um7hi94bq2ceIFBmF" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -3805,7 +3805,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpkemu0than5ra0GgIHKN</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpj1um7hi94bq2ceIFBmF</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>tags</code></b>&nbsp;&nbsp;
@@ -7801,7 +7801,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"order_id\": 1,
-    \"due_date\": \"2026-03-27T11:30:34\",
+    \"due_date\": \"2026-03-30T07:20:07\",
     \"notes\": \"Net 30\",
     \"status\": \"draft\"
 }"
@@ -7820,7 +7820,7 @@ const headers = {
 
 let body = {
     "order_id": 1,
-    "due_date": "2026-03-27T11:30:34",
+    "due_date": "2026-03-30T07:20:07",
     "notes": "Net 30",
     "status": "draft"
 };
@@ -7983,10 +7983,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="due_date"                data-endpoint="POSTapi-invoices"
-               value="2026-03-27T11:30:34"
+               value="2026-03-30T07:20:07"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-03-27T11:30:34</code></p>
+<p>Must be a valid date. Example: <code>2026-03-30T07:20:07</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
@@ -8041,7 +8041,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"billing_address\": [],
     \"subtotal\": 153.47,
     \"total\": 153.47,
-    \"due_date\": \"2026-03-27T11:30:35\",
+    \"due_date\": \"2026-03-30T07:20:07\",
     \"notes\": \"Net 30\",
     \"items\": [
         {
@@ -8078,7 +8078,7 @@ let body = {
     "billing_address": [],
     "subtotal": 153.47,
     "total": 153.47,
-    "due_date": "2026-03-27T11:30:35",
+    "due_date": "2026-03-30T07:20:07",
     "notes": "Net 30",
     "items": [
         {
@@ -8357,10 +8357,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="due_date"                data-endpoint="PUTapi-invoices--id-"
-               value="2026-03-27T11:30:35"
+               value="2026-03-30T07:20:07"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-03-27T11:30:35</code></p>
+<p>Must be a valid date. Example: <code>2026-03-30T07:20:07</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
@@ -9308,7 +9308,7 @@ access-control-allow-origin: *
         &quot;avatar&quot;: null,
         &quot;email_verified_at&quot;: &quot;2026-03-27T11:26:57.000000Z&quot;,
         &quot;created_at&quot;: &quot;2026-03-27T11:26:57.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-03-27T11:26:57.000000Z&quot;
+        &quot;updated_at&quot;: &quot;2026-03-27T11:48:47.000000Z&quot;
     },
     &quot;items&quot;: [
         {
@@ -10430,9 +10430,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "tax_rate=1"\
     --form "quantity=50"\
     --form "visibility=1"\
-    --form "featured_image=@/tmp/php0v1c9se0ngbfeDbJiIi" \
-    --form "images[]=@/tmp/phpdsqj33mcvrp73bkbbIi" \
-    --form "images[]=@/tmp/php2q8ouqtirq08emagmIi" </code></pre></div>
+    --form "featured_image=@/tmp/phpl6d5rfle2eq9eNhCPGi" \
+    --form "images[]=@/tmp/phpeeo01j6pfo1n5DFEJGi" \
+    --form "images[]=@/tmp/php7k8scesscf6ccBmibGi" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -10662,7 +10662,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Featured image file. Example: <code>/tmp/php0v1c9se0ngbfeDbJiIi</code></p>
+<p>Featured image file. Example: <code>/tmp/phpl6d5rfle2eq9eNhCPGi</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>visibility</code></b>&nbsp;&nbsp;
@@ -10710,7 +10710,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Additional image files. Example: <code>/tmp/php2q8ouqtirq08emagmIi</code></p>
+<p>Additional image files. Example: <code>/tmp/php7k8scesscf6ccBmibGi</code></p>
         </div>
         </form>
 
@@ -10903,9 +10903,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "delete_images[]=architecto"\
     --form "delete_featured_image="\
     --form "delete_images[]=products/1/image.png"\
-    --form "featured_image=@/tmp/phpgulsq8kplscgfhkjFbn" \
-    --form "images[]=@/tmp/phpc078eq9mb69d8ICApan" \
-    --form "images[]=@/tmp/phpoqmekn133dhocNmhKbn" </code></pre></div>
+    --form "featured_image=@/tmp/php82doandc29ak7BkImhi" \
+    --form "images[]=@/tmp/phpgpsbi62h5p231GKefhi" \
+    --form "images[]=@/tmp/phpl8vd51kkh1u28iciphi" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -11138,7 +11138,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Featured image file. Example: <code>/tmp/phpgulsq8kplscgfhkjFbn</code></p>
+<p>Featured image file. Example: <code>/tmp/php82doandc29ak7BkImhi</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>visibility</code></b>&nbsp;&nbsp;
@@ -11222,7 +11222,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Additional image files. Example: <code>/tmp/phpoqmekn133dhocNmhKbn</code></p>
+<p>Additional image files. Example: <code>/tmp/phpl8vd51kkh1u28iciphi</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>delete_images[]</code></b>&nbsp;&nbsp;
@@ -14760,7 +14760,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "code=m"\
     --form "show_skill_levels=1"\
     --form "show_language_levels=1"\
-    --form "photo=@/tmp/phpoqc3brg7l2stdOKgbbG" </code></pre></div>
+    --form "photo=@/tmp/php0mh9qikaa70scOLMNIM" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -15017,7 +15017,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpoqc3brg7l2stdOKgbbG</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/php0mh9qikaa70scOLMNIM</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>summary</code></b>&nbsp;&nbsp;
@@ -15252,7 +15252,7 @@ Must be one of:
     --form "code=m"\
     --form "show_skill_levels=1"\
     --form "show_language_levels=1"\
-    --form "photo=@/tmp/phpjq07pr8pumsueKpdhdH" </code></pre></div>
+    --form "photo=@/tmp/phptpmjmnspfotb4eFLkbM" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -15509,7 +15509,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpjq07pr8pumsueKpdhdH</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phptpmjmnspfotb4eFLkbM</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>summary</code></b>&nbsp;&nbsp;
@@ -17161,7 +17161,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpt94vg69gcq08eCAOaLP" </code></pre></div>
+    --form "file=@/tmp/php0k005pqhpgf5anePbeO" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -17282,7 +17282,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phpt94vg69gcq08eCAOaLP</code></p>
+<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/php0k005pqhpgf5anePbeO</code></p>
         </div>
         </form>
 
@@ -17304,7 +17304,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phplcv9eekadpmm3bhkmHa" </code></pre></div>
+    --form "file=@/tmp/php5uafr727shs90bbdnkO" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -17438,7 +17438,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phplcv9eekadpmm3bhkmHa</code></p>
+<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/php5uafr727shs90bbdnkO</code></p>
         </div>
         </form>
 
@@ -19241,7 +19241,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "https://backend-laravel.dev.jussialanen.com/api/upload-test" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpkccripqofp1udgHNfHf" </code></pre></div>
+    --form "file=@/tmp/php3v2v4n5vtbo9dEjpcAh" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -19349,7 +19349,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Image file to upload. Example: <code>/tmp/phpkccripqofp1udgHNfHf</code></p>
+<p>Image file to upload. Example: <code>/tmp/php3v2v4n5vtbo9dEjpcAh</code></p>
         </div>
         </form>
 

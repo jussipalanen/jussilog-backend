@@ -95,7 +95,7 @@ endpoints:
         name: notes
         description: 'Order notes.'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -118,7 +118,7 @@ endpoints:
         description: 'Order items array.'
         required: true
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -129,7 +129,7 @@ endpoints:
         name: 'items[].product_id'
         description: 'The <code>id</code> of an existing record in the products table.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -140,7 +140,7 @@ endpoints:
         name: 'items[].quantity'
         description: 'Must be at least 1.'
         required: true
-        example: 45
+        example: 22
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -186,10 +186,10 @@ endpoints:
       customer_phone: '+358401234567'
       shipping_address: []
       billing_address: []
-      notes: consequatur
+      notes: architecto
       lang: fi
       items:
-        - consequatur
+        - architecto
       user_id: 5
     fileParameters: []
     responses: []
@@ -315,7 +315,7 @@ endpoints:
         name: notes
         description: 'Order notes.'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -327,7 +327,7 @@ endpoints:
         description: 'Order items array.'
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -349,7 +349,7 @@ endpoints:
         name: 'items[].product_id'
         description: 'This field is required when <code>items</code> is present. The <code>id</code> of an existing record in the products table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -360,7 +360,7 @@ endpoints:
         name: 'items[].quantity'
         description: 'This field is required when <code>items</code> is present. Must be at least 1.'
         required: false
-        example: 45
+        example: 22
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -396,9 +396,9 @@ endpoints:
       customer_phone: '+358401234567'
       shipping_address: []
       billing_address: []
-      notes: consequatur
+      notes: architecto
       items:
-        - consequatur
+        - architecto
       send_status_email: false
     fileParameters: []
     responses: []

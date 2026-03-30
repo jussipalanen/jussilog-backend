@@ -29,7 +29,7 @@ endpoints:
         name: user_id
         description: 'The <code>id</code> of an existing record in the users table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -95,7 +95,7 @@ endpoints:
         name: tax_code
         description: ''
         required: false
-        example: CN
+        example: AU
         type: string
         enumValues:
           - ZERO
@@ -222,13 +222,13 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      user_id: 17
+      user_id: 16
       id: 1001
       title: 'Wireless Headphones'
       description: 'Premium noise-cancelling headphones'
       price: 299.99
       sale_price: 249.99
-      tax_code: CN
+      tax_code: AU
       tax_rate: 1
       quantity: 50
       visibility: true
@@ -283,7 +283,7 @@ endpoints:
         name: user_id
         description: 'The <code>id</code> of an existing record in the users table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -338,7 +338,7 @@ endpoints:
         name: tax_code
         description: ''
         required: false
-        example: CN
+        example: AU
         type: string
         enumValues:
           - ZERO
@@ -447,7 +447,7 @@ endpoints:
         description: ''
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -499,17 +499,17 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      user_id: 17
+      user_id: 16
       title: 'Wireless Headphones'
       description: 'Premium noise-cancelling headphones'
       price: 299.99
       sale_price: 249.99
-      tax_code: CN
+      tax_code: AU
       tax_rate: 1
       quantity: 50
       visibility: true
       delete_images:
-        - consequatur
+        - architecto
       delete_featured_image: false
       'delete_images[]': products/1/image.png
     fileParameters:

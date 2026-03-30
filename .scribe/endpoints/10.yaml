@@ -69,6 +69,72 @@ endpoints:
     custom: []
     httpMethods:
       - POST
+    uri: api/resumes/preview/pdf
+    metadata:
+      custom: []
+      groupName: Resumes
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Preview a resume as an inline PDF from a JSON payload (no stored resume required).'
+      description: |-
+        The photo can be supplied as a base64-encoded string in `photo`.
+        Returns the PDF inline (for iframe / browser preview), not as a download.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/resumes/preview/html
+    metadata:
+      custom: []
+      groupName: Resumes
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Preview a resume as inline HTML from a JSON payload (no stored resume required).'
+      description: |-
+        The photo can be supplied as a base64-encoded string in `photo`.
+        Returns HTML inline (for iframe / browser preview), not as a download.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
     uri: api/resumes
     metadata:
       custom: []
@@ -149,7 +215,7 @@ endpoints:
         name: linkedin_url
         description: 'LinkedIn profile URL.'
         required: false
-        example: 'http://kunze.biz/iste-laborum-eius-est-dolor.html'
+        example: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -160,7 +226,7 @@ endpoints:
         name: portfolio_url
         description: 'Portfolio or website URL.'
         required: false
-        example: 'http://kunze.biz/iste-laborum-eius-est-dolor.html'
+        example: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -171,7 +237,7 @@ endpoints:
         name: github_url
         description: 'GitHub profile URL.'
         required: false
-        example: 'http://kunze.biz/iste-laborum-eius-est-dolor.html'
+        example: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -182,7 +248,7 @@ endpoints:
         name: photo
         description: 'Path to uploaded professional photo.'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -193,7 +259,7 @@ endpoints:
         name: summary
         description: 'Professional summary / objective paragraph.'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -261,7 +327,7 @@ endpoints:
         name: code
         description: 'Must not be greater than 100 characters.'
         required: false
-        example: opfuudtdsufvyvddqamni
+        example: m
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -283,7 +349,7 @@ endpoints:
         name: show_language_levels
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -295,7 +361,7 @@ endpoints:
         description: 'Optional work experience entries.'
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -307,7 +373,7 @@ endpoints:
         description: 'Optional education entries.'
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -319,7 +385,7 @@ endpoints:
         description: 'Optional skill entries.'
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -330,7 +396,7 @@ endpoints:
         name: 'skills[].proficiency'
         description: 'Skill level: `beginner` (1), `basic` (2), `intermediate` (3), `advanced` (4), `expert` (5).'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -342,7 +408,7 @@ endpoints:
         description: 'Optional project entries.'
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -354,7 +420,7 @@ endpoints:
         description: 'Optional certification entries.'
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -366,7 +432,7 @@ endpoints:
         description: 'Optional language entries.'
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -377,7 +443,7 @@ endpoints:
         name: 'languages[].proficiency'
         description: 'Spoken-language level: `elementary` (1), `limited_working` (2), `professional_working` (3), `full_professional` (4), `native_bilingual` (5).'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -389,7 +455,7 @@ endpoints:
         description: 'Optional award entries.'
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -401,38 +467,38 @@ endpoints:
       email: jussi@example.com
       phone: '+358401234567'
       location: 'Helsinki, Finland'
-      linkedin_url: 'http://kunze.biz/iste-laborum-eius-est-dolor.html'
-      portfolio_url: 'http://kunze.biz/iste-laborum-eius-est-dolor.html'
-      github_url: 'http://kunze.biz/iste-laborum-eius-est-dolor.html'
-      photo: consequatur
-      summary: consequatur
+      linkedin_url: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+      portfolio_url: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+      github_url: 'http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html'
+      photo: architecto
+      summary: architecto
       language: fi
       is_primary: true
       is_public: false
-      code: opfuudtdsufvyvddqamni
+      code: m
       show_skill_levels: true
-      show_language_levels: false
+      show_language_levels: true
       work_experiences:
-        - consequatur
+        - architecto
       educations:
-        - consequatur
+        - architecto
       skills:
-        - consequatur
+        - architecto
       projects:
-        - consequatur
+        - architecto
       certifications:
-        - consequatur
+        - architecto
       languages:
-        - consequatur
+        - architecto
       awards:
-        - consequatur
+        - architecto
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
@@ -461,7 +527,7 @@ endpoints:
         name: id
         description: 'The ID of the resume.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -479,7 +545,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
       resume: 1
     queryParameters: []
     cleanQueryParameters: []
@@ -489,7 +555,7 @@ endpoints:
         name: title
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -500,7 +566,7 @@ endpoints:
         name: full_name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -511,7 +577,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: false
-        example: andreanne00@example.org
+        example: ashly64@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -522,7 +588,7 @@ endpoints:
         name: phone
         description: 'Must not be greater than 50 characters.'
         required: false
-        example: wbpilpmufinllwloauydl
+        example: v
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -533,7 +599,7 @@ endpoints:
         name: location
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: smsjuryvojcybzvrbyick
+        example: d
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -544,7 +610,7 @@ endpoints:
         name: linkedin_url
         description: 'Must be a valid URL. Must not be greater than 500 characters.'
         required: false
-        example: 'https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html'
+        example: 'https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -555,7 +621,7 @@ endpoints:
         name: portfolio_url
         description: 'Must be a valid URL. Must not be greater than 500 characters.'
         required: false
-        example: 'http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et'
+        example: 'http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -566,7 +632,7 @@ endpoints:
         name: github_url
         description: 'Must be a valid URL. Must not be greater than 500 characters.'
         required: false
-        example: 'http://www.mueller.org/'
+        example: 'https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -588,7 +654,7 @@ endpoints:
         name: summary
         description: 'max 5MB.'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -656,7 +722,7 @@ endpoints:
         name: code
         description: 'Must not be greater than 100 characters.'
         required: false
-        example: opfuudtdsufvyvddqamni
+        example: m
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -678,7 +744,7 @@ endpoints:
         name: show_language_levels
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -689,7 +755,7 @@ endpoints:
         name: 'skills[].proficiency'
         description: 'Skill level: `beginner` (1), `basic` (2), `intermediate` (3), `advanced` (4), `expert` (5).'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -700,28 +766,28 @@ endpoints:
         name: 'languages[].proficiency'
         description: 'Spoken-language level: `elementary` (1), `limited_working` (2), `professional_working` (3), `full_professional` (4), `native_bilingual` (5).'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: vmqeopfuudtdsufvyvddq
-      full_name: amniihfqcoynlazghdtqt
-      email: andreanne00@example.org
-      phone: wbpilpmufinllwloauydl
-      location: smsjuryvojcybzvrbyick
-      linkedin_url: 'https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html'
-      portfolio_url: 'http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et'
-      github_url: 'http://www.mueller.org/'
-      summary: consequatur
+      title: b
+      full_name: 'n'
+      email: ashly64@example.com
+      phone: v
+      location: d
+      linkedin_url: 'https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html'
+      portfolio_url: 'http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure'
+      github_url: 'https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html'
+      summary: architecto
       language: fi
       is_primary: true
       is_public: false
-      code: opfuudtdsufvyvddqamni
+      code: m
       show_skill_levels: true
-      show_language_levels: false
+      show_language_levels: true
     fileParameters:
       photo: null
     responses: []
@@ -729,7 +795,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
@@ -758,7 +824,7 @@ endpoints:
         name: id
         description: 'The ID of the resume.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -776,7 +842,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
       resume: 1
     queryParameters: []
     cleanQueryParameters: []
@@ -786,7 +852,7 @@ endpoints:
         name: title
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -797,7 +863,7 @@ endpoints:
         name: full_name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -808,7 +874,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: false
-        example: andreanne00@example.org
+        example: ashly64@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -819,7 +885,7 @@ endpoints:
         name: phone
         description: 'Must not be greater than 50 characters.'
         required: false
-        example: wbpilpmufinllwloauydl
+        example: v
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -830,7 +896,7 @@ endpoints:
         name: location
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: smsjuryvojcybzvrbyick
+        example: d
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -841,7 +907,7 @@ endpoints:
         name: linkedin_url
         description: 'Must be a valid URL. Must not be greater than 500 characters.'
         required: false
-        example: 'https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html'
+        example: 'https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -852,7 +918,7 @@ endpoints:
         name: portfolio_url
         description: 'Must be a valid URL. Must not be greater than 500 characters.'
         required: false
-        example: 'http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et'
+        example: 'http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -863,7 +929,7 @@ endpoints:
         name: github_url
         description: 'Must be a valid URL. Must not be greater than 500 characters.'
         required: false
-        example: 'http://www.mueller.org/'
+        example: 'https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -885,7 +951,7 @@ endpoints:
         name: summary
         description: 'max 5MB.'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -953,7 +1019,7 @@ endpoints:
         name: code
         description: 'Must not be greater than 100 characters.'
         required: false
-        example: opfuudtdsufvyvddqamni
+        example: m
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -975,7 +1041,7 @@ endpoints:
         name: show_language_levels
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -986,7 +1052,7 @@ endpoints:
         name: 'skills[].proficiency'
         description: 'Skill level: `beginner` (1), `basic` (2), `intermediate` (3), `advanced` (4), `expert` (5).'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -997,28 +1063,28 @@ endpoints:
         name: 'languages[].proficiency'
         description: 'Spoken-language level: `elementary` (1), `limited_working` (2), `professional_working` (3), `full_professional` (4), `native_bilingual` (5).'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: vmqeopfuudtdsufvyvddq
-      full_name: amniihfqcoynlazghdtqt
-      email: andreanne00@example.org
-      phone: wbpilpmufinllwloauydl
-      location: smsjuryvojcybzvrbyick
-      linkedin_url: 'https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html'
-      portfolio_url: 'http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et'
-      github_url: 'http://www.mueller.org/'
-      summary: consequatur
+      title: b
+      full_name: 'n'
+      email: ashly64@example.com
+      phone: v
+      location: d
+      linkedin_url: 'https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html'
+      portfolio_url: 'http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure'
+      github_url: 'https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html'
+      summary: architecto
       language: fi
       is_primary: true
       is_public: false
-      code: opfuudtdsufvyvddqamni
+      code: m
       show_skill_levels: true
-      show_language_levels: false
+      show_language_levels: true
     fileParameters:
       photo: null
     responses: []
@@ -1026,7 +1092,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
@@ -1055,7 +1121,7 @@ endpoints:
         name: id
         description: 'The ID of the resume.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1073,7 +1139,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
       resume: 1
     queryParameters: []
     cleanQueryParameters: []
@@ -1085,7 +1151,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
@@ -1132,7 +1198,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
@@ -1161,14 +1227,14 @@ endpoints:
         name: id
         description: 'The ID of the resume.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1191,7 +1257,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
