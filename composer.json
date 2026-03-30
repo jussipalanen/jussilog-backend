@@ -11,7 +11,7 @@
         "php": "^8.4",
         "aws/aws-sdk-php": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
-        "intervention/image": "^3.0",
+        "intervention/image": "^4.0",
         "knuckleswtf/scribe": "^5.8",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
