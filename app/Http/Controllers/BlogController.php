@@ -59,8 +59,35 @@ class BlogController extends Controller
         $query  = Blog::withRelations()->where('visibility', true);
 
         $blog = is_numeric($idOrSlug)
-            ? $query->findOrFail((int) $idOrSlug)
-            : $query->where("slug->{$locale}", $idOrSlug)->firstOrFail();
+            ? $query->find((int) $idOrSlug)
+            : $query->where("slug->{$locale}", $idOrSlug)->first();
+
+        if (! $blog) {
+            return response()->json(['message' => 'Blog post not found.'], 404);
+        }
+
+        return response()->json($this->formatBlog($blog, $locale));
+    }
+
+    /**
+     * Show a single published blog post by ID (public).
+     *
+     * @group Blog
+     *
+     * @urlParam id int required The blog ID. Example: 1
+     *
+     * @queryParam lang string Locale: en or fi. Defaults to en. Example: en
+     */
+    public function showById(Request $request, int $id): JsonResponse
+    {
+        $locale = $this->resolveLocale($request);
+        $blog   = Blog::withRelations()
+            ->where('visibility', true)
+            ->find($id);
+
+        if (! $blog) {
+            return response()->json(['message' => 'Blog post not found.'], 404);
+        }
 
         return response()->json($this->formatBlog($blog, $locale));
     }
