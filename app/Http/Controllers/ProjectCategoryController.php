@@ -53,7 +53,7 @@ class ProjectCategoryController extends Controller
         $category = ProjectCategory::findOrFail($id);
 
         $data = $request->validate([
-            'title' => 'required|string|max:100|unique:project_categories,title,' . $id,
+            'title' => 'required|string|max:100|unique:project_categories,title,'.$id,
         ]);
 
         $category->update($data);
