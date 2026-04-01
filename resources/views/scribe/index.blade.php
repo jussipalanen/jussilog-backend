@@ -482,7 +482,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 27, 2026</li>
+        <li>Last updated: March 30, 2026</li>
     </ul>
 </div>
 
@@ -2914,34 +2914,7 @@ access-control-allow-origin: *
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;current_page&quot;: 1,
-    &quot;data&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;user_id&quot;: 1,
-            &quot;blog_category_id&quot;: 1,
-            &quot;title&quot;: &quot;Welcome to the Blog&quot;,
-            &quot;slug&quot;: &quot;welcome-to-the-blog&quot;,
-            &quot;excerpt&quot;: &quot;This is the first blog post.&quot;,
-            &quot;content&quot;: &quot;&lt;p&gt;Welcome! This is an example blog post created by the seeder.&lt;/p&gt;&quot;,
-            &quot;featured_image&quot;: null,
-            &quot;featured_image_sizes&quot;: null,
-            &quot;tags&quot;: null,
-            &quot;visibility&quot;: true,
-            &quot;created_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-            &quot;author&quot;: {
-                &quot;id&quot;: 1,
-                &quot;first_name&quot;: &quot;Super&quot;,
-                &quot;last_name&quot;: &quot;Admin&quot;,
-                &quot;name&quot;: &quot;superadmin&quot;
-            },
-            &quot;category&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Default&quot;,
-                &quot;slug&quot;: &quot;default&quot;
-            }
-        }
-    ],
+    &quot;data&quot;: [],
     &quot;first_page_url&quot;: &quot;http://localhost:8000/api/blogs?page=1&quot;,
     &quot;from&quot;: null,
     &quot;last_page&quot;: 1,
@@ -2967,8 +2940,8 @@ access-control-allow-origin: *
     &quot;path&quot;: &quot;http://localhost:8000/api/blogs&quot;,
     &quot;per_page&quot;: 15,
     &quot;prev_page_url&quot;: null,
-    &quot;to&quot;: 1,
-    &quot;total&quot;: 1
+    &quot;to&quot;: null,
+    &quot;total&quot;: 0
 }</code>
  </pre>
     </span>
@@ -3058,14 +3031,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/blogs/1" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/blogs/17" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1"
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/17"
 );
 
 const headers = {
@@ -3098,30 +3071,7 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;user_id&quot;: 1,
-    &quot;blog_category_id&quot;: 1,
-    &quot;title&quot;: &quot;Welcome to the Blog&quot;,
-    &quot;slug&quot;: &quot;welcome-to-the-blog&quot;,
-    &quot;excerpt&quot;: &quot;This is the first blog post.&quot;,
-    &quot;content&quot;: &quot;&lt;p&gt;Welcome! This is an example blog post created by the seeder.&lt;/p&gt;&quot;,
-    &quot;featured_image&quot;: null,
-    &quot;featured_image_sizes&quot;: null,
-    &quot;tags&quot;: null,
-    &quot;visibility&quot;: true,
-    &quot;created_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-    &quot;updated_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-    &quot;author&quot;: {
-        &quot;id&quot;: 1,
-        &quot;first_name&quot;: &quot;Super&quot;,
-        &quot;last_name&quot;: &quot;Admin&quot;,
-        &quot;name&quot;: &quot;superadmin&quot;
-    },
-    &quot;category&quot;: {
-        &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Default&quot;,
-        &quot;slug&quot;: &quot;default&quot;
-    }
+    &quot;message&quot;: &quot;No query results for model [App\\Models\\Blog] 17&quot;
 }</code>
  </pre>
     </span>
@@ -3204,10 +3154,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="idOrSlug"                data-endpoint="GETapi-blogs--idOrSlug-"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>Example: <code>1</code></p>
+<p>Example: <code>17</code></p>
             </div>
                     </form>
 
@@ -3378,7 +3328,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "blog_category_id=16"\
     --form "tags[]=n"\
     --form "visibility=1"\
-    --form "featured_image=@/tmp/phpi675ufgsrcoieBbdCFM" </code></pre></div>
+    --form "featured_image=@/tmp/phpDNeCAI" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -3553,7 +3503,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpi675ufgsrcoieBbdCFM</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpDNeCAI</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>tags</code></b>&nbsp;&nbsp;
@@ -3607,7 +3557,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/17" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -3617,12 +3567,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "blog_category_id=16"\
     --form "tags[]=n"\
     --form "visibility=1"\
-    --form "featured_image=@/tmp/phpkemu0than5ra0GgIHKN" </code></pre></div>
+    --form "featured_image=@/tmp/phpoComaI" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1"
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/17"
 );
 
 const headers = {
@@ -3741,10 +3691,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-blogs--id-"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the blog. Example: <code>1</code></p>
+<p>The ID of the blog. Example: <code>17</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -3805,7 +3755,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpkemu0than5ra0GgIHKN</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpoComaI</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>tags</code></b>&nbsp;&nbsp;
@@ -3859,7 +3809,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/17" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3867,7 +3817,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/blogs/1"
+    "https://backend-laravel.dev.jussialanen.com/api/blogs/17"
 );
 
 const headers = {
@@ -3977,10 +3927,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-blogs--id-"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the blog. Example: <code>1</code></p>
+<p>The ID of the blog. Example: <code>17</code></p>
             </div>
                     </form>
 
@@ -4040,15 +3990,7 @@ x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
-<code class="language-json" style="max-height: 300px;">[
-    {
-        &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Default&quot;,
-        &quot;slug&quot;: &quot;default&quot;,
-        &quot;created_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;
-    }
-]</code>
+<code class="language-json" style="max-height: 300px;">[]</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-blog-categories" hidden>
@@ -4842,6 +4784,154 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>Example: <code>fi</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>en</code></li> <li><code>fi</code></li></ul>
+        </div>
+        </form>
+
+                    <h2 id="endpoints-POSTapi-agent-resume-ask">POST api/agent/resume/ask</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-agent-resume-ask">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/agent/resume/ask" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"question\": \"vmqeopfuudtdsufvyvddq\",
+    \"language\": \"en\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/agent/resume/ask"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "question": "vmqeopfuudtdsufvyvddq",
+    "language": "en"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-agent-resume-ask">
+</span>
+<span id="execution-results-POSTapi-agent-resume-ask" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-agent-resume-ask"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-agent-resume-ask"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-agent-resume-ask" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-agent-resume-ask">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-agent-resume-ask" data-method="POST"
+      data-path="api/agent/resume/ask"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-agent-resume-ask', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-agent-resume-ask"
+                    onclick="tryItOut('POSTapi-agent-resume-ask');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-agent-resume-ask"
+                    onclick="cancelTryOut('POSTapi-agent-resume-ask');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-agent-resume-ask"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/agent/resume/ask</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-agent-resume-ask"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-agent-resume-ask"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>question</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="question"                data-endpoint="POSTapi-agent-resume-ask"
+               value="vmqeopfuudtdsufvyvddq"
+               data-component="body">
+    <br>
+<p>Must not be greater than 1000 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>language</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="language"                data-endpoint="POSTapi-agent-resume-ask"
+               value="en"
+               data-component="body">
+    <br>
+<p>Example: <code>en</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>en</code></li> <li><code>fi</code></li></ul>
         </div>
@@ -7949,7 +8039,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"order_id\": 1,
-    \"due_date\": \"2026-03-27T11:30:34\",
+    \"due_date\": \"2026-03-30T08:05:01\",
     \"notes\": \"Net 30\",
     \"status\": \"draft\"
 }"
@@ -7968,7 +8058,7 @@ const headers = {
 
 let body = {
     "order_id": 1,
-    "due_date": "2026-03-27T11:30:34",
+    "due_date": "2026-03-30T08:05:01",
     "notes": "Net 30",
     "status": "draft"
 };
@@ -8131,10 +8221,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="due_date"                data-endpoint="POSTapi-invoices"
-               value="2026-03-27T11:30:34"
+               value="2026-03-30T08:05:01"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-03-27T11:30:34</code></p>
+<p>Must be a valid date. Example: <code>2026-03-30T08:05:01</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
@@ -8189,7 +8279,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"billing_address\": [],
     \"subtotal\": 153.47,
     \"total\": 153.47,
-    \"due_date\": \"2026-03-27T11:30:35\",
+    \"due_date\": \"2026-03-30T08:05:01\",
     \"notes\": \"Net 30\",
     \"items\": [
         {
@@ -8226,7 +8316,7 @@ let body = {
     "billing_address": [],
     "subtotal": 153.47,
     "total": 153.47,
-    "due_date": "2026-03-27T11:30:35",
+    "due_date": "2026-03-30T08:05:01",
     "notes": "Net 30",
     "items": [
         {
@@ -8505,10 +8595,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="due_date"                data-endpoint="PUTapi-invoices--id-"
-               value="2026-03-27T11:30:35"
+               value="2026-03-30T08:05:01"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-03-27T11:30:35</code></p>
+<p>Must be a valid date. Example: <code>2026-03-30T08:05:01</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
@@ -9420,120 +9510,7 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;user_id&quot;: 1,
-    &quot;customer_first_name&quot;: &quot;Jussi&quot;,
-    &quot;customer_last_name&quot;: &quot;Palanen&quot;,
-    &quot;customer_email&quot;: &quot;jussi@example.com&quot;,
-    &quot;customer_phone&quot;: &quot;+358401234567&quot;,
-    &quot;order_number&quot;: &quot;ORD-2026-00001&quot;,
-    &quot;status&quot;: &quot;completed&quot;,
-    &quot;total_amount&quot;: &quot;89.97&quot;,
-    &quot;shipping_address&quot;: {
-        &quot;city&quot;: &quot;Helsinki&quot;,
-        &quot;street&quot;: &quot;Mannerheimintie 1&quot;,
-        &quot;country&quot;: &quot;FI&quot;,
-        &quot;postal_code&quot;: &quot;00100&quot;
-    },
-    &quot;billing_address&quot;: {
-        &quot;city&quot;: &quot;Helsinki&quot;,
-        &quot;street&quot;: &quot;Mannerheimintie 1&quot;,
-        &quot;country&quot;: &quot;FI&quot;,
-        &quot;postal_code&quot;: &quot;00100&quot;
-    },
-    &quot;notes&quot;: null,
-    &quot;lang&quot;: &quot;en&quot;,
-    &quot;created_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-    &quot;updated_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-    &quot;user&quot;: {
-        &quot;id&quot;: 1,
-        &quot;first_name&quot;: &quot;Super&quot;,
-        &quot;last_name&quot;: &quot;Admin&quot;,
-        &quot;username&quot;: &quot;superadmin&quot;,
-        &quot;name&quot;: &quot;superadmin&quot;,
-        &quot;email&quot;: &quot;juzapala+superadmin@gmail.com&quot;,
-        &quot;google_id&quot;: null,
-        &quot;avatar&quot;: null,
-        &quot;email_verified_at&quot;: &quot;2026-03-27T11:26:57.000000Z&quot;,
-        &quot;created_at&quot;: &quot;2026-03-27T11:26:57.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-03-27T11:26:57.000000Z&quot;
-    },
-    &quot;items&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;order_id&quot;: 1,
-            &quot;product_id&quot;: 13,
-            &quot;product_title&quot;: &quot;Wireless Headphones&quot;,
-            &quot;quantity&quot;: 1,
-            &quot;unit_price&quot;: &quot;79.99&quot;,
-            &quot;sale_price&quot;: null,
-            &quot;subtotal&quot;: &quot;79.99&quot;,
-            &quot;created_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-            &quot;featured_image&quot;: null,
-            &quot;images&quot;: [],
-            &quot;featured_image_url&quot;: null,
-            &quot;images_urls&quot;: [],
-            &quot;product&quot;: {
-                &quot;id&quot;: 13,
-                &quot;title&quot;: &quot;Wireless Headphones&quot;,
-                &quot;description&quot;: &quot;Example product for seeding&quot;,
-                &quot;price&quot;: &quot;79.99&quot;,
-                &quot;sale_price&quot;: null,
-                &quot;tax_code&quot;: null,
-                &quot;tax_rate&quot;: null,
-                &quot;quantity&quot;: 0,
-                &quot;featured_image&quot;: null,
-                &quot;featured_image_sizes&quot;: null,
-                &quot;images&quot;: null,
-                &quot;images_sizes&quot;: null,
-                &quot;visibility&quot;: true,
-                &quot;created_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-                &quot;updated_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-                &quot;featured_image_url&quot;: null,
-                &quot;featured_image_sizes_urls&quot;: [],
-                &quot;images_urls&quot;: [],
-                &quot;images_sizes_urls&quot;: []
-            }
-        },
-        {
-            &quot;id&quot;: 2,
-            &quot;order_id&quot;: 1,
-            &quot;product_id&quot;: 14,
-            &quot;product_title&quot;: &quot;USB-C Cable&quot;,
-            &quot;quantity&quot;: 2,
-            &quot;unit_price&quot;: &quot;4.99&quot;,
-            &quot;sale_price&quot;: null,
-            &quot;subtotal&quot;: &quot;9.98&quot;,
-            &quot;created_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-            &quot;featured_image&quot;: null,
-            &quot;images&quot;: [],
-            &quot;featured_image_url&quot;: null,
-            &quot;images_urls&quot;: [],
-            &quot;product&quot;: {
-                &quot;id&quot;: 14,
-                &quot;title&quot;: &quot;USB-C Cable&quot;,
-                &quot;description&quot;: &quot;Example product for seeding&quot;,
-                &quot;price&quot;: &quot;4.99&quot;,
-                &quot;sale_price&quot;: null,
-                &quot;tax_code&quot;: null,
-                &quot;tax_rate&quot;: null,
-                &quot;quantity&quot;: 0,
-                &quot;featured_image&quot;: null,
-                &quot;featured_image_sizes&quot;: null,
-                &quot;images&quot;: null,
-                &quot;images_sizes&quot;: null,
-                &quot;visibility&quot;: true,
-                &quot;created_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-                &quot;updated_at&quot;: &quot;2026-03-27T11:26:59.000000Z&quot;,
-                &quot;featured_image_url&quot;: null,
-                &quot;featured_image_sizes_urls&quot;: [],
-                &quot;images_urls&quot;: [],
-                &quot;images_sizes_urls&quot;: []
-            }
-        }
-    ]
+    &quot;message&quot;: &quot;Order not found&quot;
 }</code>
  </pre>
     </span>
@@ -10578,9 +10555,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "tax_rate=1"\
     --form "quantity=50"\
     --form "visibility=1"\
-    --form "featured_image=@/tmp/php0v1c9se0ngbfeDbJiIi" \
-    --form "images[]=@/tmp/phpdsqj33mcvrp73bkbbIi" \
-    --form "images[]=@/tmp/php2q8ouqtirq08emagmIi" </code></pre></div>
+    --form "featured_image=@/tmp/phpcNfbCb" \
+    --form "images[]=@/tmp/phpfFhKCb" \
+    --form "images[]=@/tmp/phpplheCb" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -10810,7 +10787,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Featured image file. Example: <code>/tmp/php0v1c9se0ngbfeDbJiIi</code></p>
+<p>Featured image file. Example: <code>/tmp/phpcNfbCb</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>visibility</code></b>&nbsp;&nbsp;
@@ -10858,7 +10835,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Additional image files. Example: <code>/tmp/php2q8ouqtirq08emagmIi</code></p>
+<p>Additional image files. Example: <code>/tmp/phpplheCb</code></p>
         </div>
         </form>
 
@@ -10915,25 +10892,7 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;title&quot;: &quot;deserunt ut maxime&quot;,
-    &quot;description&quot;: &quot;Qui odio sunt commodi magni. Voluptatum cum nostrum nihil ut ducimus sed. Quo neque necessitatibus ipsa nulla iste et rerum.\n\nIpsa eligendi rerum sit iusto nulla ea hic dolorem. Illo et aut magni recusandae itaque. Distinctio laboriosam sint et sed consequatur. Doloribus nobis laboriosam aut vel.\n\nHic dolorum minima architecto ut blanditiis ducimus. Dolore reiciendis non ea labore ut. Voluptate officiis corrupti provident eveniet minus fugiat culpa.&quot;,
-    &quot;price&quot;: &quot;680.00&quot;,
-    &quot;sale_price&quot;: null,
-    &quot;tax_code&quot;: &quot;FI&quot;,
-    &quot;tax_rate&quot;: &quot;0.2550&quot;,
-    &quot;quantity&quot;: 124,
-    &quot;featured_image&quot;: null,
-    &quot;featured_image_sizes&quot;: null,
-    &quot;images&quot;: [],
-    &quot;images_sizes&quot;: null,
-    &quot;visibility&quot;: true,
-    &quot;created_at&quot;: &quot;2026-03-27T11:26:57.000000Z&quot;,
-    &quot;updated_at&quot;: &quot;2026-03-27T11:26:57.000000Z&quot;,
-    &quot;featured_image_url&quot;: null,
-    &quot;featured_image_sizes_urls&quot;: [],
-    &quot;images_urls&quot;: [],
-    &quot;images_sizes_urls&quot;: []
+    &quot;message&quot;: &quot;Product not found&quot;
 }</code>
  </pre>
     </span>
@@ -11051,9 +11010,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "delete_images[]=architecto"\
     --form "delete_featured_image="\
     --form "delete_images[]=products/1/image.png"\
-    --form "featured_image=@/tmp/phpgulsq8kplscgfhkjFbn" \
-    --form "images[]=@/tmp/phpc078eq9mb69d8ICApan" \
-    --form "images[]=@/tmp/phpoqmekn133dhocNmhKbn" </code></pre></div>
+    --form "featured_image=@/tmp/phpoOkLBc" \
+    --form "images[]=@/tmp/phpHBcBBc" \
+    --form "images[]=@/tmp/phpDpoOBc" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -11286,7 +11245,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Featured image file. Example: <code>/tmp/phpgulsq8kplscgfhkjFbn</code></p>
+<p>Featured image file. Example: <code>/tmp/phpoOkLBc</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>visibility</code></b>&nbsp;&nbsp;
@@ -11370,7 +11329,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Additional image files. Example: <code>/tmp/phpoqmekn133dhocNmhKbn</code></p>
+<p>Additional image files. Example: <code>/tmp/phpDpoOBc</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>delete_images[]</code></b>&nbsp;&nbsp;
@@ -14721,7 +14680,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/17" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -14729,7 +14688,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17"
 );
 
 const headers = {
@@ -14856,10 +14815,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id-"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>17</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -14889,7 +14848,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -14907,13 +14866,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "is_public="\
     --form "code=m"\
     --form "show_skill_levels=1"\
-    --form "show_language_levels=1"\
-    --form "photo=@/tmp/phpoqc3brg7l2stdOKgbbG" </code></pre></div>
+    --form "show_language_levels="\
+    --form "photo=@/tmp/phpkBMnCc" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17"
 );
 
 const headers = {
@@ -15041,10 +15000,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-resumes--id-"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>17</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -15165,7 +15124,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpoqc3brg7l2stdOKgbbG</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpkBMnCc</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>summary</code></b>&nbsp;&nbsp;
@@ -15381,7 +15340,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
@@ -15399,13 +15358,13 @@ Must be one of:
     --form "is_public="\
     --form "code=m"\
     --form "show_skill_levels=1"\
-    --form "show_language_levels=1"\
-    --form "photo=@/tmp/phpjq07pr8pumsueKpdhdH" </code></pre></div>
+    --form "show_language_levels="\
+    --form "photo=@/tmp/phpCNjgac" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17"
 );
 
 const headers = {
@@ -15533,10 +15492,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="POSTapi-resumes--id-"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>17</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -15657,7 +15616,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpjq07pr8pumsueKpdhdH</code></p>
+<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes. Example: <code>/tmp/phpCNjgac</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>summary</code></b>&nbsp;&nbsp;
@@ -15873,7 +15832,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -15881,7 +15840,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17"
 );
 
 const headers = {
@@ -15991,10 +15950,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-resumes--id-"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>17</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -16024,7 +15983,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/pdf" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/17/export/pdf" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -16032,7 +15991,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/pdf"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17/export/pdf"
 );
 
 const headers = {
@@ -16159,10 +16118,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--export-pdf"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>17</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -16192,7 +16151,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/html" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/17/export/html" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -16200,7 +16159,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/html"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17/export/html"
 );
 
 const headers = {
@@ -16327,10 +16286,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--export-html"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>17</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -16360,7 +16319,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/json" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/17/export/json" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -16368,7 +16327,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/export/json"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17/export/json"
 );
 
 const headers = {
@@ -16495,10 +16454,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--export-json"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>17</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -16528,7 +16487,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/preview/pdf?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/17/preview/pdf?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -16536,7 +16495,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/preview/pdf"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17/preview/pdf"
 );
 
 const params = {
@@ -16673,10 +16632,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--preview-pdf"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>17</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -16787,7 +16746,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/preview/html?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/17/preview/html?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -16795,7 +16754,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/preview/html"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17/preview/html"
 );
 
 const params = {
@@ -16932,10 +16891,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--preview-html"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>17</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -17046,7 +17005,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/1/preview/signed-url?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/17/preview/signed-url?theme=blue&amp;lang=en&amp;template=default&amp;show_skill_levels=1&amp;show_language_levels=1" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -17054,7 +17013,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/preview/signed-url"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17/preview/signed-url"
 );
 
 const params = {
@@ -17191,10 +17150,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-resumes--id--preview-signed-url"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>17</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>resume</code></b>&nbsp;&nbsp;
@@ -17309,7 +17268,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpt94vg69gcq08eCAOaLP" </code></pre></div>
+    --form "file=@/tmp/phpIpijLh" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -17430,7 +17389,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phpt94vg69gcq08eCAOaLP</code></p>
+<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phpIpijLh</code></p>
         </div>
         </form>
 
@@ -17448,16 +17407,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/import/json" \
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17/import/json" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phplcv9eekadpmm3bhkmHa" </code></pre></div>
+    --form "file=@/tmp/phpKmkMfh" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/1/import/json"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/17/import/json"
 );
 
 const headers = {
@@ -17570,10 +17529,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="POSTapi-resumes--id--import-json"
-               value="1"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>1</code></p>
+<p>The ID of the resume. Example: <code>17</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -17586,7 +17545,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phplcv9eekadpmm3bhkmHa</code></p>
+<p>The JSON backup file produced by the export endpoint. Example: <code>/tmp/phpKmkMfh</code></p>
         </div>
         </form>
 
@@ -19389,7 +19348,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "https://backend-laravel.dev.jussialanen.com/api/upload-test" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpkccripqofp1udgHNfHf" </code></pre></div>
+    --form "file=@/tmp/phpmLIIkP" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -19497,7 +19456,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Image file to upload. Example: <code>/tmp/phpkccripqofp1udgHNfHf</code></p>
+<p>Image file to upload. Example: <code>/tmp/phpmLIIkP</code></p>
         </div>
         </form>
 
@@ -19685,19 +19644,7 @@ x-robots-tag: noindex, nofollow, noarchive, nosnippet
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
-<code class="language-json" style="max-height: 300px;">[
-    {
-        &quot;id&quot;: 1,
-        &quot;first_name&quot;: &quot;Super&quot;,
-        &quot;last_name&quot;: &quot;Admin&quot;,
-        &quot;username&quot;: &quot;superadmin&quot;,
-        &quot;name&quot;: &quot;superadmin&quot;,
-        &quot;email&quot;: &quot;juzapala+superadmin@gmail.com&quot;,
-        &quot;roles&quot;: [
-            &quot;admin&quot;
-        ]
-    }
-]</code>
+<code class="language-json" style="max-height: 300px;">[]</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-users" hidden>
