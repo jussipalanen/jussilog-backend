@@ -196,6 +196,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Blog routes — public read, admin write
 Route::get('/blogs', [BlogController::class, 'index']);
+Route::get('/blogs/id/{id}', [BlogController::class, 'showById'])->where('id', '[0-9]+');
 Route::get('/blogs/{idOrSlug}', [BlogController::class, 'show']);
 
 Route::get('/blog-categories', [BlogCategoryController::class, 'index']);

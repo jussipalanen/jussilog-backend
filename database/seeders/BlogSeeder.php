@@ -26,10 +26,10 @@ class BlogSeeder extends Seeder
             [
                 'user_id'          => $user->id,
                 'blog_category_id' => $category->id,
-                'title'            => ['en' => 'Welcome to the Blog'],
-                'slug'             => ['en' => 'welcome-to-the-blog'],
-                'excerpt'          => ['en' => 'This is the first blog post.'],
-                'content'          => ['en' => '<p>Welcome! This is an example blog post created by the seeder.</p>'],
+                'title'            => ['en' => 'Welcome to the Blog', 'fi' => 'Tervetuloa blogiin'],
+                'slug'             => ['en' => 'welcome-to-the-blog', 'fi' => 'tervetuloa-blogiin'],
+                'excerpt'          => ['en' => 'This is the first blog post.', 'fi' => 'Tämä on ensimmäinen blogikirjoitus.'],
+                'content'          => ['en' => '<p>Welcome! This is an example blog post created by the seeder.</p>', 'fi' => '<p>Tervetuloa! Tämä on esimerkki blogikirjoitus, jonka seeder on luonut.</p>'],
                 'visibility'       => true,
             ]
         );
