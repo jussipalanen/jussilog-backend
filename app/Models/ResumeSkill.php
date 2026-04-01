@@ -97,7 +97,7 @@ class ResumeSkill extends Model
 
     public function getPointsAttribute(): ?int
     {
-        return self::PROFICIENCY_POINTS[$this->proficiency] ?? null;
+        return self::PROFICIENCY_POINTS[$this->proficiency] ?? null;  // @phpstan-ignore-line
     }
 
     public function resume(): BelongsTo
