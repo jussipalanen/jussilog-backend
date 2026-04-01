@@ -8,10 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
+/**
+ * Blog post model with locale-keyed translatable fields.
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int|null $blog_category_id
+ * @property array $title Locale-keyed translations e.g. ['en' => '...', 'fi' => '...']
+ * @property array $slug Locale-keyed slugs e.g. ['en' => 'my-post', 'fi' => 'minun-postaus']
+ * @property array|null $excerpt Locale-keyed translations
+ * @property array $content Locale-keyed translations
+ * @property string|null $featured_image
+ * @property array|null $featured_image_sizes
+ * @property array|null $tags
+ * @property bool $visibility
+ */
 class Blog extends Model
 {
     use HasFactory;
 
+    /** @var list<string> */
     protected $fillable = [
         'user_id',
         'blog_category_id',
@@ -25,7 +41,12 @@ class Blog extends Model
         'visibility',
     ];
 
+    /** @var array<string, string> */
     protected $casts = [
+        'title'                => 'array',
+        'slug'                 => 'array',
+        'excerpt'              => 'array',
+        'content'              => 'array',
         'featured_image_sizes' => 'array',
         'tags'                 => 'array',
         'visibility'           => 'boolean',
@@ -34,24 +55,35 @@ class Blog extends Model
     protected static function booted(): void
     {
         static::creating(function (Blog $model) {
-            $model->slug = static::generateUniqueSlug($model->title);
+            $slugs = [];
+            foreach ($model->title as $locale => $localeTitle) {
+                $slugs[$locale] = static::generateUniqueSlug($localeTitle, $locale);
+            }
+            $model->slug = $slugs;
         });
 
         static::updating(function (Blog $model) {
             if ($model->isDirty('title')) {
-                $model->slug = static::generateUniqueSlug($model->title, $model->id);
+                $slugs = $model->slug ?? [];
+                foreach ($model->title as $locale => $localeTitle) {
+                    $slugs[$locale] = static::generateUniqueSlug($localeTitle, $locale, $model->id);
+                }
+                $model->slug = $slugs;
             }
         });
     }
 
-    public static function generateUniqueSlug(string $title, ?int $excludeId = null): string
+    /**
+     * Generate a unique slug for the given locale.
+     */
+    public static function generateUniqueSlug(string $title, string $locale, ?int $excludeId = null): string
     {
         $base    = Str::slug($title);
         $slug    = $base;
         $counter = 1;
 
         while (
-            static::where('slug', $slug)
+            static::where("slug->{$locale}", $slug)
                 ->when($excludeId, fn ($q) => $q->where('id', '!=', $excludeId))
                 ->exists()
         ) {
@@ -61,6 +93,7 @@ class Blog extends Model
         return $slug;
     }
 
+    /** @param Builder<Blog> $query */
     public function scopeWithRelations(Builder $query): Builder
     {
         return $query->with(['author:id,first_name,last_name,name', 'category:id,name,slug']);

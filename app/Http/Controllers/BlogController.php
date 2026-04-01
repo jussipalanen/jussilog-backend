@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -10,17 +11,26 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
+/**
+ * Handles blog post endpoints.
+ */
 class BlogController extends Controller
 {
+    /** @var list<string> */
+    private const SUPPORTED_LOCALES = ['en', 'fi'];
+
     /**
      * List published blog posts (public).
      *
      * @group Blog
+     *
+     * @queryParam lang string Locale: en or fi. Defaults to en. Example: en
      */
     public function index(Request $request): JsonResponse
     {
+        $locale  = $this->resolveLocale($request);
         $perPage = max(1, min(100, (int) $request->query('per_page', 15)));
-        $sortBy  = in_array($request->query('sort_by'), ['id', 'title', 'created_at'], true)
+        $sortBy  = in_array($request->query('sort_by'), ['id', 'created_at'], true)
             ? $request->query('sort_by') : 'created_at';
         $sortDir = $request->query('sort_dir') === 'asc' ? 'asc' : 'desc';
 
@@ -29,6 +39,8 @@ class BlogController extends Controller
             ->orderBy($sortBy, $sortDir)
             ->paginate($perPage);
 
+        $blogs->getCollection()->transform(fn (Blog $blog) => $this->formatBlog($blog, $locale));
+
         return response()->json($blogs);
     }
 
@@ -36,16 +48,19 @@ class BlogController extends Controller
      * Show a single published blog post (public).
      *
      * @group Blog
+     *
+     * @queryParam lang string Locale: en or fi. Defaults to en. Example: en
      */
-    public function show(string $idOrSlug): JsonResponse
+    public function show(Request $request, string $idOrSlug): JsonResponse
     {
-        $query = Blog::withRelations()->where('visibility', true);
+        $locale = $this->resolveLocale($request);
+        $query  = Blog::withRelations()->where('visibility', true);
 
         $blog = is_numeric($idOrSlug)
             ? $query->findOrFail((int) $idOrSlug)
-            : $query->where('slug', $idOrSlug)->firstOrFail();
+            : $query->where("slug->{$locale}", $idOrSlug)->firstOrFail();
 
-        return response()->json($blog);
+        return response()->json($this->formatBlog($blog, $locale));
     }
 
     /**
@@ -58,7 +73,7 @@ class BlogController extends Controller
     public function adminIndex(Request $request): JsonResponse
     {
         $perPage = max(1, min(100, (int) $request->query('per_page', 15)));
-        $sortBy  = in_array($request->query('sort_by'), ['id', 'title', 'created_at', 'visibility'], true)
+        $sortBy  = in_array($request->query('sort_by'), ['id', 'created_at', 'visibility'], true)
             ? $request->query('sort_by') : 'created_at';
         $sortDir = $request->query('sort_dir') === 'asc' ? 'asc' : 'desc';
 
@@ -79,9 +94,15 @@ class BlogController extends Controller
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'title'            => 'required|string|max:255',
-            'excerpt'          => 'nullable|string',
-            'content'          => 'required|string',
+            'title'            => 'required|array',
+            'title.en'         => 'required|string|max:255',
+            'title.fi'         => 'nullable|string|max:255',
+            'excerpt'          => 'nullable|array',
+            'excerpt.en'       => 'nullable|string',
+            'excerpt.fi'       => 'nullable|string',
+            'content'          => 'required|array',
+            'content.en'       => 'required|string',
+            'content.fi'       => 'nullable|string',
             'blog_category_id' => 'nullable|integer|exists:blog_categories,id',
             'featured_image'   => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120',
             'tags'             => 'nullable|array',
@@ -95,9 +116,9 @@ class BlogController extends Controller
         $blog = Blog::create($data);
 
         if ($request->hasFile('featured_image')) {
-            $file                        = $request->file('featured_image');
-            $blog->featured_image        = $this->storeBlogImage($file, $blog->id);
-            $blog->featured_image_sizes  = $this->generateThumbnails($file, $blog->id);
+            $file                       = $request->file('featured_image');
+            $blog->featured_image       = $this->storeBlogImage($file, $blog->id);
+            $blog->featured_image_sizes = $this->generateThumbnails($file, $blog->id);
             $blog->save();
         }
 
@@ -112,20 +133,28 @@ class BlogController extends Controller
      * @group         Blog
      *
      * @authenticated
+     *
+     * @urlParam id integer required The blog ID. Example: 1
      */
     public function update(Request $request, int $id): JsonResponse
     {
         $blog = Blog::findOrFail($id);
 
         $data = $request->validate([
-            'title'             => 'sometimes|required|string|max:255',
-            'excerpt'           => 'nullable|string',
-            'content'           => 'sometimes|required|string',
-            'blog_category_id'  => 'nullable|integer|exists:blog_categories,id',
-            'featured_image'    => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120',
-            'tags'              => 'nullable|array',
-            'tags.*'            => 'string|max:100',
-            'visibility'        => 'boolean',
+            'title'            => 'sometimes|required|array',
+            'title.en'         => 'sometimes|required|string|max:255',
+            'title.fi'         => 'nullable|string|max:255',
+            'excerpt'          => 'nullable|array',
+            'excerpt.en'       => 'nullable|string',
+            'excerpt.fi'       => 'nullable|string',
+            'content'          => 'sometimes|required|array',
+            'content.en'       => 'sometimes|required|string',
+            'content.fi'       => 'nullable|string',
+            'blog_category_id' => 'nullable|integer|exists:blog_categories,id',
+            'featured_image'   => 'nullable|file|image|mimes:jpeg,jpg,png,gif,webp|max:5120',
+            'tags'             => 'nullable|array',
+            'tags.*'           => 'string|max:100',
+            'visibility'       => 'boolean',
         ]);
 
         if ($request->hasFile('featured_image')) {
@@ -135,9 +164,9 @@ class BlogController extends Controller
             if ($blog->featured_image_sizes) {
                 $this->deleteThumbnails($blog->featured_image_sizes);
             }
-            $file                           = $request->file('featured_image');
-            $data['featured_image']         = $this->storeBlogImage($file, $blog->id);
-            $data['featured_image_sizes']   = $this->generateThumbnails($file, $blog->id);
+            $file                         = $request->file('featured_image');
+            $data['featured_image']       = $this->storeBlogImage($file, $blog->id);
+            $data['featured_image_sizes'] = $this->generateThumbnails($file, $blog->id);
         } elseif ($request->exists('featured_image') && empty($request->input('featured_image'))) {
             if ($blog->featured_image) {
                 $this->storageDisk()->delete($blog->featured_image);
@@ -163,6 +192,8 @@ class BlogController extends Controller
      * @group         Blog
      *
      * @authenticated
+     *
+     * @urlParam id integer required The blog ID. Example: 1
      */
     public function destroy(int $id): JsonResponse
     {
@@ -180,12 +211,48 @@ class BlogController extends Controller
         return response()->json(null, 204);
     }
 
+    /**
+     * Resolve the requested locale from the query string, defaulting to 'en'.
+     */
+    private function resolveLocale(Request $request): string
+    {
+        $lang = $request->query('lang');
+
+        return in_array($lang, self::SUPPORTED_LOCALES, true) ? $lang : 'en';
+    }
+
+    /**
+     * Format a blog post to a single resolved locale for public responses.
+     *
+     * @return array<string, mixed>
+     */
+    private function formatBlog(Blog $blog, string $locale): array
+    {
+        return [
+            'id'                   => $blog->id,
+            'user_id'              => $blog->user_id,
+            'blog_category_id'     => $blog->blog_category_id,
+            'title'                => $blog->title[$locale] ?? $blog->title['en'] ?? null,
+            'slug'                 => $blog->slug[$locale] ?? $blog->slug['en'] ?? null,
+            'excerpt'              => isset($blog->excerpt) ? ($blog->excerpt[$locale] ?? $blog->excerpt['en'] ?? null) : null,
+            'content'              => $blog->content[$locale] ?? $blog->content['en'] ?? null,
+            'featured_image'       => $blog->featured_image,
+            'featured_image_sizes' => $blog->featured_image_sizes,
+            'tags'                 => $blog->tags,
+            'visibility'           => $blog->visibility,
+            'created_at'           => $blog->created_at,
+            'updated_at'           => $blog->updated_at,
+            'author'               => $blog->relationLoaded('author') ? $blog->author : null,
+            'category'             => $blog->relationLoaded('category') ? $blog->category : null,
+        ];
+    }
+
     private function storageDiskName(): string
     {
         return (string) config('filesystems.default');
     }
 
-    private function storageDisk()
+    private function storageDisk(): Filesystem
     {
         return Storage::disk($this->storageDiskName());
     }
@@ -229,6 +296,7 @@ class BlogController extends Controller
         }
     }
 
+    /** @return array<string, array{int, int}> */
     private function imageSizes(): array
     {
         return [
