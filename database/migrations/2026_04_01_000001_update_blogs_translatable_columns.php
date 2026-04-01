@@ -24,6 +24,9 @@ return new class extends Migration
         DB::statement("UPDATE blogs SET excerpt = JSON_OBJECT('en', excerpt) WHERE excerpt IS NOT NULL");
         DB::statement("UPDATE blogs SET content = JSON_OBJECT('en', content)");
 
+        // Drop the unique index on slug before converting to JSON (MySQL doesn't support indexing JSON columns directly)
+        DB::statement('ALTER TABLE blogs DROP INDEX blogs_slug_unique');
+
         // Use raw SQL for JSON column changes as MySQL doesn't support change() to JSON type
         DB::statement('ALTER TABLE blogs MODIFY COLUMN title JSON NOT NULL');
         DB::statement('ALTER TABLE blogs MODIFY COLUMN slug JSON NOT NULL');
