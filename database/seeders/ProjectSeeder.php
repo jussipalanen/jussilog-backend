@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\ProjectTag;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 /**
  * Seeds sample portfolio projects with categories and tags.
@@ -51,7 +52,7 @@ class ProjectSeeder extends Seeder
         $createdTags = [];
         foreach ($tags as $tagData) {
             $createdTags[$tagData['title']] = ProjectTag::firstOrCreate(
-                ['slug' => \Illuminate\Support\Str::slug($tagData['title'])],
+                ['slug' => Str::slug($tagData['title'])],
                 ['title' => $tagData['title'], 'color' => $tagData['color']]
             );
         }

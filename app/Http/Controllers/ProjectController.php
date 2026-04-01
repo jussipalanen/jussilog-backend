@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\ProjectVisibility;
 use App\Models\Project;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -51,6 +52,7 @@ class ProjectController extends Controller
      * @group Projects
      *
      * @urlParam idOrSlug string required The project ID or locale slug. Example: my-project
+     *
      * @queryParam lang string Locale for translatable fields. Enum: en, fi. Default: en.
      */
     public function show(Request $request, string $idOrSlug): JsonResponse
@@ -277,9 +279,6 @@ class ProjectController extends Controller
      * Resolve the requested locale from the query string.
      *
      * Falls back to English if the locale is missing or unsupported.
-     *
-     * @param  Request $request
-     * @return string
      */
     private function resolveLocale(Request $request): string
     {
@@ -291,8 +290,6 @@ class ProjectController extends Controller
     /**
      * Format a project for the API response, resolving translatable fields to the given locale.
      *
-     * @param  Project $project
-     * @param  string  $locale
      * @return array<string, mixed>
      */
     private function formatProject(Project $project, string $locale): array
@@ -318,7 +315,7 @@ class ProjectController extends Controller
     /**
      * Get the configured storage disk instance.
      *
-     * @return \Illuminate\Contracts\Filesystem\Filesystem
+     * @return Filesystem
      */
     private function storageDisk()
     {
@@ -328,14 +325,11 @@ class ProjectController extends Controller
     /**
      * Store a single project image and return its storage path.
      *
-     * @param  UploadedFile $file
-     * @param  int          $projectId
-     * @param  string       $name      Filename prefix (e.g. "feature", "image_0").
-     * @return string
+     * @param  string  $name  Filename prefix (e.g. "feature", "image_0").
      */
     private function storeImage(UploadedFile $file, int $projectId, string $name): string
     {
-        $filename = "{$name}_" . time() . '.' . $file->getClientOriginalExtension();
+        $filename = "{$name}_".time().'.'.$file->getClientOriginalExtension();
 
         return $file->storeAs("projects/{$projectId}", $filename, (string) config('filesystems.default'));
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,12 +11,12 @@ use Illuminate\Support\Str;
 /**
  * Represents a technology/stack tag that can be assigned to portfolio projects.
  *
- * @property int            $id
- * @property string         $title
- * @property string         $slug
- * @property string         $color  Hex or named colour for the badge, e.g. "#FF2D20"
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property int $id
+ * @property string $title
+ * @property string $slug
+ * @property string $color Hex or named colour for the badge, e.g. "#FF2D20"
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class ProjectTag extends Model
 {
@@ -36,8 +37,6 @@ class ProjectTag extends Model
      * Register model lifecycle hooks.
      *
      * Auto-generates a unique slug from the title on create and on title change.
-     *
-     * @return void
      */
     protected static function booted(): void
     {
@@ -57,9 +56,8 @@ class ProjectTag extends Model
      *
      * Appends an incrementing counter suffix if the base slug is already taken.
      *
-     * @param  string   $title     The source title to slugify.
-     * @param  int|null $excludeId Row ID to exclude from uniqueness check (used on update).
-     * @return string
+     * @param  string  $title  The source title to slugify.
+     * @param  int|null  $excludeId  Row ID to exclude from uniqueness check (used on update).
      */
     public static function generateUniqueSlug(string $title, ?int $excludeId = null): string
     {

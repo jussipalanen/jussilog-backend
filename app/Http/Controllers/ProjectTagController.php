@@ -54,7 +54,7 @@ class ProjectTagController extends Controller
         $tag = ProjectTag::findOrFail($id);
 
         $data = $request->validate([
-            'title' => 'sometimes|required|string|max:100|unique:project_tags,title,' . $id,
+            'title' => 'sometimes|required|string|max:100|unique:project_tags,title,'.$id,
             'color' => 'sometimes|required|string|max:50',
         ]);
 

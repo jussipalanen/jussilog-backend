@@ -13,10 +13,10 @@ use Illuminate\Support\Str;
  * Represents a portfolio project entry.
  *
  * @property int $id
- * @property array $title  Locale-keyed translations e.g. ['en' => '...', 'fi' => '...']
- * @property array $slug   Locale-keyed slugs e.g. ['en' => 'my-project', 'fi' => 'minun-projektini']
- * @property array|null $short_description  Locale-keyed translations
- * @property array|null $long_description   Locale-keyed translations
+ * @property array $title Locale-keyed translations e.g. ['en' => '...', 'fi' => '...']
+ * @property array $slug Locale-keyed slugs e.g. ['en' => 'my-project', 'fi' => 'minun-projektini']
+ * @property array|null $short_description Locale-keyed translations
+ * @property array|null $long_description Locale-keyed translations
  * @property string|null $feature_image
  * @property array|null $images
  * @property ProjectVisibility $visibility
@@ -91,9 +91,9 @@ class Project extends Model
      *
      * Appends an incrementing counter suffix if the base slug is already taken.
      *
-     * @param  string   $title     The title string to slugify.
-     * @param  string   $locale    The locale key to check uniqueness against (e.g. 'en', 'fi').
-     * @param  int|null $excludeId Row ID to exclude from uniqueness check (used on update).
+     * @param  string  $title  The title string to slugify.
+     * @param  string  $locale  The locale key to check uniqueness against (e.g. 'en', 'fi').
+     * @param  int|null  $excludeId  Row ID to exclude from uniqueness check (used on update).
      */
     public static function generateUniqueSlug(string $title, string $locale, ?int $excludeId = null): string
     {
