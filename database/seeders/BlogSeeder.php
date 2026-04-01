@@ -22,12 +22,14 @@ class BlogSeeder extends Seeder
         $category = BlogCategory::firstOrCreate(['name' => 'Default']);
 
         Blog::firstOrCreate(
-            ['title' => 'Welcome to the Blog'],
+            ['title' => ['en' => 'Welcome to the Blog']],
             [
                 'user_id'          => $user->id,
                 'blog_category_id' => $category->id,
-                'excerpt'          => 'This is the first blog post.',
-                'content'          => '<p>Welcome! This is an example blog post created by the seeder.</p>',
+                'title'            => ['en' => 'Welcome to the Blog', 'fi' => 'Tervetuloa blogiin'],
+                'slug'             => ['en' => 'welcome-to-the-blog', 'fi' => 'tervetuloa-blogiin'],
+                'excerpt'          => ['en' => 'This is the first blog post.', 'fi' => 'Tämä on ensimmäinen blogikirjoitus.'],
+                'content'          => ['en' => '<p>Welcome! This is an example blog post created by the seeder.</p>', 'fi' => '<p>Tervetuloa! Tämä on esimerkki blogikirjoitus, jonka seeder on luonut.</p>'],
                 'visibility'       => true,
             ]
         );

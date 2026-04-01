@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -17,9 +15,9 @@ return new class extends Migration
             return; // SQLite stores ENUM as TEXT and doesn't enforce constraints
         }
 
-        Schema::table('resume_skills', function (Blueprint $table) {
-            $table->enum('proficiency', self::NEW_LEVELS)->change();
-        });
+        // Use raw SQL for enum change as Laravel's Schema doesn't support it properly with Doctrine
+        $newEnum = "'".implode("','", self::NEW_LEVELS)."'";
+        DB::statement("ALTER TABLE resume_skills MODIFY COLUMN proficiency ENUM({$newEnum}) NOT NULL");
     }
 
     public function down(): void
@@ -28,8 +26,8 @@ return new class extends Migration
             return;
         }
 
-        Schema::table('resume_skills', function (Blueprint $table) {
-            $table->enum('proficiency', self::OLD_LEVELS)->change();
-        });
+        // Revert to original enum values
+        $oldEnum = "'".implode("','", self::OLD_LEVELS)."'";
+        DB::statement("ALTER TABLE resume_skills MODIFY COLUMN proficiency ENUM({$oldEnum}) NOT NULL");
     }
 };
