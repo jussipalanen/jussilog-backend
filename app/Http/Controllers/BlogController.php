@@ -39,7 +39,9 @@ class BlogController extends Controller
             ->orderBy($sortBy, $sortDir)
             ->paginate($perPage);
 
-        $blogs->getCollection()->transform(fn (Blog $blog) => $this->formatBlog($blog, $locale));
+        $blogs->setCollection(
+            $blogs->getCollection()->map(fn (Blog $blog) => $this->formatBlog($blog, $locale))
+        );
 
         return response()->json($blogs);
     }
