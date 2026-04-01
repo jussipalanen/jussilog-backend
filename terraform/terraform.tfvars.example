@@ -1,19 +1,19 @@
-# Non-sensitive defaults — safe to commit.
-# Sensitive values (passwords, API keys) are stored in Secret Manager and
-# never appear here. See secret_manager.tf for the secret resource definitions.
+# Copy this file to terraform.tfvars and fill in your values.
+# Non-sensitive infrastructure defaults. Sensitive values (passwords, API keys)
+# are stored in GCP Secret Manager — see secret_manager.tf.
 
-project_id = "client-jussimatic"
+project_id = "your-gcp-project-id"
 region     = "europe-north1"
 
-app_url      = "https://backend-jussilog.jussialanen.com"
-frontend_url = "https://www.jussialanen.com"
+app_url      = "https://your-backend-domain.com"
+frontend_url = "https://your-frontend-domain.com"
 
 db_instance_name = "jussilog-db"
 db_database      = "jussilog"
 db_username      = "jussilog"
 db_tier          = "db-g1-small"
 
-gcs_bucket = "jussilog-backend-uploads"
+gcs_bucket = "your-gcs-bucket-name"
 
 cloud_run_service_name  = "jussilog-backend-production"
 cloud_run_min_instances = 1

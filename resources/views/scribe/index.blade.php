@@ -2166,7 +2166,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"id_token\": \"consequatur\"
+    \"id_token\": \"architecto\"
 }"
 </code></pre></div>
 
@@ -2182,7 +2182,7 @@ const headers = {
 };
 
 let body = {
-    "id_token": "consequatur"
+    "id_token": "architecto"
 };
 
 fetch(url, {
@@ -2274,10 +2274,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id_token"                data-endpoint="POSTapi-auth-google"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Google ID token from frontend Google Sign-In flow. Example: <code>consequatur</code></p>
+<p>Google ID token from frontend Google Sign-In flow. Example: <code>architecto</code></p>
         </div>
         </form>
 
@@ -2431,7 +2431,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"email\": \"jussi@example.com\",
-    \"token\": \"consequatur\",
+    \"token\": \"architecto\",
     \"password\": \"newpassword\",
     \"password_confirmation\": \"newpassword\"
 }"
@@ -2450,7 +2450,7 @@ const headers = {
 
 let body = {
     "email": "jussi@example.com",
-    "token": "consequatur",
+    "token": "architecto",
     "password": "newpassword",
     "password_confirmation": "newpassword"
 };
@@ -2556,10 +2556,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="token"                data-endpoint="POSTapi-reset-password"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Reset token Example: <code>consequatur</code></p>
+<p>Reset token Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -3322,11 +3322,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "title=vmqeopfuudtdsufvyvddq"\
-    --form "excerpt=consequatur"\
-    --form "content=consequatur"\
-    --form "blog_category_id=17"\
-    --form "tags[]=mqeopfuudtdsufvyvddqa"\
+    --form "title=b"\
+    --form "excerpt=architecto"\
+    --form "content=architecto"\
+    --form "blog_category_id=16"\
+    --form "tags[]=n"\
     --form "visibility=1"\
     --form "featured_image=@/tmp/phpDNeCAI" </code></pre></div>
 
@@ -3343,11 +3343,11 @@ const headers = {
 };
 
 const body = new FormData();
-body.append('title', 'vmqeopfuudtdsufvyvddq');
-body.append('excerpt', 'consequatur');
-body.append('content', 'consequatur');
-body.append('blog_category_id', '17');
-body.append('tags[]', 'mqeopfuudtdsufvyvddqa');
+body.append('title', 'b');
+body.append('excerpt', 'architecto');
+body.append('content', 'architecto');
+body.append('blog_category_id', '16');
+body.append('tags[]', 'n');
 body.append('visibility', '1');
 body.append('featured_image', document.querySelector('input[name="featured_image"]').files[0]);
 
@@ -3452,10 +3452,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="title"                data-endpoint="POSTapi-blogs"
-               value="vmqeopfuudtdsufvyvddq"
+               value="b"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+<p>Must not be greater than 255 characters. Example: <code>b</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>excerpt</code></b>&nbsp;&nbsp;
@@ -3464,10 +3464,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="excerpt"                data-endpoint="POSTapi-blogs"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Example: <code>consequatur</code></p>
+<p>Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>content</code></b>&nbsp;&nbsp;
@@ -3476,10 +3476,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="content"                data-endpoint="POSTapi-blogs"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Example: <code>consequatur</code></p>
+<p>Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>blog_category_id</code></b>&nbsp;&nbsp;
@@ -3488,10 +3488,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="blog_category_id"                data-endpoint="POSTapi-blogs"
-               value="17"
+               value="16"
                data-component="body">
     <br>
-<p>The <code>id</code> of an existing record in the blog_categories table. Example: <code>17</code></p>
+<p>The <code>id</code> of an existing record in the blog_categories table. Example: <code>16</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>featured_image</code></b>&nbsp;&nbsp;
@@ -3561,11 +3561,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "title=vmqeopfuudtdsufvyvddq"\
-    --form "excerpt=consequatur"\
-    --form "content=consequatur"\
-    --form "blog_category_id=17"\
-    --form "tags[]=mqeopfuudtdsufvyvddqa"\
+    --form "title=b"\
+    --form "excerpt=architecto"\
+    --form "content=architecto"\
+    --form "blog_category_id=16"\
+    --form "tags[]=n"\
     --form "visibility=1"\
     --form "featured_image=@/tmp/phpoComaI" </code></pre></div>
 
@@ -3582,11 +3582,11 @@ const headers = {
 };
 
 const body = new FormData();
-body.append('title', 'vmqeopfuudtdsufvyvddq');
-body.append('excerpt', 'consequatur');
-body.append('content', 'consequatur');
-body.append('blog_category_id', '17');
-body.append('tags[]', 'mqeopfuudtdsufvyvddqa');
+body.append('title', 'b');
+body.append('excerpt', 'architecto');
+body.append('content', 'architecto');
+body.append('blog_category_id', '16');
+body.append('tags[]', 'n');
 body.append('visibility', '1');
 body.append('featured_image', document.querySelector('input[name="featured_image"]').files[0]);
 
@@ -3704,10 +3704,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="title"                data-endpoint="PUTapi-blogs--id-"
-               value="vmqeopfuudtdsufvyvddq"
+               value="b"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+<p>Must not be greater than 255 characters. Example: <code>b</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>excerpt</code></b>&nbsp;&nbsp;
@@ -3716,10 +3716,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="excerpt"                data-endpoint="PUTapi-blogs--id-"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Example: <code>consequatur</code></p>
+<p>Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>content</code></b>&nbsp;&nbsp;
@@ -3728,10 +3728,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="content"                data-endpoint="PUTapi-blogs--id-"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Example: <code>consequatur</code></p>
+<p>Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>blog_category_id</code></b>&nbsp;&nbsp;
@@ -3740,10 +3740,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="blog_category_id"                data-endpoint="PUTapi-blogs--id-"
-               value="17"
+               value="16"
                data-component="body">
     <br>
-<p>The <code>id</code> of an existing record in the blog_categories table. Example: <code>17</code></p>
+<p>The <code>id</code> of an existing record in the blog_categories table. Example: <code>16</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>featured_image</code></b>&nbsp;&nbsp;
@@ -4085,7 +4085,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"vmqeopfuudtdsufvyvddq\"
+    \"name\": \"b\"
 }"
 </code></pre></div>
 
@@ -4102,7 +4102,7 @@ const headers = {
 };
 
 let body = {
-    "name": "vmqeopfuudtdsufvyvddq"
+    "name": "b"
 };
 
 fetch(url, {
@@ -4206,10 +4206,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-blog-categories"
-               value="vmqeopfuudtdsufvyvddq"
+               value="b"
                data-component="body">
     <br>
-<p>Must not be greater than 100 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+<p>Must not be greater than 100 characters. Example: <code>b</code></p>
         </div>
         </form>
 
@@ -4526,7 +4526,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"role\": \"consequatur\"
+    \"role\": \"architecto\"
 }"
 </code></pre></div>
 
@@ -4542,7 +4542,7 @@ const headers = {
 };
 
 let body = {
-    "role": "consequatur"
+    "role": "architecto"
 };
 
 fetch(url, {
@@ -4634,10 +4634,306 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="PATCHapi-users-update-role"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Example: <code>consequatur</code></p>
+<p>Example: <code>architecto</code></p>
+        </div>
+        </form>
+
+                    <h2 id="endpoints-POSTapi-agent-resume-ask">POST api/agent/resume/ask</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-agent-resume-ask">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/agent/resume/ask" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"question\": \"b\",
+    \"language\": \"fi\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/agent/resume/ask"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "question": "b",
+    "language": "fi"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-agent-resume-ask">
+</span>
+<span id="execution-results-POSTapi-agent-resume-ask" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-agent-resume-ask"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-agent-resume-ask"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-agent-resume-ask" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-agent-resume-ask">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-agent-resume-ask" data-method="POST"
+      data-path="api/agent/resume/ask"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-agent-resume-ask', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-agent-resume-ask"
+                    onclick="tryItOut('POSTapi-agent-resume-ask');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-agent-resume-ask"
+                    onclick="cancelTryOut('POSTapi-agent-resume-ask');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-agent-resume-ask"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/agent/resume/ask</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-agent-resume-ask"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-agent-resume-ask"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>question</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="question"                data-endpoint="POSTapi-agent-resume-ask"
+               value="b"
+               data-component="body">
+    <br>
+<p>Must not be greater than 1000 characters. Example: <code>b</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>language</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="language"                data-endpoint="POSTapi-agent-resume-ask"
+               value="fi"
+               data-component="body">
+    <br>
+<p>Example: <code>fi</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>en</code></li> <li><code>fi</code></li></ul>
+        </div>
+        </form>
+
+                    <h2 id="endpoints-POSTapi-agent-resume-ask">POST api/agent/resume/ask</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-agent-resume-ask">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://backend-laravel.dev.jussialanen.com/api/agent/resume/ask" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"question\": \"vmqeopfuudtdsufvyvddq\",
+    \"language\": \"en\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://backend-laravel.dev.jussialanen.com/api/agent/resume/ask"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "question": "vmqeopfuudtdsufvyvddq",
+    "language": "en"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-agent-resume-ask">
+</span>
+<span id="execution-results-POSTapi-agent-resume-ask" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-agent-resume-ask"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-agent-resume-ask"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-agent-resume-ask" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-agent-resume-ask">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-agent-resume-ask" data-method="POST"
+      data-path="api/agent/resume/ask"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-agent-resume-ask', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-agent-resume-ask"
+                    onclick="tryItOut('POSTapi-agent-resume-ask');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-agent-resume-ask"
+                    onclick="cancelTryOut('POSTapi-agent-resume-ask');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-agent-resume-ask"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/agent/resume/ask</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-agent-resume-ask"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-agent-resume-ask"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>question</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="question"                data-endpoint="POSTapi-agent-resume-ask"
+               value="vmqeopfuudtdsufvyvddq"
+               data-component="body">
+    <br>
+<p>Must not be greater than 1000 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>language</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="language"                data-endpoint="POSTapi-agent-resume-ask"
+               value="en"
+               data-component="body">
+    <br>
+<p>Example: <code>en</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>en</code></li> <li><code>fi</code></li></ul>
         </div>
         </form>
 
@@ -4802,14 +5098,14 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/pdf/render" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/architecto/preview/pdf/render" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/pdf/render"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/architecto/preview/pdf/render"
 );
 
 const headers = {
@@ -4925,10 +5221,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-resumes--id--preview-pdf-render"
-               value="consequatur"
+               value="architecto"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>consequatur</code></p>
+<p>The ID of the resume. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -4945,14 +5241,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/html/render" \
+    --get "https://backend-laravel.dev.jussialanen.com/api/resumes/architecto/preview/html/render" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://backend-laravel.dev.jussialanen.com/api/resumes/consequatur/preview/html/render"
+    "https://backend-laravel.dev.jussialanen.com/api/resumes/architecto/preview/html/render"
 );
 
 const headers = {
@@ -5068,10 +5364,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-resumes--id--preview-html-render"
-               value="consequatur"
+               value="architecto"
                data-component="url">
     <br>
-<p>The ID of the resume. Example: <code>consequatur</code></p>
+<p>The ID of the resume. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -5659,7 +5955,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"status\": \"draft\",
     \"notes\": \"Thank you for your business.\",
     \"items\": [
-        \"consequatur\"
+        \"architecto\"
     ]
 }"
 </code></pre></div>
@@ -5687,7 +5983,7 @@ let body = {
     "status": "draft",
     "notes": "Thank you for your business.",
     "items": [
-        "consequatur"
+        "architecto"
     ]
 };
 
@@ -6026,7 +6322,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"status\": \"draft\",
     \"notes\": \"Thank you for your business.\",
     \"items\": [
-        \"consequatur\"
+        \"architecto\"
     ]
 }"
 </code></pre></div>
@@ -6054,7 +6350,7 @@ let body = {
     "status": "draft",
     "notes": "Thank you for your business.",
     "items": [
-        "consequatur"
+        "architecto"
     ]
 };
 
@@ -6395,7 +6691,7 @@ If <code>to_email</code> is omitted, falls back to <code>customer_email</code> i
     \"status\": \"draft\",
     \"notes\": \"Thank you for your business.\",
     \"items\": [
-        \"consequatur\"
+        \"architecto\"
     ]
 }"
 </code></pre></div>
@@ -6424,7 +6720,7 @@ let body = {
     "status": "draft",
     "notes": "Thank you for your business.",
     "items": [
-        "consequatur"
+        "architecto"
     ]
 };
 
@@ -8862,10 +9158,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"customer_phone\": \"+358401234567\",
     \"shipping_address\": [],
     \"billing_address\": [],
-    \"notes\": \"consequatur\",
+    \"notes\": \"architecto\",
     \"lang\": \"fi\",
     \"items\": [
-        \"consequatur\"
+        \"architecto\"
     ],
     \"user_id\": 5
 }"
@@ -8889,10 +9185,10 @@ let body = {
     "customer_phone": "+358401234567",
     "shipping_address": [],
     "billing_address": [],
-    "notes": "consequatur",
+    "notes": "architecto",
     "lang": "fi",
     "items": [
-        "consequatur"
+        "architecto"
     ],
     "user_id": 5
 };
@@ -9058,10 +9354,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="notes"                data-endpoint="POSTapi-orders"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Order notes. Example: <code>consequatur</code></p>
+<p>Order notes. Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>lang</code></b>&nbsp;&nbsp;
@@ -9092,10 +9388,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="items.0.product_id"                data-endpoint="POSTapi-orders"
-               value="17"
+               value="16"
                data-component="body">
     <br>
-<p>The <code>id</code> of an existing record in the products table. Example: <code>17</code></p>
+<p>The <code>id</code> of an existing record in the products table. Example: <code>16</code></p>
                     </div>
                                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>quantity</code></b>&nbsp;&nbsp;
@@ -9104,10 +9400,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="items.0.quantity"                data-endpoint="POSTapi-orders"
-               value="45"
+               value="22"
                data-component="body">
     <br>
-<p>Must be at least 1. Example: <code>45</code></p>
+<p>Must be at least 1. Example: <code>22</code></p>
                     </div>
                                                                 <div style=" margin-left: 14px; clear: unset;">
         <details>
@@ -9328,9 +9624,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"customer_phone\": \"+358401234567\",
     \"shipping_address\": [],
     \"billing_address\": [],
-    \"notes\": \"consequatur\",
+    \"notes\": \"architecto\",
     \"items\": [
-        \"consequatur\"
+        \"architecto\"
     ],
     \"send_status_email\": false
 }"
@@ -9355,9 +9651,9 @@ let body = {
     "customer_phone": "+358401234567",
     "shipping_address": [],
     "billing_address": [],
-    "notes": "consequatur",
+    "notes": "architecto",
     "items": [
-        "consequatur"
+        "architecto"
     ],
     "send_status_email": false
 };
@@ -9548,10 +9844,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="notes"                data-endpoint="PUTapi-orders--id-"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Order notes. Example: <code>consequatur</code></p>
+<p>Order notes. Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
         <details>
@@ -9570,10 +9866,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="items.0.product_id"                data-endpoint="PUTapi-orders--id-"
-               value="17"
+               value="16"
                data-component="body">
     <br>
-<p>This field is required when <code>items</code> is present. The <code>id</code> of an existing record in the products table. Example: <code>17</code></p>
+<p>This field is required when <code>items</code> is present. The <code>id</code> of an existing record in the products table. Example: <code>16</code></p>
                     </div>
                                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>quantity</code></b>&nbsp;&nbsp;
@@ -9582,10 +9878,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="items.0.quantity"                data-endpoint="PUTapi-orders--id-"
-               value="45"
+               value="22"
                data-component="body">
     <br>
-<p>This field is required when <code>items</code> is present. Must be at least 1. Example: <code>45</code></p>
+<p>This field is required when <code>items</code> is present. Must be at least 1. Example: <code>22</code></p>
                     </div>
                                                                 <div style=" margin-left: 14px; clear: unset;">
         <details>
@@ -10249,13 +10545,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "https://backend-laravel.dev.jussialanen.com/api/products" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "user_id=17"\
+    --form "user_id=16"\
     --form "id=1001"\
     --form "title=Wireless Headphones"\
     --form "description=Premium noise-cancelling headphones"\
     --form "price=299.99"\
     --form "sale_price=249.99"\
-    --form "tax_code=CN"\
+    --form "tax_code=AU"\
     --form "tax_rate=1"\
     --form "quantity=50"\
     --form "visibility=1"\
@@ -10275,13 +10571,13 @@ const headers = {
 };
 
 const body = new FormData();
-body.append('user_id', '17');
+body.append('user_id', '16');
 body.append('id', '1001');
 body.append('title', 'Wireless Headphones');
 body.append('description', 'Premium noise-cancelling headphones');
 body.append('price', '299.99');
 body.append('sale_price', '249.99');
-body.append('tax_code', 'CN');
+body.append('tax_code', 'AU');
 body.append('tax_rate', '1');
 body.append('quantity', '50');
 body.append('visibility', '1');
@@ -10378,10 +10674,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="user_id"                data-endpoint="POSTapi-products"
-               value="17"
+               value="16"
                data-component="body">
     <br>
-<p>The <code>id</code> of an existing record in the users table. Example: <code>17</code></p>
+<p>The <code>id</code> of an existing record in the users table. Example: <code>16</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
@@ -10450,10 +10746,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="tax_code"                data-endpoint="POSTapi-products"
-               value="CN"
+               value="AU"
                data-component="body">
     <br>
-<p>Example: <code>CN</code></p>
+<p>Example: <code>AU</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>ZERO</code></li> <li><code>AT</code></li> <li><code>BE</code></li> <li><code>BG</code></li> <li><code>HR</code></li> <li><code>CY</code></li> <li><code>CZ</code></li> <li><code>DK</code></li> <li><code>EE</code></li> <li><code>FI</code></li> <li><code>FR</code></li> <li><code>DE</code></li> <li><code>GR</code></li> <li><code>HU</code></li> <li><code>IE</code></li> <li><code>IT</code></li> <li><code>LV</code></li> <li><code>LT</code></li> <li><code>LU</code></li> <li><code>MT</code></li> <li><code>NL</code></li> <li><code>PL</code></li> <li><code>PT</code></li> <li><code>RO</code></li> <li><code>SK</code></li> <li><code>SI</code></li> <li><code>ES</code></li> <li><code>SE</code></li> <li><code>UK</code></li> <li><code>NO</code></li> <li><code>CH</code></li> <li><code>AR</code></li> <li><code>BR</code></li> <li><code>CA</code></li> <li><code>MX</code></li> <li><code>AU</code></li> <li><code>CN</code></li> <li><code>ID</code></li> <li><code>IN</code></li> <li><code>JP</code></li> <li><code>KR</code></li> <li><code>NZ</code></li> <li><code>PH</code></li> <li><code>SG</code></li> <li><code>TH</code></li> <li><code>AE</code></li> <li><code>IL</code></li> <li><code>SA</code></li> <li><code>EG</code></li> <li><code>GH</code></li> <li><code>KE</code></li> <li><code>NG</code></li> <li><code>ZA</code></li></ul>
         </div>
@@ -10702,16 +10998,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "https://backend-laravel.dev.jussialanen.com/api/products/1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "user_id=17"\
+    --form "user_id=16"\
     --form "title=Wireless Headphones"\
     --form "description=Premium noise-cancelling headphones"\
     --form "price=299.99"\
     --form "sale_price=249.99"\
-    --form "tax_code=CN"\
+    --form "tax_code=AU"\
     --form "tax_rate=1"\
     --form "quantity=50"\
     --form "visibility=1"\
-    --form "delete_images[]=consequatur"\
+    --form "delete_images[]=architecto"\
     --form "delete_featured_image="\
     --form "delete_images[]=products/1/image.png"\
     --form "featured_image=@/tmp/phpoOkLBc" \
@@ -10730,16 +11026,16 @@ const headers = {
 };
 
 const body = new FormData();
-body.append('user_id', '17');
+body.append('user_id', '16');
 body.append('title', 'Wireless Headphones');
 body.append('description', 'Premium noise-cancelling headphones');
 body.append('price', '299.99');
 body.append('sale_price', '249.99');
-body.append('tax_code', 'CN');
+body.append('tax_code', 'AU');
 body.append('tax_rate', '1');
 body.append('quantity', '50');
 body.append('visibility', '1');
-body.append('delete_images[]', 'consequatur');
+body.append('delete_images[]', 'architecto');
 body.append('delete_featured_image', '');
 body.append('delete_images[]', 'products/1/image.png');
 body.append('featured_image', document.querySelector('input[name="featured_image"]').files[0]);
@@ -10848,10 +11144,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="user_id"                data-endpoint="PUTapi-products--id-"
-               value="17"
+               value="16"
                data-component="body">
     <br>
-<p>The <code>id</code> of an existing record in the users table. Example: <code>17</code></p>
+<p>The <code>id</code> of an existing record in the users table. Example: <code>16</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
@@ -10908,10 +11204,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="tax_code"                data-endpoint="PUTapi-products--id-"
-               value="CN"
+               value="AU"
                data-component="body">
     <br>
-<p>Example: <code>CN</code></p>
+<p>Example: <code>AU</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>ZERO</code></li> <li><code>AT</code></li> <li><code>BE</code></li> <li><code>BG</code></li> <li><code>HR</code></li> <li><code>CY</code></li> <li><code>CZ</code></li> <li><code>DK</code></li> <li><code>EE</code></li> <li><code>FI</code></li> <li><code>FR</code></li> <li><code>DE</code></li> <li><code>GR</code></li> <li><code>HU</code></li> <li><code>IE</code></li> <li><code>IT</code></li> <li><code>LV</code></li> <li><code>LT</code></li> <li><code>LU</code></li> <li><code>MT</code></li> <li><code>NL</code></li> <li><code>PL</code></li> <li><code>PT</code></li> <li><code>RO</code></li> <li><code>SK</code></li> <li><code>SI</code></li> <li><code>ES</code></li> <li><code>SE</code></li> <li><code>UK</code></li> <li><code>NO</code></li> <li><code>CH</code></li> <li><code>AR</code></li> <li><code>BR</code></li> <li><code>CA</code></li> <li><code>MX</code></li> <li><code>AU</code></li> <li><code>CN</code></li> <li><code>ID</code></li> <li><code>IN</code></li> <li><code>JP</code></li> <li><code>KR</code></li> <li><code>NZ</code></li> <li><code>PH</code></li> <li><code>SG</code></li> <li><code>TH</code></li> <li><code>AE</code></li> <li><code>IL</code></li> <li><code>SA</code></li> <li><code>EG</code></li> <li><code>GH</code></li> <li><code>KE</code></li> <li><code>NG</code></li> <li><code>ZA</code></li></ul>
         </div>
@@ -13811,37 +14107,37 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"email\": \"jussi@example.com\",
     \"phone\": \"+358401234567\",
     \"location\": \"Helsinki, Finland\",
-    \"linkedin_url\": \"http:\\/\\/kunze.biz\\/iste-laborum-eius-est-dolor.html\",
-    \"portfolio_url\": \"http:\\/\\/kunze.biz\\/iste-laborum-eius-est-dolor.html\",
-    \"github_url\": \"http:\\/\\/kunze.biz\\/iste-laborum-eius-est-dolor.html\",
-    \"photo\": \"consequatur\",
-    \"summary\": \"consequatur\",
+    \"linkedin_url\": \"http:\\/\\/www.bailey.biz\\/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html\",
+    \"portfolio_url\": \"http:\\/\\/www.bailey.biz\\/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html\",
+    \"github_url\": \"http:\\/\\/www.bailey.biz\\/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html\",
+    \"photo\": \"architecto\",
+    \"summary\": \"architecto\",
     \"language\": \"fi\",
     \"is_primary\": true,
     \"is_public\": false,
-    \"code\": \"opfuudtdsufvyvddqamni\",
+    \"code\": \"m\",
     \"show_skill_levels\": true,
-    \"show_language_levels\": false,
+    \"show_language_levels\": true,
     \"work_experiences\": [
-        \"consequatur\"
+        \"architecto\"
     ],
     \"educations\": [
-        \"consequatur\"
+        \"architecto\"
     ],
     \"skills\": [
-        \"consequatur\"
+        \"architecto\"
     ],
     \"projects\": [
-        \"consequatur\"
+        \"architecto\"
     ],
     \"certifications\": [
-        \"consequatur\"
+        \"architecto\"
     ],
     \"languages\": [
-        \"consequatur\"
+        \"architecto\"
     ],
     \"awards\": [
-        \"consequatur\"
+        \"architecto\"
     ]
 }"
 </code></pre></div>
@@ -13864,37 +14160,37 @@ let body = {
     "email": "jussi@example.com",
     "phone": "+358401234567",
     "location": "Helsinki, Finland",
-    "linkedin_url": "http:\/\/kunze.biz\/iste-laborum-eius-est-dolor.html",
-    "portfolio_url": "http:\/\/kunze.biz\/iste-laborum-eius-est-dolor.html",
-    "github_url": "http:\/\/kunze.biz\/iste-laborum-eius-est-dolor.html",
-    "photo": "consequatur",
-    "summary": "consequatur",
+    "linkedin_url": "http:\/\/www.bailey.biz\/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html",
+    "portfolio_url": "http:\/\/www.bailey.biz\/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html",
+    "github_url": "http:\/\/www.bailey.biz\/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html",
+    "photo": "architecto",
+    "summary": "architecto",
     "language": "fi",
     "is_primary": true,
     "is_public": false,
-    "code": "opfuudtdsufvyvddqamni",
+    "code": "m",
     "show_skill_levels": true,
-    "show_language_levels": false,
+    "show_language_levels": true,
     "work_experiences": [
-        "consequatur"
+        "architecto"
     ],
     "educations": [
-        "consequatur"
+        "architecto"
     ],
     "skills": [
-        "consequatur"
+        "architecto"
     ],
     "projects": [
-        "consequatur"
+        "architecto"
     ],
     "certifications": [
-        "consequatur"
+        "architecto"
     ],
     "languages": [
-        "consequatur"
+        "architecto"
     ],
     "awards": [
-        "consequatur"
+        "architecto"
     ]
 };
 
@@ -14059,10 +14355,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="linkedin_url"                data-endpoint="POSTapi-resumes"
-               value="http://kunze.biz/iste-laborum-eius-est-dolor.html"
+               value="http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html"
                data-component="body">
     <br>
-<p>LinkedIn profile URL. Example: <code>http://kunze.biz/iste-laborum-eius-est-dolor.html</code></p>
+<p>LinkedIn profile URL. Example: <code>http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>portfolio_url</code></b>&nbsp;&nbsp;
@@ -14071,10 +14367,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="portfolio_url"                data-endpoint="POSTapi-resumes"
-               value="http://kunze.biz/iste-laborum-eius-est-dolor.html"
+               value="http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html"
                data-component="body">
     <br>
-<p>Portfolio or website URL. Example: <code>http://kunze.biz/iste-laborum-eius-est-dolor.html</code></p>
+<p>Portfolio or website URL. Example: <code>http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>github_url</code></b>&nbsp;&nbsp;
@@ -14083,10 +14379,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="github_url"                data-endpoint="POSTapi-resumes"
-               value="http://kunze.biz/iste-laborum-eius-est-dolor.html"
+               value="http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html"
                data-component="body">
     <br>
-<p>GitHub profile URL. Example: <code>http://kunze.biz/iste-laborum-eius-est-dolor.html</code></p>
+<p>GitHub profile URL. Example: <code>http://www.bailey.biz/quos-velit-et-fugiat-sunt-nihil-accusantium-harum.html</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>photo</code></b>&nbsp;&nbsp;
@@ -14095,10 +14391,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="photo"                data-endpoint="POSTapi-resumes"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Path to uploaded professional photo. Example: <code>consequatur</code></p>
+<p>Path to uploaded professional photo. Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>summary</code></b>&nbsp;&nbsp;
@@ -14107,10 +14403,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="summary"                data-endpoint="POSTapi-resumes"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Professional summary / objective paragraph. Example: <code>consequatur</code></p>
+<p>Professional summary / objective paragraph. Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>language</code></b>&nbsp;&nbsp;
@@ -14201,10 +14497,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="code"                data-endpoint="POSTapi-resumes"
-               value="opfuudtdsufvyvddqamni"
+               value="m"
                data-component="body">
     <br>
-<p>Must not be greater than 100 characters. Example: <code>opfuudtdsufvyvddqamni</code></p>
+<p>Must not be greater than 100 characters. Example: <code>m</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>show_skill_levels</code></b>&nbsp;&nbsp;
@@ -14248,7 +14544,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>work_experiences</code></b>&nbsp;&nbsp;
@@ -14295,10 +14591,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="skills.0.proficiency"                data-endpoint="POSTapi-resumes"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Skill level: <code>beginner</code> (1), <code>basic</code> (2), <code>intermediate</code> (3), <code>advanced</code> (4), <code>expert</code> (5). Example: <code>consequatur</code></p>
+<p>Skill level: <code>beginner</code> (1), <code>basic</code> (2), <code>intermediate</code> (3), <code>advanced</code> (4), <code>expert</code> (5). Example: <code>architecto</code></p>
                     </div>
                                     </details>
         </div>
@@ -14347,10 +14643,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="languages.0.proficiency"                data-endpoint="POSTapi-resumes"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Spoken-language level: <code>elementary</code> (1), <code>limited_working</code> (2), <code>professional_working</code> (3), <code>full_professional</code> (4), <code>native_bilingual</code> (5). Example: <code>consequatur</code></p>
+<p>Spoken-language level: <code>elementary</code> (1), <code>limited_working</code> (2), <code>professional_working</code> (3), <code>full_professional</code> (4), <code>native_bilingual</code> (5). Example: <code>architecto</code></p>
                     </div>
                                     </details>
         </div>
@@ -14556,19 +14852,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "title=vmqeopfuudtdsufvyvddq"\
-    --form "full_name=amniihfqcoynlazghdtqt"\
-    --form "email=andreanne00@example.org"\
-    --form "phone=wbpilpmufinllwloauydl"\
-    --form "location=smsjuryvojcybzvrbyick"\
-    --form "linkedin_url=https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html"\
-    --form "portfolio_url=http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et"\
-    --form "github_url=http://www.mueller.org/"\
-    --form "summary=consequatur"\
+    --form "title=b"\
+    --form "full_name=n"\
+    --form "email=ashly64@example.com"\
+    --form "phone=v"\
+    --form "location=d"\
+    --form "linkedin_url=https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html"\
+    --form "portfolio_url=http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure"\
+    --form "github_url=https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html"\
+    --form "summary=architecto"\
     --form "language=fi"\
     --form "is_primary=1"\
     --form "is_public="\
-    --form "code=opfuudtdsufvyvddqamni"\
+    --form "code=m"\
     --form "show_skill_levels=1"\
     --form "show_language_levels="\
     --form "photo=@/tmp/phpkBMnCc" </code></pre></div>
@@ -14586,21 +14882,21 @@ const headers = {
 };
 
 const body = new FormData();
-body.append('title', 'vmqeopfuudtdsufvyvddq');
-body.append('full_name', 'amniihfqcoynlazghdtqt');
-body.append('email', 'andreanne00@example.org');
-body.append('phone', 'wbpilpmufinllwloauydl');
-body.append('location', 'smsjuryvojcybzvrbyick');
-body.append('linkedin_url', 'https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html');
-body.append('portfolio_url', 'http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et');
-body.append('github_url', 'http://www.mueller.org/');
-body.append('summary', 'consequatur');
+body.append('title', 'b');
+body.append('full_name', 'n');
+body.append('email', 'ashly64@example.com');
+body.append('phone', 'v');
+body.append('location', 'd');
+body.append('linkedin_url', 'https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html');
+body.append('portfolio_url', 'http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure');
+body.append('github_url', 'https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html');
+body.append('summary', 'architecto');
 body.append('language', 'fi');
 body.append('is_primary', '1');
 body.append('is_public', '');
-body.append('code', 'opfuudtdsufvyvddqamni');
+body.append('code', 'm');
 body.append('show_skill_levels', '1');
-body.append('show_language_levels', '');
+body.append('show_language_levels', '1');
 body.append('photo', document.querySelector('input[name="photo"]').files[0]);
 
 fetch(url, {
@@ -14729,10 +15025,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="title"                data-endpoint="PUTapi-resumes--id-"
-               value="vmqeopfuudtdsufvyvddq"
+               value="b"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+<p>Must not be greater than 255 characters. Example: <code>b</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>full_name</code></b>&nbsp;&nbsp;
@@ -14741,10 +15037,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="full_name"                data-endpoint="PUTapi-resumes--id-"
-               value="amniihfqcoynlazghdtqt"
+               value="n"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>amniihfqcoynlazghdtqt</code></p>
+<p>Must not be greater than 255 characters. Example: <code>n</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -14753,10 +15049,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="PUTapi-resumes--id-"
-               value="andreanne00@example.org"
+               value="ashly64@example.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>andreanne00@example.org</code></p>
+<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>ashly64@example.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
@@ -14765,10 +15061,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="PUTapi-resumes--id-"
-               value="wbpilpmufinllwloauydl"
+               value="v"
                data-component="body">
     <br>
-<p>Must not be greater than 50 characters. Example: <code>wbpilpmufinllwloauydl</code></p>
+<p>Must not be greater than 50 characters. Example: <code>v</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>location</code></b>&nbsp;&nbsp;
@@ -14777,10 +15073,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="location"                data-endpoint="PUTapi-resumes--id-"
-               value="smsjuryvojcybzvrbyick"
+               value="d"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>smsjuryvojcybzvrbyick</code></p>
+<p>Must not be greater than 255 characters. Example: <code>d</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>linkedin_url</code></b>&nbsp;&nbsp;
@@ -14789,10 +15085,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="linkedin_url"                data-endpoint="PUTapi-resumes--id-"
-               value="https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html"
+               value="https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html"
                data-component="body">
     <br>
-<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html</code></p>
+<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>portfolio_url</code></b>&nbsp;&nbsp;
@@ -14801,10 +15097,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="portfolio_url"                data-endpoint="PUTapi-resumes--id-"
-               value="http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et"
+               value="http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure"
                data-component="body">
     <br>
-<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et</code></p>
+<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>github_url</code></b>&nbsp;&nbsp;
@@ -14813,10 +15109,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="github_url"                data-endpoint="PUTapi-resumes--id-"
-               value="http://www.mueller.org/"
+               value="https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html"
                data-component="body">
     <br>
-<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>http://www.mueller.org/</code></p>
+<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>photo</code></b>&nbsp;&nbsp;
@@ -14837,10 +15133,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="summary"                data-endpoint="PUTapi-resumes--id-"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>max 5MB. Example: <code>consequatur</code></p>
+<p>max 5MB. Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>language</code></b>&nbsp;&nbsp;
@@ -14931,10 +15227,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="code"                data-endpoint="PUTapi-resumes--id-"
-               value="opfuudtdsufvyvddqamni"
+               value="m"
                data-component="body">
     <br>
-<p>Must not be greater than 100 characters. Example: <code>opfuudtdsufvyvddqamni</code></p>
+<p>Must not be greater than 100 characters. Example: <code>m</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>show_skill_levels</code></b>&nbsp;&nbsp;
@@ -14978,7 +15274,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
         <details>
@@ -14997,10 +15293,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="skills.0.proficiency"                data-endpoint="PUTapi-resumes--id-"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Skill level: <code>beginner</code> (1), <code>basic</code> (2), <code>intermediate</code> (3), <code>advanced</code> (4), <code>expert</code> (5). Example: <code>consequatur</code></p>
+<p>Skill level: <code>beginner</code> (1), <code>basic</code> (2), <code>intermediate</code> (3), <code>advanced</code> (4), <code>expert</code> (5). Example: <code>architecto</code></p>
                     </div>
                                     </details>
         </div>
@@ -15021,10 +15317,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="languages.0.proficiency"                data-endpoint="PUTapi-resumes--id-"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Spoken-language level: <code>elementary</code> (1), <code>limited_working</code> (2), <code>professional_working</code> (3), <code>full_professional</code> (4), <code>native_bilingual</code> (5). Example: <code>consequatur</code></p>
+<p>Spoken-language level: <code>elementary</code> (1), <code>limited_working</code> (2), <code>professional_working</code> (3), <code>full_professional</code> (4), <code>native_bilingual</code> (5). Example: <code>architecto</code></p>
                     </div>
                                     </details>
         </div>
@@ -15048,19 +15344,19 @@ Must be one of:
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "title=vmqeopfuudtdsufvyvddq"\
-    --form "full_name=amniihfqcoynlazghdtqt"\
-    --form "email=andreanne00@example.org"\
-    --form "phone=wbpilpmufinllwloauydl"\
-    --form "location=smsjuryvojcybzvrbyick"\
-    --form "linkedin_url=https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html"\
-    --form "portfolio_url=http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et"\
-    --form "github_url=http://www.mueller.org/"\
-    --form "summary=consequatur"\
+    --form "title=b"\
+    --form "full_name=n"\
+    --form "email=ashly64@example.com"\
+    --form "phone=v"\
+    --form "location=d"\
+    --form "linkedin_url=https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html"\
+    --form "portfolio_url=http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure"\
+    --form "github_url=https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html"\
+    --form "summary=architecto"\
     --form "language=fi"\
     --form "is_primary=1"\
     --form "is_public="\
-    --form "code=opfuudtdsufvyvddqamni"\
+    --form "code=m"\
     --form "show_skill_levels=1"\
     --form "show_language_levels="\
     --form "photo=@/tmp/phpCNjgac" </code></pre></div>
@@ -15078,21 +15374,21 @@ const headers = {
 };
 
 const body = new FormData();
-body.append('title', 'vmqeopfuudtdsufvyvddq');
-body.append('full_name', 'amniihfqcoynlazghdtqt');
-body.append('email', 'andreanne00@example.org');
-body.append('phone', 'wbpilpmufinllwloauydl');
-body.append('location', 'smsjuryvojcybzvrbyick');
-body.append('linkedin_url', 'https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html');
-body.append('portfolio_url', 'http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et');
-body.append('github_url', 'http://www.mueller.org/');
-body.append('summary', 'consequatur');
+body.append('title', 'b');
+body.append('full_name', 'n');
+body.append('email', 'ashly64@example.com');
+body.append('phone', 'v');
+body.append('location', 'd');
+body.append('linkedin_url', 'https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html');
+body.append('portfolio_url', 'http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure');
+body.append('github_url', 'https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html');
+body.append('summary', 'architecto');
 body.append('language', 'fi');
 body.append('is_primary', '1');
 body.append('is_public', '');
-body.append('code', 'opfuudtdsufvyvddqamni');
+body.append('code', 'm');
 body.append('show_skill_levels', '1');
-body.append('show_language_levels', '');
+body.append('show_language_levels', '1');
 body.append('photo', document.querySelector('input[name="photo"]').files[0]);
 
 fetch(url, {
@@ -15221,10 +15517,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="title"                data-endpoint="POSTapi-resumes--id-"
-               value="vmqeopfuudtdsufvyvddq"
+               value="b"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+<p>Must not be greater than 255 characters. Example: <code>b</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>full_name</code></b>&nbsp;&nbsp;
@@ -15233,10 +15529,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="full_name"                data-endpoint="POSTapi-resumes--id-"
-               value="amniihfqcoynlazghdtqt"
+               value="n"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>amniihfqcoynlazghdtqt</code></p>
+<p>Must not be greater than 255 characters. Example: <code>n</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -15245,10 +15541,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-resumes--id-"
-               value="andreanne00@example.org"
+               value="ashly64@example.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>andreanne00@example.org</code></p>
+<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>ashly64@example.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
@@ -15257,10 +15553,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="POSTapi-resumes--id-"
-               value="wbpilpmufinllwloauydl"
+               value="v"
                data-component="body">
     <br>
-<p>Must not be greater than 50 characters. Example: <code>wbpilpmufinllwloauydl</code></p>
+<p>Must not be greater than 50 characters. Example: <code>v</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>location</code></b>&nbsp;&nbsp;
@@ -15269,10 +15565,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="location"                data-endpoint="POSTapi-resumes--id-"
-               value="smsjuryvojcybzvrbyick"
+               value="d"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>smsjuryvojcybzvrbyick</code></p>
+<p>Must not be greater than 255 characters. Example: <code>d</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>linkedin_url</code></b>&nbsp;&nbsp;
@@ -15281,10 +15577,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="linkedin_url"                data-endpoint="POSTapi-resumes--id-"
-               value="https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html"
+               value="https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html"
                data-component="body">
     <br>
-<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>https://lemke.com/voluptatem-dignissimos-error-sit-labore-quos-ea-rerum-repudiandae.html</code></p>
+<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>https://gaylord.com/modi-deserunt-aut-ab-provident-perspiciatis.html</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>portfolio_url</code></b>&nbsp;&nbsp;
@@ -15293,10 +15589,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="portfolio_url"                data-endpoint="POSTapi-resumes--id-"
-               value="http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et"
+               value="http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure"
                data-component="body">
     <br>
-<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>http://greenfelder.com/consequatur-delectus-autem-nam-sunt-provident-quia-et</code></p>
+<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>http://www.cruickshank.com/adipisci-quidem-nostrum-qui-commodi-incidunt-iure</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>github_url</code></b>&nbsp;&nbsp;
@@ -15305,10 +15601,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="github_url"                data-endpoint="POSTapi-resumes--id-"
-               value="http://www.mueller.org/"
+               value="https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html"
                data-component="body">
     <br>
-<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>http://www.mueller.org/</code></p>
+<p>Must be a valid URL. Must not be greater than 500 characters. Example: <code>https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>photo</code></b>&nbsp;&nbsp;
@@ -15329,10 +15625,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="summary"                data-endpoint="POSTapi-resumes--id-"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>max 5MB. Example: <code>consequatur</code></p>
+<p>max 5MB. Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>language</code></b>&nbsp;&nbsp;
@@ -15423,10 +15719,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="code"                data-endpoint="POSTapi-resumes--id-"
-               value="opfuudtdsufvyvddqamni"
+               value="m"
                data-component="body">
     <br>
-<p>Must not be greater than 100 characters. Example: <code>opfuudtdsufvyvddqamni</code></p>
+<p>Must not be greater than 100 characters. Example: <code>m</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>show_skill_levels</code></b>&nbsp;&nbsp;
@@ -15470,7 +15766,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
         <details>
@@ -15489,10 +15785,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="skills.0.proficiency"                data-endpoint="POSTapi-resumes--id-"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Skill level: <code>beginner</code> (1), <code>basic</code> (2), <code>intermediate</code> (3), <code>advanced</code> (4), <code>expert</code> (5). Example: <code>consequatur</code></p>
+<p>Skill level: <code>beginner</code> (1), <code>basic</code> (2), <code>intermediate</code> (3), <code>advanced</code> (4), <code>expert</code> (5). Example: <code>architecto</code></p>
                     </div>
                                     </details>
         </div>
@@ -15513,10 +15809,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="languages.0.proficiency"                data-endpoint="POSTapi-resumes--id-"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Spoken-language level: <code>elementary</code> (1), <code>limited_working</code> (2), <code>professional_working</code> (3), <code>full_professional</code> (4), <code>native_bilingual</code> (5). Example: <code>consequatur</code></p>
+<p>Spoken-language level: <code>elementary</code> (1), <code>limited_working</code> (2), <code>professional_working</code> (3), <code>full_professional</code> (4), <code>native_bilingual</code> (5). Example: <code>architecto</code></p>
                     </div>
                                     </details>
         </div>
@@ -19799,7 +20095,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"username\": \"jussi\",
     \"email\": \"jussi@example.com\",
     \"password\": \"newpassword\",
-    \"current_password\": \"consequatur\",
+    \"current_password\": \"architecto\",
     \"roles\": [
         \"admin\",
         \"vendor\"
@@ -19824,7 +20120,7 @@ let body = {
     "username": "jussi",
     "email": "jussi@example.com",
     "password": "newpassword",
-    "current_password": "consequatur",
+    "current_password": "architecto",
     "roles": [
         "admin",
         "vendor"
@@ -19993,10 +20289,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="current_password"                data-endpoint="PUTapi-users--id-"
-               value="consequatur"
+               value="architecto"
                data-component="body">
     <br>
-<p>Required when updating your own password (non-admin). Example: <code>consequatur</code></p>
+<p>Required when updating your own password (non-admin). Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>roles</code></b>&nbsp;&nbsp;
@@ -20034,7 +20330,7 @@ and must confirm with their current password (not required for OAuth-only accoun
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"password\": \"O[2UZ5ij-e\\/dl4m{o,\"
+    \"password\": \"|]|{+-\"
 }"
 </code></pre></div>
 
@@ -20051,7 +20347,7 @@ const headers = {
 };
 
 let body = {
-    "password": "O[2UZ5ij-e\/dl4m{o,"
+    "password": "|]|{+-"
 };
 
 fetch(url, {
@@ -20168,10 +20464,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="DELETEapi-users--id-"
-               value="O[2UZ5ij-e/dl4m{o,"
+               value="|]|{+-"
                data-component="body">
     <br>
-<p>Current password (required when deleting own account and account has a password). Example: <code>O[2UZ5ij-e/dl4m{o,</code></p>
+<p>Current password (required when deleting own account and account has a password). Example: <code>|]|{+-</code></p>
         </div>
         </form>
 

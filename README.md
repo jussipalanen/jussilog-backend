@@ -10,7 +10,7 @@ Covers product catalog, orders, invoices, resume building with PDF/HTML export, 
 
 | Layer | Technology |
 |---|---|
-| Backend | Laravel 10 (PHP 8.2+) |
+| Backend | Laravel 10 (PHP 8.4+) |
 | Database | MySQL 8.0 · SQLite (lightweight alternative) |
 | Web server | Nginx + PHP-FPM |
 | Auth | Laravel Sanctum + Google OAuth |
@@ -83,6 +83,7 @@ All common tasks run through `./dev <command>`:
 - **User Management** — CRUD for users with role assignment (admin, vendor, customer)
 - **Visitor Tracking** — Track and query daily and total visitor counts
 - **Blog** — Full CRUD for blog posts with categories, tags, featured image, excerpt, visibility toggle, and author tracking. Public read, admin-only write
+- **Projects** — Portfolio project management with multilingual content (English/Finnish) for title, short description, long description, and auto-generated slugs per locale. Supports multiple categories, tech-stack tags with custom badge colours, feature image, image gallery, visibility toggle, live URL, and GitHub URL
 - **Admin Thumbnail Management** — Regenerate or purge product and resume photo thumbnails
 - **Cloud Run Ready** — Warmup endpoint and Cloud Scheduler keep-warm job to avoid cold starts
 
@@ -571,7 +572,7 @@ MYSQL_ROOT_PASSWORD=rootpassword
 
 # Access MySQL directly
 docker-compose exec mysql mysql -u jussilog -pjussilog jussilog
-mysql -h 127.0.0.1 -P 3306 -u jussilog -pjussilog jussilog  # from host
+mysql -h 127.0.0.1 -P 3307 -u jussilog -pjussilog jussilog  # from host
 ```
 
 ---
