@@ -98,6 +98,25 @@ class ProjectController extends Controller
     }
 
     /**
+     * Show a single project for admin (including hidden).
+     *
+     * @group         Projects
+     *
+     * @authenticated
+     *
+     * @urlParam id   integer required The project ID. Example: 1
+     *
+     * @queryParam lang string Locale for translatable fields. Enum: en, fi. Default: en.
+     */
+    public function adminShow(Request $request, int $id): JsonResponse
+    {
+        $locale  = $this->resolveLocale($request);
+        $project = Project::with(['categories', 'tags'])->findOrFail($id);
+
+        return response()->json($this->formatProject($project, $locale));
+    }
+
+    /**
      * Create a project.
      *
      * @group         Projects

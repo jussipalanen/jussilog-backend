@@ -180,6 +180,7 @@ Route::get('/project-tags', [ProjectTagController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/projects', [ProjectController::class, 'adminIndex'])->middleware('role:admin');
+    Route::get('/admin/projects/{id}', [ProjectController::class, 'adminShow'])->middleware('role:admin');
     Route::post('/projects', [ProjectController::class, 'store'])->middleware('role:admin');
     Route::put('/projects/{id}', [ProjectController::class, 'update'])->middleware('role:admin');
     Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->middleware('role:admin');
