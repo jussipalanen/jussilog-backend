@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [1.1.0] - 2026-04-01
+
+### Added
+- **Blog post translatable content**: Title, slug, excerpt, and content columns now support multi-language storage as JSON objects with locale keys (`en`, `fi`).
+  - `GET /api/blogs` and `GET /api/blogs/{idOrSlug}` accept `?lang=en|fi` query parameter to specify the locale for returned content.
+  - `POST /api/blogs` and `PUT /api/blogs/{id}` accept localized content as nested objects: `title.en`, `title.fi`, `content.en`, `content.fi`, etc.
+  - Auto-generated slugs are now unique per locale.
+- **`showById` endpoint**: `GET /api/blogs/by-id/{id}` — retrieve a single published blog post by ID (public).
+
+### Changed
+- **Blog post storage**: `title`, `slug`, `excerpt`, and `content` columns converted from plain VARCHAR/TEXT to JSON columns in MySQL, enabling multi-language content storage.
+- **BlogSeeder**: Sample blog post updated with English and Finnish translations.
+
 ## [1.0.2] - 2026-03-30
 
 ### Security
