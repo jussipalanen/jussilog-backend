@@ -23,6 +23,7 @@
         "symfony/mailgun-mailer": "^6.4"
     },
     "require-dev": {
+        "doctrine/dbal": "^3.10",
         "fakerphp/faker": "^1.9.1",
         "larastan/larastan": "^2.9",
         "laravel/pint": "^1.20",
