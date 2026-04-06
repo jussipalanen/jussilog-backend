@@ -19,7 +19,7 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "picqer/php-barcode-generator": "^3.0",
         "spatie/laravel-pdf": "^1.9",
-        "symfony/http-client": "^6.4",
+        "symfony/http-client": "^8.0",
         "symfony/mailgun-mailer": "^6.4"
     },
     "require-dev": {
