@@ -9,7 +9,8 @@
 
 resource "google_cloud_scheduler_job" "warmup" {
   name             = "jussilog-backend-warmup"
-  description      = "Keeps the Cloud Run instance warm by pinging /_ah/warmup every 5 minutes"
+  description      = "Keep jussilog-backend warm"
+  region           = var.region
   schedule         = "*/5 * * * *"
   time_zone        = "UTC"
   attempt_deadline = "30s"
