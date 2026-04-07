@@ -37,7 +37,7 @@ steps:
           --execution-environment=gen2 \
           --allow-unauthenticated \
           --set-cloudsql-instances=${_PROJECT_ID}:${_REGION}:jussilog-db \
-          --min-instances=1 \
+          --min-instances=0 \
           --max-instances=3 \
           --memory=512Mi \
           --cpu=1 \
