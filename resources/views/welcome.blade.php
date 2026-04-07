@@ -168,7 +168,7 @@
             </svg>
 
             <h1 class="title">Jussilog API</h1>
-            <span class="version">v{{ config('app.version', '1.1.2') }}</span>
+            <span class="version">v{{ config('app.version', '1.1.1') }}</span>
 
             <p class="description">
                 A RESTful backend API for managing resumes, projects, blog posts, invoices, and orders.
