@@ -21,17 +21,22 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 2rem;
+                padding: 1rem;
             }
 
             .card {
                 background-color: #1e293b;
                 border: 1px solid #334155;
                 border-radius: 1rem;
-                padding: 3rem 2.5rem;
+                padding: 2.5rem 2rem;
                 max-width: 520px;
                 width: 100%;
                 text-align: center;
+            }
+
+            @media (min-width: 480px) {
+                body { padding: 2rem; }
+                .card { padding: 3rem 2.5rem; }
             }
 
             .logo {
@@ -78,12 +83,14 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 0.85rem 1.15rem;
+                padding: 1rem 1.15rem;
                 border-radius: 0.6rem;
                 text-decoration: none;
                 font-size: 0.9rem;
                 font-weight: 500;
                 transition: background-color 0.15s, border-color 0.15s;
+                min-height: 52px;
+                -webkit-tap-highlight-color: transparent;
             }
 
             /* API Docs — Laravel red */
@@ -126,6 +133,7 @@
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
+                flex-wrap: wrap;
             }
 
             .link-badge {
@@ -136,11 +144,14 @@
                 padding: 0.15rem 0.45rem;
                 border-radius: 9999px;
                 background-color: rgba(255,255,255,0.15);
+                white-space: nowrap;
             }
 
             .arrow {
                 opacity: 0.6;
                 font-size: 0.85rem;
+                flex-shrink: 0;
+                margin-left: 0.5rem;
             }
 
             .divider {
@@ -157,7 +168,7 @@
             </svg>
 
             <h1 class="title">Jussilog API</h1>
-            <span class="version">v{{ config('app.version', '1.0.2') }}</span>
+            <span class="version">v{{ config('app.version', '1.1.2') }}</span>
 
             <p class="description">
                 A RESTful backend API for managing resumes, projects, blog posts, invoices, and orders.
