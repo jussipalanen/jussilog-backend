@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
-## [1.1.2] - 2026-04-07
+## [1.1.1] - 2026-04-07
 
 ### Changed
 - **Cloud Run — scale to zero**: `min_instances` reduced from `1` to `0` in both `cloudbuild.yaml` and Terraform (`variables.tf`). Cloud Scheduler warmup job keeps the instance responsive so cold starts are avoided during normal usage, while eliminating the cost of a permanently reserved instance.
@@ -15,8 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **Terraform — Cloud Scheduler warmup job** (`terraform/cloud_scheduler.tf`): Provisions a `jussilog-backend-warmup` Cloud Scheduler job that pings `/_ah/warmup` every 5 minutes (UTC). No authentication required — the endpoint is public.
 - **Terraform — `cloudscheduler.googleapis.com` API** (`terraform/services.tf`): Enables the Cloud Scheduler API as part of the standard project setup.
-
-## [1.1.1] - 2026-04-07
+- **Dev script — `npm-check-updates`**: Runs `npm outdated` inside the app container to list outdated NPM packages.
+- **Dev script — `composer-check-updates`**: Runs `composer outdated --direct` inside the app container (direct dependencies only).
+- **Dev script — `test`**: Runs `php artisan test` inside the app container with optional PHPUnit args passthrough.
 
 ### Updated
 - **`aws/aws-sdk-php`**: `3.374.2` → `3.376.4` (patch).
@@ -24,11 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`spatie/laravel-ignition`**: `2.9.1` → `2.12.0` (minor).
 - **`vite`**: `8.0.3` → `8.0.6` (patch).
 - **`laravel-vite-plugin`**: `3.0.0` → `3.0.1` (patch).
-
-### Added
-- **Dev script — `npm-check-updates`**: Runs `npm outdated` inside the app container to list outdated NPM packages.
-- **Dev script — `composer-check-updates`**: Runs `composer outdated --direct` inside the app container (direct dependencies only).
-- **Dev script — `test`**: Runs `php artisan test` inside the app container with optional PHPUnit args passthrough.
 
 ## [1.1.0] - 2026-04-01
 
