@@ -53,6 +53,9 @@ All common tasks run through `./dev <command>`:
 | `artisan [args]` | Run `php artisan` inside the container |
 | `composer [args]` | Run `composer` inside the container |
 | `npm [args]` | Run `npm` inside the container |
+| `npm-check-updates` | Show outdated NPM packages |
+| `composer-check-updates` | Show outdated Composer packages (direct deps only) |
+| `test [args]` | Run PHPUnit test suite via `php artisan test` |
 | `generate-postman` | Regenerate `postman/collection.json` from live routes |
 | `db-export [--local\|--cloud] [file]` | Export database to `.sql` |
 | `db-import [--local\|--cloud] <file>` | Import `.sql` into local or Cloud SQL |
@@ -85,7 +88,7 @@ All common tasks run through `./dev <command>`:
 - **Blog** — Full CRUD for blog posts with categories, tags, featured image, excerpt, visibility toggle, and author tracking. Public read, admin-only write
 - **Projects** — Portfolio project management with multilingual content (English/Finnish) for title, short description, long description, and auto-generated slugs per locale. Supports multiple categories, tech-stack tags with custom badge colours, feature image, image gallery, visibility toggle, live URL, and GitHub URL
 - **Admin Thumbnail Management** — Regenerate or purge product and resume photo thumbnails
-- **Cloud Run Ready** — Warmup endpoint and Cloud Scheduler keep-warm job to avoid cold starts
+- **Cloud Run Ready** — Scales to zero (`min_instances=0`) with a Cloud Scheduler warmup job pinging `/_ah/warmup` every 5 minutes to keep the instance responsive and avoid cold starts
 
 </details>
 
@@ -133,7 +136,8 @@ php artisan scribe:generate
 | `GET` | `/api/visitors/today` | Today's visitor count |
 | `GET` | `/api/visitors/total` | Total visitor count |
 | `GET` | `/api/blogs` | List published posts (paginated, `per_page`, `sort_by`, `sort_dir`) |
-| `GET` | `/api/blogs/{id}` | Get published post with author and category |
+| `GET` | `/api/blogs/{id}` | Get published post by ID or slug, with author and category |
+| `GET` | `/api/blogs/by-id/{id}` | Get published post by ID only |
 | `GET` | `/api/blog-categories` | List blog categories |
 | `GET` | `/api/resumes/export/options` | Available themes, templates, languages |
 | `POST` | `/api/resumes/export/pdf` | Export resume PDF from JSON payload (no auth) |
@@ -289,13 +293,16 @@ curl -X POST http://localhost:8000/api/resumes/export/pdf \
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `title` | string | yes | Post title (max 255) |
-| `excerpt` | string | no | Short description for listings |
-| `content` | string | yes | Full content (HTML supported) |
+| `title` | string or object | yes | Plain string, or `{"en": "...", "fi": "..."}` |
+| `slug` | string or object | no | Auto-generated from title per locale if omitted |
+| `excerpt` | string or object | no | `{"en": "...", "fi": "..."}` |
+| `content` | string or object | yes | `{"en": "...", "fi": "..."}` (HTML supported) |
 | `blog_category_id` | integer | no | Existing category ID |
-| `feature_image` | string | no | URL or path to featured image |
+| `feature_image` | file | no | Upload image; null/empty on update removes it |
 | `tags` | array of strings | no | e.g. `["laravel", "php"]` |
 | `visibility` | boolean | no | `true` = published, `false` = draft |
+
+Pass `?lang=en` or `?lang=fi` on `GET /api/blogs` and `GET /api/blogs/{id}` to receive translated content in the specified locale.
 
 ---
 
@@ -741,8 +748,9 @@ php artisan optimize:clear
 ### Tests
 
 ```bash
-./dev artisan test         # via Docker
-php artisan test           # directly
+./dev test                 # via Docker (php artisan test)
+./dev test --filter MyTest # pass PHPUnit args through
+php artisan test           # directly on host
 ```
 
 ### Migrations

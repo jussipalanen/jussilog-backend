@@ -18,6 +18,10 @@ Commands:
   artisan [args...]  Run php artisan inside the app container
   composer [args...] Run composer inside the app container
   npm [args...]      Run npm inside the app container
+  npm-check-updates  Show outdated NPM packages
+  composer-check-updates
+                     Show outdated Composer packages (direct deps only)
+  test [args...]     Run the PHPUnit test suite via php artisan test
   init               Create .env if missing, generate APP_KEY, run migrations
   db-export [--local|--cloud] [file]
                      Export database to a .sql file
@@ -142,6 +146,20 @@ run_composer() {
 
 run_npm() {
   exec_app npm "$@"
+}
+
+run_npm_check_updates() {
+  echo "Checking for outdated NPM packages..."
+  exec_app npm outdated || true
+}
+
+run_composer_check_updates() {
+  echo "Checking for outdated Composer packages..."
+  exec_app composer outdated --direct
+}
+
+run_test() {
+  exec_app php artisan test "$@"
 }
 
 # ── Terraform config ──────────────────────────────────────────────────────────
@@ -315,6 +333,12 @@ run_tf_import() {
   _tf_import_one \
     "google_cloud_run_v2_service.jussilog_backend" \
     "projects/$PROJECT/locations/$REGION/services/jussilog-backend-production"
+
+  echo ""
+  echo "==> Cloud Scheduler"
+  _tf_import_one \
+    "google_cloud_scheduler_job.warmup" \
+    "projects/$PROJECT/locations/$REGION/jobs/jussilog-backend-warmup"
 
   echo ""
   echo "All imports done. Run './dev tf-plan' to review any configuration drift."
@@ -593,6 +617,18 @@ case "$1" in
   npm)
     shift
     run_npm "$@"
+    ;;
+  npm-check-updates)
+    shift
+    run_npm_check_updates
+    ;;
+  composer-check-updates)
+    shift
+    run_composer_check_updates
+    ;;
+  test)
+    shift
+    run_test "$@"
     ;;
   db-export)
     shift

@@ -73,9 +73,9 @@ variable "cloud_run_service_name" {
 }
 
 variable "cloud_run_min_instances" {
-  description = "Minimum number of Cloud Run instances (set to 1 to avoid cold starts)"
+  description = "Minimum number of Cloud Run instances (0 = scale to zero; Cloud Scheduler keeps the instance warm)"
   type        = number
-  default     = 1
+  default     = 0
 }
 
 variable "cloud_run_max_instances" {
