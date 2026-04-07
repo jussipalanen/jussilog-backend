@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [1.1.1] - 2026-04-07
+
+### Updated
+- **`aws/aws-sdk-php`**: `3.374.2` → `3.376.4` (patch).
+- **`laravel/sail`**: `1.55.0` → `1.56.0` (patch).
+- **`spatie/laravel-ignition`**: `2.9.1` → `2.12.0` (minor).
+- **`vite`**: `8.0.3` → `8.0.6` (patch).
+- **`laravel-vite-plugin`**: `3.0.0` → `3.0.1` (patch).
+
+### Added
+- **Dev script — `npm-check-updates`**: Runs `npm outdated` inside the app container to list outdated NPM packages.
+- **Dev script — `composer-check-updates`**: Runs `composer outdated --direct` inside the app container (direct dependencies only).
+- **Dev script — `test`**: Runs `php artisan test` inside the app container with optional PHPUnit args passthrough.
+
 ## [1.1.0] - 2026-04-01
 
 ### Added
