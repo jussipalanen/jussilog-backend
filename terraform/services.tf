@@ -12,6 +12,7 @@ resource "google_project_service" "apis" {
     "secretmanager.googleapis.com",    # Secret Manager
     "storage.googleapis.com",          # GCS
     "iam.googleapis.com",              # IAM
+    "cloudscheduler.googleapis.com",   # Cloud Scheduler (warmup job)
   ])
 
   project = var.project_id
